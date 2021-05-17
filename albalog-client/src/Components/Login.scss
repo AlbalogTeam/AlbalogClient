@@ -1,0 +1,51 @@
+div {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    .loginLeft {
+        display: flex;
+        flex-direction: column;
+        margin: 2rem;
+
+        * {
+            height: 1.8rem;
+            width: 100%;
+            margin: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            height: 1.5rem;
+        }
+
+        button { 
+            color: whitesmoke;
+            border-radius: 4px;
+            height: 1.8rem;
+            width: 100%;
+            padding: 0;
+        }
+
+        .signIn {
+            background: #389BDC;
+        }
+
+        .signUp{
+            background: #5F5F5F;
+        }
+    }
+
+    .loginRight {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+        
+        span {
+            font-weight: bolder;
+            font-size: 4rem;
+        }
+    }
+}
