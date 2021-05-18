@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Notice.scss';
 import {
   AiOutlineDoubleLeft,
@@ -9,6 +10,16 @@ import {
 } from 'react-icons/ai';
 
 const Notice = () => {
+  const [getNotices, setGetNotices] = useState([]);
+
+  // https://jsonplaceholder.typicode.com/ fake 데이터 사용
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
+      console.log(response.data);
+      setGetNotices(response.data);
+    });
+  }, []);
+
   return (
     <div id="Notice">
       <div className="notice-tit">
@@ -18,10 +29,13 @@ const Notice = () => {
         <div className="search-comm">
           <form action="">
             <fieldset>
-
-              <input type="text" className="search-input" placeholder="검색어를 입력해주세요" />
+              <input
+                type="text"
+                className="search-input"
+                placeholder="검색어를 입력해주세요"
+              />
               <button type="submit" className="search-btn">
-                  <AiOutlineSearch size="23" />
+                <AiOutlineSearch size="23" />
               </button>
             </fieldset>
           </form>
@@ -40,50 +54,22 @@ const Notice = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="td-left">
-                  <div className="inner-cont">
-                    <span className="inner-text">
-                      <a href="" className="link-text">
-                        5월달 할인 이벤트 종류 입니다.
-                      </a>
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <div className="inner-cont">2021-05-19</div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="td-left">
-                  <div className="inner-cont">
-                    <span className="inner-text">
-                      <a href="" className="link-text">
-                        5월달 할인 이벤트 종류 입니다.
-                      </a>
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <div className="inner-cont">2021-05-19</div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="td-left">
-                  <div className="inner-cont">
-                    <span className="inner-text">
-                      <a href="" className="link-text">
-                        5월달 할인 이벤트 종류 입니다.
-                      </a>
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <div className="inner-cont">2021-05-19</div>
-                </td>
-              </tr>
+              {getNotices.map((notice, index) => (
+                <tr key={index}>
+                  <td className="td-left">
+                    <div className="inner-cont">
+                      <span className="inner-text">
+                        <a href="" className="link-text">
+                          {notice.title}
+                        </a>
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="inner-cont">2021-05-19</div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
