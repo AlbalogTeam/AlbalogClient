@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Notice.scss';
-import {
-  AiOutlineDoubleLeft,
-  AiOutlineLeft,
-  AiOutlineRight,
-  AiOutlineDoubleRight,
-  AiOutlineSearch,
-} from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
+import Pagination from 'components/notice/Pagination';
+import { paginate } from 'utils/paginate';
 
 const Notice = () => {
   const [getNotices, setGetNotices] = useState([]);
+  const [noticeInfo, setNoticeInfo] = useState({
+    pageSize: 10, // 한 페이지에 보여줄 공지사항 게시물 수
+    currentPage: 1, // 현재 활성화 된 페이지 위치
+  });
+
+  const { pageSize, currentPage } = noticeInfo;
+
+  // utils 함수에 있는 paginate로 화면에 보여줘야할 컨텐츠 개수의 배열을 가져옴
+  const pagedNotices = paginate(getNotices, currentPage, pageSize);
 
   // https://jsonplaceholder.typicode.com/ fake 데이터 사용
   useEffect(() => {
@@ -19,6 +24,19 @@ const Notice = () => {
       setGetNotices(response.data);
     });
   }, []);
+  const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
+  const handlePageChange = (page) => {
+    if (page >= pageCount) {
+      page = pageCount;
+    }
+    if (page <= 1) {
+      page = 1;
+    }
+    setNoticeInfo({
+      ...noticeInfo,
+      currentPage: page,
+    });
+  };
 
   return (
     <div id="Notice">
@@ -54,14 +72,12 @@ const Notice = () => {
               </tr>
             </thead>
             <tbody>
-              {getNotices.map((notice, index) => (
+              {pagedNotices.map((notice, index) => (
                 <tr key={index}>
                   <td className="td-left">
                     <div className="inner-cont">
                       <span className="inner-text">
-                        <a href="" className="link-text">
-                          {notice.title}
-                        </a>
+                        <a className="link-text">{notice.title}</a>
                       </span>
                     </div>
                   </td>
@@ -75,29 +91,11 @@ const Notice = () => {
         </div>
 
         <div className="paging-comm">
-          <div className="inner-paging">
-            <a href="" className="paging-btn paging-fst">
-              <AiOutlineDoubleLeft size="14" />
-            </a>
-            <a href="" className="paging-btn paging-prev">
-              <AiOutlineLeft size="14" />
-            </a>
-            <a href="" className="paging-link active">
-              1
-            </a>
-            <a href="" className="paging-link">
-              2
-            </a>
-            <a href="" className="paging-link">
-              3
-            </a>
-            <a href="" className="paging-btn paging-next">
-              <AiOutlineRight size="14" />
-            </a>
-            <a href="" className="paging-btn paging-last">
-              <AiOutlineDoubleRight size="14" />
-            </a>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            pageCount={pageCount}
+          />
         </div>
       </div>
     </div>

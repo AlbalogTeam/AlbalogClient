@@ -1,5 +1,5 @@
 import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
-import Notice from 'pages/Notice/Notice';
+import Notice from 'pages/notice/Notice';
 import React from 'react';
 
 const App = () => {

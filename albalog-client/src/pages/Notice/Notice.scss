@@ -41,7 +41,7 @@
           .search-btn {
             float: right;
             width: 34px;
-            margin-top : 12px;
+            margin-top: 12px;
           }
         }
       }
@@ -114,7 +114,9 @@
       text-align: center;
 
       .inner-paging {
-        display: inline-block;
+        // display: inline-block;
+        display: flex;
+        justify-content: center;
         .paging-btn {
           display: block;
           float: left;
