@@ -5,6 +5,7 @@ import {
   AiOutlineLeft,
   AiOutlineRight,
   AiOutlineDoubleRight,
+  AiOutlineSearch,
 } from 'react-icons/ai';
 
 const Notice = () => {
@@ -14,6 +15,18 @@ const Notice = () => {
         <h4 className="tit-corp">공지사항</h4>
       </div>
       <div className="notice-cont">
+        <div className="search-comm">
+          <form action="">
+            <fieldset>
+
+              <input type="text" className="search-input" placeholder="검색어를 입력해주세요" />
+              <button type="submit" className="search-btn">
+                  <AiOutlineSearch size="23" />
+              </button>
+            </fieldset>
+          </form>
+        </div>
+
         <div className="table-comm">
           <table className="table">
             <colgroup>

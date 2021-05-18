@@ -18,10 +18,39 @@
   .notice-cont {
     float: right;
     width: 860px;
+
+    .search-comm {
+      width: 500px;
+      margin: 0 auto;
+      padding-top: 60px;
+      border-bottom: 1px solid #1e1e1e;
+      form {
+        position: relative;
+        fieldset {
+          border: 0 none;
+          padding: 0;
+
+          .search-input {
+            float: left;
+            width: 430px;
+            height: 42px;
+            border: 0 none;
+            box-sizing: border-box;
+            color: #1e1e1e;
+          }
+          .search-btn {
+            float: right;
+            width: 34px;
+            margin-top : 12px;
+          }
+        }
+      }
+    }
+
     .table-comm {
       overflow: hidden;
       width: 860px;
-      margin-top: 80px;
+      margin-top: 50px;
       border-top: 2px solid #4d4d4d;
       word-break: normal;
       .table {
