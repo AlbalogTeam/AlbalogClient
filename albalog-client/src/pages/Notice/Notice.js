@@ -77,7 +77,9 @@ const Notice = () => {
                   <td className="td-left">
                     <div className="inner-cont">
                       <span className="inner-text">
-                        <a className="link-text">{notice.title}</a>
+                        <a href={`/notice/${notice.id}`} className="link-text">
+                          {notice.title}
+                        </a>
                       </span>
                     </div>
                   </td>
