@@ -50,6 +50,9 @@ const NoticeDetail = ({ match }) => {
           <a href="" className="btn-list">
             수정
           </a>
+          <a href="" className="btn-list">
+            삭제
+          </a>
         </div>
       </div>
     </div>

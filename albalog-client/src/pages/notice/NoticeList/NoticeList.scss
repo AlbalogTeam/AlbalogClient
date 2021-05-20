@@ -15,6 +15,22 @@
       color: #1e1e1e;
       //   vertical-align: top;
     }
+    .notice-upload {
+      overflow: hidden;
+      padding: 19px 40px 0 0;
+      a {
+        float: left;
+        width: 70px;
+        height: 40px;
+        font-size: 13px;
+        line-height: 40px;
+        color: #fff;
+        background-color: #4d4d4d;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    }
   }
   .notice-cont {
     float: right;

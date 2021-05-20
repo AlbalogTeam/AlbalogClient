@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Notice.scss';
+import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/notice/Pagination';
 import { paginate } from 'utils/paginate';
 
-const Notice = () => {
+const NoticeList = () => {
   const [getNotices, setGetNotices] = useState([]);
   const [noticeInfo, setNoticeInfo] = useState({
     pageSize: 10, // 한 페이지에 보여줄 공지사항 게시물 수
@@ -42,6 +42,9 @@ const Notice = () => {
     <div id="Notice">
       <div className="notice-tit">
         <h4 className="tit-corp">공지사항</h4>
+        <div className="notice-upload">
+          <a href="">작성</a>
+        </div>
       </div>
       <div className="notice-cont">
         <div className="search-comm">
@@ -58,6 +61,7 @@ const Notice = () => {
             </fieldset>
           </form>
         </div>
+
 
         <div className="table-comm">
           <table className="table">
@@ -104,4 +108,4 @@ const Notice = () => {
   );
 };
 
-export default Notice;
+export default NoticeList;
