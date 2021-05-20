@@ -24,6 +24,8 @@ const NoticeList = () => {
       setGetNotices(response.data);
     });
   }, []);
+
+  localStorage.setItem('noticeLength', getNotices.length); // 게시물 길이 로컬에 저장
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
   const handlePageChange = (page) => {
     if (page >= pageCount) {
@@ -43,7 +45,7 @@ const NoticeList = () => {
       <div className="notice-tit">
         <h4 className="tit-corp">공지사항</h4>
         <div className="notice-upload">
-          <a href="">작성</a>
+          <a href="/notice/upload">작성</a>
         </div>
       </div>
       <div className="notice-cont">
@@ -61,7 +63,6 @@ const NoticeList = () => {
             </fieldset>
           </form>
         </div>
-
 
         <div className="table-comm">
           <table className="table">
