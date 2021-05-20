@@ -41,7 +41,7 @@ const NoticeList = () => {
   };
 
   return (
-    <div id="Notice">
+    <div id="Notice" className="page-layout">
       <div className="notice-tit">
         <h4 className="tit-corp">공지사항</h4>
         <div className="notice-upload">
