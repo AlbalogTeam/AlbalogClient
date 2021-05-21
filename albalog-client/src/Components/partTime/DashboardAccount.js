@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import {BsPerson} from 'react-icons/bs';
 
 
-function DashboardAccount() {
+const DashboardAccount = () => {
 
     const [account, setAccount] = useState({
         name:'직원이름',
@@ -21,7 +21,7 @@ function DashboardAccount() {
             <div className="accountBox" >
                 <div className="textLine">
                     <span>계정정보</span>
-                    <span>더보기<IoIosArrowForward /></span>
+                    <span className="moreBtn">더보기<IoIosArrowForward /></span>
                 </div>
                 <div className="informBox">
                     <div className="imgBox">

@@ -1,9 +1,11 @@
 
 .frame {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    height: 100%;
 
     h2 {
         justify-items: left;
@@ -19,7 +21,7 @@
         background: white;
         box-shadow: 5px 5px 5px gray;
         border-radius: 20px;
-        margin-top: 25px;
+        margin-top: 45px;
         padding: 15px;
     
         .textLine {
@@ -30,6 +32,10 @@
             span {
                 display: flex;
                 align-items: center;
+            }
+
+            .moreBtn{
+                cursor: pointer;
             }
         }
 

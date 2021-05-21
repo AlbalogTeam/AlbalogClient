@@ -11,9 +11,9 @@ const App = () => {
       {/* <AdminHeader /> */}
       <div id="main">
         <Switch>
+        <Route path ="/parttimedashboard" component={PartTimeDashboard} exact />
         <Route path ="/" component={Login} exact/>
         <Route path ="/signup" component={SignUp} exact/>
-        <Route path ="/parttimedashboard" component={PartTimeDashboard} exact />
         </Switch>
       </div>
     </div>

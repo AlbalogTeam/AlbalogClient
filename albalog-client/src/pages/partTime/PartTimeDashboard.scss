@@ -1,0 +1,110 @@
+.container {
+    padding: 100px 0 0 60px;
+    background: lightgrey;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    .firstRow {
+        height: 450px;
+
+        .topLeftBox {
+            display: flex;
+            align-items: flex-start;
+            width: 380px;
+            height: 100%;
+        }
+    
+        .topRightBox {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 810px;
+    
+    
+            .title {
+                align-items: flex-start;
+                height: 60px;
+                width: 100%;
+            }
+    
+            .schedule {
+                height: 450px;
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-around;
+                padding-top: 25px;
+
+                .fullSchedule {
+                    height: 300px;
+                    width: 300px;
+                    background: white;
+                    box-shadow: 5px 5px 5px gray;
+                    border-radius: 20px;
+                    padding: 15px;
+                }
+
+                .personalSchedule {
+                    height: 300px;
+                    width: 300px;
+                    background: white;
+                    box-shadow: 5px 5px 5px gray;
+                    border-radius: 20px;
+                    padding: 15px;
+                }
+            }
+    
+        }
+    }
+
+    .secondRow{
+        height: 200px;
+        .bottomLeftBox {
+            width: 380px;
+            height: 200px;
+    
+            .btnBox {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+    
+                button {
+                    height: 45px;
+                    width: 300px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    border: none;
+
+                }
+
+                .clockInBtn {
+                    background: rgb(18, 113, 175);
+                    color: #fff;
+                }
+
+                .clockOutBtn {
+                    background: gray;
+                    color : #fff;
+                    margin-top: 30px;
+                }
+            }
+        }
+    
+        .bottomRightBox {
+            width: 810px;
+            height: 100%;
+            
+            .noticeBox {
+                width: 700px;
+                height : 120px;
+                background: white;
+                box-shadow: 5px 5px 5px gray;
+                border-radius: 20px;
+                padding: 15px;
+            }
+        }
+    }
+}
