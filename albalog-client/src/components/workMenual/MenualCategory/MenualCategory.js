@@ -18,21 +18,22 @@ const MenualCategory = () => {
     },
   ];
   const activeStyle = {
-    color: '#444263',
+    color: 'rgb(18, 113, 175)',
     fontSize: '16px',
+    fontWeight: '700',
   };
 
   return (
-    <div id="MenualCategory">
+    <div className="menual-category">
       <ul>
         {categories.map((category, index) => (
           <li key={index}>
             <NavLink
               activeStyle={activeStyle}
-              exact
+              exact={category.name === 'common'}
               to={`/workmenual/${category.name}`}
             >
-                {category.text}
+              {category.text}
             </NavLink>
           </li>
         ))}

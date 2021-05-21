@@ -17,7 +17,8 @@ const App = () => {
           <Route path="/notice/upload" exact component={NoticeUpload} />
           <Route path="/notice/:id?" exact component={NoticeDetail} />
           <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
-          <Route path="/workmenual" exact component={MenualPage} />
+          <Route path="/workmenual/common" exact component={MenualPage} />
+          <Route path="/workmenual/:category" exact component={MenualPage} />
         </Switch>
       </div>
     </div>

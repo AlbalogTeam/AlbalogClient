@@ -1,10 +1,11 @@
-#Notice, .page-layout {
+#Notice,
+.page-layout {
   width: 1160px;
   margin: 0 auto;
   padding-top: 20px;
   overflow: hidden;
 
-  .notice-tit {
+  .tit {
     float: left;
     width: 300px;
     .tit-corp {
@@ -15,10 +16,11 @@
       color: #1e1e1e;
       //   vertical-align: top;
     }
-    .notice-upload {
+    .upload {
       overflow: hidden;
       padding: 19px 40px 0 0;
-      a {
+      a,
+      button {
         float: left;
         width: 70px;
         height: 40px;
@@ -32,7 +34,7 @@
       }
     }
   }
-  .notice-cont {
+  .cont {
     float: right;
     width: 860px;
 

@@ -42,13 +42,13 @@ const NoticeList = () => {
 
   return (
     <div id="Notice" className="page-layout">
-      <div className="notice-tit">
+      <div className="tit">
         <h4 className="tit-corp">공지사항</h4>
-        <div className="notice-upload">
+        <div className="upload">
           <a href="/notice/upload">작성</a>
         </div>
       </div>
-      <div className="notice-cont">
+      <div className="cont">
         <div className="search-comm">
           <form action="">
             <fieldset>
