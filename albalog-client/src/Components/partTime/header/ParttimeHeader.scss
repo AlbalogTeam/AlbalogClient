@@ -1,0 +1,13 @@
+#parttime-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 16px 24px;
+
+  .header-right {
+    .user-name {
+      margin-right: 16px;
+    }
+  }
+}

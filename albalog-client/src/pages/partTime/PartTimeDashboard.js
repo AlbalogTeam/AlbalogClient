@@ -28,7 +28,7 @@ function PartTimeDashboard() {
   };
 
   return (
-    <div className="container">
+    <div id="partTimeDashboard">
       <div className="firstRow">
         <div className="topLeftBox">
           <DashboardAccount />

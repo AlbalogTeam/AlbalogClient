@@ -3,7 +3,7 @@ import './AdminHeader.scss';
 
 const AdminHeader = () => {
   return (
-    <header className="admin-header">
+    <header id="parttime-header">
       <h1 className="header-left">Albalog</h1>
       <div className="header-right">
         <span className="user-name">관리자님 안녕하세요.</span>
