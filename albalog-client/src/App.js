@@ -5,7 +5,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
-import MenualPage from 'pages/workMenual/MenualPage/MenualPage';
+import WorkManual from 'pages/workManual/WorkManual';
 
 const App = () => {
   return (
@@ -17,8 +17,7 @@ const App = () => {
           <Route path="/notice/upload" exact component={NoticeUpload} />
           <Route path="/notice/:id?" exact component={NoticeDetail} />
           <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
-          <Route path="/workmenual/common" exact component={MenualPage} />
-          <Route path="/workmenual/:category" exact component={MenualPage} />
+          <Route path="/workmanual/:category" exact component={WorkManual} />
         </Switch>
       </div>
     </div>
