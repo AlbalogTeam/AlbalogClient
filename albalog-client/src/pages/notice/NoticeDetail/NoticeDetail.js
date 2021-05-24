@@ -25,7 +25,7 @@ const NoticeDetail = ({ match }) => {
   }, []);
   return (
     <div id="NoticeDetail" className="page-layout">
-      <div className="notice-tit">
+      <div className="tit">
         <h4 className="tit-corp">
           <a href="/notice">공지사항</a>
         </h4>

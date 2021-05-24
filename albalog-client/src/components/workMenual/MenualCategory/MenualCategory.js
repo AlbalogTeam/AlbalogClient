@@ -36,8 +36,10 @@ const MenualCategory = () => {
               {category.text}
             </NavLink>
           </li>
+          
         ))}
       </ul>
+      
     </div>
   );
 };
