@@ -12,6 +12,7 @@ const AdminHeader = () => {
         <button className="btn_logout">로그아웃</button>
         <a href="/notice">공지사항</a>
         <a href="/workmanual/common">업무 매뉴얼</a>
+        <a href="/transition">인수인계</a>
       </div>
     </header>
   );

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 const manualListFakeData = [
   {
@@ -55,9 +56,19 @@ const ManualList = ({ category }) => {
           {WorkManualList.map((manual, index) => {
             return (
               <li key={index}>
-                <div className="manual-title">{manual.title}</div>
+                <div className="manual-title">
+                  {manual.title}
+                  <div className="ico">
+                    <button className="btn">
+                      <AiOutlineEdit size="22" />
+                    </button>
+                    <button className="btn">
+                      <AiOutlineDelete size="22" />
+                    </button>
+                  </div>
+                </div>
                 <br />
-                <div dangerouslySetInnerHTML={{__html:manual.body}}></div>
+                <div dangerouslySetInnerHTML={{ __html: manual.body }}></div>
               </li>
             );
           })}

@@ -24,6 +24,17 @@
         font-weight: bold;
         padding-bottom: 15px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        .ico {
+          float: right;
+          line-height: 35px;
+          .btn {
+            padding: 0;
+            margin-left: 20px;
+          }
+          .btn:hover {
+            background-color: rgb(231, 231, 231);
+          }
+        }
       }
     }
   }

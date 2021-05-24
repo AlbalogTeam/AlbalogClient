@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
 import WorkManual from 'pages/workManual/WorkManual';
+import Transition from 'pages/transition/Transition';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/notice/:id?" exact component={NoticeDetail} />
           <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
           <Route path="/workmanual/:category" exact component={WorkManual} />
+          <Route path="/transition" exact component={Transition} />
         </Switch>
       </div>
     </div>

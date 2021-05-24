@@ -1,0 +1,50 @@
+#Transition {
+  .cont {
+    display: flex;
+    width: 1050px;
+    .left-cont {
+      .react-datepicker__current-month {
+        font-size: 1.5rem;
+        font-weight: 100;
+      }
+      .react-datepicker__day-name {
+        width: 4rem;
+        line-height: 2.7rem;
+      }
+      .react-datepicker__day {
+        width: 4rem;
+        height: 3rem;
+      }
+    }
+
+    .right-cont {
+      width: 510px;
+      height: 455px;
+      border: 1px solid #aeaeae;
+      margin-left: 10px;
+      padding: 20px;
+      #TransitionList {
+        .current-date {
+          text-align: center;
+          padding-bottom: 20px;
+        }
+        .transition-input input {
+          display: inline-block;
+          padding: 6px;
+          font-size: 1rem;
+          width: 83%;
+          line-height: 1.5;
+          outline: none;
+          color: #212529;
+          border: 1px solid #ccc;
+        }
+        .transition-list {
+          border: 1px solid #999;
+          height: 300px;
+          margin-top: 10px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
