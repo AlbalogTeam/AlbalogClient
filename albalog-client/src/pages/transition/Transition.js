@@ -16,23 +16,23 @@ const Transition = () => {
   };
   return (
     <div id="Transition" className="page-layout">
-      <div className="tit">
-        <h4 className="tit-corp">인수인계</h4>
-      </div>
-      <div className="cont">
-        <div className="left-cont">
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => {
-              console.log(date);
-              setStartDate(date);
-            }}
-            locale="ko"
-            inline
-          />
-        </div>
-        <div className="right-cont">
-          <TransitionList date={date} />
+      <div className="content">
+        <h3>인수인계</h3>
+        <div className="cont-box">
+          <div className="left-cont">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => {
+                console.log(date);
+                setStartDate(date);
+              }}
+              locale="ko"
+              inline
+            />
+          </div>
+          <div className="right-cont">
+            <TransitionList date={date} />
+          </div>
         </div>
       </div>
     </div>
