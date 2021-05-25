@@ -1,12 +1,14 @@
 #parttime-aside {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 200px;
   position: fixed;
+  height: 100%;
+  width: 250px;
+  z-index: 2;
+  background: #ffffff;
 
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 1px solid #dbdbdb;
   padding: 16px 24px;
 }

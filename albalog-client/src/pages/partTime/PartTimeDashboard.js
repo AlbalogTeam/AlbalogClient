@@ -1,6 +1,8 @@
-import DashboardAccount from 'components/partTime/DashboardAccount';
+import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
+import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
+import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
+import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
 import React, { useState } from 'react';
-import { unstable_concurrentAct } from 'react-dom/test-utils';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
 
@@ -48,7 +50,14 @@ function PartTimeDashboard() {
                   <IoIosArrowForward />
                 </span>
               </div>
-              <div className="fullScheduleContent"></div>
+              <div className="fullScheduleContent">
+                <DashboardFullschedule
+                  year={year}
+                  month={month}
+                  date={date}
+                  day={day}
+                />
+              </div>
             </div>
             <div className="personalSchedule">
               <div className="textLine">
@@ -58,7 +67,14 @@ function PartTimeDashboard() {
                   <IoIosArrowForward />
                 </span>
               </div>
-              <div className="personalScheduleContent"></div>
+              <div className="personalScheduleContent">
+                <DashboardPersonalschedule
+                  year={year}
+                  month={month}
+                  date={date}
+                  day={day}
+                />
+              </div>
               <button className="">스케줄 변경 신청</button>
             </div>
           </div>
@@ -102,6 +118,7 @@ function PartTimeDashboard() {
                 <IoIosArrowForward />
               </span>
             </div>
+            <DashboardNotice />
           </div>
         </div>
       </div>
