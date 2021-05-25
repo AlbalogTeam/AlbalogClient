@@ -7,6 +7,7 @@ import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
 import WorkManual from 'pages/workManual/WorkManual';
 import Transition from 'pages/transition/Transition';
+import Landing from 'pages/landing/Landing';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <AdminHeader />
       <div id="main">
         <Switch>
+          <Route path="/" exact component={Landing} />
           <Route path="/notice" exact component={NoticeList} />
           <Route path="/notice/upload" exact component={NoticeUpload} />
           <Route path="/notice/:id?" exact component={NoticeDetail} />
