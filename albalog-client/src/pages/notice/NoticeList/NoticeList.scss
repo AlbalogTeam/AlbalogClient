@@ -1,7 +1,7 @@
 #Notice,
 .page-layout {
   width: 1160px;
-  // margin: 0 auto;
+  padding-bottom: 200px;
   margin-left: 350px;
   padding-top: 20px;
   overflow: hidden;
@@ -15,7 +15,6 @@
       font-size: 18px;
       line-height: 30px;
       color: #1e1e1e;
-      //   vertical-align: top;
     }
     .upload {
       overflow: hidden;
@@ -69,7 +68,6 @@
 
     .table-comm {
       overflow: hidden;
-      width: 860px;
       margin-top: 50px;
       border-top: 2px solid #4d4d4d;
       word-break: normal;
@@ -78,6 +76,14 @@
         border-collapse: collapse;
         border-spacing: 0;
         table-layout: fixed;
+        colgroup {
+          .left {
+            width: 81%;
+          }
+          .right {
+            width: 19%;
+          }
+        }
         th {
           padding: 15px 20px;
           color: #1e1e1e;
@@ -134,7 +140,6 @@
       text-align: center;
 
       .inner-paging {
-        // display: inline-block;
         display: flex;
         justify-content: center;
         .paging-btn {
@@ -164,6 +169,98 @@
         }
         .paging-next {
           margin-left: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1510px) {
+  body {
+    #Notice,
+    .page-layout {
+      margin-left: 1px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  body {
+    #Notice {
+      .tit {
+        float: none;
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        padding-top: 60px;
+        .tit-corp {
+          padding: 0;
+          text-align: center;
+        }
+        .upload {
+          padding: 0;
+          margin-left: 20px;
+        }
+      }
+      .cont {
+        float: none;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1175px) {
+  body {
+    #Notice {
+      width: 100% !important;
+      .cont {
+        width: 600px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  body {
+    #Notice {
+      .tit {
+        padding-top: 0;
+      }
+      .cont {
+        width: 100%;
+        .search-comm {
+          width: 100%;
+          padding-top: 20px;
+          .search-input {
+            width: 88% !important ;
+          }
+        }
+        .table-comm {
+          colgroup {
+            .left {
+              width: 68% !important;
+            }
+            .right {
+              width: 32% !important;
+            }
+          }
+          th{
+            padding-left: 0 !important;
+          }
+          .td-left {
+            .inner-cont {
+              padding: 15px 0 14px 20px !important;
+              .link-text {
+                white-space: pre-line !important;
+              }
+            }
+          }
+          .inner-date{
+            padding-left:0px !important;
+          }
         }
       }
     }

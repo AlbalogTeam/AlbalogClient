@@ -31,15 +31,18 @@ const ManualCategory = () => {
             <NavLink
               activeStyle={activeStyle}
               exact={category.name === 'common'}
-              to={`/workmanual/${category.name}`}
+              // to={`/workmanual/${category.name}`}
+              to={
+                category.name === 'common'
+                  ? '/workmanual/'
+                  : `/workmanual/${category.name}`
+              }
             >
               {category.text}
             </NavLink>
           </li>
-          
         ))}
       </ul>
-      
     </div>
   );
 };

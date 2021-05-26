@@ -7,11 +7,11 @@ import './WorkManual.scss';
 const WorkManual = ({ match }) => {
   // 카테고리가 선택되지 않았으면 기본값 common 사용
   const category = match.params.category || 'common';
+  console.log(category);
   const [uploadState, setUploadState] = useState(false);
 
   const ToggleButton = () => {
     setUploadState(!uploadState);
-    console.log(uploadState);
   };
 
   return (

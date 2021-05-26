@@ -67,8 +67,8 @@ const NoticeList = () => {
         <div className="table-comm">
           <table className="table">
             <colgroup>
-              <col style={{ width: '81%' }} />
-              <col style={{ width: '19%' }} />
+              <col className="left"  />
+              <col className="right"  />
             </colgroup>
             <thead>
               <tr>
@@ -89,7 +89,7 @@ const NoticeList = () => {
                     </div>
                   </td>
                   <td>
-                    <div className="inner-cont">2021-05-19</div>
+                    <div className="inner-cont inner-date">2021-05-19</div>
                   </td>
                 </tr>
               ))}

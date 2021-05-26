@@ -1,13 +1,19 @@
 .admin-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index:999;
+  height: 69px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #dbdbdb;
-  padding: 16px 24px;
+  padding: 1rem 4rem;
+  background: #fff;
 
   .header-right {
     .user-name {
-      margin-right: 16px;
+      margin-right: 1rem;
     }
   }
 }

@@ -8,11 +8,13 @@ import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
 import WorkManual from 'pages/workManual/WorkManual';
 import Transition from 'pages/transition/Transition';
 import Landing from 'pages/landing/Landing';
+import AdminAside from 'components/admin/AdminAside/AdminAside';
 
 const App = () => {
   return (
     <div id="container">
       <AdminHeader />
+      <AdminAside />
       <div id="main">
         <Switch>
           <Route path="/" exact component={Landing} />
@@ -20,7 +22,7 @@ const App = () => {
           <Route path="/notice/upload" exact component={NoticeUpload} />
           <Route path="/notice/:id?" exact component={NoticeDetail} />
           <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
-          <Route path="/workmanual/:category" exact component={WorkManual} />
+          <Route path="/workmanual/:category?" exact component={WorkManual} />
           <Route path="/transition" exact component={Transition} />
         </Switch>
       </div>
