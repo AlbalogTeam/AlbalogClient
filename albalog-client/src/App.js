@@ -15,7 +15,7 @@ const App = () => {
       <AdminHeader />
       <AdminAside />
       <Switch>
-        <Route path="/" exact component={AdminDashboardPage} />
+        <Route path="/admin" exact component={AdminDashboardPage} />
         <Route path="/admin/info" component={AdminInfoPage} />
         <Route path="/admin/payroll" component={AdminPayrollPage} />
         <Route path="/admin/employeelist" component={AdminEmployeePage} />
