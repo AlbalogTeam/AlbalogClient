@@ -47,4 +47,4 @@ const DashboardAccount = () => {
   );
 };
 
-export default DashboardAccount;
+export default <DashboardAccount account={account} />;

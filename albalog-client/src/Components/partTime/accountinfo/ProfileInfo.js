@@ -4,15 +4,65 @@ import 'components/partTime/accountinfo/ProfileInfo.scss';
 
 function ProfileInfo({ props }) {
   const [name, setName] = useState();
-  const [password, setpassword] = useState();
+  const [typedName, setTypedName] = useState();
+  const [password, setPassword] = useState();
+  const [typedPassword, setTypedPassword] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const changeName = () => {
+    setName(typedName);
+  };
+
+  const changePassword = () => {
+    setPassword(typedPassword);
+  };
+
+  useEffect(() => {
+    //   axios
+    //     .get('https://jsonplaceholder.typicode.com/posts/')
+    //     .then((response) => response.data)
+    //     .then((data) => {
+    //       console.log(data);
+    //       setSamples(data);
+    //     });
+    // }, []);
+
+    const getAccount = async () => {
+      try {
+        setError(null);
+        // setSamples(null);
+        setLoading(true);
+        let response = await axios.get(
+          'https://jsonplaceholder.typicode.com/user',
+        );
+        console.log(response.data);
+        setSamples(response.data);
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false);
+    };
+    getAccount();
+  }, [name, password]);
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다 {console.log(error)}</div>;
+  if (!account) return <div>{console.log(account)}</div>;
 
   return (
     <div id="ProfileInfo">
       <div className="tr">
         <div className="head">이름</div>
-        <input className="content name" placeholder="유저이름" />
+        <input
+          className="content name"
+          placeholder="유저이름"
+          onChange={(e) => {
+            setTypedName(e.target.value);
+          }}
+        />
         <button>
-          <MdEdit />
+          <MdEdit onClick={changeName(typedName)} />
         </button>
       </div>
       <div className="tr">
@@ -33,9 +83,12 @@ function ProfileInfo({ props }) {
           type="password"
           className="content password-confirm"
           placeholder="userid1"
+          onChange={(e) => {
+            setTypedPassword(e.target.value);
+          }}
         />
         <button>
-          <MdEdit />
+          <MdEdit onClick={changePassword} />
         </button>
       </div>
       <div className="tr">
