@@ -1,7 +1,11 @@
 #parttime-header {
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
+  background: #fff;
   border-bottom: 1px solid #dbdbdb;
   padding: 16px 24px;
 

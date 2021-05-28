@@ -48,7 +48,7 @@ function DashboardNotice() {
       </div>
       {samples &&
         samples
-          .filter((x) => x.id > 3)
+          .filter((x) => x.id < 3)
           .map((data) => (
             <div className="tr">
               <div className="td1">{data.id}</div>

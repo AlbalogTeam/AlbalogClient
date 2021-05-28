@@ -1,0 +1,86 @@
+#container {
+  width: 100%;
+  text-align: center;
+
+  .lines {
+    width: 100%;
+  }
+
+  .pay-container {
+    width: 100%;
+    border-bottom: 1px solid #c0c8d0;
+    transition: 1s;
+
+    .tr {
+      width: 100%;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .date,
+      .time,
+      .pay {
+        height: 100%;
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .time {
+        width: 40%;
+      }
+      .pay {
+        justify-content: space-between;
+      }
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #9ea6ae;
+    }
+
+    svg.active {
+      transform: rotate(180deg);
+    }
+
+    svg:hover {
+      opacity: 0.8;
+    }
+  }
+
+  button {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    cursor: pointer;
+  }
+
+  .detail {
+    display: none;
+  }
+
+  .detail.active {
+    display: block;
+    text-align: left;
+    padding: 10px 0;
+    font-weight: light;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #81858a;
+    animation: slidein 0.5s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes slidein {
+    from {
+      opacity: 0.3;
+      transform: translateY(-20%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+}
