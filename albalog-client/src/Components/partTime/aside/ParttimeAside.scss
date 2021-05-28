@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  height: 95%;
+  height: 100%;
   width: 250px;
-  margin-top: 5%;
+  padding: 90px 24px;
   background: #ffffff;
+  line-height: 2rem;
 
   justify-content: flex-start;
   align-items: flex-start;
   border-bottom: 1px solid #dbdbdb;
-  padding: 16px 24px;
 }
