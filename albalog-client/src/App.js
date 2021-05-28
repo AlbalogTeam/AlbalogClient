@@ -4,6 +4,7 @@ import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
 import Login from 'components/Login';
 import SignUp from 'components/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
+import WorkingTime from 'pages/partTime/WorkingTime';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/signup" component={SignUp} exact />
         <Route path="/parttimedashboard" component={PartTimeDashboard} exact />
         <Route path="/accountinfo" component={AccountInfo} exact />
+        <Route path="/workingtime" component={WorkingTime} exact />
         {/* <Route path="/notice" exact component={NoticeList} />
         <Route path="/notice/upload" exact component={NoticeUpload} />
         <Route path="/notice/:id?" exact component={NoticeDetail} />
