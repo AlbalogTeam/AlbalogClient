@@ -8,6 +8,7 @@ import {
 } from 'react-icons/ai';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
+import { RiDashboardLine } from 'react-icons/ri';
 import './AdminAside.scss';
 
 const AdminAside = () => {
@@ -29,6 +30,12 @@ const AdminAside = () => {
       </ul>
       <h3>관리자 메뉴</h3>
       <ul className="menu">
+        <a href="/admin/">
+          <li className="menu-item">
+            <RiDashboardLine />
+            <span>대시 보드</span>
+          </li>
+        </a>
         <a href="/admin/employeelist">
           <li className="menu-item">
             <HiOutlineUsers />
