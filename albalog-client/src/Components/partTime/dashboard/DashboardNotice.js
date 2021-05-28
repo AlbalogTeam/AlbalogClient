@@ -50,7 +50,7 @@ function DashboardNotice() {
         samples
           .filter((x) => x.id < 3)
           .map((data) => (
-            <div className="tr">
+            <div className="tr" key={data.id}>
               <div className="td1">{data.id}</div>
               <div className="td2">{data.title}</div>
               <div className="td3">{data.userId}</div>

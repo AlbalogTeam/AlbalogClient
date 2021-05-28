@@ -50,23 +50,25 @@ const detail = [
 function AccountInfo() {
   return (
     <div id="accountinfo">
-      <h2>계정정보</h2>
-      <div className="container">
-        <div className="accountBox">
-          <h3>Profile</h3>
-          <div className="profile-box">
-            <BsPerson style={{ fontSize: 90, textAlign: 'middle' }} />
+      <div className="account-container">
+        <h2>계정정보</h2>
+        <div className="container">
+          <div className="accountBox">
+            <h3>Profile</h3>
+            <div className="profile-box">
+              <BsPerson style={{ fontSize: 90, textAlign: 'middle' }} />
+            </div>
+            <ProfileInfo />
           </div>
-          <ProfileInfo />
-        </div>
-        <div className="payroll-box">
-          <h3>Payroll</h3>
-          <div className="table-head">
-            <div className="date">날짜</div>
-            <div className="time"></div>
-            <div className="pay">급여</div>
+          <div className="payroll-box">
+            <h3>Payroll</h3>
+            <div className="table-head">
+              <div className="date">날짜</div>
+              <div className="time"></div>
+              <div className="pay">급여</div>
+            </div>
+            <PayrollList month={monthlypay} detail={detail} />
           </div>
-          <PayrollList month={monthlypay} detail={detail} />
         </div>
       </div>
     </div>
