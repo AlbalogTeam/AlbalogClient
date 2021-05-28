@@ -15,6 +15,7 @@
   .profile-box {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
   }
 
   .container {
@@ -39,6 +40,10 @@
       h3 {
         margin-bottom: 20px;
       }
+    }
+
+    .accountBox {
+      justify-content: space-between;
     }
 
     .payroll-box {
