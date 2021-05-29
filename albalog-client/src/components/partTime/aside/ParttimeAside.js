@@ -1,5 +1,4 @@
 import React from 'react';
-import { HiOutlineUsers } from 'react-icons/hi';
 import {
   AiOutlineSchedule,
   AiOutlineNotification,
@@ -9,10 +8,10 @@ import {
 import { RiDashboardLine } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
-import './AdminAside.scss';
+import './ParttimeAside.scss';
 import { NavLink } from 'react-router-dom';
 
-const AdminAside = () => {
+const ParttimeAside = () => {
   return (
     <aside className="aside-container">
       <ul className="menu">
@@ -36,36 +35,31 @@ const AdminAside = () => {
         </NavLink>
       </ul>
 
-      <h3>관리자 메뉴</h3>
+      <h3>직원 메뉴</h3>
       <ul className="menu">
-        <NavLink to={'/admin/'} exact>
+        <NavLink to={'/parttimedashboard'} exact>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
           </li>
         </NavLink>
-        <NavLink to={'/admin/employeelist'} exact>
-          <li className="menu-item">
-            <HiOutlineUsers />
-            <span>직원 관리</span>
-          </li>
-        </NavLink>
-        <NavLink to={'/admin/schedule'} exact>
+
+        <NavLink to={'/accountinfo'} exact>
           <li className="menu-item">
             <AiOutlineSchedule />
-            <span>스케줄 관리</span>
+            <span>계정정보</span>
           </li>
         </NavLink>
-        <NavLink to={'/admin/payroll'} exact>
+        <NavLink to={'/payroll'} exact>
           <li className="menu-item">
             <BiDollar />
-            <span>급여관리</span>
+            <span>스케줄러</span>
           </li>
         </NavLink>
-        <NavLink to={'/admin/info'} exact>
+        <NavLink to={'/workingtime'} exact>
           <li className="menu-item">
             <IoSettingsOutline />
-            <span>계정 정보</span>
+            <span>일한시간</span>
           </li>
         </NavLink>
       </ul>
@@ -73,4 +67,4 @@ const AdminAside = () => {
   );
 };
 
-export default AdminAside;
+export default ParttimeAside;

@@ -1,10 +1,10 @@
 import TransitionList from 'components/transition/TransitionList';
-import { ko } from 'date-fns/locale';
+// import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Transition.scss';
-registerLocale('ko', ko);
+// registerLocale('ko', ko);
 
 const Transition = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -26,7 +26,7 @@ const Transition = () => {
                 console.log(date);
                 setStartDate(date);
               }}
-              locale="ko"
+              // locale="ko"
               inline
             />
           </div>
