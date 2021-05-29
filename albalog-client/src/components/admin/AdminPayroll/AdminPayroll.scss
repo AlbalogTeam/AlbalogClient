@@ -1,0 +1,52 @@
+.payroll-container {
+  height: 100%;
+  margin-left: 250px;
+  background-color: #fafafa;
+  padding: 2rem;
+
+  .payroll-title {
+    margin-bottom: 4rem;
+  }
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-box {
+    width: 30%;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    form {
+      display: flex;
+      border: 1px solid #dbdbdb;
+      input {
+        border: none;
+        outline: none;
+        flex: 1;
+        height: 100%;
+        padding: 0.5rem;
+      }
+      button {
+        background-color: #3da5f5;
+        color: white;
+        border: none;
+      }
+    }
+  }
+  table {
+    width: 80%;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    border-spacing: 0;
+    border-radius: 8px;
+    thead th,
+    tbody td {
+      height: 60px;
+      border-bottom: 1px solid #dbdbdb;
+      text-align: center;
+    }
+  }
+}
