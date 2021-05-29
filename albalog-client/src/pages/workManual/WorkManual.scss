@@ -1,5 +1,5 @@
-#MenualPage {
-  .menual-category {
+#WorkManual {
+  .manual-category {
     margin: 0 auto;
     padding: 60px 30px 8px;
     overflow: hidden;
@@ -9,7 +9,7 @@
       padding: 15px;
     }
   }
-  .menual-list {
+  .manual-list {
     padding: 10px;
     margin-top: 20px;
     li {
@@ -19,11 +19,22 @@
       margin: 5px 20px 10px 0;
       border-radius: 10px;
       width: 400px;
-      .menual-title {
+      .manual-title {
         font-size: 20px;
         font-weight: bold;
         padding-bottom: 15px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        .ico {
+          float: right;
+          line-height: 35px;
+          .btn {
+            padding: 0;
+            margin-left: 20px;
+          }
+          .btn:hover {
+            background-color: rgb(231, 231, 231);
+          }
+        }
       }
     }
   }

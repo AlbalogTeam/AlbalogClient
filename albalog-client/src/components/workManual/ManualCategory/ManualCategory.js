@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const MenualCategory = () => {
+const ManualCategory = () => {
   // 지금은 임시데이터 , 백앤드 완성되면 카테고리 데이터 불러와야함.
   const categories = [
     {
@@ -24,14 +24,19 @@ const MenualCategory = () => {
   };
 
   return (
-    <div className="menual-category">
+    <div className="manual-category">
       <ul>
         {categories.map((category, index) => (
           <li key={index}>
             <NavLink
               activeStyle={activeStyle}
               exact={category.name === 'common'}
-              to={`/workmenual/${category.name}`}
+              // to={`/workmanual/${category.name}`}
+              to={
+                category.name === 'common'
+                  ? '/workmanual/'
+                  : `/workmanual/${category.name}`
+              }
             >
               {category.text}
             </NavLink>
@@ -42,4 +47,4 @@ const MenualCategory = () => {
   );
 };
 
-export default MenualCategory;
+export default ManualCategory;

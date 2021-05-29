@@ -5,20 +5,25 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
-import MenualPage from 'pages/workMenual/MenualPage/MenualPage';
+import WorkManual from 'pages/workManual/WorkManual';
+import Transition from 'pages/transition/Transition';
+import Landing from 'pages/landing/Landing';
+import AdminAside from 'components/admin/AdminAside/AdminAside';
 
 const App = () => {
   return (
     <div id="container">
       <AdminHeader />
+      <AdminAside />
       <div id="main">
         <Switch>
+          <Route path="/" exact component={Landing} />
           <Route path="/notice" exact component={NoticeList} />
           <Route path="/notice/upload" exact component={NoticeUpload} />
           <Route path="/notice/:id?" exact component={NoticeDetail} />
           <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
-          <Route path="/workmenual/common" exact component={MenualPage} />
-          <Route path="/workmenual/:category" exact component={MenualPage} />
+          <Route path="/workmanual/:category?" exact component={WorkManual} />
+          <Route path="/transition" exact component={Transition} />
         </Switch>
       </div>
     </div>

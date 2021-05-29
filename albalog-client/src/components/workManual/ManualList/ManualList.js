@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
-const menualListFakeData = [
+const manualListFakeData = [
   {
     category: 'common',
     title: '출근 후',
@@ -34,30 +35,40 @@ const menualListFakeData = [
   },
 ];
 
-const MenualList = ({ category }) => {
-  const [menualList, setMenualList] = useState([]);
+const ManualList = ({ category }) => {
+  const [manualList, setManualList] = useState([]);
   console.log(category);
   useEffect(() => {
-    setMenualList(menualListFakeData);
-    console.log(menualList);
+    setManualList(manualListFakeData);
+    console.log(manualList);
   }, []);
 
-  const WorkMenualList = menualList.filter(
-    (menual) => menual.category === category,
+  const WorkManualList = manualList.filter(
+    (manual) => manual.category === category,
   );
 
-  console.log(WorkMenualList);
+  console.log(WorkManualList);
 
   return (
-    <div className="menual-list">
-      {menualList && (
+    <div className="manual-list">
+      {manualList && (
         <ul>
-          {WorkMenualList.map((menual, index) => {
+          {WorkManualList.map((manual, index) => {
             return (
               <li key={index}>
-                <div className="menual-title">{menual.title}</div>
+                <div className="manual-title">
+                  {manual.title}
+                  <div className="ico">
+                    <button className="btn">
+                      <AiOutlineEdit size="22" />
+                    </button>
+                    <button className="btn">
+                      <AiOutlineDelete size="22" />
+                    </button>
+                  </div>
+                </div>
                 <br />
-                <div dangerouslySetInnerHTML={{__html:menual.body}}></div>
+                <div dangerouslySetInnerHTML={{ __html: manual.body }}></div>
               </li>
             );
           })}
@@ -67,4 +78,4 @@ const MenualList = ({ category }) => {
   );
 };
 
-export default MenualList;
+export default ManualList;
