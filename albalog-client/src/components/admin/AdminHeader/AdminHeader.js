@@ -10,7 +10,9 @@ const AdminHeader = () => {
   };
   return (
     <header className="admin-header">
-      <h1 className="header-left">Albalog</h1>
+      <h1 className="header-left">
+        <a href="/">Albalog</a>
+      </h1>
       <div className="header-right">
         <span className="user-name">관리자님 안녕하세요.</span>
         <button className="btn-invite" onClick={handleModal}>

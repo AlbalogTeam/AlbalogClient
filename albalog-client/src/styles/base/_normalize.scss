@@ -339,3 +339,19 @@ template {
 [hidden] {
   display: none;
 }
+
+/** 버튼회색배경, 보더 없애기, 커서 포인터 주기**/
+button {
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/** 인풋 태그 클릭시 생기는 태두리 제거 **/
+input:focus {
+  outline: none;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}

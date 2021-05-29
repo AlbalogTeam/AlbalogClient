@@ -1,0 +1,70 @@
+#StoreRegister {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  .regi-modal {
+    position: relative;
+    width: 430px;
+    height: 540px;
+    background-color: white;
+    margin: 110px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+    z-index: 100;
+    .modal-tit {
+      margin-bottom: 20px;
+      h2 {
+        text-align: center;
+      }
+    }
+    .modal-form {
+      padding: 30px 20px;
+      label {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 10px 0;
+      }
+      input {
+        width: 340px;
+        height: 35px;
+        border: 1px solid #ccc;
+        padding: 0 10px;
+        color: #555;
+      }
+      .address {
+        width: 250px;
+      }
+      p {
+        margin: 30px 0;
+        font-size: 14px;
+        color: #cb0000;
+        text-align: center;
+      }
+      .address-search {
+        display: flex;
+        button {
+          width: 81px;
+          height: 35px;
+          font-size: 13px;
+          margin-left: 10px;
+          border-radius: 0;
+        }
+      }
+      .modal-btn {
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 20px;
+        button {
+          width: 140px;
+          height: 45px;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
