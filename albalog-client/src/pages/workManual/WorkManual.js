@@ -1,3 +1,5 @@
+import AdminAside from 'components/admin/AdminAside/AdminAside';
+import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
 import MenualCategory from 'components/workManual/ManualCategory/ManualCategory';
 import MenualList from 'components/workManual/ManualList/ManualList';
 import MenualUpload from 'components/workManual/ManualUpload/ManualUpload';
@@ -6,7 +8,7 @@ import './WorkManual.scss';
 
 const WorkManual = ({ match }) => {
   // 카테고리가 선택되지 않았으면 기본값 common 사용
-  console.log(match)
+  console.log(match);
   const category = match.params.category || 'common';
   console.log(category);
   const [uploadState, setUploadState] = useState(false);
@@ -17,6 +19,8 @@ const WorkManual = ({ match }) => {
 
   return (
     <>
+      <AdminHeader />
+      <AdminAside />
       <div id="WorkManual" className="page-layout">
         <div className="tit">
           <h4 className="tit-corp">업무매뉴얼</h4>
