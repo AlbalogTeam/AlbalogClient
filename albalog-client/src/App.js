@@ -19,10 +19,10 @@ import Login from 'components/Login';
 import SignUp from 'components/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
-import React from 'react';
 import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import React from 'react';
+import ParttimeScheduler from 'pages/partTime/ParttimeScheduler';
 
 const App = () => {
   return (
@@ -72,22 +72,26 @@ const App = () => {
           {/* <Route path="/admin/schedule" component={AdminSchedulePage} /> */}
           <Route path="/login" component={Login} exact></Route>
           <Route path="/signup" component={SignUp} exact></Route>
-          <Route path="/parttimedashboard" exact>
+          <Route path="/parttime" exact>
             <ParttimeHeader />
             <ParttimeAside />
             <PartTimeDashboard />
           </Route>
-          <Route path="/accountinfo" exact>
+          <Route path="/parttime/accountinfo" exact>
             <ParttimeHeader />
             <ParttimeAside />
             <AccountInfo />
           </Route>
-          <Route path="/workingtime" exact>
+          <Route path="/parttime/workingtime" exact>
             <ParttimeHeader />
             <ParttimeAside />
             <WorkingTime />
           </Route>
-          
+          <Route path="/parttime/scheduler" exact>
+            <ParttimeHeader />
+            <ParttimeAside />
+            <ParttimeScheduler />
+          </Route>
         </Switch>
       </div>
     </div>

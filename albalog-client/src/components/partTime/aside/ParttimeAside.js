@@ -37,26 +37,26 @@ const ParttimeAside = () => {
 
       <h3>직원 메뉴</h3>
       <ul className="menu">
-        <NavLink to={'/parttimedashboard'} exact>
+        <NavLink to={'/parttime'} exact>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
           </li>
         </NavLink>
 
-        <NavLink to={'/accountinfo'} exact>
+        <NavLink to={'/parttime/accountinfo'} exact>
           <li className="menu-item">
             <AiOutlineSchedule />
             <span>계정정보</span>
           </li>
         </NavLink>
-        <NavLink to={'/payroll'} exact>
+        <NavLink to={'/parttime/scheduler'} exact>
           <li className="menu-item">
             <BiDollar />
             <span>스케줄러</span>
           </li>
         </NavLink>
-        <NavLink to={'/workingtime'} exact>
+        <NavLink to={'/parttime/workingtime'} exact>
           <li className="menu-item">
             <IoSettingsOutline />
             <span>일한시간</span>

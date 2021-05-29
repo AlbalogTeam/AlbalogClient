@@ -1,4 +1,6 @@
 import axios from 'axios';
+import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import React, { useEffect, useState } from 'react';
 import './NoticeDetail.scss';
 
@@ -24,47 +26,51 @@ const NoticeDetail = ({ match }) => {
       });
   }, []);
   return (
-    <div id="NoticeDetail" className="page-layout">
-      <div className="tit">
-        <h4 className="tit-corp">
-          <a href="/notice">공지사항</a>
-        </h4>
-      </div>
-      <div className="notice-cont">
-        <div className="content-tit">
-          {title}
-          <div className="tit-date">2021-05-19</div>
+    <>
+      <ParttimeHeader />
+      <ParttimeAside />
+      <div id="NoticeDetail" className="page-layout">
+        <div className="tit">
+          <h4 className="tit-corp">
+            <a href="/notice">공지사항</a>
+          </h4>
         </div>
-        <div className="content-cont">{body}</div>
-        <div className="content-btn">
-          {noticeId > 1 ? (
-            <a href={`/notice/${noticeId - 1}`} className="btn-move">
-              이전
-            </a>
-          ) : (
-            ''
-          )}
+        <div className="notice-cont">
+          <div className="content-tit">
+            {title}
+            <div className="tit-date">2021-05-19</div>
+          </div>
+          <div className="content-cont">{body}</div>
+          <div className="content-btn">
+            {noticeId > 1 ? (
+              <a href={`/notice/${noticeId - 1}`} className="btn-move">
+                이전
+              </a>
+            ) : (
+              ''
+            )}
 
-          {noticeId < noticeLength ? (
-            <a href={`/notice/${noticeId + 1}`} className="btn-move">
-              다음
-            </a>
-          ) : (
-            ''
-          )}
+            {noticeId < noticeLength ? (
+              <a href={`/notice/${noticeId + 1}`} className="btn-move">
+                다음
+              </a>
+            ) : (
+              ''
+            )}
 
-          <a href={`/notice`} className="btn-list">
-            목록
-          </a>
-          <a href={`/notice/edit/${noticeId}`} className="btn-list">
-            수정
-          </a>
-          <a href="" className="btn-list">
-            삭제
-          </a>
+            <a href={`/notice`} className="btn-list">
+              목록
+            </a>
+            <a href={`/notice/edit/${noticeId}`} className="btn-list">
+              수정
+            </a>
+            <a href="" className="btn-list">
+              삭제
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

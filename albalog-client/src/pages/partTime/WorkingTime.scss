@@ -2,7 +2,7 @@
   height: 100%;
   width: 100%;
   padding: 90px 35px 20px 300px;
-  background: #ededed;
+  background: #fafafa;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -19,10 +19,11 @@
 
     .table {
       height: 70%;
-      width: 100%;
+      width: 90%;
       margin: 47px 0;
       background: white;
       border-radius: 10px;
+      box-shadow: 5px 5px 5px grey;
 
       .date-line {
         display: flex;
