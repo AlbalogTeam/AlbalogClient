@@ -1,5 +1,5 @@
-import AdminAside from 'components/admin/AdminAside/AdminAside';
-import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
+import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import MenualCategory from 'components/workManual/ManualCategory/ManualCategory';
 import MenualList from 'components/workManual/ManualList/ManualList';
 import MenualUpload from 'components/workManual/ManualUpload/ManualUpload';
@@ -19,8 +19,8 @@ const WorkManual = ({ match }) => {
 
   return (
     <>
-      <AdminHeader />
-      <AdminAside />
+      <ParttimeHeader />
+      <ParttimeAside />
       <div id="WorkManual" className="page-layout">
         <div className="tit">
           <h4 className="tit-corp">업무매뉴얼</h4>
