@@ -1,0 +1,92 @@
+#Transition {
+  .content {
+    padding-top: 40px;
+    h3 {
+      padding: 20px 0;
+    }
+    .cont-box {
+      display: flex;
+      border: 1px solid #aeaeae;
+      padding: 20px;
+      border-radius: 7px;
+      .left-cont {
+        width: 555px;
+        height: 514px;
+        padding: 40px 10px 20px 25px;
+        .react-datepicker__current-month {
+          font-size: 1.5rem;
+          font-weight: 100;
+        }
+        .react-datepicker__day-name {
+          width: 4rem;
+          line-height: 2.7rem;
+        }
+        .react-datepicker__day {
+          width: 4rem;
+          height: 3rem;
+        }
+      }
+
+      .right-cont {
+        width: 580px;
+        height: 514px;
+        margin-left: 10px;
+        padding: 20px;
+        #TransitionList {
+          .current-date {
+            text-align: center;
+            padding-bottom: 20px;
+          }
+          .transition-input {
+            display: flex;
+            input {
+              display: inline-block;
+              padding: 6px;
+              font-size: 1rem;
+              width: 93%;
+              line-height: 1.5;
+              outline: none;
+              color: #212529;
+              border: 1px solid #ccc;
+            }
+            .add {
+              border: 1px solid #ccc;
+              border-left: none;
+            }
+            .add:hover{
+                background-color: rgb(209, 207, 207);
+            }
+          }
+          .transition-list {
+            border: 1px solid #999;
+            height: 390px;
+            margin-top: 10px;
+            border-radius: 5px;
+            overflow: scroll;
+            overflow-x: hidden;
+            li {
+              border-bottom: 1px solid #ccc;
+              .tran-cont {
+                display: flex;
+                .title {
+                  width: 380px;
+                  padding: 6px;
+                  height: 60px;
+                  display: flex;
+                  align-items: center;
+                }
+              }
+              .completed {
+                color: #adb5bd;
+                text-decoration: line-through;
+                .check-box {
+                  color: #adb5bd;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

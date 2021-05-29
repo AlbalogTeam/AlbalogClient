@@ -1,0 +1,24 @@
+#DashboardNotice {
+  .tr-head,
+  .tr {
+    margin-top: 5px;
+    display: flex;
+    text-align: center;
+  }
+
+  .tr-head {
+    background: #ededee;
+  }
+
+  .td1-head,
+  .td3-head,
+  .td1,
+  .td3 {
+    width: 20%;
+  }
+
+  .td2-head,
+  .td2 {
+    width: 60%;
+  }
+}
