@@ -1,0 +1,24 @@
+#personalschedule-content {
+  height: 100%;
+  width: 100%;
+
+  .txtline {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .personal-table {
+    height: 100%;
+    flex-direction: column;
+    padding: 10px 0;
+
+    .tr {
+      width: 100%;
+      padding: 2% 0;
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.1);
+  .modal-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 600px;
+    background-color: #fff;
+    border: 2px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 4rem;
+    .invite-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .btn-invite,
+      .btn-close {
+        width: 100%;
+        margin-bottom: 1rem;
+        border: none;
+        border-radius: 4px;
+        height: 2rem;
+        font-weight: bold;
+      }
+      .btn-close {
+        background-color: lightcoral;
+      }
+    }
+  }
+}
