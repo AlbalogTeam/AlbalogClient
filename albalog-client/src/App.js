@@ -1,5 +1,6 @@
 import AdminAside from 'components/admin/AdminAside/AdminAside';
 import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
+import AdminInfo from 'components/admin/AdminInfo/AdminInfo';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
@@ -21,6 +22,7 @@ import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import React from 'react';
 
 const App = () => {
   return (
@@ -85,6 +87,7 @@ const App = () => {
             <ParttimeAside />
             <WorkingTime />
           </Route>
+          
         </Switch>
       </div>
     </div>
