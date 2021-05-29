@@ -1,13 +1,30 @@
 .admin-header {
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #dbdbdb;
-  padding: 16px 24px;
+  padding: 1rem 4rem;
+  background: #fff;
 
   .header-right {
     .user-name {
-      margin-right: 16px;
+      margin-right: 1rem;
+    }
+    .btn-invite,
+    .btn-logout {
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem;
+      font-weight: 500;
+    }
+    .btn-logout {
+    }
+    .btn-invite {
+      background-color: lightgreen;
+      margin-right: 0.5rem;
     }
   }
 }

@@ -1,0 +1,39 @@
+#StoreList {
+  overflow: hidden;
+  ul {
+    overflow: hidden;
+    li {
+      width: 300px;
+      height: 88px;
+      padding: 20px;
+      border-radius: 11px;
+      border: 1px solid #d6d6d6;
+      float: left;
+      margin: 0 10px 25px;
+      box-shadow: 2px 2px 10px 1px #ebebeb;
+      .store-enter {
+        float: right;
+        .btn {
+          margin-left: 10px;
+          font-size: 14px;
+          padding: 5px;
+        }
+        .btn:hover {
+          background-color: rgb(223, 223, 223);
+        }
+      }
+
+      .store-info {
+        .name {
+          font-weight: 700;
+        }
+        .detail {
+          padding-top: 10px;
+          display: block;
+          font-size: 13px;
+          color: #3f3e3e;
+        }
+      }
+    }
+  }
+}
