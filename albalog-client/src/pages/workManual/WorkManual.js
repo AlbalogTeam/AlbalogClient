@@ -6,6 +6,7 @@ import './WorkManual.scss';
 
 const WorkManual = ({ match }) => {
   // 카테고리가 선택되지 않았으면 기본값 common 사용
+  console.log(match)
   const category = match.params.category || 'common';
   console.log(category);
   const [uploadState, setUploadState] = useState(false);

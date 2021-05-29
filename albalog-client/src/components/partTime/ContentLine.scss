@@ -1,0 +1,27 @@
+#contentline-container {
+  .content-line {
+    height: 35px;
+    display: flex;
+    background: white;
+  }
+
+  .date-column,
+  .day-column,
+  .clockIn-column,
+  .clockOut-column,
+  .workingtime-column {
+    display: flex;
+    height: 100%;
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+  }
+
+  .day-column,
+  .clockIn-column,
+  .clockOut-column,
+  .workingtime-column {
+    border-left: 2px solid rgba(189, 186, 186, 0.5);
+  }
+}

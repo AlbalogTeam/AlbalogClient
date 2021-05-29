@@ -1,5 +1,4 @@
 import React from 'react';
-import { HiOutlineUsers } from 'react-icons/hi';
 import {
   AiOutlineSchedule,
   AiOutlineNotification,
@@ -9,10 +8,10 @@ import {
 import { RiDashboardLine } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
-import { RiDashboardLine } from 'react-icons/ri';
-import './AdminAside.scss';
+import './ParttimeAside.scss';
+import { NavLink } from 'react-router-dom';
 
-const AdminAside = () => {
+const ParttimeAside = () => {
   return (
     <aside className="aside-container">
       <ul className="menu">
@@ -34,59 +33,38 @@ const AdminAside = () => {
             <span>인수 인계 사항</span>
           </li>
         </NavLink>
-
-        <li className="menu-item">
-          <AiOutlineNotification />
-          <span>공지사항</span>
-        </li>
-        <li className="menu-item">
-          <AiOutlineSolution />
-          <span>업무 메뉴얼</span>
-        </li>
-        <li className="menu-item">
-          <AiOutlineSwap />
-          <span>인수 인계 사항</span>
-        </li>
       </ul>
 
-      <h3>관리자 메뉴</h3>
+      <h3>직원 메뉴</h3>
       <ul className="menu">
-        <NavLink to={'/admin/'} exact>
-        <a href="/admin/">
+        <NavLink to={'/parttimedashboard'} exact>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
           </li>
         </NavLink>
-        <NavLink to={'/admin/employeelist'} exact>
-        </a>
-        <a href="/admin/employeelist">
-          <li className="menu-item">
-            <HiOutlineUsers />
-            <span>직원 관리</span>
-          </li>
-        </a>
-        <a href="/admin/schedule">
+
+        <NavLink to={'/accountinfo'} exact>
           <li className="menu-item">
             <AiOutlineSchedule />
-            <span>스케줄 관리</span>
+            <span>계정정보</span>
           </li>
-        </a>
-        <a href="/admin/payroll">
+        </NavLink>
+        <NavLink to={'/payroll'} exact>
           <li className="menu-item">
             <BiDollar />
-            <span>급여관리</span>
+            <span>스케줄러</span>
           </li>
-        </a>
-        <a href="/admin/info">
+        </NavLink>
+        <NavLink to={'/workingtime'} exact>
           <li className="menu-item">
             <IoSettingsOutline />
-            <span>계정 정보</span>
+            <span>일한시간</span>
           </li>
-        </a>
+        </NavLink>
       </ul>
     </aside>
   );
 };
 
-export default AdminAside;
+export default ParttimeAside;
