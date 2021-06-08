@@ -2,9 +2,11 @@ import axios from 'axios';
 import { ChangeField } from 'modules/auth';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
 import './SignUp.scss';
+import { SetUser } from 'modules/user';
 
-function SignUp({ form, dispatchChangeField }) {
+function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
   const [formValid, setFormValid] = useState({
     emailValid: 0,
     passwordValid: 0,
@@ -28,16 +30,49 @@ function SignUp({ form, dispatchChangeField }) {
     e.preventDefault();
     const { email, password, name } = form;
 
-    let body = {
+    let registerBody = {
       email,
       name,
       password,
     };
 
     axios
-      .post('https://albalog-test.herokuapp.com/api/v1/owner/signup', body)
-      .then((response) => console.log(response.data));
+      .post('https://albalog-test.herokuapp.com/api/v1/owner/signup', registerBody)
+      .then((response) => {
+        console.log(response.data);
+        const token = response.data.token;
+        const decoded = jwt.verify(token, 'albalogTeam');
+        console.log(decoded);
+
+        let userBody = {
+          _id: response.data.employer._id,
+          email: response.data.employer.email,
+          name: response.data.employer.name,
+          role: decoded.role,
+        };
+        dispatchSetUser(userBody);
+      })
+      .catch(function (error) {
+        // status 코드가 200이 아닌경우 처리
+        if (error) {
+          alert('회원가입에 실패했습니다.');
+        }
+      });
   };
+
+  useEffect(() => {
+    if (user.email) {
+      console.log('유저가 있습니다');
+      history.push('/'); // 홈 화면으로 이동
+      try {
+        localStorage.setItem('user', JSON.stringify(user));
+      } catch (e) {
+        console.log('로컬스토리지 저장에 실패했습니다');
+      }
+    } else {
+      console.log('유저가 없습니다');
+    }
+  }, [history, user]);
 
   return (
     <div id="signup">
@@ -112,12 +147,13 @@ function SignUp({ form, dispatchChangeField }) {
 function mapStateToProps(state) {
   // redux state로 부터 state를 component의 props로 전달해줌
   // store의 값이 여기 함수 state로 들어옴
-  return { form: state.auth.register };
+  return { form: state.auth.register, user: state.user };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChangeField: (FormBody) => dispatch(ChangeField(FormBody)),
+    dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
   };
 }
 
