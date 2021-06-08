@@ -1,3 +1,4 @@
+import RescheduleModal from 'components/Modal/RescheduleModal';
 import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
@@ -27,6 +28,11 @@ function PartTimeDashboard() {
       setclockOut(true);
       e.target.style.background = 'gray';
     }
+  };
+
+  const [Modal, setModal] = useState(false);
+  const handleModal = () => {
+    setModal(!Modal);
   };
 
   return (
@@ -76,7 +82,10 @@ function PartTimeDashboard() {
                     day={day}
                   />
                 </div>
-                <button className="">스케줄 변경 신청</button>
+                <button className="" onClick={handleModal}>
+                  스케줄 변경 신청
+                </button>
+                {Modal && <RescheduleModal handleModal={handleModal} />}
               </div>
             </div>
           </div>
