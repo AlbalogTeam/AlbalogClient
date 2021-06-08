@@ -40,6 +40,7 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser, history }) {
           email: response.data.employer.email,
           name: response.data.employer.name,
           role: decoded.role,
+          token: response.data.token,
         };
         dispatchSetUser(userBody);
       })

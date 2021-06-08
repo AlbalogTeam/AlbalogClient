@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
+import axios from 'axios';
+import { APIURL } from 'CONST';
+import { connect } from 'react-redux';
 
-const StoreRegister = ({ ToggleButton }) => {
+const StoreRegister = ({ ToggleButton, user }) => {
   const [address, setAddress] = useState('');
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
+  const [storeRegisterForm, setStoreRegisterForm] = useState({
+    storeName: '',
+    addressDetail: '',
+    phoneNumber: '',
+  });
+
+  const { storeName, addressDetail, phoneNumber } = storeRegisterForm;
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -24,6 +34,48 @@ const StoreRegister = ({ ToggleButton }) => {
     setAddressSearchOpen(!addressSearchOpen);
   };
 
+  const PostOpen = () => {
+    setAddressSearchOpen(!addressSearchOpen);
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+
+    const ChangeForm = {
+      ...storeRegisterForm,
+      [name]: value,
+    };
+    console.log(ChangeForm);
+    setStoreRegisterForm(ChangeForm);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    let StoreRegisterBody = {
+      name: storeName,
+      address,
+      postal_code: addressDetail,
+      phone_number: phoneNumber,
+    };
+
+    axios
+      .post(`${APIURL}/location`, StoreRegisterBody, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        // status 코드가 200이 아닌경우 처리
+        if (error) {
+          alert('매장 생성에 실패했습니다.');
+        }
+      });
+  };
+
   const postCodeStyle = {
     display: 'block',
     position: 'absolute',
@@ -33,11 +85,6 @@ const StoreRegister = ({ ToggleButton }) => {
     height: '541px',
     border: '1px solid black',
   };
-
-  const PostOpen = () => {
-    setAddressSearchOpen(!addressSearchOpen);
-  };
-
   return (
     <div id="StoreRegister" onClick={ToggleButton}>
       <div className="regi-modal" onClick={(e) => e.stopPropagation()}>
@@ -45,9 +92,14 @@ const StoreRegister = ({ ToggleButton }) => {
           <h2>매장 추가</h2>
         </div>
         <div className="modal-form">
-          <form action="">
+          <form action="" onSubmit={onSubmit}>
             <label>매장 이름</label>
-            <input type="text" placeholder="매장 이름을 입력해주세요" />
+            <input
+              type="text"
+              name="storeName"
+              placeholder="매장 이름을 입력해주세요"
+              onChange={onChange}
+            />
             <label>매장 주소</label>
             <div className="address-search">
               <input
@@ -68,13 +120,26 @@ const StoreRegister = ({ ToggleButton }) => {
               )}
             </div>
             <label>상세 주소</label>
-            <input type="text" placeholder="상세 주소를 입력해주세요" />
+            <input
+              type="text"
+              name="addressDetail"
+              placeholder="상세 주소를 입력해주세요"
+              onChange={onChange}
+            />
+
+            <label>휴대폰 번호</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              placeholder="휴대폰번호를 - 없이 입력해주세요"
+              onChange={onChange}
+            />
             <p>
               사업자 등록증을 developer@dev.lop 로 <br />
               보내주시면 승인 후 매장 등록이 완료됩니다
             </p>
             <div className="modal-btn">
-              <button>등록</button>
+              <button type="submit">등록</button>
               <button type="button" onClick={ToggleButton}>
                 취소
               </button>
@@ -86,4 +151,14 @@ const StoreRegister = ({ ToggleButton }) => {
   );
 };
 
-export default StoreRegister;
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchSetShop: (ShopBody) => dispatch(SetShop(ShopBody)),
+  };
+}
+
+export default connect(mapStateToProps)(StoreRegister);

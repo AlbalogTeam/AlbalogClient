@@ -19,10 +19,14 @@ const NoticeList = () => {
 
   // https://jsonplaceholder.typicode.com/ fake 데이터 사용
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
-      console.log(response.data);
-      setGetNotices(response.data);
-    });
+    axios
+      .get(
+        'https://albalog-test.herokuapp.com/api/v1/location/60bc87746f9dca0028ea46ea/notice',
+      )
+      .then((response) => {
+        console.log(response.data);
+        setGetNotices(response.data);
+      });
   }, []);
 
   localStorage.setItem('noticeLength', getNotices.length); // 게시물 길이 로컬에 저장
@@ -67,8 +71,8 @@ const NoticeList = () => {
         <div className="table-comm">
           <table className="table">
             <colgroup>
-              <col className="left"  />
-              <col className="right"  />
+              <col className="left" />
+              <col className="right" />
             </colgroup>
             <thead>
               <tr>
