@@ -37,7 +37,10 @@ function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
     };
 
     axios
-      .post('https://albalog-test.herokuapp.com/api/v1/owner/signup', registerBody)
+      .post(
+        'https://albalog-test.herokuapp.com/api/v1/owner/signup',
+        registerBody,
+      )
       .then((response) => {
         console.log(response.data);
         const token = response.data.token;

@@ -1,5 +1,5 @@
 import AdminAside from 'components/admin/AdminAside/AdminAside';
-import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
+import AdminHeader from 'components/Header/Header';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
