@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './StoreList.scss';
 
 const StoreList = () => {
+
+
+  useEffect(() => {
+
+  }, [])
+
+
   return (
     <div id="StoreList">
       <ul>

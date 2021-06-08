@@ -4,8 +4,9 @@ import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
 import { APIURL } from 'CONST';
 import { connect } from 'react-redux';
+import { SetShop } from 'modules/shop';
 
-const StoreRegister = ({ ToggleButton, user }) => {
+const StoreRegister = ({ ToggleButton, user, dispatchSetShop }) => {
   const [address, setAddress] = useState('');
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
   const [storeRegisterForm, setStoreRegisterForm] = useState({
@@ -67,6 +68,13 @@ const StoreRegister = ({ ToggleButton, user }) => {
       })
       .then((response) => {
         console.log(response);
+
+        let shopBody = {
+          _id: response.data.location._id,
+          name: response.data.location.name,
+        };
+
+        dispatchSetShop(shopBody);
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
@@ -161,4 +169,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps)(StoreRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreRegister);
