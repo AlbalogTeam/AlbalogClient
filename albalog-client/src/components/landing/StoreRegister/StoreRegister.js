@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
 import { SetShop } from 'modules/shop';
+import { withRouter } from 'react-router';
 
-const StoreRegister = ({ ToggleButton, user, dispatchSetShop }) => {
+const StoreRegister = ({
+  ToggleButton,
+  user,
+  shop,
+  dispatchSetShop,
+  history,
+}) => {
   const [address, setAddress] = useState('');
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
   const [storeRegisterForm, setStoreRegisterForm] = useState({
@@ -67,11 +74,11 @@ const StoreRegister = ({ ToggleButton, user, dispatchSetShop }) => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
 
         let shopBody = {
-          _id: response.data.location._id,
-          name: response.data.location.name,
+          _id: response.data._id,
+          name: response.data.name,
         };
 
         dispatchSetShop(shopBody);
@@ -83,6 +90,15 @@ const StoreRegister = ({ ToggleButton, user, dispatchSetShop }) => {
         }
       });
   };
+
+  useEffect(() => {
+    if (shop.name) {
+      console.log('매장이 리덕스 스토어에 생성 되었습니다');
+      window.location.reload(); // 새로고침
+    } else {
+      console.log('리덕스 스토어에 매장이 없습니다.');
+    }
+  }, [history, shop]);
 
   const postCodeStyle = {
     display: 'block',
@@ -160,7 +176,7 @@ const StoreRegister = ({ ToggleButton, user, dispatchSetShop }) => {
 };
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user, shop: state.shop };
 }
 
 function mapDispatchToProps(dispatch) {

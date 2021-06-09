@@ -1,14 +1,21 @@
 import axios from 'axios';
 import InviteModal from 'components/Modal/InviteModal';
 import { APIURL } from 'config';
-import { SetShop } from 'modules/shop';
+import shop, { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 
-const Header = ({ user, dispatchSetUser, dispatchSetShop, history, match }) => {
+const Header = ({
+  user,
+  shop,
+  dispatchSetUser,
+  dispatchSetShop,
+  history,
+  match,
+}) => {
   const [isModal, setIsModal] = useState(false);
 
   const handleModal = () => {
@@ -49,17 +56,22 @@ const Header = ({ user, dispatchSetUser, dispatchSetShop, history, match }) => {
 
   useEffect(() => {
     const shopId = match.params.shop;
-    let body = {
-      username: 'ksmfou98',
-    };
+
     axios
-      .get(`${APIURL}/location/${shopId}`, body, {
+      .get(`${APIURL}/location/${shopId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       })
       .then((response) => {
         console.log(response.data);
+
+        let shopBody = {
+          _id: response.data._id,
+          name: response.data.name,
+        };
+
+        dispatchSetShop(shopBody);
       });
 
     if (user.email) {
@@ -75,8 +87,12 @@ const Header = ({ user, dispatchSetUser, dispatchSetShop, history, match }) => {
         <h1 className="header-left">
           <a href="/">Albalog</a>
         </h1>
+
+        <h3 className="header-middle">{shop.name}</h3>
         <div className="header-right">
-          <span className="user-name">{user.name}님 안녕하세요.</span>
+          <span className="user-name">
+            <b>{user.name}</b>님 안녕하세요.
+          </span>
           {user.role === 'owner' ? (
             <button className="btn-invite" onClick={handleModal}>
               직원초대+
@@ -98,7 +114,7 @@ const Header = ({ user, dispatchSetUser, dispatchSetShop, history, match }) => {
 function mapStateToProps(state) {
   // redux state로 부터 state를 component의 props로 전달해줌
   // store의 값이 여기 함수 state로 들어옴
-  return { user: state.user };
+  return { user: state.user, shop: state.shop };
 }
 
 function mapDispatchToProps(dispatch) {

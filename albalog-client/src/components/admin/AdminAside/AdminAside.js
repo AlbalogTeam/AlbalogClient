@@ -38,7 +38,7 @@ const AdminAside = () => {
 
       <h3>관리자 메뉴</h3>
       <ul className="menu">
-        <NavLink to={'/admin/'} exact>
+        <NavLink to={'/admin/'}>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
