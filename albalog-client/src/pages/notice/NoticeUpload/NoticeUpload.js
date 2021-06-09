@@ -3,8 +3,10 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import './NoticeUpload.scss';
 import axios from 'axios';
+import { APIURL } from 'config';
+import { connect } from 'react-redux';
 
-const NoticeUpload = () => {
+const NoticeUpload = ({ shop, user }) => {
   const [noticeContent, setNoticeContent] = useState({
     title: '',
     content: '',
@@ -25,15 +27,20 @@ const NoticeUpload = () => {
 
     let body = {
       title,
-      body: content,
+      content,
     };
+    console.log(`body: ${body}`);
+    console.log(`id : ${shop._id}`);
+    console.log(`token: ${user.token}`);
 
     axios
-      .post('https://jsonplaceholder.typicode.com/posts', body)
+      .post(`${APIURL}/location/${shop._id}/notice/create`, body, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
-        console.log('백앤드에 전송된 데이터');
-        console.log(`title : ${response.data.title}`);
-        console.log(`content: ${response.data.body}`);
+        console.log(response.data);
       });
   };
 
@@ -86,4 +93,8 @@ const NoticeUpload = () => {
   );
 };
 
-export default NoticeUpload;
+function mapStateToProps(state) {
+  return { shop: state.shop, user: state.user };
+}
+
+export default connect(mapStateToProps)(NoticeUpload);

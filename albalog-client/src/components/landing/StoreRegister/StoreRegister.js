@@ -79,6 +79,7 @@ const StoreRegister = ({
         let shopBody = {
           _id: response.data._id,
           name: response.data.name,
+          notices: response.data.notices,
         };
 
         dispatchSetShop(shopBody);

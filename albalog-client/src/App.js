@@ -27,23 +27,23 @@ const App = () => {
       <div id="main">
         <Switch>
           <Route path="/" exact component={Landing}></Route>
-          <Route path="/notice" exact>
+          <Route path="/:shop?/notice" exact>
             <Header />
-            <ParttimeAside />
+            <AdminAside />
             <NoticeList />
           </Route>
-          <Route path="/notice/upload" exact>
-            <ParttimeHeader />
-            <ParttimeAside />
+          <Route path="/:shop?/notice/upload">
+            <Header />
+            <AdminAside />
             <NoticeUpload />
           </Route>
-          <Route path="/notice/:id?" exact component={NoticeDetail}></Route>
+          <Route path="/:shop?/notice/:id?" component={NoticeDetail}></Route>
           <Route path="/notice/edit/:id?" exact component={NoticeEdit}></Route>
           <Route path="/workmanual/:category?" component={WorkManual} />
 
           <Route path="/transition" exact>
             <ParttimeHeader />
-            <ParttimeAside />
+            <AdminAside />
             <Transition />
           </Route>
           <Route path="/admin/:shop" exact>
