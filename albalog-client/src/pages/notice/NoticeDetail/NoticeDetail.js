@@ -1,34 +1,43 @@
 import axios from 'axios';
-import ParttimeAside from 'components/partTime/aside/ParttimeAside';
-import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
+import AdminAside from 'components/admin/AdminAside/AdminAside';
+import Header from 'components/Header/Header';
+import Loading from 'components/Loading/Loading';
+import { APIURL } from 'config';
+
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import './NoticeDetail.scss';
 
-const NoticeDetail = ({ match }) => {
-  const noticeId = Number(match.params.id);
+const NoticeDetail = ({ match, shop, user }) => {
+  const noticeId = match.params.id;
+
   const [noticeInfo, setNoticeInfo] = useState({
     title: '',
-    body: '',
+    content: '',
   });
 
-  const { title, body } = noticeInfo;
-  const noticeLength = localStorage.getItem('noticeLength'); // 게시물 길이
+  const { title, content } = noticeInfo;
+  const noticeLength = shop.notices.length; // 게시물 길이
   useEffect(() => {
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${noticeId}`)
+      .get(`${APIURL}/location/${shop._id}/notice/${noticeId}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
         console.log(response.data);
         setNoticeInfo({
           ...noticeInfo,
-          title: response.data.title,
-          body: response.data.body,
+          title: response.data.notice[0].title,
+          content: response.data.notice[0].content,
         });
       });
-  }, []);
+  }, [shop]);
   return (
     <>
-      <ParttimeHeader />
-      <ParttimeAside />
+      <Header />
+      <AdminAside />
       <div id="NoticeDetail" className="page-layout">
         <div className="tit">
           <h4 className="tit-corp">
@@ -40,7 +49,10 @@ const NoticeDetail = ({ match }) => {
             {title}
             <div className="tit-date">2021-05-19</div>
           </div>
-          <div className="content-cont">{body}</div>
+          <div
+            className="content-cont"
+            dangerouslySetInnerHTML={{ __html: content }}
+          ></div>
           <div className="content-btn">
             {noticeId > 1 ? (
               <a href={`/notice/${noticeId - 1}`} className="btn-move">
@@ -61,7 +73,10 @@ const NoticeDetail = ({ match }) => {
             <a href={`/notice`} className="btn-list">
               목록
             </a>
-            <a href={`/notice/edit/${noticeId}`} className="btn-list">
+            <a
+              href={`/${shop._id}/notice/edit/${noticeId}`}
+              className="btn-list"
+            >
               수정
             </a>
             <a href="" className="btn-list">
@@ -74,4 +89,8 @@ const NoticeDetail = ({ match }) => {
   );
 };
 
-export default NoticeDetail;
+function mapStateToProps(state) {
+  return { shop: state.shop, user: state.user };
+}
+
+export default connect(mapStateToProps)(NoticeDetail);

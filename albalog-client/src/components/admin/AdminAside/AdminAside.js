@@ -11,12 +11,13 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
 import './AdminAside.scss';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const AdminAside = () => {
+const AdminAside = ({ shop }) => {
   return (
     <aside className="aside-container">
       <ul className="menu">
-        <NavLink to={'/notice'} exact>
+        <NavLink to={`/${shop._id}/notice`}>
           <li className="menu-item">
             <AiOutlineNotification />
             <span>공지사항</span>
@@ -38,7 +39,7 @@ const AdminAside = () => {
 
       <h3>관리자 메뉴</h3>
       <ul className="menu">
-        <NavLink to={'/admin/'} exact>
+        <NavLink to={`/admin/${shop._id}`}>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
@@ -73,4 +74,8 @@ const AdminAside = () => {
   );
 };
 
-export default AdminAside;
+function mapStateToProps(state) {
+  return { shop: state.shop };
+}
+
+export default connect(mapStateToProps)(AdminAside);

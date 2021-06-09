@@ -16,14 +16,22 @@
     }
 
     input {
-      width: 100%;
-      height: 1.5rem;
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      color: #333;
+      line-height: 20px;
+      border-radius: 3px;
+      background: #fff;
+      outline: none;
+      vertical-align: top;
     }
 
-    button {
+    .btn {
       color: whitesmoke;
       border-radius: 4px;
-      height: 1.8rem;
+      height: 44px;
       width: 100%;
       padding: 0;
     }
@@ -33,7 +41,12 @@
     }
 
     .signUp {
-      background: #5f5f5f;
+      background: #fff;
+      line-height: 42px;
+      color: #2987c4;
+      font-weight: 500;
+      border: 1px solid #2987c4;
+      text-align: center;
     }
   }
 
@@ -46,6 +59,7 @@
     span {
       font-weight: bolder;
       font-size: 4rem;
+      margin-bottom: 20px;
     }
   }
 }
