@@ -26,7 +26,6 @@ const NoticeEdit = ({ match, shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setNoticeContent({
           ...noticeContent,
           title: response.data.notice[0].title,
