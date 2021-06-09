@@ -22,7 +22,7 @@ const NoticeList = ({ user, shop }) => {
     setGetNotices(shop.notices);
   }, [user, shop]);
 
-  localStorage.setItem('noticeLength', getNotices.length); // 게시물 길이 로컬에 저장
+
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
   const handlePageChange = (page) => {
     if (page >= pageCount) {

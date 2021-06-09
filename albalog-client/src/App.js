@@ -17,7 +17,6 @@ import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import Header from 'components/Header/Header';
 
@@ -32,17 +31,17 @@ const App = () => {
             <AdminAside />
             <NoticeList />
           </Route>
+          <Route path="/:shop?/notice/edit/:id?" component={NoticeEdit} />
           <Route path="/:shop?/notice/upload">
             <Header />
             <AdminAside />
             <NoticeUpload />
           </Route>
-          <Route path="/:shop?/notice/:id?" component={NoticeDetail}></Route>
-          <Route path="/notice/edit/:id?" exact component={NoticeEdit}></Route>
+          <Route path="/:shop?/notice/:id?" component={NoticeDetail} />
           <Route path="/workmanual/:category?" component={WorkManual} />
 
           <Route path="/transition" exact>
-            <ParttimeHeader />
+            <Header />
             <AdminAside />
             <Transition />
           </Route>
@@ -70,17 +69,17 @@ const App = () => {
           <Route path="/login" component={Login} exact></Route>
           <Route path="/signup" component={SignUp} exact></Route>
           <Route path="/parttimedashboard" exact>
-            <ParttimeHeader />
+            <Header />
             <ParttimeAside />
             <PartTimeDashboard />
           </Route>
           <Route path="/accountinfo" exact>
-            <ParttimeHeader />
+            <Header />
             <ParttimeAside />
             <AccountInfo />
           </Route>
           <Route path="/workingtime" exact>
-            <ParttimeHeader />
+            <Header />
             <ParttimeAside />
             <WorkingTime />
           </Route>

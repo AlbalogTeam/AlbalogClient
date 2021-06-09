@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Loading from 'components/Loading/Loading';
 import InviteModal from 'components/Modal/InviteModal';
 import { APIURL } from 'config';
 import shop, { SetShop } from 'modules/shop';
@@ -82,8 +83,10 @@ const Header = ({
       history.push('/login');
     }
   }, [history, user]);
+
   return (
     <>
+      {!shop.name && <Loading />}
       <header className="header">
         <h1 className="header-left">
           <a href="/">Albalog</a>

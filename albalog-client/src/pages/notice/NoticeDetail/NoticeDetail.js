@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AdminAside from 'components/admin/AdminAside/AdminAside';
 import Header from 'components/Header/Header';
+import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
 
 import React, { useEffect, useState } from 'react';
@@ -16,7 +17,7 @@ const NoticeDetail = ({ match, shop, user }) => {
   });
 
   const { title, content } = noticeInfo;
-  const noticeLength = localStorage.getItem('noticeLength'); // 게시물 길이
+  const noticeLength = shop.notices.length; // 게시물 길이
   useEffect(() => {
     axios
       .get(`${APIURL}/location/${shop._id}/notice/${noticeId}`, {
@@ -72,7 +73,10 @@ const NoticeDetail = ({ match, shop, user }) => {
             <a href={`/notice`} className="btn-list">
               목록
             </a>
-            <a href={`/notice/edit/${noticeId}`} className="btn-list">
+            <a
+              href={`/${shop._id}/notice/edit/${noticeId}`}
+              className="btn-list"
+            >
               수정
             </a>
             <a href="" className="btn-list">
