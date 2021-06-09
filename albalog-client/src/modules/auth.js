@@ -21,7 +21,6 @@ const auth = createSlice({
   reducers: {
     ChangeField: (state, action) => {
       const { form, key, value } = action.payload;
-      console.log(action.payload);
       state[form][key] = value;
     },
   },

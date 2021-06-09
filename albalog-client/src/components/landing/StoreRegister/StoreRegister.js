@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
-import { APIURL } from 'CONST';
+import { APIURL } from 'config';
 import { connect } from 'react-redux';
 import { SetShop } from 'modules/shop';
 

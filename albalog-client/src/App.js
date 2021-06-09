@@ -1,10 +1,8 @@
 import AdminAside from 'components/admin/AdminAside/AdminAside';
-import AdminHeader from 'components/Header/Header';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
 import AdminPayrollPage from 'pages/admin/AdminPayrollPage';
-// import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 import NoticeList from 'pages/notice/NoticeList/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
@@ -21,6 +19,7 @@ import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import Header from 'components/Header/Header';
 
 const App = () => {
   return (
@@ -29,7 +28,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Landing}></Route>
           <Route path="/notice" exact>
-            <ParttimeHeader />
+            <Header />
             <ParttimeAside />
             <NoticeList />
           </Route>
@@ -47,23 +46,23 @@ const App = () => {
             <ParttimeAside />
             <Transition />
           </Route>
-          <Route path="/admin" exact>
-            <AdminHeader />
+          <Route path="/admin/:shop" exact>
+            <Header />
             <AdminAside />
             <AdminDashboardPage />
           </Route>
           <Route path="/admin/info">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminInfoPage />
           </Route>
           <Route path="/admin/payroll">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminPayrollPage />
           </Route>
           <Route path="/admin/employeelist">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminEmployeePage />
           </Route>

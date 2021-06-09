@@ -1,12 +1,14 @@
 import axios from 'axios';
 import InviteModal from 'components/Modal/InviteModal';
+import { APIURL } from 'config';
+import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 
-const Header = ({ user, dispatchSetUser, history }) => {
+const Header = ({ user, dispatchSetUser, dispatchSetShop, history, match }) => {
   const [isModal, setIsModal] = useState(false);
 
   const handleModal = () => {
@@ -35,7 +37,7 @@ const Header = ({ user, dispatchSetUser, history }) => {
           role: '',
           token: '',
         };
-        dispatchSetUser(UserBody);
+        dispatchSetUser(UserBody); // user redux를 초기값으로 설정
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
@@ -46,6 +48,20 @@ const Header = ({ user, dispatchSetUser, history }) => {
   };
 
   useEffect(() => {
+    const shopId = match.params.shop;
+    let body = {
+      username: 'ksmfou98',
+    };
+    axios
+      .get(`${APIURL}/location/${shopId}`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+
     if (user.email) {
       console.log('유저가 있습니다');
     } else {
@@ -88,6 +104,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
+    dispatchSetShop: (ShopBody) => dispatch(SetShop(ShopBody)),
   };
 }
 

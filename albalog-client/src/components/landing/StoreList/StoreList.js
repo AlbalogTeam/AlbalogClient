@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { APIURL } from 'CONST';
+import { APIURL } from 'config';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './StoreList.scss';
@@ -29,7 +29,7 @@ const StoreList = ({ user }) => {
               <a className="btn" href="/">
                 수정
               </a>
-              <a className="btn" href="/">
+              <a className="btn" href={`/admin/${location._id}`}>
                 입장
               </a>
             </div>
