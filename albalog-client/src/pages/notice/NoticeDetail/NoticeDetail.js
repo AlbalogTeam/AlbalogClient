@@ -51,6 +51,7 @@ const NoticeDetail = ({ match, shop, user }) => {
       <Header />
       <AdminAside />
       <div id="NoticeDetail" className="page-layout">
+        {!title && <Loading />}
         <div className="tit">
           <h4 className="tit-corp">
             <a href="/notice">공지사항</a>

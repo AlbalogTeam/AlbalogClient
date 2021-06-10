@@ -86,7 +86,7 @@ const Header = ({
 
   return (
     <>
-      {!shop.name && <Loading />}
+     
       <header className="header">
         <h1 className="header-left">
           <a href="/">Albalog</a>

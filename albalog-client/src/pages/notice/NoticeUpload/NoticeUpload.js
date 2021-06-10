@@ -5,8 +5,9 @@ import './NoticeUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
-const NoticeUpload = ({ shop, user }) => {
+const NoticeUpload = ({ shop, user, history }) => {
   const [noticeContent, setNoticeContent] = useState({
     title: '',
     content: '',
@@ -40,7 +41,10 @@ const NoticeUpload = ({ shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        if (response.data.message) {
+          window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
+        }
       });
   };
 
@@ -97,4 +101,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeUpload);
+export default withRouter(connect(mapStateToProps)(NoticeUpload));
