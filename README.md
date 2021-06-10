@@ -1,4 +1,4 @@
-# Albalog   
+# <div align="center">Albalog</div>    
 
 ### <div align="center">사장님과 알바생의 편한 업무 관리를 위한 웹앱</div>  
   
@@ -52,37 +52,31 @@
   
 
 ### Front-End  
-  
 
 - React  
-  
-
-- Redux  
-  
-
+- Redux   
 - Redux-toolkit  
-  
-
 - SCSS  
-  
-
 - ckeditor5  
   
-
 ### Back-End  
   
-
 - Nodejs  
-  
-
 - Expressjs  
-  
-
 - mongoDB  
-  
-
 - mongoose  
   
-
 <br/>  
+
+
+
+## 파트 소개     
+| 이름  |  메인 역할  |
+|:----:|:-------:|
+| [서우리](https://github.com/Alexis1226) | `프론트엔드` |
+| [이도현](https://github.com/ksmfou98) | `프론트엔드` |
+| [윤영훈](https://github.com/yoonyounghoon) | `프론트엔드` |
+| [정원석](https://github.com/Dseok12) | `백엔드` |
+| [김동완](https://github.com/dongwandonkim)  | `백엔드` |
+| [김태희](https://github.com/godtaehee)  | `백엔드` |  
 
