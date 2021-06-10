@@ -48,3 +48,41 @@
 
 <br/>  
 
+## 개발 스택  
+  
+
+### Front-End  
+  
+
+- React  
+  
+
+- Redux  
+  
+
+- Redux-toolkit  
+  
+
+- SCSS  
+  
+
+- ckeditor5  
+  
+
+### Back-End  
+  
+
+- Nodejs  
+  
+
+- Expressjs  
+  
+
+- mongoDB  
+  
+
+- mongoose  
+  
+
+<br/>  
+
