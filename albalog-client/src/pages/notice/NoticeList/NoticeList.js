@@ -6,6 +6,7 @@ import Pagination from 'components/notice/Pagination';
 import { paginate } from 'utils/paginate';
 import { connect } from 'react-redux';
 import { APIURL } from 'config';
+import { Link } from 'react-router-dom';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -21,7 +22,6 @@ const NoticeList = ({ user, shop }) => {
   useEffect(() => {
     setGetNotices(shop.notices);
   }, [user, shop]);
-
 
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
   const handlePageChange = (page) => {
@@ -79,12 +79,12 @@ const NoticeList = ({ user, shop }) => {
                   <td className="td-left">
                     <div className="inner-cont">
                       <span className="inner-text">
-                        <a
-                          href={`/${shop._id}/notice/${notice._id}`}
+                        <Link
+                          to={`/${shop._id}/notice/${notice._id}`}
                           className="link-text"
                         >
                           {notice.title}
-                        </a>
+                        </Link>
                       </span>
                     </div>
                   </td>

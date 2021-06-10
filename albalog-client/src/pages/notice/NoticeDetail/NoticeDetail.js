@@ -3,9 +3,11 @@ import AdminAside from 'components/admin/AdminAside/AdminAside';
 import Header from 'components/Header/Header';
 import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
+import useConfirm from 'hooks/useConfirm';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './NoticeDetail.scss';
 
 const NoticeDetail = ({ match, shop, user }) => {
@@ -35,6 +37,8 @@ const NoticeDetail = ({ match, shop, user }) => {
       });
   }, [shop]);
 
+  const cancelConfirm = () => console.log('취소했습니다.');
+
   const noticeDelete = () => {
     axios
       .delete(`${APIURL}/location/${shop._id}/notice/${noticeId}/delete`, {
@@ -44,8 +48,17 @@ const NoticeDetail = ({ match, shop, user }) => {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.deletedNotice) {
+          window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
+        }
       });
   };
+
+  const confirmDelete = useConfirm(
+    '삭제하시겠습니까?',
+    noticeDelete, // 확인 버튼 눌렀을 때 일어나는 함수
+    cancelConfirm, // 취소 버튼 눌렀을 때 일어나는 함수
+  );
   return (
     <>
       <Header />
@@ -86,13 +99,13 @@ const NoticeDetail = ({ match, shop, user }) => {
             <a href={`/notice`} className="btn-list">
               목록
             </a>
-            <a
-              href={`/${shop._id}/notice/edit/${noticeId}`}
+            <Link
+              to={`/${shop._id}/notice/edit/${noticeId}`}
               className="btn-list"
             >
               수정
-            </a>
-            <button onClick={noticeDelete} className="btn-list">
+            </Link>
+            <button onClick={confirmDelete} className="btn-list">
               삭제
             </button>
           </div>
