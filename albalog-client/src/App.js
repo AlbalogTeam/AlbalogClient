@@ -22,7 +22,7 @@ import WorkingTime from 'pages/partTime/WorkingTime';
 import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import React from 'react';
-import ParttimeScheduler from 'pages/partTime/ParttimeScheduler';
+import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 
 const App = () => {
   return (

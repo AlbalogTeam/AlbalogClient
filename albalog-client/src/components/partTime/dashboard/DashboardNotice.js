@@ -16,6 +16,7 @@ function DashboardNotice() {
     //       setSamples(data);
     //     });
     // }, []);
+    const locationId = '60bc87746f9dca0028ea46ea';
 
     const fetchSamples = async () => {
       try {
@@ -23,7 +24,13 @@ function DashboardNotice() {
         // setSamples(null);
         setLoading(true);
         let response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
+          `https://albalog-test.herokuapp.com/api/v1//location/${locationId}/notice`,
+          {
+            headers: {
+              Authorization:
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJjODcyZTZmOWRjYTAwMjhlYTQ2ZTgiLCJyb2xlIjoib3duZXIiLCJzdG9yZXMiOlt7Il9pZCI6IjYwYmM4Nzc0NmY5ZGNhMDAyOGVhNDZlYiIsImxvY2F0aW9uIjoiNjBiYzg3NzQ2ZjlkY2EwMDI4ZWE0NmVhIn1dLCJpYXQiOjE2MjI5NzAyOTB9.1mkK52NkABTnIiAs1Ys1X5qmNf4CRK23jX7L4D-xAjo',
+            },
+          },
         );
         console.log(response.data);
         setSamples(response.data);

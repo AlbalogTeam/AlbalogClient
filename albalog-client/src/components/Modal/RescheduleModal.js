@@ -5,7 +5,7 @@ const RescheduleModal = ({ handleModal }) => {
   return (
     <div className="modal-container">
       <div className="modal-wrap">
-        <h2>직원정보</h2>
+        <h2>스케줄 변경 신청</h2>
         <p>이름</p>
         <p>이메일</p>
         <p>생년월일</p>
