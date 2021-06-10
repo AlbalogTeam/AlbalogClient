@@ -48,6 +48,24 @@
 
 <br/>  
 
+## UI/UX 
+  완성되면 업로드😂😂😂
+<br /> 
+
+
+## DataBase  
+  
+
+<img src="https://user-images.githubusercontent.com/64634992/121452799-05f69900-c9db-11eb-9cc1-a8b569f6d539.png" align="left" height="450" width="1100" />    
+  
+📕📕
+<br/>      
+
+
+## API DOCS
+  완성되면 업로드😂😂😂
+<br /> 
+
 ## 개발 스택  
   
 
