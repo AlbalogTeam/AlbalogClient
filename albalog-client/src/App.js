@@ -38,7 +38,7 @@ const App = () => {
             <NoticeUpload />
           </Route>
           <Route path="/:shop?/notice/:id?" component={NoticeDetail} />
-          <Route path="/workmanual/:category?" component={WorkManual} />
+          <Route path="/:shop?/workmanual/:category?" component={WorkManual} />
 
           <Route path="/transition" exact>
             <Header />

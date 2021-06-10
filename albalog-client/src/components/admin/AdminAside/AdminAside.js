@@ -23,7 +23,7 @@ const AdminAside = ({ shop }) => {
             <span>공지사항</span>
           </li>
         </NavLink>
-        <NavLink to={'/workmanual/'}>
+        <NavLink to={`/${shop._id}/workmanual/`}>
           <li className="menu-item">
             <AiOutlineSolution />
             <span>업무 메뉴얼</span>
