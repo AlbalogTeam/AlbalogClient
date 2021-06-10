@@ -95,7 +95,7 @@
 | [서우리](https://github.com/Alexis1226) | `프론트엔드` |
 | [이도현](https://github.com/ksmfou98) | `프론트엔드` |
 | [윤영훈](https://github.com/yoonyounghoon) | `프론트엔드` |
-| [정원석](https://github.com/Dseok12) | `백엔드` |
+| [정원석](https://github.com/Dseok12) | `프론트엔드` |
 | [김동완](https://github.com/dongwandonkim)  | `백엔드` |
 | [김태희](https://github.com/godtaehee)  | `백엔드` |  
 
