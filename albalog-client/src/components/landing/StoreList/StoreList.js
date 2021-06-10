@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';

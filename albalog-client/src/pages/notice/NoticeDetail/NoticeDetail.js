@@ -34,6 +34,18 @@ const NoticeDetail = ({ match, shop, user }) => {
         });
       });
   }, [shop]);
+
+  const noticeDelete = () => {
+    axios
+      .delete(`${APIURL}/location/${shop._id}/notice/${noticeId}/delete`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
   return (
     <>
       <Header />
@@ -79,9 +91,9 @@ const NoticeDetail = ({ match, shop, user }) => {
             >
               수정
             </a>
-            <a href="" className="btn-list">
+            <button onClick={noticeDelete} className="btn-list">
               삭제
-            </a>
+            </button>
           </div>
         </div>
       </div>
