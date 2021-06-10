@@ -1,16 +1,68 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useCallback, useState } from 'react';
+import { APIURL } from 'config.js';
 import './Modal.scss';
+import { useSelector } from 'react-redux';
 
 const InviteModal = ({ handleModal }) => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+  });
+
+  const { name, email } = form;
+
+  const locationId = useSelector(({ shop }) => shop._id);
+  const token = useSelector(({ user }) => user.token);
+
+  const onChange = useCallback((e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }, []);
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+
+    const postForm = async () => {
+      try {
+        await axios.post(
+          `${APIURL}/location/${locationId}/invite`,
+          {
+            name,
+            email,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        alert('메일 전송 성공 !');
+      } catch (e) {
+        console.log(e);
+        alert('메일 전송을 실패하였습니다.');
+      }
+    };
+
+    postForm();
+
+    setForm({
+      name: '',
+      email: '',
+    });
+  }, []);
+
   return (
     <div className="modal-container">
       <div className="modal-wrap">
         <h1 className="invite-title">직원초대</h1>
-        <form>
+        <form onSubmit={onSubmit}>
           <label>이름</label>
-          <input type="text" />
+          <input type="text" name="name" value={name} onChange={onChange} />
           <label>이메일 주소</label>
-          <input type="text" />
+          <input type="text" name="email" value={email} onChange={onChange} />
           <button className="btn-invite">초대하기</button>
           <button className="btn-close" onClick={handleModal}>
             닫기

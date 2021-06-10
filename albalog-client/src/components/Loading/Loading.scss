@@ -1,0 +1,17 @@
+.loading {
+  position: fixed;
+  z-index: 9998;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  svg {
+    position: fixed;
+    z-index: 10000;
+    top: 42%;
+    left: 50%;
+    color: #fff;
+  }
+}

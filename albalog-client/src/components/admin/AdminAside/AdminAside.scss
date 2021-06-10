@@ -1,6 +1,6 @@
 .aside-container {
   position: fixed;
-  width: 15%;
+  width: 250px;
   height: 100%;
   border-right: 1px solid #dbdbdb;
   padding: 0.5rem 1.5rem;
@@ -11,14 +11,21 @@
   }
   .menu {
     padding: 3rem 0;
+    .active {
+      .menu-item {
+        background-color: rgb(234, 240, 244);
+        color: rgb(18, 113, 175);
+      }
+    }
     .menu-item {
       display: flex;
       align-items: center;
       padding: 1rem;
       font-weight: 500;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
+      border-radius: 10px;
       &:hover {
-        background-color: #fafafa;
+        background-color: rgb(234, 240, 244);
         border-radius: 4px;
       }
     }

@@ -4,8 +4,11 @@ import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/notice/Pagination';
 import { paginate } from 'utils/paginate';
+import { connect } from 'react-redux';
+import { APIURL } from 'config';
+import { Link } from 'react-router-dom';
 
-const NoticeList = () => {
+const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
   const [noticeInfo, setNoticeInfo] = useState({
     pageSize: 10, // 한 페이지에 보여줄 공지사항 게시물 수
@@ -16,16 +19,10 @@ const NoticeList = () => {
 
   // utils 함수에 있는 paginate로 화면에 보여줘야할 컨텐츠 개수의 배열을 가져옴
   const pagedNotices = paginate(getNotices, currentPage, pageSize);
-
-  // https://jsonplaceholder.typicode.com/ fake 데이터 사용
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
-      console.log(response.data);
-      setGetNotices(response.data);
-    });
-  }, []);
+    setGetNotices(shop.notices);
+  }, [user, shop]);
 
-  localStorage.setItem('noticeLength', getNotices.length); // 게시물 길이 로컬에 저장
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
   const handlePageChange = (page) => {
     if (page >= pageCount) {
@@ -45,7 +42,7 @@ const NoticeList = () => {
       <div className="tit">
         <h4 className="tit-corp">공지사항</h4>
         <div className="upload">
-          <a href="/notice/upload">작성</a>
+          <a href={`/${shop._id}/notice/upload`}>작성</a>
         </div>
       </div>
       <div className="cont">
@@ -67,8 +64,8 @@ const NoticeList = () => {
         <div className="table-comm">
           <table className="table">
             <colgroup>
-              <col className="left"  />
-              <col className="right"  />
+              <col className="left" />
+              <col className="right" />
             </colgroup>
             <thead>
               <tr>
@@ -82,9 +79,12 @@ const NoticeList = () => {
                   <td className="td-left">
                     <div className="inner-cont">
                       <span className="inner-text">
-                        <a href={`/notice/${notice.id}`} className="link-text">
+                        <Link
+                          to={`/${shop._id}/notice/${notice._id}`}
+                          className="link-text"
+                        >
                           {notice.title}
-                        </a>
+                        </Link>
                       </span>
                     </div>
                   </td>
@@ -109,4 +109,8 @@ const NoticeList = () => {
   );
 };
 
-export default NoticeList;
+function mapStateToProps(state) {
+  return { shop: state.shop, user: state.user };
+}
+
+export default connect(mapStateToProps)(NoticeList);

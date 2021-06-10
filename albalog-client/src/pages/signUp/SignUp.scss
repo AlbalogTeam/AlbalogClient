@@ -1,0 +1,71 @@
+#signup {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  .signUpLeft {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+
+    * {
+      height: 1.5rem;
+    }
+
+    h1 {
+      margin-bottom: 4rem;
+    }
+
+    .signup-form {
+      display: flex;
+      justify-self: flex-start;
+      align-items: center;
+      margin-top: 1rem;
+      margin-bottom: 20px;
+      span {
+        width: 120px;
+      }
+      input {
+        height: 44px;
+        padding: 0 14px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        color: #333;
+        line-height: 20px;
+        border-radius: 3px;
+        background: #fff;
+        outline: none;
+        vertical-align: top;
+      }
+    }
+
+    .error {
+      font-size: 12px;
+      color: #b3130b;
+      margin-left: 120px;
+      line-height: 18px;
+      word-break: break-all;
+    }
+
+    .error::before {
+      content: '\2715';
+      display: inline-block;
+      padding-right: 3px;
+      font-size: 12px;
+      vertical-align: 0;
+    }
+
+    .form-submit {
+      background: #389bdc;
+      color: whitesmoke;
+      border-radius: 4px;
+      height: 44px;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0;
+    }
+  }
+}

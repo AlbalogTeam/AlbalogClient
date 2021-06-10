@@ -1,0 +1,80 @@
+#workingtime {
+  height: 100%;
+  width: 100%;
+  padding: 90px 35px 20px 300px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .workingtime-container {
+    h2 {
+      justify-items: left;
+    }
+    height: 100%;
+    width: 1100px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    .table {
+      height: 70%;
+      width: 100%;
+      margin: 47px 0;
+      background: white;
+      border-radius: 10px;
+
+      .date-line {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45px;
+      }
+
+      .head-line {
+        height: 35px;
+        display: flex;
+        background: #f4f2f2;
+        border-style: hidden;
+      }
+
+      .total-line {
+        height: 35px;
+        display: flex;
+        background: white;
+        border-style: hidden;
+        border-top: 2px solid rgb(189, 186, 186);
+
+        // .day-column,
+        // .clockIn-column,
+        // .clockOut-column,
+        // .workingtime-column {
+        //   border-left: 2px solid rgba(189, 186, 186, 0.5);
+        // }
+      }
+
+      .date-column,
+      .day-column,
+      .clockIn-column,
+      .clockOut-column,
+      .workingtime-column {
+        display: flex;
+        height: 100%;
+        width: 20%;
+        justify-content: center;
+        align-items: center;
+        border-style: hidden;
+      }
+    }
+
+    .remark-line {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.8rem;
+      svg {
+        width: 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+}

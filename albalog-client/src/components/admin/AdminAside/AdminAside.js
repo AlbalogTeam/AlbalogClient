@@ -6,63 +6,76 @@ import {
   AiOutlineSwap,
   AiOutlineSolution,
 } from 'react-icons/ai';
+import { RiDashboardLine } from 'react-icons/ri';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
-import { RiDashboardLine } from 'react-icons/ri';
 import './AdminAside.scss';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const AdminAside = () => {
+const AdminAside = ({ shop }) => {
   return (
     <aside className="aside-container">
       <ul className="menu">
-        <li className="menu-item">
-          <AiOutlineNotification />
-          <span>공지사항</span>
-        </li>
-        <li className="menu-item">
-          <AiOutlineSolution />
-          <span>업무 메뉴얼</span>
-        </li>
-        <li className="menu-item">
-          <AiOutlineSwap />
-          <span>인수 인계 사항</span>
-        </li>
+        <NavLink to={`/${shop._id}/notice`}>
+          <li className="menu-item">
+            <AiOutlineNotification />
+            <span>공지사항</span>
+          </li>
+        </NavLink>
+        <NavLink to={'/workmanual/'}>
+          <li className="menu-item">
+            <AiOutlineSolution />
+            <span>업무 메뉴얼</span>
+          </li>
+        </NavLink>
+        <NavLink to={'/transition'} exact>
+          <li className="menu-item">
+            <AiOutlineSwap />
+            <span>인수 인계 사항</span>
+          </li>
+        </NavLink>
       </ul>
+
       <h3>관리자 메뉴</h3>
       <ul className="menu">
-        <a href="/admin/">
+        <NavLink to={`/admin/${shop._id}`}>
           <li className="menu-item">
             <RiDashboardLine />
             <span>대시 보드</span>
           </li>
-        </a>
-        <a href="/admin/employeelist">
+        </NavLink>
+        <NavLink to={'/admin/employeelist'} exact>
           <li className="menu-item">
             <HiOutlineUsers />
             <span>직원 관리</span>
           </li>
-        </a>
-        <a href="/admin/schedule">
+        </NavLink>
+        <NavLink to={'/admin/schedule'} exact>
           <li className="menu-item">
             <AiOutlineSchedule />
             <span>스케줄 관리</span>
           </li>
-        </a>
-        <a href="/admin/payroll">
+        </NavLink>
+        <NavLink to={'/admin/payroll'} exact>
           <li className="menu-item">
             <BiDollar />
             <span>급여관리</span>
           </li>
-        </a>
-        <a href="/admin/info">
+        </NavLink>
+        <NavLink to={'/admin/info'} exact>
           <li className="menu-item">
             <IoSettingsOutline />
             <span>계정 정보</span>
           </li>
-        </a>
+        </NavLink>
       </ul>
     </aside>
   );
 };
 
-export default AdminAside;
+function mapStateToProps(state) {
+  return { shop: state.shop };
+}
+
+export default connect(mapStateToProps)(AdminAside);

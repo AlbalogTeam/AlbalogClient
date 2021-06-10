@@ -1,44 +1,88 @@
 import AdminAside from 'components/admin/AdminAside/AdminAside';
-import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
-import AdminInfo from 'components/admin/AdminInfo/AdminInfo';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
 import AdminPayrollPage from 'pages/admin/AdminPayrollPage';
-import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 import NoticeList from 'pages/notice/NoticeList/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
 import WorkManual from 'pages/workManual/WorkManual';
 import Transition from 'pages/transition/Transition';
 import Landing from 'pages/landing/Landing';
-import AdminAside from 'components/admin/AdminAside/AdminAside';
+import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
+import Login from 'pages/login/Login';
+import SignUp from 'pages/signUp/SignUp';
+import AccountInfo from 'pages/partTime/AccountInfo';
+import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import Header from 'components/Header/Header';
 
 const App = () => {
   return (
     <div id="container">
-      <AdminHeader />
-      <AdminAside />
       <div id="main">
         <Switch>
-          <Route path="/" exact component={Landing} />
-          <Route path="/notice" exact component={NoticeList} />
-          <Route path="/notice/upload" exact component={NoticeUpload} />
-          <Route path="/notice/:id?" exact component={NoticeDetail} />
-          <Route path="/notice/edit/:id?" exact component={NoticeEdit} />
-          <Route path="/workmanual/:category?" exact component={WorkManual} />
-          <Route path="/transition" exact component={Transition} />
-          <Route path="/admin" exact component={AdminDashboardPage} />
-         <Route path="/admin/info" component={AdminInfoPage} />
-         <Route path="/admin/payroll" component={AdminPayrollPage} />
-         <Route path="/admin/employeelist" component={AdminEmployeePage} />
-         <Route path="/admin/schedule" component={AdminSchedulePage} />
+          <Route path="/" exact component={Landing}></Route>
+          <Route path="/:shop?/notice" exact>
+            <Header />
+            <AdminAside />
+            <NoticeList />
+          </Route>
+          <Route path="/:shop?/notice/edit/:id?" component={NoticeEdit} />
+          <Route path="/:shop?/notice/upload">
+            <Header />
+            <AdminAside />
+            <NoticeUpload />
+          </Route>
+          <Route path="/:shop?/notice/:id?" component={NoticeDetail} />
+          <Route path="/workmanual/:category?" component={WorkManual} />
+
+          <Route path="/transition" exact>
+            <Header />
+            <AdminAside />
+            <Transition />
+          </Route>
+          <Route path="/admin/:shop" exact>
+            <Header />
+            <AdminAside />
+            <AdminDashboardPage />
+          </Route>
+          <Route path="/admin/info">
+            <Header />
+            <AdminAside />
+            <AdminInfoPage />
+          </Route>
+          <Route path="/admin/payroll">
+            <Header />
+            <AdminAside />
+            <AdminPayrollPage />
+          </Route>
+          <Route path="/admin/employeelist">
+            <Header />
+            <AdminAside />
+            <AdminEmployeePage />
+          </Route>
+          {/* <Route path="/admin/schedule" component={AdminSchedulePage} /> */}
+          <Route path="/login" component={Login} exact></Route>
+          <Route path="/signup" component={SignUp} exact></Route>
+          <Route path="/parttimedashboard" exact>
+            <Header />
+            <ParttimeAside />
+            <PartTimeDashboard />
+          </Route>
+          <Route path="/accountinfo" exact>
+            <Header />
+            <ParttimeAside />
+            <AccountInfo />
+          </Route>
+          <Route path="/workingtime" exact>
+            <Header />
+            <ParttimeAside />
+            <WorkingTime />
+          </Route>
         </Switch>
       </div>
     </div>

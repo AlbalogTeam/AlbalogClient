@@ -10,7 +10,7 @@ import {
 const Pagination = ({ pageCount, currentPage, onPageChange }) => {
   //   const pageCount = Math.ceil(contentCount / pageSize); // 몇 페이지가 필요한지 계산
 
-  if (pageCount === 1) return null; // 페이지가 1개뿐이면 페이지 수를 보여주지 않음
+  if (pageCount === 0) return null; // 페이지가 1개뿐이면 페이지 수를 보여주지 않음
 
   const pages = _.range(1, pageCount + 1); // 마지막 페이지에 보여줄 컨텐츠를 위해 +1을 해줌 https://lodash.com/docs/#range 참고
   return (
