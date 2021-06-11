@@ -10,7 +10,7 @@ const Authentication = (Component, option, adminRoute = null) => {
 
   /** 매개변수 adminRoute 의 종류
    * true -> 관리자만 접근 가능
-   * false -> 직원만 접근 가능
+   * staff -> 직원만 접근 가능
    * null -> 아무나 접근 가능
    */
 
@@ -26,7 +26,7 @@ const Authentication = (Component, option, adminRoute = null) => {
       } else {
         // 로그인 한 상태
         // 직원체크
-        if (!adminRoute && user.role !== 'staff') {
+        if (adminRoute === 'staff' && user.role !== 'staff') {
           alert('직원만 접근 가능합니다');
           props.history.push('/');
         } else {

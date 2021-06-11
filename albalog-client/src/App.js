@@ -23,7 +23,7 @@ const App = () => {
   // Authentication(a, b, c)
   // a : 컴포넌트
   // b : true-> 로그인한 유저만 접근가능 false-> 로그인한 유저는 출입이 불가능 null -> 아무나 출입이 가능
-  // c : null -> 아무나 접근가능 true -> 관리자만 접근 가능 false -> 직원만 접근가능
+  // c : null -> 아무나 접근가능 true -> 관리자만 접근 가능 staff -> 직원만 접근가능
   return (
     <div id="container">
       <div id="main">
@@ -81,17 +81,17 @@ const App = () => {
           <Route
             path="/parttime/:shop?"
             exact
-            component={Authentication(PartTimeDashboard, true, false)}
+            component={Authentication(PartTimeDashboard, true, "staff")}
           />
           <Route
             path="/parttime/:shop?/accountinfo"
             exact
-            component={Authentication(AccountInfo, true, false)}
+            component={Authentication(AccountInfo, true, "staff")}
           />
           <Route
             path="/parttime/:shop?/workingtime"
             exact
-            component={Authentication(WorkingTime, true, false)}
+            component={Authentication(WorkingTime, true, "staff")}
           />
         </Switch>
       </div>
