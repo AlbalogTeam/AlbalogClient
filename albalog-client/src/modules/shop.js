@@ -4,6 +4,10 @@ const initialState = {
   _id: '',
   name: '',
   notices: [],
+  workManuals: [],
+  address: '',
+  phone_number: '',
+  postal_code: '',
 };
 
 const shop = createSlice({
@@ -13,10 +17,22 @@ const shop = createSlice({
   reducers: {
     SetShop: (state, action) => {
       console.log(`shop-payload : ${action.payload}`);
-      const { _id, name, notices } = action.payload;
+      const {
+        _id,
+        name,
+        notices,
+        workManuals,
+        address,
+        phone_number,
+        postal_code,
+      } = action.payload;
       state._id = _id;
       state.name = name;
       state.notices = notices;
+      state.workManuals = workManuals;
+      state.address = address;
+      state.phone_number = phone_number;
+      state.postal_code = postal_code;
     },
   },
 });

@@ -5,8 +5,11 @@ import './NoticeUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import Header from 'components/Header/Header';
+import Aside from 'components/Aside/Aside';
 
-const NoticeUpload = ({ shop, user }) => {
+const NoticeUpload = ({ shop, user, history }) => {
   const [noticeContent, setNoticeContent] = useState({
     title: '',
     content: '',
@@ -40,56 +43,63 @@ const NoticeUpload = ({ shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        if (response.data.message) {
+          window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
+        }
       });
   };
 
   return (
-    <div id="NoticeUpload">
-      <div className="upload-form">
-        <form action="" onSubmit={noticeOnSubmit}>
-          <input
-            type="text"
-            value={title}
-            onChange={titleOnChange}
-            placeholder="제목을 입력하세요"
-          />
-          <div className="write-cont">
-            <CKEditor
-              onReady={(editor) => {
-                console.log('Editor is ready to use!', editor);
-                editor.ui
-                  .getEditableElement()
-                  .parentElement.insertBefore(
-                    editor.ui.view.toolbar.element,
-                    editor.ui.getEditableElement(),
-                  );
-
-                editor = editor;
-              }}
-              onError={({ willEditorRestart }) => {
-                if (willEditorRestart) {
-                  this.editor.ui.view.toolbar.element.remove();
-                }
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                // console.log({ event, editor, data });
-                const nextForm = {
-                  ...noticeContent,
-                  content: data,
-                };
-                setNoticeContent(nextForm);
-              }}
-              editor={DecoupledEditor}
-              data=""
+    <>
+      <Header />
+      <Aside />
+      <div id="NoticeUpload">
+        <div className="upload-form">
+          <form action="" onSubmit={noticeOnSubmit}>
+            <input
+              type="text"
+              value={title}
+              onChange={titleOnChange}
+              placeholder="제목을 입력하세요"
             />
-          </div>
+            <div className="write-cont">
+              <CKEditor
+                onReady={(editor) => {
+                  console.log('Editor is ready to use!', editor);
+                  editor.ui
+                    .getEditableElement()
+                    .parentElement.insertBefore(
+                      editor.ui.view.toolbar.element,
+                      editor.ui.getEditableElement(),
+                    );
 
-          <button type="submit">등록하기</button>
-        </form>
+                  editor = editor;
+                }}
+                onError={({ willEditorRestart }) => {
+                  if (willEditorRestart) {
+                    this.editor.ui.view.toolbar.element.remove();
+                  }
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  // console.log({ event, editor, data });
+                  const nextForm = {
+                    ...noticeContent,
+                    content: data,
+                  };
+                  setNoticeContent(nextForm);
+                }}
+                editor={DecoupledEditor}
+                data=""
+              />
+            </div>
+
+            <button type="submit">등록하기</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -97,4 +107,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeUpload);
+export default withRouter(connect(mapStateToProps)(NoticeUpload));

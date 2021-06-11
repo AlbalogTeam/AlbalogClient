@@ -1,4 +1,3 @@
-import AdminAside from 'components/admin/AdminAside/AdminAside';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
@@ -17,72 +16,83 @@ import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import Header from 'components/Header/Header';
+import Authentication from 'utils/authentication';
 
 const App = () => {
+  // Authentication(a, b, c)
+  // a : 컴포넌트
+  // b : true-> 로그인한 유저만 접근가능 false-> 로그인한 유저는 출입이 불가능 null -> 아무나 출입이 가능
+  // c : null -> 아무나 접근가능 true -> 관리자만 접근 가능 staff -> 직원만 접근가능
   return (
     <div id="container">
       <div id="main">
         <Switch>
-          <Route path="/" exact component={Landing}></Route>
-          <Route path="/:shop?/notice" exact>
-            <Header />
-            <AdminAside />
-            <NoticeList />
-          </Route>
-          <Route path="/:shop?/notice/edit/:id?" component={NoticeEdit} />
-          <Route path="/:shop?/notice/upload">
-            <Header />
-            <AdminAside />
-            <NoticeUpload />
-          </Route>
-          <Route path="/:shop?/notice/:id?" component={NoticeDetail} />
-          <Route path="/workmanual/:category?" component={WorkManual} />
-
-          <Route path="/transition" exact>
-            <Header />
-            <AdminAside />
-            <Transition />
-          </Route>
-          <Route path="/admin/:shop" exact>
-            <Header />
-            <AdminAside />
-            <AdminDashboardPage />
-          </Route>
-          <Route path="/admin/info">
-            <Header />
-            <AdminAside />
-            <AdminInfoPage />
-          </Route>
-          <Route path="/admin/payroll">
-            <Header />
-            <AdminAside />
-            <AdminPayrollPage />
-          </Route>
-          <Route path="/admin/employeelist">
-            <Header />
-            <AdminAside />
-            <AdminEmployeePage />
-          </Route>
-          {/* <Route path="/admin/schedule" component={AdminSchedulePage} /> */}
-          <Route path="/login" component={Login} exact></Route>
-          <Route path="/signup" component={SignUp} exact></Route>
-          <Route path="/parttimedashboard" exact>
-            <Header />
-            <ParttimeAside />
-            <PartTimeDashboard />
-          </Route>
-          <Route path="/accountinfo" exact>
-            <Header />
-            <ParttimeAside />
-            <AccountInfo />
-          </Route>
-          <Route path="/workingtime" exact>
-            <Header />
-            <ParttimeAside />
-            <WorkingTime />
-          </Route>
+          <Route path="/" exact component={Authentication(Landing, true)} />
+          <Route path="/login" component={Authentication(Login, false)} exact />
+          <Route
+            path="/signup"
+            component={Authentication(SignUp, false)}
+            exact
+          />
+          <Route
+            path="/:shop?/notice"
+            exact
+            component={Authentication(NoticeList, true)}
+          />
+          <Route
+            path="/:shop?/notice/edit/:id?"
+            component={Authentication(NoticeEdit, true, true)}
+          />
+          <Route
+            path="/:shop?/notice/upload"
+            component={Authentication(NoticeUpload, true, true)}
+          />
+          <Route
+            path="/:shop?/notice/:id?"
+            component={Authentication(NoticeDetail, true)}
+          />
+          <Route
+            path="/:shop?/workmanual/:category?"
+            component={Authentication(WorkManual, true)}
+          />
+          <Route
+            path="/:shop?/transition"
+            exact
+            component={Authentication(Transition, true)}
+          />
+          <Route
+            path="/admin/:shop?"
+            exact
+            component={Authentication(AdminDashboardPage, true, true)}
+          />
+          <Route
+            path="/admin/:shop?/info"
+            component={Authentication(AdminInfoPage, true, true)}
+          />
+          <Route
+            path="/admin/:shop?/payroll"
+            component={Authentication(AdminPayrollPage, true, true)}
+          />
+          <Route
+            path="/admin/:shop?/employeelist"
+            component={Authentication(AdminEmployeePage, true, true)}
+          />
+          <Route
+            path="/parttime/:shop?"
+            exact
+            component={Authentication(PartTimeDashboard, true, 'staff')}
+          />
+          <Route
+            path="/parttime/:shop?/accountinfo"
+            exact
+            component={Authentication(AccountInfo, true, 'staff')}
+          />
+          <Route
+            path="/parttime/:shop?/workingtime"
+            exact
+            component={Authentication(WorkingTime, true, 'staff')}
+          />
         </Switch>
       </div>
     </div>
