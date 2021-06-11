@@ -4,13 +4,16 @@ import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/notice/Pagination';
 import { paginate } from 'utils/paginate';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
 
 const NoticeList = ({ user, shop }) => {
+  
+  
+
   const [getNotices, setGetNotices] = useState([]);
   const [noticeInfo, setNoticeInfo] = useState({
     pageSize: 10, // 한 페이지에 보여줄 공지사항 게시물 수
