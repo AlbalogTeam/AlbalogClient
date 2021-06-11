@@ -81,17 +81,17 @@ const App = () => {
           <Route
             path="/parttime/:shop?"
             exact
-            component={Authentication(PartTimeDashboard, true, "staff")}
+            component={Authentication(PartTimeDashboard, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/accountinfo"
             exact
-            component={Authentication(AccountInfo, true, "staff")}
+            component={Authentication(AccountInfo, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/workingtime"
             exact
-            component={Authentication(WorkingTime, true, "staff")}
+            component={Authentication(WorkingTime, true, 'staff')}
           />
         </Switch>
       </div>
