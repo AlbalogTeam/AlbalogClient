@@ -87,6 +87,27 @@
   
 <br/>  
 
+### 개발 내용    
+<details>
+<summary>자세히 / 간략히 보기</summary>   
+<div markdown="1">   
+  <br/>
+  <b>1주차</b>     
+  <br/>
+  <b>Implements</b> <br/>
+  - 관리자 회원가입 (유효성 체크)<br/>   
+  - 관리자 로그인 (access Token + localStorage) <br/>     
+  - 매장등록, 수정, 삭제, 입장 (KaKao 주소검색Api 이용)  <br/>
+  - 
+  <b>Issue</b> <br/>
+  - 로그인부분 보안을 위해 기존 accessToken의 유효기간을 줄이고 refreshToken 도입 예정 <br/>
+  <b>Styles</b> >br/>
+  
+   
+   
+</div>
+</details>
+
 
 
 ## 파트 소개     
