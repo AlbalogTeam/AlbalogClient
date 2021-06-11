@@ -1,12 +1,16 @@
 import axios from 'axios';
+import { TOKENKEY } from 'config';
+import { APIURL } from 'config';
 import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import './Login.scss';
 
-function Login({ form, user, dispatchChangeField, dispatchSetUser, history }) {
+function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
+  const history = useHistory();
   const onChange = (e) => {
     const { value, name } = e.target;
     let FormBody = {
@@ -28,12 +32,10 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser, history }) {
     };
 
     axios
-      .post('https://albalog-test.herokuapp.com/api/v1/owner/login', loginBody)
+      .post(`${APIURL}/owner/login`, loginBody)
       .then((response) => {
-        console.log(response.data);
         const token = response.data.token;
-        const decoded = jwt.verify(token, 'albalogTeam');
-        console.log(decoded);
+        const decoded = jwt.verify(token, TOKENKEY);
 
         let userBody = {
           _id: response.data.employer._id,

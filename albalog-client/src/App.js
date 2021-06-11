@@ -19,13 +19,18 @@ import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import Header from 'components/Header/Header';
+import Authentication from 'utils/authentication';
 
 const App = () => {
   return (
     <div id="container">
       <div id="main">
         <Switch>
-          <Route path="/" exact component={Landing}></Route>
+          <Route
+            path="/"
+            exact
+            component={Authentication(Landing, true)}
+          ></Route>
           <Route path="/:shop?/notice" exact>
             <Header />
             <AdminAside />
@@ -65,8 +70,11 @@ const App = () => {
             <AdminAside />
             <AdminEmployeePage />
           </Route>
-          {/* <Route path="/admin/schedule" component={AdminSchedulePage} /> */}
-          <Route path="/login" component={Login} exact></Route>
+          <Route
+            path="/login"
+            component={Authentication(Login, false)}
+            exact
+          ></Route>
           <Route path="/signup" component={SignUp} exact></Route>
           <Route path="/parttimedashboard" exact>
             <Header />
