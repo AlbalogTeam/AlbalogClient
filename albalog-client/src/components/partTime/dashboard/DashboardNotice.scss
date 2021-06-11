@@ -4,6 +4,8 @@
     margin-top: 5px;
     display: flex;
     text-align: center;
+    height: 2rem;
+    align-items: center;
   }
 
   .tr-head {
@@ -14,11 +16,11 @@
   .td3-head,
   .td1,
   .td3 {
-    width: 20%;
+    width: 30%;
   }
 
   .td2-head,
   .td2 {
-    width: 60%;
+    width: 70%;
   }
 }
