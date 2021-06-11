@@ -7,7 +7,7 @@ import useConfirm from 'hooks/useConfirm';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './NoticeDetail.scss';
 
 const NoticeDetail = ({ match, shop, user }) => {
@@ -119,4 +119,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeDetail);
+export default withRouter(connect(mapStateToProps)(NoticeDetail));
