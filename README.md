@@ -87,26 +87,29 @@
   
 <br/>  
 
-### 개발 내용    
-<details>
-<summary>자세히 / 간략히 보기</summary>   
-<div markdown="1">   
-  <br/>
-  <b>1주차</b>     
-  <br/>
-  <b>Implements</b> <br/>
-  - 관리자 회원가입 (유효성 체크)<br/>   
-  - 관리자 로그인 (access Token + localStorage) <br/>     
-  - 매장등록, 수정, 삭제, 입장 (KaKao 주소검색Api 이용)  <br/>
-  - 
-  <b>Issue</b> <br/>
-  - 로그인부분 보안을 위해 기존 accessToken의 유효기간을 줄이고 refreshToken 도입 예정 <br/>
-  <b>Styles</b> >br/>
-  
-   
-   
-</div>
-</details>
+## 개발 내용
+
+- 1일차
+
+    ### Implements
+
+    - 관리자 회원가입 (유효성 체크)
+    - 관리자 로그인
+    - 로그인 유지, 로그아웃 (access Token + LocalStorage)
+    - 매장 등록, 수정, 삭제, 입장 (kakao 주소검색 api 이용)
+    - 공지 등록, 수정, 삭제, 리스트 (ckEditor5를 이용하여 글쓰기 구현) 
+    - 업무 매뉴얼 등록, 수정, 삭제, 리스트 (ckEditor5를 이용하여 글쓰기 구현)
+    - 직원 초대 기능 (이메일 전송 )
+    - 각 페이지 접근 권한 설정 ( 관리자만 입장가능, 직원만 입장가능, 미 로그인시 접속 불가능)
+
+    ### Issue
+
+    - 로그인 부분 보안을 위해 기존 accessToken의 유효기간을 줄이고 refreshToken 도입 예정
+    - confirm 창을 window confirm에서 모달로 변경 예정
+
+    ### Styles
+
+    - 웹 메인 컬러 : rgb(18, 113, 175)로 테마 설정
 
 
 
