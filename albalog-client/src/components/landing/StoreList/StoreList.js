@@ -48,14 +48,6 @@ const StoreList = ({ user, dispatchSetshop }) => {
     dispatchSetshop(shopBody);
   };
 
-  const storeDelete = () => {};
-  const cancelConfirm = () => console.log('취소했습니다.');
-  const confirmDelete = useConfirm(
-    '삭제하시겠습니까?',
-    storeDelete, // 확인 버튼 눌렀을 때 일어나는 함수
-    cancelConfirm, // 취소 버튼 눌렀을 때 일어나는 함수
-  );
-
   return (
     <div id="StoreList">
       {dataState === 0 ? (
@@ -71,9 +63,6 @@ const StoreList = ({ user, dispatchSetshop }) => {
                   className="btn"
                 >
                   수정
-                </button>
-                <button type="button" onClick={confirmDelete} className="btn">
-                  삭제
                 </button>
 
                 <a className="btn" href={`/admin/${location._id}`}>

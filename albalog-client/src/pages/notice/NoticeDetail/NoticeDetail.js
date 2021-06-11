@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AdminAside from 'components/admin/AdminAside/AdminAside';
+import AdminAside from 'components/Aside/Aside';
 import Header from 'components/Header/Header';
 import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
@@ -28,7 +28,7 @@ const NoticeDetail = ({ match, shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         setNoticeInfo({
           ...noticeInfo,
           title: response.data.notice[0].title,

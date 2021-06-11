@@ -6,8 +6,9 @@ import axios from 'axios';
 import Header from 'components/Header/Header';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
-import AdminAside from '../../../components/admin/AdminAside/AdminAside';
+import AdminAside from '../../../components/Aside/Aside';
 import Loading from 'components/Loading/Loading';
+import { withRouter } from 'react-router';
 
 const NoticeEdit = ({ match, shop, user }) => {
   const noticeId = match.params.id;
@@ -133,4 +134,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeEdit);
+export default withRouter(connect(mapStateToProps)(NoticeEdit));
