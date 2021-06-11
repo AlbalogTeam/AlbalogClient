@@ -15,13 +15,13 @@ export default [
   },
   {
     title: '권아무개',
-    start: new Date(2021, 5, 13, 15, 0, 0, 0),
-    end: new Date(2021, 5, 13, 17, 0, 0, 0),
+    start: new Date(2021, 5, 11, 15, 0, 0, 0),
+    end: new Date(2021, 5, 11, 17, 0, 0, 0),
   },
   {
     title: '심아무개',
-    start: new Date(2021, 5, 15, 17, 0, 0, 0),
-    end: new Date(2021, 5, 15, 19, 30, 0, 0),
+    start: new Date(2021, 5, 11, 17, 0, 0, 0),
+    end: new Date(2021, 5, 11, 19, 30, 0, 0),
     desc: 'Most important meal of the day',
   },
 ];

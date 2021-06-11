@@ -1,11 +1,8 @@
 import AdminAside from 'components/admin/AdminAside/AdminAside';
-import AdminHeader from 'components/admin/AdminHeader/AdminHeader';
-import AdminInfo from 'components/admin/AdminInfo/AdminInfo';
 import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
 import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
 import AdminInfoPage from 'pages/admin/AdminInfoPage';
 import AdminPayrollPage from 'pages/admin/AdminPayrollPage';
-// import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 import NoticeList from 'pages/notice/NoticeList/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
@@ -15,14 +12,14 @@ import WorkManual from 'pages/workManual/WorkManual';
 import Transition from 'pages/transition/Transition';
 import Landing from 'pages/landing/Landing';
 import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
-import Login from 'components/Login';
-import SignUp from 'components/SignUp';
+import Login from 'pages/login/Login';
+import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
-import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
-import ParttimeAside from 'components/partTime/aside/ParttimeAside';
 import React from 'react';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
+import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import Header from 'components/Header/Header';
 
 const App = () => {
   return (
@@ -30,42 +27,42 @@ const App = () => {
       <div id="main">
         <Switch>
           <Route path="/" exact component={Landing}></Route>
-          <Route path="/notice" exact>
-            <ParttimeHeader />
-            <ParttimeAside />
+          <Route path="/:shop?/notice" exact>
+            <Header />
+            <AdminAside />
             <NoticeList />
           </Route>
-          <Route path="/notice/upload" exact>
-            <ParttimeHeader />
-            <ParttimeAside />
+          <Route path="/:shop?/notice/edit/:id?" component={NoticeEdit} />
+          <Route path="/:shop?/notice/upload">
+            <Header />
+            <AdminAside />
             <NoticeUpload />
           </Route>
-          <Route path="/notice/:id?" exact component={NoticeDetail}></Route>
-          <Route path="/notice/edit/:id?" exact component={NoticeEdit}></Route>
+          <Route path="/:shop?/notice/:id?" component={NoticeDetail} />
           <Route path="/workmanual/:category?" component={WorkManual} />
 
           <Route path="/transition" exact>
-            <ParttimeHeader />
-            <ParttimeAside />
+            <Header />
+            <AdminAside />
             <Transition />
           </Route>
-          <Route path="/admin" exact>
-            <AdminHeader />
+          <Route path="/admin/:shop" exact>
+            <Header />
             <AdminAside />
             <AdminDashboardPage />
           </Route>
           <Route path="/admin/info">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminInfoPage />
           </Route>
           <Route path="/admin/payroll">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminPayrollPage />
           </Route>
           <Route path="/admin/employeelist">
-            <AdminHeader />
+            <Header />
             <AdminAside />
             <AdminEmployeePage />
           </Route>

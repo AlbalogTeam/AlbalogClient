@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import 'components/partTime/accountinfo/PayrollList.scss';
 
+
 function PayrollList(props) {
   const [monthLine, setMonthLine] = useState([]);
   const [detailLine, setDetailLine] = useState([]);
@@ -70,6 +71,10 @@ function Monthlypay(props) {
               </div>
             </div>
           ))}
+      </div>
+
+      <div className="paging-comm">
+
       </div>
     </div>
   );

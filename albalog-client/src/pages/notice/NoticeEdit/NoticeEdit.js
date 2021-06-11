@@ -3,11 +3,13 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import '../NoticeUpload/NoticeUpload.scss';
 import axios from 'axios';
-import ParttimeHeader from 'components/partTime/header/ParttimeHeader';
-import ParttimeAside from 'components/partTime/aside/ParttimeAside';
+import Header from 'components/Header/Header';
+import { APIURL } from 'config';
+import { connect } from 'react-redux';
+import AdminAside from '../../../components/admin/AdminAside/AdminAside';
 
-const NoticeEdit = ({ match }) => {
-  const noticeId = Number(match.params.id);
+const NoticeEdit = ({ match, shop, user }) => {
+  const noticeId = match.params.id;
 
   const [noticeContent, setNoticeContent] = useState({
     title: '',
@@ -18,16 +20,19 @@ const NoticeEdit = ({ match }) => {
 
   useEffect(() => {
     axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${noticeId}`)
+      .get(`${APIURL}/location/${shop._id}/notice/${noticeId}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
-        console.log(response.data);
         setNoticeContent({
           ...noticeContent,
-          title: response.data.title,
-          content: response.data.body,
+          title: response.data.notice[0].title,
+          content: response.data.notice[0].content,
         });
       });
-  }, []);
+  }, [shop]);
 
   const titleOnChange = (e) => {
     const nextForm = {
@@ -42,21 +47,23 @@ const NoticeEdit = ({ match }) => {
 
     let body = {
       title,
-      body: content,
+      content,
     };
     axios
-      .post('https://jsonplaceholder.typicode.com/posts', body)
+      .patch(`${APIURL}/location/${shop._id}/notice/${noticeId}/update`, body, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
-        console.log('백앤드에 전송된 데이터');
-        console.log(`title : ${response.data.title}`);
-        console.log(`content: ${response.data.body}`);
+        console.log(response.data);
       });
   };
 
   return (
     <>
-      <ParttimeHeader />
-      <ParttimeAside />
+      <Header />
+      <AdminAside />
       <div id="NoticeEdit">
         {title && content /** title과 content가 불러와진 후에 랜더링  */ && (
           <div className="upload-form">
@@ -108,4 +115,8 @@ const NoticeEdit = ({ match }) => {
   );
 };
 
-export default NoticeEdit;
+function mapStateToProps(state) {
+  return { shop: state.shop, user: state.user };
+}
+
+export default connect(mapStateToProps)(NoticeEdit);
