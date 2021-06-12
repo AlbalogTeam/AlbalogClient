@@ -36,7 +36,7 @@ const Aside = ({ shop, user }) => {
           </li>
         </NavLink>
       </ul>
-      {user.role === 'owner' ? (
+      {/* {user.role === 'owner' ? ( */}
         <>
           <h3>관리자 메뉴</h3>
           <ul className="menu">
@@ -72,7 +72,7 @@ const Aside = ({ shop, user }) => {
             </NavLink>
           </ul>
         </>
-      ) : (
+      {/* ) : ( */}
         <>
           <h3>직원 메뉴</h3>
           <ul className="menu">
@@ -88,7 +88,7 @@ const Aside = ({ shop, user }) => {
                 <span>계정 정보</span>
               </li>
             </NavLink>
-            <NavLink to={`/parttime/${shop._id}/schedule`} exact>
+            <NavLink to={`/parttime/${shop._id}/scheduler`} exact>
               <li className="menu-item">
                 <BiDollar />
                 <span>스케줄러</span>
@@ -102,7 +102,7 @@ const Aside = ({ shop, user }) => {
             </NavLink>
           </ul>
         </>
-      )}
+      {/* )} */}
     </aside>
   );
 };
