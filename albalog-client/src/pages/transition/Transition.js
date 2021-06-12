@@ -1,3 +1,5 @@
+import Aside from 'components/Aside/Aside';
+import Header from 'components/Header/Header';
 import TransitionList from 'components/transition/TransitionList';
 // import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
@@ -15,27 +17,31 @@ const Transition = () => {
     day: startDate.getDate(),
   };
   return (
-    <div id="Transition" className="page-layout">
-      <div className="content">
-        <h3>인수인계</h3>
-        <div className="cont-box">
-          <div className="left-cont">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => {
-                console.log(date);
-                setStartDate(date);
-              }}
-              // locale="ko"
-              inline
-            />
-          </div>
-          <div className="right-cont">
-            <TransitionList date={date} />
+    <>
+      <Header />
+      <Aside />
+      <div id="Transition" className="page-layout">
+        <div className="content">
+          <h3>인수인계</h3>
+          <div className="cont-box">
+            <div className="left-cont">
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => {
+                  console.log(date);
+                  setStartDate(date);
+                }}
+                // locale="ko"
+                inline
+              />
+            </div>
+            <div className="right-cont">
+              <TransitionList date={date} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Aside from 'components/Aside/Aside';
+import Header from 'components/Header/Header';
 import Modal from 'components/Modal/Modal';
 import SearchBox from 'components/SearchBox/SearchBox';
 import React, { useEffect, useState } from 'react';
@@ -62,21 +64,25 @@ const AdminEmployeeList = () => {
   }, []);
 
   return (
-    <div className="employeeList-container">
-      <h1>직원 리스트</h1>
-      <SearchBox />
-      <div className="employeeList">
-        {data &&
-          data.map((data) => (
-            <EmployeeInfo
-              key={data.id}
-              name={data.name}
-              email={data.email}
-              username={data.username}
-            />
-          ))}
+    <>
+      <Header />
+      <Aside />
+      <div className="employeeList-container">
+        <h1>직원 리스트</h1>
+        <SearchBox />
+        <div className="employeeList">
+          {data &&
+            data.map((data) => (
+              <EmployeeInfo
+                key={data.id}
+                name={data.name}
+                email={data.email}
+                username={data.username}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

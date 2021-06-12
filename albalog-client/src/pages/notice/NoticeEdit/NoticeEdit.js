@@ -6,7 +6,9 @@ import axios from 'axios';
 import Header from 'components/Header/Header';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
-import AdminAside from '../../../components/admin/AdminAside/AdminAside';
+import AdminAside from '../../../components/Aside/Aside';
+import Loading from 'components/Loading/Loading';
+import { withRouter } from 'react-router';
 
 const NoticeEdit = ({ match, shop, user }) => {
   const noticeId = match.params.id;
@@ -18,20 +20,28 @@ const NoticeEdit = ({ match, shop, user }) => {
 
   const { title, content } = noticeContent;
 
+  const [dataState, setDataState] = useState(0);
+
   useEffect(() => {
-    axios
-      .get(`${APIURL}/location/${shop._id}/notice/${noticeId}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
+    async function fetchData() {
+      const result = await axios.get(
+        `${APIURL}/location/${shop._id}/notice/${noticeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         },
-      })
-      .then((response) => {
-        setNoticeContent({
-          ...noticeContent,
-          title: response.data.notice[0].title,
-          content: response.data.notice[0].content,
-        });
+      );
+      console.log(result.data);
+      setNoticeContent({
+        ...noticeContent,
+        title: result.data.notice[0].title,
+        content: result.data.notice[0].content,
       });
+      setDataState(1);
+    }
+
+    fetchData();
   }, [shop]);
 
   const titleOnChange = (e) => {
@@ -57,6 +67,9 @@ const NoticeEdit = ({ match, shop, user }) => {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.updatedNotice) {
+          window.location.replace(`/${shop._id}/notice/${noticeId}`); // 페이지 이동 후 새로고침
+        }
       });
   };
 
@@ -65,7 +78,9 @@ const NoticeEdit = ({ match, shop, user }) => {
       <Header />
       <AdminAside />
       <div id="NoticeEdit">
-        {title && content /** title과 content가 불러와진 후에 랜더링  */ && (
+        {dataState === 0 ? (
+          <Loading />
+        ) : (
           <div className="upload-form">
             <form action="" onSubmit={noticeOnSubmit}>
               <input
@@ -119,4 +134,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeEdit);
+export default withRouter(connect(mapStateToProps)(NoticeEdit));

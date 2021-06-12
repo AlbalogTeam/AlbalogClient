@@ -1,4 +1,5 @@
-#StoreRegister {
+#StoreRegister,
+#StoreEdit {
   position: fixed;
   top: 0;
   right: 0;
@@ -68,4 +69,13 @@
       }
     }
   }
+}
+
+.store-btn {
+  width: 150px;
+  height: 55px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #4d4d4d;
+  border-radius: 5px;
 }
