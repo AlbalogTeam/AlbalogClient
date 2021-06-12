@@ -4,7 +4,8 @@ import MenualList from 'components/workManual/ManualList/ManualList';
 import MenualUpload from 'components/workManual/ManualUpload/ManualUpload';
 import React, { useState } from 'react';
 import './WorkManual.scss';
-import AdminAside from '../../components/admin/AdminAside/AdminAside';
+import AdminAside from '../../components/Aside/Aside';
+import { withRouter } from 'react-router';
 
 const WorkManual = ({ match }) => {
   // 카테고리가 선택되지 않았으면 기본값 common 사용
@@ -40,4 +41,4 @@ const WorkManual = ({ match }) => {
   );
 };
 
-export default WorkManual;
+export default withRouter(WorkManual);

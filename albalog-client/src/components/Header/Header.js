@@ -71,6 +71,10 @@ const Header = ({
           _id: response.data._id,
           name: response.data.name,
           notices: response.data.notices,
+          workManuals: response.data.workManuals,
+          address: response.data.address,
+          phone_number: response.data.phone_number,
+          postal_code: response.data.postal_code,
         };
 
         dispatchSetShop(shopBody);
@@ -86,7 +90,7 @@ const Header = ({
 
   return (
     <>
-     
+      {!shop._id && <Loading />}
       <header className="header">
         <h1 className="header-left">
           <a href="/">Albalog</a>

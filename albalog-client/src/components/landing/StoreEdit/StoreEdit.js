@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import './StoreRegister.scss';
-import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
 import { APIURL } from 'config';
-import { connect } from 'react-redux';
 import { SetShop } from 'modules/shop';
-import { withRouter } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import DaumPostcode from 'react-daum-postcode';
+import { connect } from 'react-redux';
+import 'components/landing/StoreRegister/StoreRegister.scss';
 
-const StoreRegister = ({
-  ToggleButton,
+const StoreEdit = ({
+  StateToggleButton,
   user,
   shop,
   dispatchSetShop,
   history,
 }) => {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(shop.address);
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
-  const [storeRegisterForm, setStoreRegisterForm] = useState({
-    storeName: '',
-    addressDetail: '',
-    phoneNumber: '',
+  const [StoreEditForm, setStoreEditForm] = useState({
+    storeName: shop.name,
+    addressDetail: shop.postal_code,
+    phoneNumber: shop.phone_number,
   });
 
-  const { storeName, addressDetail, phoneNumber } = storeRegisterForm;
+  const { storeName, addressDetail, phoneNumber } = StoreEditForm;
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -50,17 +49,17 @@ const StoreRegister = ({
     const { name, value } = e.target;
 
     const ChangeForm = {
-      ...storeRegisterForm,
+      ...StoreEditForm,
       [name]: value,
     };
     console.log(ChangeForm);
-    setStoreRegisterForm(ChangeForm);
+    setStoreEditForm(ChangeForm);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    let StoreRegisterBody = {
+    let StoreEditBody = {
       name: storeName,
       address,
       postal_code: addressDetail,
@@ -68,16 +67,14 @@ const StoreRegister = ({
     };
 
     axios
-      .post(`${APIURL}/location`, StoreRegisterBody, {
+      .patch(`${APIURL}/location/${shop._id}/update`, StoreEditBody, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       })
       .then((response) => {
-        console.log(response);
-
-        if (response.data) {
-          // 나중에 동완님이 status 코드를 201에서 200 으로 바꿔주면 response.status === 200 으로 바꿀 예정
+        console.log(response.status);
+        if (response.status === 200) {
           window.location.reload(); // 새로고침
         }
       })
@@ -99,10 +96,10 @@ const StoreRegister = ({
     border: '1px solid black',
   };
   return (
-    <div id="StoreRegister" onClick={ToggleButton}>
+    <div id="StoreEdit" onClick={StateToggleButton}>
       <div className="regi-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-tit">
-          <h2>매장 추가</h2>
+          <h2>매장 수정</h2>
         </div>
         <div className="modal-form">
           <form action="" onSubmit={onSubmit}>
@@ -110,6 +107,7 @@ const StoreRegister = ({
             <input
               type="text"
               name="storeName"
+              value={storeName}
               placeholder="매장 이름을 입력해주세요"
               onChange={onChange}
             />
@@ -122,7 +120,7 @@ const StoreRegister = ({
                 className="address"
                 value={address}
               />
-              <button type="button" onClick={PostOpen}>
+              <button className="store-btn" type="button" onClick={PostOpen}>
                 주소검색
               </button>
               {addressSearchOpen && (
@@ -138,6 +136,7 @@ const StoreRegister = ({
               name="addressDetail"
               placeholder="상세 주소를 입력해주세요"
               onChange={onChange}
+              value={addressDetail}
             />
 
             <label>휴대폰 번호</label>
@@ -146,14 +145,21 @@ const StoreRegister = ({
               name="phoneNumber"
               placeholder="휴대폰번호를 - 없이 입력해주세요"
               onChange={onChange}
+              value={phoneNumber}
             />
             <p>
               사업자 등록증을 developer@dev.lop 로 <br />
               보내주시면 승인 후 매장 등록이 완료됩니다
             </p>
             <div className="modal-btn">
-              <button type="submit">등록</button>
-              <button type="button" onClick={ToggleButton}>
+              <button className="store-btn" type="submit">
+                등록
+              </button>
+              <button
+                className="store-btn"
+                type="button"
+                onClick={StateToggleButton}
+              >
                 취소
               </button>
             </div>
@@ -174,4 +180,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreEdit);
