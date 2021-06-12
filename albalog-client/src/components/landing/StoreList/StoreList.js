@@ -14,18 +14,23 @@ const StoreList = ({ user, dispatchSetshop }) => {
   const [editState, setEditState] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get(`${APIURL}/owner/me/locations`, {
+    axios
+      .get(`${APIURL}/owner/me/locations`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      });
-      console.log(result.data);
-      setLocations(result.data.locations);
-      setDataState(1);
-    }
+      })
+      .then((response) => {
+        setLocations(response.data.locations);
+        setDataState(1);
+      })
+      .catch(function (error) {
+        // status 코드가 200이 아닌경우 처리
 
-    fetchData();
+        if (error) {
+          setDataState(1);
+        }
+      });
   }, []);
 
   const StateToggleButton = () => {

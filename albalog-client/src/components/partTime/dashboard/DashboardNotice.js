@@ -16,6 +16,7 @@ function DashboardNotice() {
     //       setSamples(data);
     //     });
     // }, []);
+    const locationId = '60c1bc923475ce002892fb83';
 
     const fetchSamples = async () => {
       try {
@@ -23,10 +24,16 @@ function DashboardNotice() {
         // setSamples(null);
         setLoading(true);
         let response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
+          `https://albalog-test.herokuapp.com/api/v1/location/${locationId}/notice`,
+          {
+            headers: {
+              Authorization:
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGMxYjk4ZjM0NzVjZTAwMjg5MmZiODEiLCJyb2xlIjoib3duZXIiLCJzdG9yZXMiOlt7Il9pZCI6IjYwYzFiYzkyMzQ3NWNlMDAyODkyZmI4NCIsImxvY2F0aW9uIjoiNjBjMWJjOTIzNDc1Y2UwMDI4OTJmYjgzIn1dLCJpYXQiOjE2MjMzNzA1MjN9.Tz0RtqUtDCmJZBXwx4BWKn_k2lnzcpdcwrZlAr0rr_Q',
+            },
+          },
         );
         console.log(response.data);
-        setSamples(response.data);
+        setSamples(response.data.notices);
       } catch (e) {
         setError(e);
       }
@@ -44,16 +51,14 @@ function DashboardNotice() {
       <div className="tr-head">
         <div className="td1-head">날짜</div>
         <div className="td2-head">제목</div>
-        <div className="td3-head">작성자</div>
       </div>
       {samples &&
         samples
-          .filter((x) => x.id < 3)
+          // .filter((x) => x.id < 3)
           .map((data) => (
             <div className="tr" key={data.id}>
-              <div className="td1">{data.id}</div>
+              <div className="td1">{data.createdAt.slice(0, 10)}</div>
               <div className="td2">{data.title}</div>
-              <div className="td3">{data.userId}</div>
             </div>
           ))}
     </div>
