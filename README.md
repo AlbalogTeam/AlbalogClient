@@ -94,7 +94,7 @@
     ### Implements
 
     - 관리자 회원가입
-    - 매장 등록, 수정, 삭제, 입장 (kakao 주소검색 api 이용)
+    - 매장 등록, 수정, 입장 (kakao 주소검색 api 이용)
     - 로그인 유지, 로그아웃 (access Token + LocalStorage)
     - 관리자 로그인
     - 직원 초대 기능 (이메일 전송 )
