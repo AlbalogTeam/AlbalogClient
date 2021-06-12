@@ -10,19 +10,17 @@
   background: #fff;
 
   .header-right {
-    display:flex;
+    display: flex;
     align-items: center;
     .user-name {
       margin-right: 1rem;
     }
     .btn-invite,
     .btn-logout {
-      border: none;
+      border: 1px solid #dbdbdb;
       border-radius: 4px;
       padding: 0.5rem;
       font-weight: 500;
-    }
-    .btn-logout {
     }
     .btn-invite {
       background-color: lightgreen;
@@ -30,4 +28,3 @@
     }
   }
 }
-

@@ -15,14 +15,14 @@ const InviteModal = ({ handleModal }) => {
   const locationId = useSelector(({ shop }) => shop._id);
   const token = useSelector(({ user }) => user.token);
 
-  const onChange = useCallback((e) => {
+  const onChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-  }, []);
+  };
 
-  const onSubmit = useCallback((e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     const postForm = async () => {
@@ -52,7 +52,7 @@ const InviteModal = ({ handleModal }) => {
       name: '',
       email: '',
     });
-  }, []);
+  };
 
   return (
     <div className="modal-container">
@@ -60,9 +60,21 @@ const InviteModal = ({ handleModal }) => {
         <h1 className="invite-title">직원초대</h1>
         <form onSubmit={onSubmit}>
           <label>이름</label>
-          <input type="text" name="name" value={name} onChange={onChange} />
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChange}
+            placeholder="ex) 홍길동"
+          />
           <label>이메일 주소</label>
-          <input type="text" name="email" value={email} onChange={onChange} />
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={onChange}
+            placeholder="example@gmail.com"
+          />
           <button className="btn-invite">초대하기</button>
           <button className="btn-close" onClick={handleModal}>
             닫기
