@@ -89,6 +89,11 @@ const App = () => {
             component={Authentication(AccountInfo, true, 'staff')}
           />
           <Route
+            path="/parttime/:shop?/scheduler"
+            exact
+            component={Authentication(AccountInfo, true, 'staff')}
+          />
+          <Route
             path="/parttime/:shop?/workingtime"
             exact
             component={Authentication(WorkingTime, true, 'staff')}
