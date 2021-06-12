@@ -1,26 +1,120 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import './ManualUpload.scss';
+import axios from 'axios';
+import { APIURL } from 'config';
+import { useSelector } from 'react-redux';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
+  const user = useSelector((state) => state.user);
+  const shop = useSelector((state) => state.shop);
+
+  const [categoryName, setCategoryName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [manualContent, setManualContent] = useState({
+    title: '',
+    content: '',
+    category: '',
+  });
+
+  const { title, content, category } = manualContent;
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.get(`${APIURL}/category/${shop._id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      console.log(result.data);
+      setCategories(result.data);
+    }
+    fetchData();
+  }, []);
+
+  const formOnChange = (e) => {
+    console.log(e.target.name, e.target.value);
+    const nextForm = {
+      ...manualContent,
+      [e.target.name]: e.target.value,
+    };
+    setManualContent(nextForm);
+  };
+
+  const categoryNameOnchange = (e) => {
+    setCategoryName(e.target.value);
+  };
+
+  const AddCategoryHandle = () => {
+    let body = {
+      name: categoryName,
+    };
+    axios
+      .post(`${APIURL}/category/${shop._id}/create`, body, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
+  const manualOnSubmit = (e) => {
+    e.preventDefault();
+
+    let body = {
+      title,
+      content,
+      category,
+    };
+
+    console.log(body);
+    // axios
+    //   .post(`${APIURL}/location/${shop._id}/workmanual/`, body, {
+    //     headers: {
+    //       Authorization: `Bearer ${user.token}`,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
+  };
+
   return uploadState ? (
     <div id="ManualUpload" onClick={ToggleButton}>
       <div className="upload-modal" onClick={(e) => e.stopPropagation()}>
         {/* e.stopPropagation는 상위 이벤트에 이벤트값을 전달하는걸 막음*/}
-        <form action="">
+        <form action="" onSubmit={manualOnSubmit}>
           <div className="form-category">
-            <select name="manual-category">
-              <option value="">카테고리 선택</option>
-              <option value="">공통</option>
-              <option value="">홀</option>
-              <option value="">주방</option>
+            <select name="category" value={category} onChange={formOnChange}>
+              {categories.map((item, index) => (
+                <option key={index} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
             </select>
-            <input type="text" placeholder="카테고리 추가" />
-            <button>추가</button>
+
+            <input
+              type="text"
+              value={categoryName}
+              placeholder="카테고리 추가"
+              onChange={categoryNameOnchange}
+            />
+            <button type="button" onClick={AddCategoryHandle}>
+              추가
+            </button>
           </div>
 
-          <input type="text" className="form-title" placeholder="제목을 입력해주세요" />
+          <input
+            type="text"
+            className="form-title"
+            placeholder="제목을 입력해주세요"
+            name="title"
+            value={title}
+            onChange={formOnChange}
+          />
 
           <div className="modal-size">
             <CKEditor
@@ -43,6 +137,11 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
               onChange={(event, editor) => {
                 const data = editor.getData();
                 // console.log({ event, editor, data });
+                const nextForm = {
+                  ...manualContent,
+                  content: data,
+                };
+                setManualContent(nextForm);
               }}
               editor={DecoupledEditor}
               data=""

@@ -5,15 +5,18 @@ import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import './SignUp.scss';
 import { SetUser } from 'modules/user';
+import { useHistory } from 'react-router-dom';
+import { APIURL, TOKENKEY } from 'config';
 
-function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
+function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
+  const history = useHistory();
   const [formValid, setFormValid] = useState({
     emailValid: 0,
     passwordValid: 0,
     passwordCheckValid: 0,
   });
 
-  const { emailValid, passwordValid, passwordCheckValid } = formValid;
+  let { emailValid, passwordValid, passwordCheckValid } = formValid;
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -28,6 +31,7 @@ function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     const { email, password, name } = form;
 
     let registerBody = {
@@ -37,14 +41,11 @@ function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
     };
 
     axios
-      .post(
-        'https://albalog-test.herokuapp.com/api/v1/owner/signup',
-        registerBody,
-      )
+      .post(`${APIURL}/owner/signup`, registerBody)
       .then((response) => {
         console.log(response.data);
         const token = response.data.token;
-        const decoded = jwt.verify(token, 'albalogTeam');
+        const decoded = jwt.verify(token, TOKENKEY);
         console.log(decoded);
 
         let userBody = {
@@ -151,7 +152,7 @@ function SignUp({ form, user, dispatchChangeField, dispatchSetUser, history }) {
 function mapStateToProps(state) {
   // redux state로 부터 state를 component의 props로 전달해줌
   // store의 값이 여기 함수 state로 들어옴
-  return { form: state.auth.register, user: state.user };
+  return { form: state.auth.register, user: state.user, auth: state.auth };
 }
 
 function mapDispatchToProps(dispatch) {

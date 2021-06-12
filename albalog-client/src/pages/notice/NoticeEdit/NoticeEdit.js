@@ -32,7 +32,7 @@ const NoticeEdit = ({ match, shop, user }) => {
           },
         },
       );
-      console.log(result.data);
+      console.log('공지사항 수정' + result.data);
       setNoticeContent({
         ...noticeContent,
         title: result.data.notice[0].title,
