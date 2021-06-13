@@ -4,7 +4,7 @@
     overflow: hidden;
     li {
       width: 300px;
-      height: 88px;
+      height: 120px;
       padding: 20px;
       border-radius: 11px;
       border: 1px solid #d6d6d6;
@@ -24,12 +24,15 @@
 
       .store-info {
         .name {
-          font-weight: 700;
+          font-weight: 500;
+          display: block;
+          padding-left: 3px;
+          font-size: 19px;
         }
         .detail {
           padding-top: 10px;
           display: block;
-          font-size: 13px;
+          font-size: 15px;
           color: #3f3e3e;
         }
       }
