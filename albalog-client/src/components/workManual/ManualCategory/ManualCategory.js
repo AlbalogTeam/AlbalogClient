@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 const ManualCategory = () => {
-  // 지금은 임시데이터 , 백앤드 완성되면 카테고리 데이터 불러와야함.
+  const shop = useSelector((state) => state.shop);
+  const user = useSelector((state) => state.user);
   const [categories, setCategories] = useState([]);
 
   const activeStyle = {
@@ -13,9 +14,6 @@ const ManualCategory = () => {
     fontSize: '16px',
     fontWeight: '700',
   };
-
-  const shop = useSelector((state) => state.shop);
-  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,7 +26,7 @@ const ManualCategory = () => {
       setCategories(result.data);
     }
     fetchData();
-  }, []);
+  }, [shop]);
 
   return (
     <div className="manual-category">

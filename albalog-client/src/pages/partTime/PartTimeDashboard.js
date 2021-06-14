@@ -1,3 +1,4 @@
+import RescheduleModal from 'components/Modal/RescheduleModal';
 import Aside from 'components/Aside/Aside';
 import Header from 'components/Header/Header';
 import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
@@ -29,6 +30,11 @@ function PartTimeDashboard() {
       setclockOut(true);
       e.target.style.background = 'gray';
     }
+  };
+
+  const [Modal, setModal] = useState(false);
+  const handleModal = () => {
+    setModal(!Modal);
   };
 
   return (
@@ -124,7 +130,59 @@ function PartTimeDashboard() {
                     <IoIosArrowForward />
                   </span>
                 </div>
-                <DashboardNotice />
+                <div className="personalScheduleContent">
+                  <DashboardPersonalschedule
+                    year={year}
+                    month={month}
+                    date={date}
+                    day={day}
+                  />
+                </div>
+                <button className="" onClick={handleModal}>
+                  스케줄 변경 신청
+                </button>
+                {Modal && <RescheduleModal handleModal={handleModal} />}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="secondRow">
+          <div className="bottomLeftBox">
+            <div className="btnBox">
+              <button
+                className="clockInBtn"
+                onClick={clickClockIn}
+                style={
+                  clockIn
+                    ? { background: 'gray' }
+                    : { background: 'rgb(18, 113, 175)' }
+                }
+              >
+                {clockIn ? '출근 완료' : '출근 하기'}
+              </button>
+              <button
+                className="clockOutBtn"
+                onClick={clickClockOut}
+                style={
+                  clockOut
+                    ? { background: 'gray' }
+                    : clockIn
+                    ? { background: 'rgb(18, 113, 175)' }
+                    : { background: 'gray' }
+                }
+              >
+                {clockOut ? '퇴근 완료' : '퇴근 하기'}
+              </button>
+            </div>
+          </div>
+          <div className="bottomRightBox">
+            <div className="noticeBox">
+              <div className="textLine">
+                <span>공지사항</span>
+                <span className="moreBtn">
+                  더보기
+                  <IoIosArrowForward />
+                </span>
               </div>
             </div>
           </div>

@@ -93,11 +93,9 @@ const Header = ({
     <>
       {!shop._id && <Loading />}
       <header className="header">
-
-          <a href="/">
-            <img src={logo} alt="" />
-          </a>
-
+        <a href="/">
+          <img src={logo} alt="" />
+        </a>
 
         <h3 className="header-middle">{shop.name}</h3>
         <div className="header-right">

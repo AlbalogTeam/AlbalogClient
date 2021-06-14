@@ -5,6 +5,7 @@ import './ManualUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
+import { SetUser } from 'modules/user';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
@@ -71,15 +72,15 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     };
 
     console.log(body);
-    // axios
-    //   .post(`${APIURL}/location/${shop._id}/workmanual/`, body, {
-    //     headers: {
-    //       Authorization: `Bearer ${user.token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
+    axios
+      .post(`${APIURL}/location/${shop._id}/workmanual/create`, body, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   };
 
   return uploadState ? (
@@ -90,7 +91,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
           <div className="form-category">
             <select name="category" value={category} onChange={formOnChange}>
               {categories.map((item, index) => (
-                <option key={index} value={item.name}>
+                <option key={index} value={item._id}>
                   {item.name}
                 </option>
               ))}

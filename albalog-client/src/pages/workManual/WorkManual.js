@@ -8,10 +8,9 @@ import AdminAside from '../../components/Aside/Aside';
 import { withRouter } from 'react-router';
 
 const WorkManual = ({ match }) => {
-  // 카테고리가 선택되지 않았으면 기본값 common 사용
-  console.log(match);
-  const category = match.params.category || 'common';
-  console.log(category);
+  // 카테고리가 선택되지 않았으면 기본값 all 사용
+
+  const category = match.params.category || 'all';
   const [uploadState, setUploadState] = useState(false);
 
   const ToggleButton = () => {
