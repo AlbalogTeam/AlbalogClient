@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
+import logo from 'static/albalog-logo.png';
 
 const Header = ({
   user,
@@ -92,9 +93,9 @@ const Header = ({
     <>
       {!shop._id && <Loading />}
       <header className="header">
-        <h1 className="header-left">
-          <a href="/">Albalog</a>
-        </h1>
+        <a href="/">
+          <img src={logo} alt="" />
+        </a>
 
         <h3 className="header-middle">{shop.name}</h3>
         <div className="header-right">

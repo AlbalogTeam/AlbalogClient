@@ -11,16 +11,18 @@ const Landing = () => {
   };
   return (
     <div id="LandingPage" className="page-layout">
-      <div className="landing">
-        <div className="lp-tit">
-          <h3>매장 리스트</h3>
-        </div>
-        <div className="lp-cont">
-          <StoreList />
-        </div>
-        <div className="lp-regi">
-          <button onClick={ToggleButton}>매장 추가</button>
-          {registerState && <StoreRegister ToggleButton={ToggleButton} />}
+      <div className="shop">
+        <div className="landing">
+          <div className="lp-tit">
+            <h3>매장 리스트</h3>
+          </div>
+          <div className="lp-cont">
+            <StoreList />
+          </div>
+          <div className="lp-regi">
+            <button onClick={ToggleButton}>매장 추가</button>
+            {registerState && <StoreRegister ToggleButton={ToggleButton} />}
+          </div>
         </div>
       </div>
     </div>
