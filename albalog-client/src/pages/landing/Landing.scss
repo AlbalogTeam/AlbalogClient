@@ -1,33 +1,38 @@
 #LandingPage {
-  margin: 0 auto !important;
+  width: 100% !important;
+  margin-left: 0px !important;
   padding-top: 200px !important;
-  .landing {
-    width: 650px;
-    margin: 0 auto;
-    overflow: hidden;
-    .lp-tit {
-      padding-top: 60px;
-      margin-bottom: 40px;
-      h3 {
-        text-align: center;
-        font-size: 35px;
-      }
-    }
-    .lp-cont {
-      padding: 40px 0;
+  .shop {
+    width: 100%;
+    background-color: #f8f8f8;
+    .landing {
+      width: 650px;
+      margin: 0 auto;
       overflow: hidden;
-    }
-    .lp-regi {
-      display: flex;
-      justify-content: center;
-      padding: 20px 0;
-      button {
-        width: 150px;
-        height: 55px;
-        font-size: 18px;
-        color: #fff;
-        background-color: #4d4d4d;
-        border-radius: 5px;
+      .lp-tit {
+        padding-top: 60px;
+        margin-bottom: 40px;
+        h3 {
+          text-align: center;
+          font-size: 35px;
+        }
+      }
+      .lp-cont {
+        padding: 40px 0;
+        overflow: hidden;
+      }
+      .lp-regi {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 45px;
+        button {
+          width: 150px;
+          height: 55px;
+          font-size: 18px;
+          color: #fff;
+          background-color: rgb(18, 113, 175);
+          border-radius: 5px;
+        }
       }
     }
   }

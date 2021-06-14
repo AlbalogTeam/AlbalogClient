@@ -3,26 +3,31 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { connect } from 'react-redux';
 
-
 const ManualList = ({ category, user, shop }) => {
   const [manualList, setManualList] = useState([]);
-  console.log(category);
+  console.log(`category: ${category}`);
   useEffect(() => {
-    setManualList(shop.workManuals);
+    if (category === 'all') {
+      setManualList(shop.workManuals);
+    } else {
+      setManualList(
+        shop.workManuals.filter((manual) => manual.category === category),
+      );
+    }
+
+    // setManualList(shop.workManuals);
     console.log(manualList);
-  }, []);
+  }, [shop]);
 
-  const WorkManualList = manualList.filter(
-    (manual) => manual.category === category,
-  );
-
-  console.log(WorkManualList);
+  // const WorkManualList = manualList.filter(
+  //   (manual) => manual.category === category,
+  // );
 
   return (
     <div className="manual-list">
       {manualList && (
         <ul>
-          {WorkManualList.map((manual, index) => {
+          {manualList.map((manual, index) => {
             return (
               <li key={index}>
                 <div className="manual-title">
@@ -37,7 +42,7 @@ const ManualList = ({ category, user, shop }) => {
                   </div>
                 </div>
                 <br />
-                <div dangerouslySetInnerHTML={{ __html: manual.body }}></div>
+                <div dangerouslySetInnerHTML={{ __html: manual.content }}></div>
               </li>
             );
           })}

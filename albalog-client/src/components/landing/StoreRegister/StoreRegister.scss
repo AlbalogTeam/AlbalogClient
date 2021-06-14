@@ -50,9 +50,9 @@
       .address-search {
         display: flex;
         button {
-          width: 81px;
-          height: 35px;
-          font-size: 13px;
+          width: 81px !important;
+          height: 35px !important;
+          font-size: 13px !important;
           margin-left: 10px;
           border-radius: 0;
         }
