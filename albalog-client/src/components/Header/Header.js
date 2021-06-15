@@ -87,7 +87,7 @@ const Header = ({
       console.log('유저가 없습니다');
       history.push('/login');
     }
-  }, [history, user]);
+  }, [user]);
 
   return (
     <>
