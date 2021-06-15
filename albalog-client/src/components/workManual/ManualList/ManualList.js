@@ -10,18 +10,20 @@ const ManualList = ({ category, user, shop }) => {
     if (category === 'all') {
       setManualList(shop.workManuals);
     } else {
-      setManualList(
-        shop.workManuals.filter((manual) => manual.category === category),
-      );
+      const filterHandle = async () => {
+        const WorkManualList = await shop.workManuals.filter(
+          (manual) => manual.category_id.name === category,
+        );
+
+        setManualList(WorkManualList);
+      };
+
+      filterHandle();
     }
 
-    // setManualList(shop.workManuals);
     console.log(manualList);
-  }, [shop]);
+  }, [shop, category]);
 
-  // const WorkManualList = manualList.filter(
-  //   (manual) => manual.category === category,
-  // );
 
   return (
     <div className="manual-list">
