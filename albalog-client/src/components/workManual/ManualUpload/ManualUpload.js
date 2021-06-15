@@ -61,6 +61,10 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.newCategory._id) {
+          alert('카테고리가 추가 되었습니다');
+          window.location.replace(`/${shop._id}/workmanual`);
+        }
       });
   };
 
@@ -155,7 +159,11 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
               data=""
             />
           </div>
-          <button type="submit">등록</button>
+          <div className="update-btn">
+            <button className="btn" type="submit">
+              등록
+            </button>
+          </div>
         </form>
       </div>
     </div>
