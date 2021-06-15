@@ -44,7 +44,7 @@ const NoticeUpload = ({ shop, user, history }) => {
       })
       .then((response) => {
         console.log(response);
-        if (response.data.message) {
+        if (response.status === 201) {
           window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
         }
       });

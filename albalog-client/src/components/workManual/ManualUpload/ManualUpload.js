@@ -5,7 +5,7 @@ import './ManualUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
-import { SetUser } from 'modules/user';
+import Loading from 'components/Loading/Loading';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
@@ -34,8 +34,8 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     fetchData();
   }, []);
 
+  // Form 입력 값 onChange 함수
   const formOnChange = (e) => {
-    console.log(e.target.name, e.target.value);
     const nextForm = {
       ...manualContent,
       [e.target.name]: e.target.value,
@@ -43,10 +43,12 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     setManualContent(nextForm);
   };
 
+  // 카테고리 추가 input onChange 함수
   const categoryNameOnchange = (e) => {
     setCategoryName(e.target.value);
   };
 
+  // 카테고리 추가 onClick 함수
   const AddCategoryHandle = () => {
     let body = {
       name: categoryName,
@@ -62,6 +64,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
       });
   };
 
+  // 업무매뉴얼 submit 함수
   const manualOnSubmit = (e) => {
     e.preventDefault();
 
@@ -79,7 +82,10 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        if (response.status === 201) {
+          window.location.replace(`/${shop._id}/workmanual`); // 페이지 이동 후 새로고침
+        }
       });
   };
 
@@ -90,6 +96,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
         <form action="" onSubmit={manualOnSubmit}>
           <div className="form-category">
             <select name="category" value={category} onChange={formOnChange}>
+              <option value="">카테고리 선택</option>
               {categories.map((item, index) => (
                 <option key={index} value={item._id}>
                   {item.name}
