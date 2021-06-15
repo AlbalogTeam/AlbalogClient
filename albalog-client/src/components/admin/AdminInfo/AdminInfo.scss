@@ -26,14 +26,27 @@
     .form-info {
       display: flex;
       flex-direction: column;
-
+      justify-content: space-around;
       width: 80%;
+      height: 100%;
+
       input {
         height: 40px;
         border: none;
         border-bottom: 1px solid #dbdbdb;
         background-color: #ffff;
         margin-bottom: 8px;
+      }
+
+      button {
+        border: 1px solid #dbdbdb;
+        padding: 0.75rem;
+        background-color: #18191d;
+        margin-top: 1rem;
+        color: #fff;
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }
