@@ -1,38 +1,39 @@
-import axios from 'axios';
 import Aside from 'components/Aside/Aside';
 import Header from 'components/Header/Header';
 import Modal from 'components/Modal/Modal';
 import SearchBox from 'components/SearchBox/SearchBox';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IoPerson } from 'react-icons/io5';
+import { useSelector } from 'react-redux';
 import './AdminEmployeeList.scss';
 
-const EmployeeInfo = ({ name, email, username }) => {
+const EmployeeInfo = ({ data }) => {
   const [isModal, setIsModal] = useState(false);
 
   const handleModal = () => {
     setIsModal(!isModal);
   };
+
   return (
     <div className="employee">
       <div className="left">
         <IoPerson className="image" />
-        <p className="name">{name}</p>
+        <p className="name">{data.name}</p>
       </div>
       <div className="right">
         <div className="info-container">
           <div className="info">
             <div className="box">
-              <p>유형</p>
-              <p>{name}</p>
+              <p>재직유무</p>
+              <p>{data.status}</p>
             </div>
             <div className="box">
-              <p>직책</p>
-              <p>{username}</p>
+              <p>성별</p>
+              <p>{data.gender}</p>
             </div>
             <div className="box">
               <p>시급</p>
-              <p>{email}</p>
+              <p>{`${data.hourly_wage.toLocaleString()}원`}</p>
             </div>
           </div>
           <button className="btn-detail" onClick={handleModal}>
@@ -40,28 +41,13 @@ const EmployeeInfo = ({ name, email, username }) => {
           </button>
         </div>
       </div>
-      {isModal && <Modal handleModal={handleModal} />}
+      {isModal && <Modal handleModal={handleModal} data={data} />}
     </div>
   );
 };
 
 const AdminEmployeeList = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/users',
-        );
-        setData(response.data);
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getData();
-  }, []);
+  const employeeList = useSelector(({ shop }) => shop.employees);
 
   return (
     <>
@@ -71,13 +57,11 @@ const AdminEmployeeList = () => {
         <h1>직원 리스트</h1>
         <SearchBox />
         <div className="employeeList">
-          {data &&
-            data.map((data) => (
+          {employeeList &&
+            employeeList.map((employee) => (
               <EmployeeInfo
-                key={data.id}
-                name={data.name}
-                email={data.email}
-                username={data.username}
+                key={employee.employee._id}
+                data={employee.employee}
               />
             ))}
         </div>
