@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import './ManualUpload.scss';
+import 'components/workManual/ManualUpload/ManualUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
-import Loading from 'components/Loading/Loading';
+import client from 'utils/api';
+import useConfirm from 'hooks/useConfirm';
 
-const ManualUpload = ({ uploadState, ToggleButton }) => {
+const ManualEdit = ({ editState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
+  const workManual = useSelector((state) => state.workManual);
 
-  const [categoryName, setCategoryName] = useState('');
   const [categories, setCategories] = useState([]);
   const [manualContent, setManualContent] = useState({
-    title: '',
-    content: '',
-    category: '',
+    title: workManual.title,
+    content: workManual.content,
+    category: workManual.category_id.name,
   });
 
   const { title, content, category } = manualContent;
@@ -36,6 +37,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
 
   // Form 입력 값 onChange 함수
   const formOnChange = (e) => {
+    console.log(e.target.name, e.target.value);
     const nextForm = {
       ...manualContent,
       [e.target.name]: e.target.value,
@@ -43,30 +45,23 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     setManualContent(nextForm);
   };
 
-  // 카테고리 추가 input onChange 함수
-  const categoryNameOnchange = (e) => {
-    setCategoryName(e.target.value);
-  };
-
-  // 카테고리 추가 onClick 함수
-  const AddCategoryHandle = () => {
-    let body = {
-      name: categoryName,
-    };
-    axios
-      .post(`${APIURL}/category/${shop._id}/create`, body, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+  // 매뉴얼 삭제 함수
+  const manualDelete = () => {
+    client
+      .delete(`/location/${shop._id}/workmanual/${workManual._id}/delete`)
       .then((response) => {
-        console.log(response.data);
-        if (response.data.newCategory._id) {
-          alert('카테고리가 추가 되었습니다');
+        if (response.data.deletedWorkManual._id) {
           window.location.replace(`/${shop._id}/workmanual`);
         }
       });
   };
+
+  const cancelConfirm = () => console.log('취소하였습니다');
+  const confirmDelete = useConfirm(
+    '정말 삭제하시겠습니까?',
+    manualDelete,
+    cancelConfirm,
+  );
 
   // 업무매뉴얼 submit 함수
   const manualOnSubmit = (e) => {
@@ -80,11 +75,15 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
 
     console.log(body);
     axios
-      .post(`${APIURL}/location/${shop._id}/workmanual/create`, body, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
+      .patch(
+        `${APIURL}/location/${shop._id}/workmanual/${workManual._id}/update`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         },
-      })
+      )
       .then((response) => {
         console.log(response);
         if (response.status === 201) {
@@ -93,30 +92,25 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
       });
   };
 
-  return uploadState ? (
+  return editState ? (
     <div id="ManualUpload" onClick={ToggleButton}>
       <div className="upload-modal" onClick={(e) => e.stopPropagation()}>
         {/* e.stopPropagation는 상위 이벤트에 이벤트값을 전달하는걸 막음*/}
         <form action="" onSubmit={manualOnSubmit}>
           <div className="form-category">
-            <select name="category" value={category} onChange={formOnChange}>
-              <option value="">카테고리 선택</option>
+            <select
+              name="category"
+              value={category}
+              onChange={formOnChange}
+              style={{ width: '96%' }}
+            >
+              <option value={category}>{category}</option>
               {categories.map((item, index) => (
                 <option key={index} value={item._id}>
                   {item.name}
                 </option>
               ))}
             </select>
-
-            <input
-              type="text"
-              value={categoryName}
-              placeholder="카테고리 추가"
-              onChange={categoryNameOnchange}
-            />
-            <button type="button" onClick={AddCategoryHandle}>
-              추가
-            </button>
           </div>
 
           <input
@@ -156,12 +150,15 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
                 setManualContent(nextForm);
               }}
               editor={DecoupledEditor}
-              data=""
+              data={content}
             />
           </div>
           <div className="update-btn">
             <button className="btn" type="submit">
               등록
+            </button>
+            <button onClick={confirmDelete} className="btn" type="button">
+              삭제
             </button>
           </div>
         </form>
@@ -170,4 +167,4 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
   ) : null;
 };
 
-export default ManualUpload;
+export default ManualEdit;

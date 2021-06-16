@@ -1,43 +1,64 @@
-import axios from 'axios';
+import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import ManualEdit from '../ManualEdit/ManualEdit';
 
 const ManualList = ({ category, user, shop }) => {
+  const workManual = useSelector((state) => state.workManual);
   const [manualList, setManualList] = useState([]);
+  const [editState, setEditState] = useState(false);
+  const dispatch = useDispatch();
+
+  const ToggleButton = () => {
+    setEditState(!editState);
+  };
+
+  // 매뉴얼 수정 함수
+  const EditHandle = (manual) => {
+    let manualBody = {
+      _id: manual._id,
+      category_id: manual.category_id,
+      title: manual.title,
+      content: manual.content,
+    };
+
+    dispatch(setWorkManual(manualBody));
+    ToggleButton();
+  };
+
   console.log(`category: ${category}`);
   useEffect(() => {
     if (category === 'all') {
       setManualList(shop.workManuals);
     } else {
-      setManualList(
-        shop.workManuals.filter((manual) => manual.category === category),
-      );
+      const filterHandle = async () => {
+        const WorkManualList = await shop.workManuals.filter(
+          (manual) => manual.category_id.name === category,
+        );
+
+        setManualList(WorkManualList);
+      };
+
+      filterHandle();
     }
 
-    // setManualList(shop.workManuals);
     console.log(manualList);
-  }, [shop]);
-
-  // const WorkManualList = manualList.filter(
-  //   (manual) => manual.category === category,
-  // );
+  }, [shop, category]);
 
   return (
     <div className="manual-list">
       {manualList && (
         <ul>
           {manualList.map((manual, index) => {
+            console.log(manual);
             return (
               <li key={index}>
                 <div className="manual-title">
                   {manual.title}
                   <div className="ico">
-                    <button className="btn">
+                    <button onClick={() => EditHandle(manual)} className="btn">
                       <AiOutlineEdit size="22" />
-                    </button>
-                    <button className="btn">
-                      <AiOutlineDelete size="22" />
                     </button>
                   </div>
                 </div>
@@ -47,6 +68,9 @@ const ManualList = ({ category, user, shop }) => {
             );
           })}
         </ul>
+      )}
+      {editState && (
+        <ManualEdit editState={editState} ToggleButton={ToggleButton} />
       )}
     </div>
   );

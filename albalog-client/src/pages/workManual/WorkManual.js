@@ -1,7 +1,7 @@
 import Header from 'components/Header/Header';
 import MenualCategory from 'components/workManual/ManualCategory/ManualCategory';
 import MenualList from 'components/workManual/ManualList/ManualList';
-import MenualUpload from 'components/workManual/ManualUpload/ManualUpload';
+import ManualUpload from 'components/workManual/ManualUpload/ManualUpload';
 import React, { useState } from 'react';
 import './WorkManual.scss';
 import AdminAside from '../../components/Aside/Aside';
@@ -34,7 +34,7 @@ const WorkManual = ({ match }) => {
         </div>
       </div>
       {uploadState && (
-        <MenualUpload uploadState={uploadState} ToggleButton={ToggleButton} />
+        <ManualUpload uploadState={uploadState} ToggleButton={ToggleButton} />
       )}
     </>
   );
