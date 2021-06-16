@@ -11,8 +11,15 @@
     justify-content: flex-start;
     padding: 10px 10px;
 
-    .head {
-      width: 140px;
+    .head,
+    label {
+      width: 185px;
+      font-weight: bold;
+    }
+
+    .content > label {
+      font-weight: normal;
+      width: 100px;
     }
 
     .content {
@@ -20,6 +27,10 @@
 
       justify-content: space-between;
       padding: 0 10px;
+
+      .content-label {
+        margin-right: 10px;
+      }
 
       button {
         position: relative;
