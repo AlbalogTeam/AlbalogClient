@@ -19,6 +19,8 @@ import React from 'react';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import Authentication from 'utils/authentication';
 import StarrLogin2 from 'pages/login/StarrLogin2';
+import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
+import EmployeeLogin from 'pages/employeeLogIn/EmployeeLogin';
 
 const App = () => {
   return (
@@ -26,7 +28,11 @@ const App = () => {
       <div id="main">
         <Switch>
           <Route path="/" exact component={Authentication(Landing, true)} />
-          <Route path="/stafflogin" exact component={StarrLogin2} />
+          <Route
+            path="/parttime/login"
+            exact
+            component={Authentication(StarrLogin2, false)}
+          />
           <Route path="/login" component={Authentication(Login, false)} exact />
           <Route
             path="/signup"
@@ -79,6 +85,11 @@ const App = () => {
 
           {/** 나중에 staff로 바꿔야함 */}
           <Route
+            path="/parttime/login"
+            exact
+            component={Authentication(EmployeeLogin, false)}
+          />
+          <Route
             path="/parttime/:shop?"
             exact
             component={Authentication(PartTimeDashboard, true)}
@@ -97,6 +108,11 @@ const App = () => {
             path="/parttime/:shop?/workingtime"
             exact
             component={Authentication(WorkingTime, true)}
+          />
+          <Route
+            path="/parttime/:shop/signup"
+            exact
+            component={Authentication(EmployeeSignUp, false)}
           />
         </Switch>
       </div>
