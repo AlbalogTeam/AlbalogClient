@@ -8,6 +8,7 @@ const initialState = {
   address: '',
   phone_number: '',
   postal_code: '',
+  employees: [],
 };
 
 const shop = createSlice({
@@ -25,6 +26,7 @@ const shop = createSlice({
         address,
         phone_number,
         postal_code,
+        employees,
       } = action.payload;
       state._id = _id;
       state.name = name;
@@ -33,6 +35,7 @@ const shop = createSlice({
       state.address = address;
       state.phone_number = phone_number;
       state.postal_code = postal_code;
+      state.employees = employees;
     },
   },
 });

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
+import client from 'utils/api';
 
 const Header = ({
   user,
@@ -27,45 +28,56 @@ const Header = ({
   let token = user.token;
 
   const logOutHandler = () => {
-    let body = {
-      username: 'ksmfou98',
-    };
-    axios
-      .post('https://albalog-test.herokuapp.com/api/v1/owner/logout', body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        localStorage.removeItem('user'); // localStorage에서 user를 제거
-        let UserBody = {
-          _id: '',
-          email: '',
-          name: '',
-          role: '',
-          token: '',
-        };
-        dispatchSetUser(UserBody); // user redux를 초기값으로 설정
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('로그아웃에 실패했습니다.');
-        }
-      });
+    if (user.role === 'owner') {
+      client
+        .post('/owner/logout')
+        .then((response) => {
+          console.log(response.data);
+          localStorage.removeItem('user'); // localStorage에서 user를 제거
+          let UserBody = {
+            _id: '',
+            email: '',
+            name: '',
+            role: '',
+            token: '',
+          };
+          dispatchSetUser(UserBody); // user redux를 초기값으로 설정
+        })
+        .catch(function (error) {
+          // status 코드가 200이 아닌경우 처리
+          if (error) {
+            alert('로그아웃에 실패했습니다.');
+          }
+        });
+    } else if (user.role === 'staff') {
+      client
+        .post('/employee/logout')
+        .then((response) => {
+          console.log(response.data);
+          localStorage.removeItem('user'); // localStorage에서 user를 제거
+          let UserBody = {
+            _id: '',
+            email: '',
+            name: '',
+            role: '',
+            token: '',
+          };
+          dispatchSetUser(UserBody); // user redux를 초기값으로 설정
+        })
+        .catch(function (error) {
+          // status 코드가 200이 아닌경우 처리
+          if (error) {
+            alert('로그아웃에 실패했습니다.');
+          }
+        });
+    }
   };
 
   useEffect(() => {
     const shopId = match.params.shop;
 
-    axios
-      .get(`${APIURL}/location/${shopId}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
+    if (user.role === 'owner') {
+      client.get(`/location/${shopId}`).then((response) => {
         console.log(response.data);
 
         let shopBody = {
@@ -80,6 +92,23 @@ const Header = ({
 
         dispatchSetShop(shopBody);
       });
+    } else if (user.role === 'staff') {
+      client.get(`/employee/${shopId}`).then((response) => {
+        console.log(response.data);
+
+        let shopBody = {
+          _id: response.data._id,
+          name: response.data.name,
+          notices: response.data.notices,
+          workManuals: response.data.workManuals,
+          address: response.data.address,
+          phone_number: response.data.phone_number,
+          postal_code: response.data.postal_code,
+        };
+
+        dispatchSetShop(shopBody);
+      });
+    }
 
     if (user.email) {
       console.log('유저가 있습니다');
