@@ -6,7 +6,10 @@
 <div align="center">Albalog를 통해서 편안한 업무관리, 급여관리, 스케줄관리, 출-퇴근관리를 해보세요😁 
 </div>  
 
-<img src="https://user-images.githubusercontent.com/64634992/122313912-13b79b80-cf52-11eb-900a-a1d50bb073f9.png" />
+
+<img src="https://user-images.githubusercontent.com/64634992/122313912-13b79b80-cf52-11eb-900a-a1d50bb073f9.png" />  
+
+
 
 
 ## Albalog 기능  
