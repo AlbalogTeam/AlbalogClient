@@ -18,6 +18,7 @@ import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import Authentication from 'utils/authentication';
+import StarrLogin2 from 'pages/login/StarrLogin2';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
       <div id="main">
         <Switch>
           <Route path="/" exact component={Authentication(Landing, true)} />
+          <Route path="/stafflogin" exact component={StarrLogin2} />
           <Route path="/login" component={Authentication(Login, false)} exact />
           <Route
             path="/signup"

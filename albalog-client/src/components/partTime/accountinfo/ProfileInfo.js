@@ -20,15 +20,15 @@ function ProfileInfo() {
     birthdate: '',
   });
 
-  const {
-    name,
-    password,
-    newPassword,
-    newPasswordConfirm,
-    phone,
-    gender,
-    birthdate,
-  } = form;
+  // const {
+  //   name,
+  //   password,
+  //   newPassword,
+  //   newPasswordConfirm,
+  //   phone,
+  //   gender,
+  //   birthdate,
+  // } = form;
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -40,37 +40,37 @@ function ProfileInfo() {
     setForm(newForm);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(form);
+  // };
 
-  // const { register, handleSubmit, watch, errors } = useForm();
-  // const password = useRef();
+  // 유효성 검사
+  const { register, handleSubmit, watch, errors } = useForm();
+  console.log(watch('newPassword'));
+  const newPassword = useRef();
   // password.current = watch('password');
 
-  // const onSubmit = (data) => {
-  //   console.log('data', data);
-  // };
+  const onSubmit = (data) => {
+    console.log('data', data);
+  };
 
   // const [user, setUser] = useState({ user });
   // const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(null);
 
-  // 나중에 직원용으로 바꾸기
   useEffect(() => {
     const pushdata = async () => {
       try {
         // setError(null);
-        // setSamples(null);
         // setLoading(true);
         let body = {
-          name,
-          birthdate,
-          phone,
-          gender,
-          password,
-          newPassword,
+          //   name,
+          //   birthdate,
+          //   phone,
+          //   gender,
+          //   password,
+          //   newPassword,
         };
         let response = await axios.patch(
           `${APIURL}/employee/60ca125f38caa500284f6885/update`,
@@ -82,7 +82,6 @@ function ProfileInfo() {
           },
         );
         console.log(response.data);
-        // setSamples(response.data);
       } catch (e) {
         // setError(e);
       }
@@ -95,13 +94,6 @@ function ProfileInfo() {
   // if (error) return <div>에러가 발생했습니다 {console.log(error)}</div>;
   // if (!account) return <div>{console.log(account)}</div>;
 
-  // function mapStateToProps(state) {
-  //   return {
-  //     shop: state.shop,
-  //     user: state.user,
-  //   };
-  // }
-
   return (
     <div id="ProfileInfo">
       <form onSubmit={onSubmit}>
@@ -110,7 +102,7 @@ function ProfileInfo() {
           <input
             className="content"
             name="name"
-            value={name}
+            // value={name}
             onChange={onChange}
           />
         </div>
@@ -123,32 +115,47 @@ function ProfileInfo() {
           <input
             type="password"
             name="password"
-            value={password}
+            // value={password}
             onChange={onChange}
+            ref={register({ required: true })}
           />
+          {errors.password && <p> 비밀번호를 입력해주세요 </p>}
         </div>
         <div className="tr">
           <label>새 비밀번호</label>
           <input
             type="password"
             name="newPassword"
-            value={newPassword}
+            // value={newPassword}
             onChange={onChange}
+            ref={register({ minLength: 6 })}
           />
+          {errors.newPasswordMinLength && <p> 6글자 이상 입력해주세요 </p>}
         </div>
         <div className="tr">
           <label>새 비밀번호 확인</label>
           <input
             type="password"
             name="newPasswordConfirm"
-            value={newPasswordConfirm}
+            // value={newPasswordConfirm}
             onChange={onChange}
+            ref={register({
+              validate: (value) => value === newPassword.current,
+            })}
           />
+          {errors.newPasswordConfirm &&
+            errors.newPasswordConfirm.type === 'validate' && (
+              <p> 새 비밀번호가 일치아지 않습니다.</p>
+            )}
         </div>
         <div className="tr">
           <label className="head">전화번호</label>
-          {/* box없애기 */}
-          <input type="text" name="phone" value={phone} onChange={onChange} />
+          <input
+            type="text"
+            name="phone"
+            // value={phone}
+            onChange={onChange}
+          />
         </div>
         <div className="tr">
           <label>성별</label>
@@ -180,7 +187,7 @@ function ProfileInfo() {
           <input
             type="date"
             name="birthdate"
-            value={birthdate}
+            // value={birthdate}
             onChange={onChange}
           />
         </div>
