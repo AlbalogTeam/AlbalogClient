@@ -36,7 +36,7 @@ const Aside = ({ shop, user }) => {
           </li>
         </NavLink>
       </ul>
-      {/* {user.role === 'owner' ? ( */}
+      {user.role === 'owner' && (
         <>
           <h3>관리자 메뉴</h3>
           <ul className="menu">
@@ -72,7 +72,8 @@ const Aside = ({ shop, user }) => {
             </NavLink>
           </ul>
         </>
-      {/* ) : ( */}
+      )}
+      {user.role === 'staff' && (
         <>
           <h3>직원 메뉴</h3>
           <ul className="menu">
@@ -102,7 +103,7 @@ const Aside = ({ shop, user }) => {
             </NavLink>
           </ul>
         </>
-      {/* )} */}
+      )}
     </aside>
   );
 };
