@@ -5,6 +5,7 @@
       width: 390px;
       height: 50px;
       background-color: #fff;
+      position: relative;
       a {
         display: block;
         overflow: hidden;
@@ -14,6 +15,17 @@
         font-size: 14px;
         line-height: 44px;
         text-align: center;
+      }
+      img {
+        display: none;
+        position: absolute;
+        width: 50px;
+        height: 55px;
+        bottom: 44px;
+        left: 25px;
+      }
+      .active img {
+        display: block;
       }
     }
   }
