@@ -16,23 +16,22 @@ import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
+import Header from 'components/Header/Header';
 import Authentication from 'utils/authentication';
-import StarrLogin2 from 'pages/login/StarrLogin2';
+import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
 import EmployeeLogin from 'pages/employeeLogIn/EmployeeLogin';
 
 const App = () => {
+  // Authentication(a, b, c)
+  // a : 컴포넌트
+  // b : true-> 로그인한 유저만 접근가능 false-> 로그인한 유저는 출입이 불가능 null -> 아무나 출입이 가능
+  // c : null -> 아무나 접근가능 true -> 관리자만 접근 가능 staff -> 직원만 접근가능
   return (
     <div id="container">
       <div id="main">
         <Switch>
           <Route path="/" exact component={Authentication(Landing, true)} />
-          <Route
-            path="/parttime/login"
-            exact
-            component={Authentication(StarrLogin2, false)}
-          />
           <Route path="/login" component={Authentication(Login, false)} exact />
           <Route
             path="/signup"
