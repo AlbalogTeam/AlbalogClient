@@ -8,6 +8,15 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
   padding: 1rem 4rem;
   background: #fff;
+  .header-middle {
+    display: flex;
+    align-items: center;
+    color: #555;
+    span {
+      color: #000;
+      margin-left: 10px;
+    }
+  }
 
   .header-right {
     display: flex;

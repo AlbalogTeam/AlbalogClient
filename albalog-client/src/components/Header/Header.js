@@ -10,6 +10,7 @@ import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
 import client from 'utils/api';
+import { FaStoreAlt } from 'react-icons/fa';
 
 const Header = ({
   user,
@@ -118,7 +119,10 @@ const Header = ({
           <img src={logo} alt="" />
         </a>
 
-        <h3 className="header-middle">{shop.name}</h3>
+        <h3 className="header-middle">
+          <FaStoreAlt size="24" />
+          <span>{shop.name}</span>
+        </h3>
         <div className="header-right">
           <span className="user-name">
             <b>{user.name}</b>님 안녕하세요.
