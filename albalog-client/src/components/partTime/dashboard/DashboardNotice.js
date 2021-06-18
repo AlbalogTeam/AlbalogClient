@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import 'components/partTime/dashboard/DashboardNotice.scss';
-import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
 import client from 'utils/api';
 

@@ -2,8 +2,9 @@
   position: fixed;
   width: 250px;
   height: 100%;
-  box-shadow: 0 2px 15px 1px rgba(90, 90, 90, 0.15);
+  box-shadow: 3px 14px 15px 1px rgba(90, 90, 90, 0.15);
   padding: 0.5rem 1.5rem;
+  z-index: 2;
   .menu-item {
     span {
       margin-left: 1rem;
