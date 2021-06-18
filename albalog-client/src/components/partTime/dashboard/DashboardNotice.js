@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'components/partTime/dashboard/DashboardNotice.scss';
+import { APIURL } from 'config';
+import { useSelector } from 'react-redux';
+import client from 'utils/api';
 
 function DashboardNotice() {
   const [samples, setSamples] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const shop = useSelector((state) => state.shop);
 
   useEffect(() => {
     //   axios
@@ -16,22 +20,13 @@ function DashboardNotice() {
     //       setSamples(data);
     //     });
     // }, []);
-    const locationId = '60c1bc923475ce002892fb83';
 
     const fetchSamples = async () => {
       try {
         setError(null);
         // setSamples(null);
         setLoading(true);
-        let response = await axios.get(
-          `https://albalog-test.herokuapp.com/api/v1/location/${locationId}/notice`,
-          {
-            headers: {
-              Authorization:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGMxYjk4ZjM0NzVjZTAwMjg5MmZiODEiLCJyb2xlIjoib3duZXIiLCJzdG9yZXMiOlt7Il9pZCI6IjYwYzFiYzkyMzQ3NWNlMDAyODkyZmI4NCIsImxvY2F0aW9uIjoiNjBjMWJjOTIzNDc1Y2UwMDI4OTJmYjgzIn1dLCJpYXQiOjE2MjMzNzA1MjN9.Tz0RtqUtDCmJZBXwx4BWKn_k2lnzcpdcwrZlAr0rr_Q',
-            },
-          },
-        );
+        let response = await client.get(`/${shop._id}/notice`);
         console.log(response.data);
         setSamples(response.data.notices);
       } catch (e) {

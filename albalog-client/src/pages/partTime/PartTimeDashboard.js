@@ -184,6 +184,7 @@ function PartTimeDashboard() {
                   <IoIosArrowForward />
                 </span>
               </div>
+              <DashboardNotice />
             </div>
           </div>
         </div>
