@@ -5,12 +5,22 @@ import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import 'pages/login/Login.scss';
+import LoginNav from 'components/LoginNav/LoginNav';
+import banner from 'static/banner.png';
+import { SetParttime } from 'modules/parttime';
 
-function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
+function EmployeeLogin({
+  form,
+  user,
+  parttime,
+  dispatchChangeField,
+  dispatchSetUser,
+}) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const onChange = (e) => {
     const { value, name } = e.target;
     let FormBody = {
@@ -44,7 +54,20 @@ function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
           role: decoded.role,
           token: response.data.token,
         };
+
+        let parttimeBody = {
+          store: response.data.employee.stores,
+          birthdate: response.data.employee.birthdate,
+          wage: response.data.employee.wage,
+          gender: response.data.employee.gender,
+          shift: response.data.employee.shifts,
+          timeclock: response.data.employee.timeClocks,
+          status: response.data.employee.status,
+          cellphone: response.data.employee.cellphone,
+        };
         dispatchSetUser(userBody);
+        dispatch(SetParttime(parttimeBody));
+        localStorage.setItem('parttime', JSON.stringify(parttimeBody));
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
@@ -66,32 +89,33 @@ function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
     } else {
       console.log('유저가 없습니다');
     }
-  }, [history, user]);
+  }, [history, user, parttime]);
 
   return (
-    <div id="login">
-      <form action="" className="loginLeft" onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="email"
-          onChange={onChange}
-          placeholder="username"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={onChange}
-          placeholder="password"
-        />
-        <button type="submit" className="signIn btn">
-          로그인
-        </button>
-        <a href="/signup" className="signUp btn">
-          회원가입
-        </a>
-      </form>
-      <div className="loginRight">
-        <span>Albalog</span>
+    <div id="LoginPage">
+      <LoginNav />
+
+      <div id="login">
+        <form action="" className="loginLeft" onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="email"
+            onChange={onChange}
+            placeholder="username"
+          />
+          <input
+            type="password"
+            name="password"
+            onChange={onChange}
+            placeholder="password"
+          />
+          <button type="submit" className="signIn btn">
+            로그인
+          </button>
+        </form>
+        <div className="loginRight">
+          <img src={banner} alt="" />
+        </div>
       </div>
     </div>
   );
@@ -100,7 +124,7 @@ function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
 function mapStateToProps(state) {
   // redux state로 부터 state를 component의 props로 전달해줌
   // store의 값이 여기 함수 state로 들어옴
-  return { form: state.auth.login, user: state.user };
+  return { form: state.auth.login, user: state.user, parttime: state.parttime };
 }
 
 function mapDispatchToProps(dispatch) {

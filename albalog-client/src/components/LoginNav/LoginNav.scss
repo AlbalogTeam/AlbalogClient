@@ -1,0 +1,20 @@
+#login-nav {
+  ul {
+    li {
+      float: left;
+      width: 390px;
+      height: 50px;
+      background-color: #fff;
+      a {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #dddfe1;
+        font-size: 14px;
+        line-height: 44px;
+        text-align: center;
+      }
+    }
+  }
+}
