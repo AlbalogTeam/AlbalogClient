@@ -63,6 +63,7 @@ const Header = ({
             token: '',
           };
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
+          localStorage.removeItem('parttime');
         })
         .catch(function (error) {
           // status 코드가 200이 아닌경우 처리
@@ -115,7 +116,7 @@ const Header = ({
       console.log('유저가 있습니다');
     } else {
       console.log('유저가 없습니다');
-      history.push('/login');
+      window.location.replace('/login');
     }
   }, [user]);
 

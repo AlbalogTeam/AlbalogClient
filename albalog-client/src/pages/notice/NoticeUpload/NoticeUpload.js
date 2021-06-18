@@ -32,9 +32,6 @@ const NoticeUpload = ({ shop, user, history }) => {
       title,
       content,
     };
-    console.log(`body: ${body}`);
-    console.log(`id : ${shop._id}`);
-    console.log(`token: ${user.token}`);
 
     axios
       .post(`${APIURL}/location/${shop._id}/notice/create`, body, {

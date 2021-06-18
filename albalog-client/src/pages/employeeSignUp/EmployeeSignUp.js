@@ -35,6 +35,7 @@ function EmployeeSignUp() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const parttime = useSelector((state) => state.parttime);
   const history = useHistory();
 
   const onChangeHandler = (e) => {
@@ -86,6 +87,7 @@ function EmployeeSignUp() {
         };
         dispatch(SetUser(userBody));
         dispatch(SetParttime(parttimeBody));
+        localStorage.setItem('parttime', JSON.stringify(parttime));
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
