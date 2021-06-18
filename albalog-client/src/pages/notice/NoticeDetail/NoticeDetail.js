@@ -99,15 +99,20 @@ const NoticeDetail = ({ match, shop, user }) => {
             <a href={`/notice`} className="btn-list">
               목록
             </a>
-            <Link
-              to={`/${shop._id}/notice/edit/${noticeId}`}
-              className="btn-list"
-            >
-              수정
-            </Link>
-            <button onClick={confirmDelete} className="btn-list">
-              삭제
-            </button>
+
+            {user.role === 'owner' && (
+              <>
+                <Link
+                  to={`/${shop._id}/notice/edit/${noticeId}`}
+                  className="btn-list"
+                >
+                  수정
+                </Link>
+                <button onClick={confirmDelete} className="btn-list">
+                  삭제
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

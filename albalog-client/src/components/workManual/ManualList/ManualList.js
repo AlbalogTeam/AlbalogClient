@@ -56,11 +56,16 @@ const ManualList = ({ category, user, shop }) => {
               <li key={index}>
                 <div className="manual-title">
                   {manual.title}
-                  <div className="ico">
-                    <button onClick={() => EditHandle(manual)} className="btn">
-                      <AiOutlineEdit size="22" />
-                    </button>
-                  </div>
+                  {user.role === 'owner' && (
+                    <div className="ico">
+                      <button
+                        onClick={() => EditHandle(manual)}
+                        className="btn"
+                      >
+                        <AiOutlineEdit size="22" />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: manual.content }}></div>

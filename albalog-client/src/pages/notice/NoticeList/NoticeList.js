@@ -46,9 +46,11 @@ const NoticeList = ({ user, shop }) => {
       <div id="Notice" className="page-layout">
         <div className="tit">
           <h4 className="tit-corp">공지사항</h4>
-          <div className="upload">
-            <Link to={`/${shop._id}/notice/upload`}>작성</Link>
-          </div>
+          {user.role === 'owner' && (
+            <div className="upload">
+              <Link to={`/${shop._id}/notice/upload`}>작성</Link>
+            </div>
+          )}
         </div>
         <div className="cont">
           <div className="search-comm">
