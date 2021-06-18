@@ -7,6 +7,7 @@ import { SetUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import client from 'utils/api';
 import './Header.scss';
 
 const Header = ({
@@ -18,23 +19,15 @@ const Header = ({
   match,
 }) => {
   const [isModal, setIsModal] = useState(false);
+  console.log('Header 리렌더링');
 
   const handleModal = () => {
     setIsModal(!isModal);
   };
 
-  let token = user.token;
-
   const logOutHandler = () => {
-    let body = {
-      username: 'ksmfou98',
-    };
-    axios
-      .post('https://albalog-test.herokuapp.com/api/v1/owner/logout', body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    client
+      .post('https://albalog-test.herokuapp.com/api/v1/owner/logout')
       .then((response) => {
         console.log(response.data);
         localStorage.removeItem('user'); // localStorage에서 user를 제거
@@ -49,6 +42,7 @@ const Header = ({
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
+        console.log(error);
         if (error) {
           alert('로그아웃에 실패했습니다.');
         }
@@ -75,6 +69,7 @@ const Header = ({
           address: response.data.address,
           phone_number: response.data.phone_number,
           postal_code: response.data.postal_code,
+          employees: response.data.employees,
         };
 
         dispatchSetShop(shopBody);
