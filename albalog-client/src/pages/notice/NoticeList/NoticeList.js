@@ -22,7 +22,9 @@ const NoticeList = ({ user, shop }) => {
   // utils 함수에 있는 paginate로 화면에 보여줘야할 컨텐츠 개수의 배열을 가져옴
   const pagedNotices = paginate(getNotices, currentPage, pageSize);
   useEffect(() => {
-    setGetNotices(shop.notices);
+    // setGetNotices(shop.notices);
+    const newArr = [...shop.notices].reverse();
+    setGetNotices(newArr);
   }, [user, shop]);
 
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
@@ -96,7 +98,9 @@ const NoticeList = ({ user, shop }) => {
                       </div>
                     </td>
                     <td>
-                      <div className="inner-cont inner-date">2021-05-19</div>
+                      <div className="inner-cont inner-date">
+                        {notice.createdAt.slice(0, 10)}
+                      </div>
                     </td>
                   </tr>
                 ))}

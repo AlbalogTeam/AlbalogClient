@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import eventList from './events';
+import { eventList } from './events';
 import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
 
@@ -39,6 +39,7 @@ function ParttimeScheduler() {
             <Calendar
               localizer={localizer}
               defaultView={'week'}
+              showMultiDayTimes={true}
               views={['week', 'month']}
               defaultDate={new Date(year, month, date)}
               events={eventList} // array of events
