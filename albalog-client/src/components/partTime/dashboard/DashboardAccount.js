@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import 'components/partTime/dashboard/DashboardAccount.scss';
 import { IoIosArrowForward } from 'react-icons/io';
 import { BsPerson } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const DashboardAccount = () => {
+const DashboardAccount = ({ user, shop, parttime }) => {
   const [account, setAccount] = useState({
-    name: '직원이름',
-    age: '99',
-    id: 'accountid1',
+    name: user.name,
+    wage: parttime.wage,
+    status: parttime.status,
   });
 
-  const { name, age, id } = account;
+  const { name, wage, status } = account;
 
   return (
     <div id="frame">
@@ -18,10 +20,12 @@ const DashboardAccount = () => {
       <div className="accountBox">
         <div className="textLine">
           <span>계정정보</span>
-          <span className="moreBtn">
-            더보기
-            <IoIosArrowForward />
-          </span>
+          <Link to={`/parttime/${shop._id}/accountinfo`}>
+            <span className="moreBtn">
+              더보기
+              <IoIosArrowForward />
+            </span>
+          </Link>
         </div>
         <div className="informBox">
           <div className="imgBox">
@@ -33,12 +37,12 @@ const DashboardAccount = () => {
               <p>{name}</p>
             </div>
             <div className="tr">
-              <p>나이</p>
-              <p>{age}</p>
+              <p>시급</p>
+              <p>{wage}</p>
             </div>
             <div className="tr">
-              <p>아이디</p>
-              <p>{id}</p>
+              <p>재직상태</p>
+              <p>{status}</p>
             </div>
           </div>
         </div>
@@ -47,4 +51,8 @@ const DashboardAccount = () => {
   );
 };
 
-export default DashboardAccount;
+function mapStateToProps(state) {
+  return { shop: state.shop, user: state.user, parttime: state.parttime };
+}
+
+export default connect(mapStateToProps)(DashboardAccount);
