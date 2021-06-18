@@ -17,7 +17,7 @@ function ProfileInfo() {
     newPassword: '',
     newPasswordConfirm: '',
     gender: parttime.gender,
-    birthdate: parttime.birthdate,
+    birthdate: parttime.birthdate.slice(0, 10),
     phone: parttime.cellphone,
   });
 
@@ -140,6 +140,7 @@ function ProfileInfo() {
                 name="gender"
                 value="남성"
                 onChange={onChange}
+                checked={gender === '남성' ? true : false}
                 className="content-label"
                 ref={register({ required: true })}
               />
@@ -150,6 +151,7 @@ function ProfileInfo() {
                 type="radio"
                 name="gender"
                 value="여성"
+                checked={gender === '여성' ? true : false}
                 onChange={onChange}
                 className="content-label"
                 ref={register({ required: true })}
