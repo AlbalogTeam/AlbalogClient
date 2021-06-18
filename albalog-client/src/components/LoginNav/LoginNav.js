@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './LoginNav.scss';
+import loginIco from 'static/login-ico.png';
 
 const LoginNav = () => {
   const activeStyle = {
@@ -14,11 +15,13 @@ const LoginNav = () => {
         <li>
           <NavLink to={`/login`} activeStyle={activeStyle}>
             관리자 로그인
+            <img src={loginIco} alt="" />
           </NavLink>
         </li>
         <li>
           <NavLink to={`/parttime/login`} activeStyle={activeStyle}>
             직원 로그인
+            <img src={loginIco} alt="" />
           </NavLink>
         </li>
       </ul>
