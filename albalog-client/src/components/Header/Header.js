@@ -25,22 +25,19 @@ const Header = ({
     setIsModal(!isModal);
   };
 
-  let token = user.token;
-
   const logOutHandler = () => {
+    let UserBody = {
+      _id: '',
+      email: '',
+      name: '',
+      role: '',
+      token: '',
+    };
     if (user.role === 'owner') {
       client
         .post('/owner/logout')
         .then((response) => {
-          console.log(response.data);
           localStorage.removeItem('user'); // localStorage에서 user를 제거
-          let UserBody = {
-            _id: '',
-            email: '',
-            name: '',
-            role: '',
-            token: '',
-          };
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
         })
         .catch(function (error) {
@@ -53,15 +50,7 @@ const Header = ({
       client
         .post('/employee/logout')
         .then((response) => {
-          console.log(response.data);
           localStorage.removeItem('user'); // localStorage에서 user를 제거
-          let UserBody = {
-            _id: '',
-            email: '',
-            name: '',
-            role: '',
-            token: '',
-          };
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
           localStorage.removeItem('parttime');
         })
@@ -106,6 +95,7 @@ const Header = ({
           address: response.data.address,
           phone_number: response.data.phone_number,
           postal_code: response.data.postal_code,
+          employees: response.data.employees,
         };
 
         dispatchSetShop(shopBody);
