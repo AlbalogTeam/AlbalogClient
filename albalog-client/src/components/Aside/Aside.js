@@ -85,19 +85,19 @@ const Aside = ({ shop, user }) => {
             </NavLink>
             <NavLink to={`/parttime/${shop._id}/accountinfo`} exact>
               <li className="menu-item">
-                <AiOutlineSchedule />
+                <IoSettingsOutline />
                 <span>계정 정보</span>
               </li>
             </NavLink>
             <NavLink to={`/parttime/${shop._id}/scheduler`} exact>
               <li className="menu-item">
-                <BiDollar />
+                <AiOutlineSchedule />
                 <span>스케줄러</span>
               </li>
             </NavLink>
             <NavLink to={`/parttime/${shop._id}/workingtime`} exact>
               <li className="menu-item">
-                <IoSettingsOutline />
+                <BiDollar />
                 <span>일한시간</span>
               </li>
             </NavLink>
