@@ -8,8 +8,9 @@ import './EmployeeSignUp.css';
 import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
+import { withRouter } from 'react-router-dom';
 
-function EmployeeSignUp() {
+function EmployeeSignUp({ match }) {
   const [form, setForm] = useState({
     email: '',
     name: '',
@@ -37,6 +38,7 @@ function EmployeeSignUp() {
   const user = useSelector((state) => state.user);
   const parttime = useSelector((state) => state.parttime);
   const history = useHistory();
+  const shopId = match.params.shop;
 
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
@@ -60,7 +62,7 @@ function EmployeeSignUp() {
     };
     console.log(body);
     axios
-      .post(`${APIURL}/employee/60c034f95a12780028009e98/signup`, body)
+      .post(`${APIURL}/employee/${shopId}/signup`, body)
       .then((response) => {
         console.log(response.data);
         const token = response.data.token;
@@ -304,4 +306,4 @@ function EmployeeSignUp() {
   );
 }
 
-export default EmployeeSignUp;
+export default withRouter(EmployeeSignUp);
