@@ -6,14 +6,17 @@ import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullsc
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
+import { useSelector } from 'react-redux';
 
 function PartTimeDashboard() {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
   const date = today.getDate();
+  const shop = useSelector((state) => state.shop);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[today.getDay()];
@@ -125,66 +128,15 @@ function PartTimeDashboard() {
               <div className="noticeBox">
                 <div className="textLine">
                   <span>공지사항</span>
-                  <span className="moreBtn">
-                    더보기
-                    <IoIosArrowForward />
-                  </span>
+                  <Link to={`/${shop._id}/notice`}>
+                    <span className="moreBtn">
+                      더보기
+                      <IoIosArrowForward />
+                    </span>
+                  </Link>
                 </div>
-                <div className="personalScheduleContent">
-                  <DashboardPersonalschedule
-                    year={year}
-                    month={month}
-                    date={date}
-                    day={day}
-                  />
-                </div>
-                <button className="" onClick={handleModal}>
-                  스케줄 변경 신청
-                </button>
-                {Modal && <RescheduleModal handleModal={handleModal} />}
+                <DashboardNotice />
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="secondRow">
-          <div className="bottomLeftBox">
-            <div className="btnBox">
-              <button
-                className="clockInBtn"
-                onClick={clickClockIn}
-                style={
-                  clockIn
-                    ? { background: 'gray' }
-                    : { background: 'rgb(18, 113, 175)' }
-                }
-              >
-                {clockIn ? '출근 완료' : '출근 하기'}
-              </button>
-              <button
-                className="clockOutBtn"
-                onClick={clickClockOut}
-                style={
-                  clockOut
-                    ? { background: 'gray' }
-                    : clockIn
-                    ? { background: 'rgb(18, 113, 175)' }
-                    : { background: 'gray' }
-                }
-              >
-                {clockOut ? '퇴근 완료' : '퇴근 하기'}
-              </button>
-            </div>
-          </div>
-          <div className="bottomRightBox">
-            <div className="noticeBox">
-              <div className="textLine">
-                <span>공지사항</span>
-                <span className="moreBtn">
-                  더보기
-                  <IoIosArrowForward />
-                </span>
-              </div>
-              <DashboardNotice />
             </div>
           </div>
         </div>
