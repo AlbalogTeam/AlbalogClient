@@ -88,6 +88,7 @@ const Header = ({
           address: response.data.address,
           phone_number: response.data.phone_number,
           postal_code: response.data.postal_code,
+          employees: response.data.employees,
         };
 
         dispatchSetShop(shopBody);

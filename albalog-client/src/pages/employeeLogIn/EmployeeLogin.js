@@ -8,6 +8,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import 'pages/login/Login.scss';
+import LoginNav from 'components/LoginNav/LoginNav';
+import banner from 'static/banner.png';
 
 function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
   const history = useHistory();
@@ -69,29 +71,30 @@ function EmployeeLogin({ form, user, dispatchChangeField, dispatchSetUser }) {
   }, [history, user]);
 
   return (
-    <div id="login">
-      <form action="" className="loginLeft" onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="email"
-          onChange={onChange}
-          placeholder="username"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={onChange}
-          placeholder="password"
-        />
-        <button type="submit" className="signIn btn">
-          로그인
-        </button>
-        <a href="/signup" className="signUp btn">
-          회원가입
-        </a>
-      </form>
-      <div className="loginRight">
-        <span>Albalog</span>
+    <div id="LoginPage">
+      <LoginNav />
+
+      <div id="login">
+        <form action="" className="loginLeft" onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="email"
+            onChange={onChange}
+            placeholder="username"
+          />
+          <input
+            type="password"
+            name="password"
+            onChange={onChange}
+            placeholder="password"
+          />
+          <button type="submit" className="signIn btn">
+            로그인
+          </button>
+        </form>
+        <div className="loginRight">
+          <img src={banner} alt="" />
+        </div>
       </div>
     </div>
   );
