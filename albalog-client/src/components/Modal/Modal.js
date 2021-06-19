@@ -18,6 +18,7 @@ const Modal = ({ handleModal, data }) => {
   const [wage, setWage] = useState(hourly_wage);
   const [isStatus, setIsStatus] = useState(status);
   const locationId = useSelector(({ shop }) => shop._id);
+  const shop = useSelector((state) => state.shop);
 
   const changeWage = (e) => {
     setWage(e.target.value);
@@ -31,11 +32,18 @@ const Modal = ({ handleModal, data }) => {
     e.preventDefault();
 
     try {
-      await client.patch(`/location/${locationId}/employees/${_id}/update`, {
-        hourly_wage: Number(wage),
-        status: isStatus,
-      });
+      const response = await client.patch(
+        `/location/${locationId}/employees/${_id}/update`,
+        {
+          hourly_wage: Number(wage),
+          status: isStatus,
+        },
+      );
       alert('변경성공');
+      if (response.status === 200) {
+        window.location.replace(`/admin/${shop._id}/employeelist`); // 페이지 이동 후 새로고침
+      }
+      console.log(response);
     } catch (e) {
       console.log(e);
     }
@@ -56,7 +64,12 @@ const Modal = ({ handleModal, data }) => {
           <input type="text" disabled value={email} id="email" />
 
           <label htmlFor="birthdate">생년월일</label>
-          <input type="text" disabled value={birthdate} id="birthdate" />
+          <input
+            type="text"
+            disabled
+            value={birthdate.slice(0, 10)}
+            id="birthdate"
+          />
 
           <label htmlFor="cellphone">핸드폰번호</label>
           <input type="text" disabled value={cellphone} id="cellphone" />
