@@ -40,3 +40,30 @@
     }
   }
 }
+
+@media screen and (max-width: 1515px) {
+  body {
+    .header {
+      height: 4rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    .header {
+      justify-content: center;
+      .header-middle {
+        display: none;
+      }
+      .user-name {
+        display: none;
+      }
+
+      .header-right {
+        position: absolute;
+        right: 10px;
+      }
+    }
+  }
+}

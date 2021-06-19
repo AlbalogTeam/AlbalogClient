@@ -1,0 +1,31 @@
+@media screen and(max-width:1515px) {
+  #container {
+    #main {
+      .page-layout {
+        margin-left: 7.5rem;
+        width: 80%;
+      }
+    }
+  }
+}
+
+// @media screen and(max-width:1200px) {
+//   #container {
+//     #main {
+//       .page-layout {
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
+
+@media screen and(max-width:768px) {
+  #container {
+    #main {
+      .page-layout {
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
