@@ -4,10 +4,11 @@ import './LoginNav.scss';
 
 const LoginNav = () => {
   const activeStyle = {
-    borderBottom: '2px solid #015a95',
-    color: '#389bdc',
+    borderBottom: '5px solid rgb(1, 90, 149)',
+    color: 'rgb(1, 90, 149)',
     fontWeight: '700',
   };
+
   return (
     <div id="login-nav">
       <ul>
