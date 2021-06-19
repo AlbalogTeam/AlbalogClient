@@ -15,6 +15,7 @@ function loadUser() {
     store.dispatch(SetUser(user));
 
     let parttime = JSON.parse(localStorage.getItem('parttime'));
+    console.log(parttime);
     if (!parttime) {
       return;
     }
