@@ -64,6 +64,9 @@ function ProfileInfo() {
       // };
       let response = await client.patch(`/employee/${shop._id}/update`, body);
       console.log(response);
+      if (response.status === 200) {
+        window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
+      }
     } catch (e) {
       console.log('Error : ' + e);
     }
