@@ -9,6 +9,8 @@ import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
 import { withRouter } from 'react-router-dom';
+import client from 'utils/api';
+import { SetShop } from 'modules/shop';
 
 function EmployeeSignUp({ match }) {
   const [form, setForm] = useState({
@@ -100,6 +102,8 @@ function EmployeeSignUp({ match }) {
     // console.log(form);
   };
   useEffect(() => {
+    
+
     if (user.email) {
       console.log('유저가 있습니다');
       history.push('/'); // 홈 화면으로 이동

@@ -35,7 +35,7 @@ const Authentication = (Component, option, adminRoute = null) => {
           }
         }
         // 관리자 체크
-        if (adminRoute && user.role !== 'owner') {
+        if (adminRoute === 'admin' && user.role !== 'owner') {
           alert('관리자만 접근 가능합니다');
           props.history.push('/');
         } else {
