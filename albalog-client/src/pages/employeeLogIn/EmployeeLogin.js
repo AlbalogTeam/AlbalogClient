@@ -46,7 +46,7 @@ function EmployeeLogin({
       .then((response) => {
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
-
+        console.log(response.data);
         let userBody = {
           _id: response.data.employee._id,
           email: response.data.employee.email,
@@ -60,7 +60,6 @@ function EmployeeLogin({
           birthdate: response.data.employee.birthdate,
           wage: response.data.employee.wage,
           gender: response.data.employee.gender,
-          shift: response.data.employee.shifts,
           timeclock: response.data.employee.timeClocks,
           status: response.data.employee.status,
           cellphone: response.data.employee.cellphone,
