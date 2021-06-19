@@ -56,7 +56,7 @@ const Modal = ({ handleModal, data }) => {
           <input type="text" disabled value={email} id="email" />
 
           <label htmlFor="birthdate">생년월일</label>
-          <input type="text" disabled value={birthdate} id="birthdate" />
+          <input type="text" disabled value={birthdate.slice(0,10)} id="birthdate" />
 
           <label htmlFor="cellphone">핸드폰번호</label>
           <input type="text" disabled value={cellphone} id="cellphone" />

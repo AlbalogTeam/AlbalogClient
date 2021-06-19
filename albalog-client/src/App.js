@@ -91,22 +91,22 @@ const App = () => {
           <Route
             path="/parttime/:shop?"
             exact
-            component={Authentication(PartTimeDashboard, true)}
+            component={Authentication(PartTimeDashboard, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/accountinfo"
             exact
-            component={Authentication(AccountInfo, true)}
+            component={Authentication(AccountInfo, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/scheduler"
             exact
-            component={Authentication(ParttimeScheduler, true)}
+            component={Authentication(ParttimeScheduler, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/workingtime"
             exact
-            component={Authentication(WorkingTime, true)}
+            component={Authentication(WorkingTime, true, 'staff')}
           />
           <Route
             path="/parttime/:shop/signup"
