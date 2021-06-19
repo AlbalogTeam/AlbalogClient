@@ -5,11 +5,12 @@ import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
 import { useSelector } from 'react-redux';
+import client from 'utils/api';
 
 function PartTimeDashboard() {
   const today = new Date();
@@ -17,14 +18,66 @@ function PartTimeDashboard() {
   const month = today.getMonth() + 1;
   const date = today.getDate();
   const shop = useSelector((state) => state.shop);
+  const user = useSelector((state) => state.user);
+  const parttime = useSelector((state) => state.parttime);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[today.getDay()];
 
   const [clockIn, setclockIn] = useState(false);
+
+  // const [form, setForm] = useState({
+  //   locationId: shop._id,
+  //   start_time: new Date(),
+  //   wage: 0,
+  // });
+
   const clickClockIn = (e) => {
-    if (!clockIn) setclockIn(true);
-    e.target.style.background = 'gray';
+    if (!clockIn) {
+      setclockIn(true);
+      e.target.style.background = 'gray';
+    }
+    let newForm = {
+      locationId: shop._id,
+      start_time: new Date(),
+      wage: 0,
+    };
+    console.log(newForm);
+    // setForm(newForm);
+
+    const getprofile = () => {
+      try {
+        client
+          .get(`/location/${shop._id}/employees/${user._id}`)
+          .then((res) => {
+            localStorage.setItem('parttime', JSON.stringify(res.data));
+            console.log(res.data);
+            window.location.replace(`/parttime/${shop._id}`);
+            setclockIn(true);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const pushdata = async () => {
+      try {
+        // console.log(body);
+        let response = await client
+          .post(`/timeclock/start`, newForm)
+          .then((response) => {
+            console.log(response.data);
+            if (response.status === 201) {
+              getprofile();
+            }
+          });
+
+        console.log(response.data);
+      } catch (e) {
+        // console.log('Error : ' + e);
+      }
+    };
+    pushdata();
   };
 
   const [clockOut, setclockOut] = useState(false);
@@ -33,6 +86,23 @@ function PartTimeDashboard() {
       setclockOut(true);
       e.target.style.background = 'gray';
     }
+    const newForm = {
+      locationId: shop._id,
+      end_time: new Date(),
+      timeClockId: parttime,
+    };
+
+    console.log(newForm);
+    const pushdata = async () => {
+      try {
+        // console.log(body);
+        let response = await client.post(`/timeclock/end`, newForm);
+        console.log(response.data);
+      } catch (e) {
+        // console.log('Error : ' + e);
+      }
+    };
+    pushdata();
   };
 
   const [Modal, setModal] = useState(false);

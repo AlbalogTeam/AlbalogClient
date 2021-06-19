@@ -17,22 +17,22 @@ const parttime = createSlice({
   reducers: {
     SetParttime: (state, action) => {
       const {
-        store,
+        stores,
         birthdate,
         wage,
         gender,
-        shift,
-        timeclock,
+        shifts,
+        timeClocks,
         status,
         cellphone,
       } = action.payload;
 
-      state.store = store;
+      state.store = stores;
       state.birthdate = birthdate;
       state.wage = wage;
       state.gender = gender;
-      state.shift = shift;
-      state.timeclock = timeclock;
+      state.shift = shifts;
+      state.timeclock = timeClocks;
       state.status = status;
       state.cellphone = cellphone;
     },

@@ -9,6 +9,7 @@ const LoginNav = () => {
     color: 'rgb(1, 90, 149)',
     fontWeight: '700',
   };
+
   return (
     <div id="login-nav">
       <ul>

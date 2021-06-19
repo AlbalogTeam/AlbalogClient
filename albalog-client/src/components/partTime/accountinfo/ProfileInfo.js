@@ -139,6 +139,7 @@ function ProfileInfo() {
                 type="radio"
                 name="gender"
                 value="남성"
+                checked={gender === '남성' ? true : false}
                 onChange={onChange}
                 checked={gender === '남성' ? true : false}
                 className="content-label"
