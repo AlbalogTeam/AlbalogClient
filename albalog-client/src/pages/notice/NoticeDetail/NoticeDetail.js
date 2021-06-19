@@ -96,7 +96,7 @@ const NoticeDetail = ({ match, shop, user }) => {
               ''
             )}
 
-            <a href={`/notice`} className="btn-list">
+            <a href={`/${shop._id}/notice`} className="btn-list">
               목록
             </a>
 
