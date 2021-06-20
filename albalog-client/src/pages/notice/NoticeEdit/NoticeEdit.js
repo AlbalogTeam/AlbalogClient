@@ -86,6 +86,7 @@ const NoticeEdit = ({ match, shop, user }) => {
               <input
                 type="text"
                 value={title}
+                autoComplete="off"
                 onChange={titleOnChange}
                 placeholder="제목을 입력하세요"
               />

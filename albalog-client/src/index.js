@@ -10,11 +10,11 @@ import App from './App';
 
 function loadUser() {
   try {
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(sessionStorage.getItem('user'));
     if (!user) return; // 로그인 상태가 아니라면 아무것도 안함
     store.dispatch(SetUser(user));
 
-    let parttime = JSON.parse(localStorage.getItem('parttime'));
+    let parttime = JSON.parse(sessionStorage.getItem('parttime'));
     console.log(parttime);
     if (!parttime) {
       return;
