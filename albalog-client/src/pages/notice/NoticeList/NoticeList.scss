@@ -51,7 +51,7 @@
 
           .search-input {
             float: left;
-            width: 90%;
+            width: 80%;
             height: 42px;
             border: 0 none;
             box-sizing: border-box;
@@ -177,7 +177,8 @@
 
 @media screen and(max-width:1515px) {
   body {
-    #Notice {
+    #Notice,
+    .page-layout {
       .tit {
         display: none;
       }
@@ -195,6 +196,30 @@
       .cont {
         .search-comm {
           width: 100%;
+        }
+        .table-comm {
+          .table {
+            colgroup {
+              .left {
+                width: auto;
+              }
+              .right {
+                width: 96px;
+              }
+            }
+            th {
+              padding: 15px 0;
+            }
+            .td-left {
+              .inner-cont {
+                padding: 12px 10px;
+              }
+            }
+            .inner-cont {
+              padding: 12px 10px;
+              font-size: 13px;
+            }
+          }
         }
       }
     }

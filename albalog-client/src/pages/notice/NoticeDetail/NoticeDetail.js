@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AdminAside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
@@ -116,6 +117,7 @@ const NoticeDetail = ({ match, shop, user }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
