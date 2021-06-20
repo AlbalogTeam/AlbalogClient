@@ -40,7 +40,7 @@ function PartTimeDashboard() {
     let newForm = {
       locationId: shop._id,
       start_time: new Date(),
-      wage: 0,
+      wage: 1000,
     };
     console.log(newForm);
     // setForm(newForm);
@@ -53,7 +53,6 @@ function PartTimeDashboard() {
             localStorage.setItem('parttime', JSON.stringify(res.data));
             console.log(res.data);
             window.location.replace(`/parttime/${shop._id}`);
-            setclockIn(true);
           });
       } catch (e) {
         console.log(e);
@@ -69,6 +68,8 @@ function PartTimeDashboard() {
             console.log(response.data);
             if (response.status === 201) {
               getprofile();
+              setclockIn(true);
+              console.log(clockIn);
             }
           });
 
@@ -89,7 +90,7 @@ function PartTimeDashboard() {
     const newForm = {
       locationId: shop._id,
       end_time: new Date(),
-      timeClockId: parttime,
+      timeClockId: parttime.wage,
     };
 
     console.log(newForm);
