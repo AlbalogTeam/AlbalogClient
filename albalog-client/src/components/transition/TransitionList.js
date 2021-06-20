@@ -31,7 +31,8 @@ const TransitionList = ({ date }) => {
       );
 
       console.log(response.data.satisfyTransitions);
-      setGetTransition(response.data.satisfyTransitions);
+      const newArr = [...response.data.satisfyTransitions].reverse();
+      setGetTransition(newArr);
       setChangeData(1);
     }
 
@@ -49,6 +50,15 @@ const TransitionList = ({ date }) => {
       if (response.status === 201) {
         setDataLoading(!dataLoading);
         setTransitionDescription('');
+      }
+    });
+  };
+
+  const deleteTransition = (id) => {
+    client.delete(`/transition/${shop._id}/delete/${id}`).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        setDataLoading(!dataLoading);
       }
     });
   };
@@ -93,7 +103,11 @@ const TransitionList = ({ date }) => {
                   <button name="수정">
                     <MdModeEdit size="22" />
                   </button>
-                  <button name="삭제">
+                  <button
+                    type="button"
+                    onClick={() => deleteTransition(transition._id)}
+                    name="삭제"
+                  >
                     <MdDelete size="22" />
                   </button>
                 </div>
