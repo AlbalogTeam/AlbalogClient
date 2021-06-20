@@ -9,6 +9,7 @@ import { APIURL } from 'config';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -117,6 +118,7 @@ const NoticeList = ({ user, shop }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

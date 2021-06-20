@@ -38,7 +38,7 @@ const Header = ({
       client
         .post('/owner/logout')
         .then((response) => {
-          localStorage.removeItem('user'); // localStorage에서 user를 제거
+          sessionStorage.removeItem('user'); // localStorage에서 user를 제거
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
         })
         .catch(function (error) {
@@ -51,9 +51,9 @@ const Header = ({
       client
         .post('/employee/logout')
         .then((response) => {
-          localStorage.removeItem('user'); // localStorage에서 user를 제거
+          sessionStorage.removeItem('user'); // localStorage에서 user를 제거
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
-          localStorage.removeItem('parttime');
+          sessionStorage.removeItem('parttime');
         })
         .catch(function (error) {
           // status 코드가 200이 아닌경우 처리

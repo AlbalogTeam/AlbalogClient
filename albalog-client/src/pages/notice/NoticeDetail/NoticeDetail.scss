@@ -29,6 +29,7 @@
       padding-top: 20px;
       width: 700px;
       margin: 0 auto;
+      overflow: hidden;
       .btn-move {
         float: left;
         width: 98px;
@@ -52,6 +53,34 @@
         background-color: #4d4d4d;
         text-align: center;
         text-decoration: none;
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 1515px) {
+  body {
+    #NoticeDetail {
+      .notice-cont {
+        width: 100%;
+        float: none;
+        .content-tit {
+          width: 100%;
+          padding: 10px;
+        }
+        .content-cont {
+          width: 100%;
+          padding-bottom: 50px;
+        }
+        .content-btn {
+          width: 100%;
+          .btn-list {
+            width: 60px;
+            font-size: 13px;
+            height: 35px;
+            line-height: 35px;
+          }
+        }
       }
     }
   }

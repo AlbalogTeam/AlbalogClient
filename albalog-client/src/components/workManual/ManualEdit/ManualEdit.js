@@ -12,12 +12,14 @@ const ManualEdit = ({ editState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
   const workManual = useSelector((state) => state.workManual);
-
+  const [categoryDefault, setCategoryDefault] = useState(
+    workManual.category_id.name,
+  );
   const [categories, setCategories] = useState([]);
   const [manualContent, setManualContent] = useState({
     title: workManual.title,
     content: workManual.content,
-    category: workManual.category_id.name,
+    category: workManual.category_id._id,
   });
 
   const { title, content, category } = manualContent;
@@ -104,7 +106,6 @@ const ManualEdit = ({ editState, ToggleButton }) => {
               onChange={formOnChange}
               style={{ width: '96%' }}
             >
-              <option value={category}>{category}</option>
               {categories.map((item, index) => (
                 <option key={index} value={item._id}>
                   {item.name}
@@ -119,6 +120,7 @@ const ManualEdit = ({ editState, ToggleButton }) => {
             placeholder="제목을 입력해주세요"
             name="title"
             value={title}
+            autoComplete="off"
             onChange={formOnChange}
           />
 

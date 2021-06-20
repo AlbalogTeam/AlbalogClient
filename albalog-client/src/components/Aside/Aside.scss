@@ -32,3 +32,32 @@
     }
   }
 }
+
+@media screen and (max-width: 1515px) {
+  body {
+    .aside-container {
+      width: 6rem;
+      padding: 0;
+      .menu {
+        .menu-item {
+          flex-direction: column;
+          font-size: 0.75rem;
+          span {
+            margin: 0;
+          }
+        }
+      }
+      h3 {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    .aside-container {
+      display: none !important;
+    }
+  }
+}

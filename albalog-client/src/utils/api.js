@@ -4,7 +4,7 @@ const client = axios.create();
 client.defaults.baseURL = 'https://albalog-test.herokuapp.com/api/v1';
 client.interceptors.request.use(
   function (config) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     config.headers.Authorization = `Bearer ${user.token}`;
     return config;
   },

@@ -11,6 +11,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
 import { useSelector } from 'react-redux';
 import client from 'utils/api';
+import Footer from 'components/Footer/Footer';
 
 function PartTimeDashboard() {
   const today = new Date();
@@ -26,12 +27,6 @@ function PartTimeDashboard() {
 
   const [clockIn, setclockIn] = useState(false);
 
-  // const [form, setForm] = useState({
-  //   locationId: shop._id,
-  //   start_time: new Date(),
-  //   wage: 0,
-  // });
-
   const clickClockIn = (e) => {
     if (!clockIn) {
       setclockIn(true);
@@ -43,7 +38,6 @@ function PartTimeDashboard() {
       wage: 1000,
     };
     console.log(newForm);
-    // setForm(newForm);
 
     const getprofile = () => {
       try {
@@ -61,7 +55,6 @@ function PartTimeDashboard() {
 
     const pushdata = async () => {
       try {
-        // console.log(body);
         let response = await client
           .post(`/timeclock/start`, newForm)
           .then((response) => {
@@ -212,6 +205,7 @@ function PartTimeDashboard() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

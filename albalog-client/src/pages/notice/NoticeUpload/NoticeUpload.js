@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 const NoticeUpload = ({ shop, user, history }) => {
   const [noticeContent, setNoticeContent] = useState({
@@ -51,7 +52,7 @@ const NoticeUpload = ({ shop, user, history }) => {
     <>
       <Header />
       <Aside />
-      <div id="NoticeUpload">
+      <div id="NoticeUpload" className="page-layout">
         <div className="upload-form">
           <form action="" onSubmit={noticeOnSubmit}>
             <input
@@ -59,9 +60,11 @@ const NoticeUpload = ({ shop, user, history }) => {
               value={title}
               onChange={titleOnChange}
               placeholder="제목을 입력하세요"
+              autoComplete="off"
             />
             <div className="write-cont">
               <CKEditor
+                config={{ placeholder: '내용을 입력해주세요 ... ' }}
                 onReady={(editor) => {
                   console.log('Editor is ready to use!', editor);
                   editor.ui
@@ -96,6 +99,7 @@ const NoticeUpload = ({ shop, user, history }) => {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

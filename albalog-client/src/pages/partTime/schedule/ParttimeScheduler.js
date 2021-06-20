@@ -9,6 +9,7 @@ import getDay from 'date-fns/getDay';
 import { eventList } from './events';
 import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -53,6 +54,7 @@ function ParttimeScheduler() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

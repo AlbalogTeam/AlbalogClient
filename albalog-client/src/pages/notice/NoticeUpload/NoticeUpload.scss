@@ -41,3 +41,15 @@
     }
   }
 }
+
+@media screen and(max-width:1515px) {
+  body {
+    #NoticeUpload,
+    #NoticeEdit {
+      .upload-form {
+        width: 100%;
+        padding: 0px;
+      }
+    }
+  }
+}
