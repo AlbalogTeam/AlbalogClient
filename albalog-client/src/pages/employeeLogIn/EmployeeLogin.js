@@ -66,7 +66,7 @@ function EmployeeLogin({
         };
         dispatchSetUser(userBody);
         dispatch(SetParttime(parttimeBody));
-        localStorage.setItem('parttime', JSON.stringify(parttimeBody));
+        sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
@@ -81,7 +81,7 @@ function EmployeeLogin({
       console.log('유저가 있습니다');
       history.push('/'); // 대쉬보드로 이동
       try {
-        localStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
         console.log('로컬스토리지 저장에 실패했습니다');
       }

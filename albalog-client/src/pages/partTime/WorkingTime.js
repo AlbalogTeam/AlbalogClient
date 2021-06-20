@@ -8,6 +8,7 @@ import 'pages/partTime/WorkingTime.scss';
 import ContentLine from 'components/partTime/ContentLine';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 function WorkingTime() {
   return (
@@ -48,6 +49,7 @@ function WorkingTime() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -60,6 +60,7 @@ const NoticeUpload = ({ shop, user, history }) => {
               value={title}
               onChange={titleOnChange}
               placeholder="제목을 입력하세요"
+              autoComplete="off"
             />
             <div className="write-cont">
               <CKEditor

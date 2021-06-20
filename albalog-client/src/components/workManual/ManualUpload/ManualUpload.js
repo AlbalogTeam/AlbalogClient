@@ -125,6 +125,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
             placeholder="제목을 입력해주세요"
             name="title"
             value={title}
+            autoComplete="off"
             onChange={formOnChange}
           />
 
