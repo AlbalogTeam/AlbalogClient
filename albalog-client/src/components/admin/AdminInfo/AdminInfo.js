@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import { withRouter } from 'react-router';
 import { SetUser } from 'modules/user';
+import Footer from 'components/Footer/Footer';
 
 const AdminInfo = ({ history }) => {
   const { name: originName, email } = useSelector(({ user }) => user);
@@ -121,6 +122,7 @@ const AdminInfo = ({ history }) => {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

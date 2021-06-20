@@ -8,6 +8,7 @@ import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import { useSelector } from 'react-redux';
 import Loading from 'components/Loading/Loading';
+import Footer from 'components/Footer/Footer';
 
 const monthlypay = [
   {
@@ -81,6 +82,7 @@ function AccountInfo() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

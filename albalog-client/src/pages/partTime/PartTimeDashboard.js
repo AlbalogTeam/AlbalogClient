@@ -11,6 +11,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
 import { useSelector } from 'react-redux';
 import client from 'utils/api';
+import Footer from 'components/Footer/Footer';
 
 function PartTimeDashboard() {
   const today = new Date();
@@ -203,6 +204,7 @@ function PartTimeDashboard() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
