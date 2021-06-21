@@ -2,9 +2,17 @@
   width: 100% !important;
   margin-left: 0px !important;
   padding-top: 200px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7fefd;
   .shop {
     width: 100%;
-    background-color: #f8f8f8;
     .landing {
       width: 650px;
       margin: 0 auto;
