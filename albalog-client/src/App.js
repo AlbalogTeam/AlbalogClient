@@ -19,6 +19,7 @@ import React from 'react';
 import Header from 'components/Header/Header';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
+import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -66,6 +67,11 @@ const App = () => {
             path="/admin/:shop?"
             exact
             component={Authentication(AdminDashboardPage, true, true)}
+          />
+          <Route
+            path="/admin/:shop?/schedule"
+            exact
+            component={Authentication(AdminSchedulePage, true, true)}
           />
           <Route
             path="/admin/:shop?/info"
