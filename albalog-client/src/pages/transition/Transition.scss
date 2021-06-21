@@ -53,8 +53,8 @@
               border: 1px solid #ccc;
               border-left: none;
             }
-            .add:hover{
-                background-color: rgb(209, 207, 207);
+            .add:hover {
+              background-color: rgb(209, 207, 207);
             }
           }
           .transition-list {
@@ -68,12 +68,18 @@
               border-bottom: 1px solid #ccc;
               .tran-cont {
                 display: flex;
+                position: relative;
                 .title {
                   width: 380px;
                   padding: 6px;
                   height: 60px;
                   display: flex;
                   align-items: center;
+                }
+                .del-btn {
+                  position: absolute;
+                  right: 7px;
+                  top: 14px;
                 }
               }
               .completed {
