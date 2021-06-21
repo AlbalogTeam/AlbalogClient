@@ -39,6 +39,17 @@
         margin-bottom: 2rem;
       }
 
+      .choose-time {
+        display: flex;
+        align-items: center;
+        input {
+          margin-bottom: 0;
+          border: none;
+          border-bottom: 1px solid #dbdbdb;
+        }
+        margin-bottom: 2rem;
+      }
+
       .btn-invite,
       .btn-close {
         width: 100%;
