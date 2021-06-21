@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AdminAside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import Loading from 'components/Loading/Loading';
 import { APIURL } from 'config';
@@ -96,21 +97,27 @@ const NoticeDetail = ({ match, shop, user }) => {
               ''
             )}
 
-            <a href={`/notice`} className="btn-list">
+            <a href={`/${shop._id}/notice`} className="btn-list">
               목록
             </a>
-            <Link
-              to={`/${shop._id}/notice/edit/${noticeId}`}
-              className="btn-list"
-            >
-              수정
-            </Link>
-            <button onClick={confirmDelete} className="btn-list">
-              삭제
-            </button>
+
+            {user.role === 'owner' && (
+              <>
+                <Link
+                  to={`/${shop._id}/notice/edit/${noticeId}`}
+                  className="btn-list"
+                >
+                  수정
+                </Link>
+                <button onClick={confirmDelete} className="btn-list">
+                  삭제
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

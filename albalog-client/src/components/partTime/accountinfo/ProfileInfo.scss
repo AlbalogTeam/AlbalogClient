@@ -1,5 +1,19 @@
 #ProfileInfo {
   width: 100%;
+  position: static;
+
+  .tr-warning {
+    height: 20px;
+
+    p {
+      display: flex;
+      font-size: 1.1rem;
+      justify-content: center;
+
+      color: rgb(214, 6, 6);
+      overflow: hidden;
+    }
+  }
 
   .tr {
     width: 100%;
@@ -11,8 +25,15 @@
     justify-content: flex-start;
     padding: 10px 10px;
 
-    .head {
-      width: 140px;
+    .head,
+    label {
+      width: 185px;
+      font-weight: bold;
+    }
+
+    .content > label {
+      font-weight: normal;
+      width: 100px;
     }
 
     .content {
@@ -21,12 +42,24 @@
       justify-content: space-between;
       padding: 0 10px;
 
-      button {
-        position: relative;
-        right: 10px;
-        width: 20px;
+      .content-label {
+        margin-right: 10px;
       }
     }
+  }
+  button {
+    margin: 0 auto;
+    color: whitesmoke;
+    background: rgb(18, 113, 175);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 350px;
+    height: 40px;
+    border-radius: 15px;
+    position: relative;
+    top: 120px;
   }
 
   input {

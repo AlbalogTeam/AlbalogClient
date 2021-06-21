@@ -8,6 +8,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import './Login.scss';
+import banner from 'static/banner.png';
+import LoginNav from 'components/LoginNav/LoginNav';
 
 function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
   const history = useHistory();
@@ -59,7 +61,8 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
       console.log('유저가 있습니다');
       history.push('/'); // 홈 화면으로 이동
       try {
-        localStorage.setItem('user', JSON.stringify(user));
+        
+        sessionStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
         console.log('로컬스토리지 저장에 실패했습니다');
       }
@@ -69,37 +72,38 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
   }, [history, user]);
 
   return (
-    <div id="login">
-      <form action="" className="loginLeft" onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="email"
-          onChange={onChange}
-          placeholder="username"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={onChange}
-          placeholder="password"
-        />
-        <button type="submit" className="signIn btn">
-          로그인
-        </button>
-        <a href="/signup" className="signUp btn">
-          회원가입
-        </a>
-      </form>
-      <div className="loginRight">
-        <span>Albalog</span>
+    <div id="LoginPage">
+      <LoginNav />
+      <div id="login">
+        <form action="" className="loginLeft" onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="email"
+            onChange={onChange}
+            placeholder="username"
+          />
+          <input
+            type="password"
+            name="password"
+            onChange={onChange}
+            placeholder="password"
+          />
+          <button type="submit" className="signIn btn">
+            로그인
+          </button>
+          <a href="/signup" className="signUp btn">
+            관리자 회원가입
+          </a>
+        </form>
+        <div className="loginRight">
+          <img src={banner} alt="" />
+        </div>
       </div>
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  // redux state로 부터 state를 component의 props로 전달해줌
-  // store의 값이 여기 함수 state로 들어옴
   return { form: state.auth.login, user: state.user };
 }
 

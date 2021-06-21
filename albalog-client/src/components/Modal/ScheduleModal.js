@@ -55,6 +55,7 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
     setId(e.target.value);
   };
 
+  // 원본을 훼손하지 않고 배열 수정.
   const changeTime = (e) => {};
 
   const onSubmit = (e) => {
@@ -108,7 +109,7 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
               type="time"
               name="Mon"
               id="startTime"
-              onChange={changeTime}
+              onChange={(e) => console.log(e.target.value)}
             />
             ~
             <input type="time" name="Mon" id="endTime" onChange={changeTime} />

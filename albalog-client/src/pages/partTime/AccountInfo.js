@@ -6,6 +6,9 @@ import PayrollList from 'components/partTime/accountinfo/PayrollList';
 import ProfileInfo from 'components/partTime/accountinfo/ProfileInfo';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
+import { useSelector } from 'react-redux';
+import Loading from 'components/Loading/Loading';
+import Footer from 'components/Footer/Footer';
 
 const monthlypay = [
   {
@@ -50,8 +53,10 @@ const detail = [
 ];
 
 function AccountInfo() {
+  const user = useSelector((state) => state.user);
   return (
     <>
+      {!user && <Loading />}
       <Header />
       <Aside />
       <div id="accountinfo">
@@ -77,6 +82,7 @@ function AccountInfo() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

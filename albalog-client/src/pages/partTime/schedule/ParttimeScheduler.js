@@ -6,9 +6,10 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
-import eventList from './events';
+import { eventList } from './events';
 import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -39,6 +40,7 @@ function ParttimeScheduler() {
             <Calendar
               localizer={localizer}
               defaultView={'week'}
+              showMultiDayTimes={true}
               views={['week', 'month']}
               defaultDate={new Date(year, month, date)}
               events={eventList} // array of events
@@ -52,6 +54,7 @@ function ParttimeScheduler() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

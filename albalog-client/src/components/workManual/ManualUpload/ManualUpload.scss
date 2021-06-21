@@ -4,7 +4,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index:999;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.6);
   .upload-modal {
     width: 480px;
@@ -28,7 +28,7 @@
         width: 35%;
         margin: 0 10px;
         border: 1px solid #ccc;
-        font-size:14px;
+        font-size: 14px;
       }
       button {
         float: left;
@@ -67,16 +67,22 @@
         box-shadow: none;
       }
     }
-    button[type='submit'] {
-      display: block;
-      margin: 0 auto;
-      width: 100px;
-      height: 40px;
-      font-size: 14px;
-      line-height: 40px;
-      color: #fff;
-      margin-top: 20px;
-      background-color: #4d4d4d;
+    .update-btn {
+      display: flex;
+      justify-content: center;
+      .btn:first-child {
+        background-color: rgb(18, 113, 175);
+      }
+      .btn {
+        width: 100px;
+        margin-right: 20px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 40px;
+        color: #fff;
+        margin-top: 20px;
+        background-color: #4d4d4d;
+      }
     }
   }
 }

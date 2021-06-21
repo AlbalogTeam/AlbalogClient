@@ -19,13 +19,15 @@ import React from 'react';
 import Header from 'components/Header/Header';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
+import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
+import EmployeeLogin from 'pages/employeeLogIn/EmployeeLogin';
 import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 
 const App = () => {
   // Authentication(a, b, c)
   // a : 컴포넌트
   // b : true-> 로그인한 유저만 접근가능 false-> 로그인한 유저는 출입이 불가능 null -> 아무나 출입이 가능
-  // c : null -> 아무나 접근가능 true -> 관리자만 접근 가능 staff -> 직원만 접근가능
+  // c : null -> 아무나 접근가능 'admin' -> 관리자만 접근 가능 'staff' -> 직원만 접근가능
   return (
     <div id="container">
       <div id="main">
@@ -44,11 +46,11 @@ const App = () => {
           />
           <Route
             path="/:shop?/notice/edit/:id?"
-            component={Authentication(NoticeEdit, true, true)}
+            component={Authentication(NoticeEdit, true, 'admin')}
           />
           <Route
             path="/:shop?/notice/upload"
-            component={Authentication(NoticeUpload, true, true)}
+            component={Authentication(NoticeUpload, true, 'admin')}
           />
           <Route
             path="/:shop?/notice/:id?"
@@ -66,7 +68,7 @@ const App = () => {
           <Route
             path="/admin/:shop?"
             exact
-            component={Authentication(AdminDashboardPage, true, true)}
+            component={Authentication(AdminDashboardPage, true, 'admin')}
           />
           <Route
             path="/admin/:shop?/schedule"
@@ -75,37 +77,47 @@ const App = () => {
           />
           <Route
             path="/admin/:shop?/info"
-            component={Authentication(AdminInfoPage, true, true)}
+            component={Authentication(AdminInfoPage, true, 'admin')}
           />
           <Route
             path="/admin/:shop?/payroll"
-            component={Authentication(AdminPayrollPage, true, true)}
+            component={Authentication(AdminPayrollPage, true, 'admin')}
           />
           <Route
             path="/admin/:shop?/employeelist"
-            component={Authentication(AdminEmployeePage, true, true)}
+            component={Authentication(AdminEmployeePage, true, 'admin')}
           />
 
           {/** 나중에 staff로 바꿔야함 */}
           <Route
+            path="/parttime/login"
+            exact
+            component={Authentication(EmployeeLogin, false)}
+          />
+          <Route
             path="/parttime/:shop?"
             exact
-            component={Authentication(PartTimeDashboard, true)}
+            component={Authentication(PartTimeDashboard, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/accountinfo"
             exact
-            component={Authentication(AccountInfo, true)}
+            component={Authentication(AccountInfo, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/scheduler"
             exact
-            component={Authentication(ParttimeScheduler, true)}
+            component={Authentication(ParttimeScheduler, true, 'staff')}
           />
           <Route
             path="/parttime/:shop?/workingtime"
             exact
-            component={Authentication(WorkingTime, true)}
+            component={Authentication(WorkingTime, true, 'staff')}
+          />
+          <Route
+            path="/parttime/:shop/signup"
+            exact
+            component={Authentication(EmployeeSignUp, false)}
           />
         </Switch>
       </div>

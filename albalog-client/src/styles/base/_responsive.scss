@@ -1,0 +1,31 @@
+@media screen and(max-width:1515px) {
+  html {
+    body {
+      padding: 75px 0 0 6.5rem;
+      #container {
+        #main {
+          .page-layout {
+            width: 80%;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width:768px) {
+  html {
+    body {
+      padding: 50px 0 0 0 !important;
+      #container {
+        #main {
+          .page-layout {
+            width: 100% !important;
+            padding: 20px 20px 100px 20px;
+          }
+        }
+      }
+    }
+  }
+}

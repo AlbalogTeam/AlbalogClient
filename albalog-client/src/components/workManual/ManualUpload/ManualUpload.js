@@ -5,6 +5,7 @@ import './ManualUpload.scss';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
+import Loading from 'components/Loading/Loading';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
@@ -33,8 +34,8 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     fetchData();
   }, []);
 
+  // Form 입력 값 onChange 함수
   const formOnChange = (e) => {
-    console.log(e.target.name, e.target.value);
     const nextForm = {
       ...manualContent,
       [e.target.name]: e.target.value,
@@ -42,10 +43,12 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     setManualContent(nextForm);
   };
 
+  // 카테고리 추가 input onChange 함수
   const categoryNameOnchange = (e) => {
     setCategoryName(e.target.value);
   };
 
+  // 카테고리 추가 onClick 함수
   const AddCategoryHandle = () => {
     let body = {
       name: categoryName,
@@ -58,9 +61,14 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
       })
       .then((response) => {
         console.log(response.data);
+        if (response.data.newCategory._id) {
+          alert('카테고리가 추가 되었습니다');
+          window.location.replace(`/${shop._id}/workmanual`);
+        }
       });
   };
 
+  // 업무매뉴얼 submit 함수
   const manualOnSubmit = (e) => {
     e.preventDefault();
 
@@ -71,15 +79,18 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
     };
 
     console.log(body);
-    // axios
-    //   .post(`${APIURL}/location/${shop._id}/workmanual/`, body, {
-    //     headers: {
-    //       Authorization: `Bearer ${user.token}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
+    axios
+      .post(`${APIURL}/location/${shop._id}/workmanual/create`, body, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          window.location.replace(`/${shop._id}/workmanual`); // 페이지 이동 후 새로고침
+        }
+      });
   };
 
   return uploadState ? (
@@ -89,8 +100,9 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
         <form action="" onSubmit={manualOnSubmit}>
           <div className="form-category">
             <select name="category" value={category} onChange={formOnChange}>
+              <option value="">카테고리 선택</option>
               {categories.map((item, index) => (
-                <option key={index} value={item.name}>
+                <option key={index} value={item._id}>
                   {item.name}
                 </option>
               ))}
@@ -113,6 +125,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
             placeholder="제목을 입력해주세요"
             name="title"
             value={title}
+            autoComplete="off"
             onChange={formOnChange}
           />
 
@@ -147,7 +160,11 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
               data=""
             />
           </div>
-          <button type="submit">등록</button>
+          <div className="update-btn">
+            <button className="btn" type="submit">
+              등록
+            </button>
+          </div>
         </form>
       </div>
     </div>

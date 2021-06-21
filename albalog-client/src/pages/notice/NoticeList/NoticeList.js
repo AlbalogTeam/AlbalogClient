@@ -9,6 +9,7 @@ import { APIURL } from 'config';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -46,9 +47,11 @@ const NoticeList = ({ user, shop }) => {
       <div id="Notice" className="page-layout">
         <div className="tit">
           <h4 className="tit-corp">공지사항</h4>
-          <div className="upload">
-            <Link to={`/${shop._id}/notice/upload`}>작성</Link>
-          </div>
+          {user.role === 'owner' && (
+            <div className="upload">
+              <Link to={`/${shop._id}/notice/upload`}>작성</Link>
+            </div>
+          )}
         </div>
         <div className="cont">
           <div className="search-comm">
@@ -94,7 +97,9 @@ const NoticeList = ({ user, shop }) => {
                       </div>
                     </td>
                     <td>
-                      <div className="inner-cont inner-date">2021-05-19</div>
+                      <div className="inner-cont inner-date">
+                        {notice.createdAt.slice(0, 10)}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -111,6 +116,7 @@ const NoticeList = ({ user, shop }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

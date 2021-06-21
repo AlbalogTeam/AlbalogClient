@@ -1,10 +1,22 @@
 //서버 연결 전 더미
 
-export default [
+export const eventList = [
   {
     title: '김아무개',
-    start: new Date(2021, 5, 8, 10, 30, 0, 0),
-    end: new Date(2021, 5, 8, 14, 30, 0, 0),
+    start: new Date('2021-06-06T12:00:00.000Z'),
+    end: new Date('2021-06-06T14:00:00.000Z'),
+    desc: 'Pre-meeting meeting, to prepare for the meeting',
+  },
+  {
+    title: '김아무개',
+    start: new Date('2021-06-07T12:00:00.000Z'),
+    end: new Date('2021-06-07T14:00:00.000Z'),
+    desc: 'Pre-meeting meeting, to prepare for the meeting',
+  },
+  {
+    title: '김아무개',
+    start: new Date('2021-06-08T12:00:00.000Z'),
+    end: new Date('2021-06-08T14:00:00.000Z'),
     desc: 'Pre-meeting meeting, to prepare for the meeting',
   },
   {
