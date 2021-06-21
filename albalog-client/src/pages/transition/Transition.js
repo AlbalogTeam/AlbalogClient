@@ -23,7 +23,6 @@ const Transition = () => {
       <Aside />
       <div id="Transition" className="page-layout">
         <div className="content">
-          <h3>인수인계</h3>
           <div className="cont-box">
             <div className="left-cont">
               <DatePicker

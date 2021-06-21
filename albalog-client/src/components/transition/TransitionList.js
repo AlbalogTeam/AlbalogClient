@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import client from 'utils/api';
+import './TransitionList.scss';
 
 const TransitionList = ({ date }) => {
   const { year, month, day } = date;
@@ -111,7 +112,7 @@ const TransitionList = ({ date }) => {
                     transition.completed ? 'completed' : ''
                   }`}
                 >
-                  <button>
+                  <button className="tran-check">
                     {transition.completed ? (
                       <MdCheckBox size="22" className="check-box" />
                     ) : (
