@@ -1,3 +1,4 @@
+import NoDataType1 from 'components/NoData/NoDataType1';
 import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
@@ -48,6 +49,10 @@ const ManualList = ({ category, user, shop }) => {
 
   return (
     <div className="manual-list">
+      {!manualList.length && (
+        <NoDataType1 text={'등록된 업무 매뉴얼이 없습니다.'} />
+      )}
+
       {manualList && (
         <ul>
           {manualList.map((manual, index) => {

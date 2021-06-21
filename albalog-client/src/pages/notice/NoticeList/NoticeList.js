@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
+import NoDataType2 from 'components/NoData/NodataType2';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -81,6 +82,10 @@ const NoticeList = ({ user, shop }) => {
                   <th scope="col">등록일</th>
                 </tr>
               </thead>
+              {!pagedNotices.length && (
+                <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
+              )}
+
               <tbody>
                 {pagedNotices.map((notice, index) => (
                   <tr key={index}>
