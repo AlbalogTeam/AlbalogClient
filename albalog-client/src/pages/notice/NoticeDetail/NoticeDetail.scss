@@ -50,9 +50,12 @@
         font-size: 14px;
         line-height: 40px;
         color: #fff;
-        background-color: #4d4d4d;
+        background-color: #1271af;
         text-align: center;
         text-decoration: none;
+      }
+      .btn-list:first-child {
+        background-color: #767575;
       }
     }
   }

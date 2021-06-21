@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import client from 'utils/api';
+import './TransitionList.scss';
 
 const TransitionList = ({ date }) => {
   const { year, month, day } = date;
@@ -16,6 +17,7 @@ const TransitionList = ({ date }) => {
 
   const [getTransition, setGetTransition] = useState('');
   const [transitionDescription, setTransitionDescription] = useState('');
+  const [editTransitionDes, setEditTransition] = useState('');
   const [dataLoading, setDataLoading] = useState(1);
   const [changeData, setChangeData] = useState(false);
 
@@ -62,6 +64,25 @@ const TransitionList = ({ date }) => {
       }
     });
   };
+
+  const editTransitionInput = (e) => {
+    console.log(e.target.innerText);
+    setEditTransition(e.target.innerText);
+  };
+
+  const editTransition = (e) => {
+    let body = {
+      locationId: shop._id,
+      transitionId: e.target.id,
+      description: editTransitionDes,
+    };
+
+    console.log(body);
+
+    client.patch('/transition/desc/update', body).then((response) => {
+      console.log(response.data);
+    });
+  };
   return (
     <div id="TransitionList">
       <div className="current-date">
@@ -91,24 +112,30 @@ const TransitionList = ({ date }) => {
                     transition.completed ? 'completed' : ''
                   }`}
                 >
-                  <button>
+                  <button className="tran-check">
                     {transition.completed ? (
                       <MdCheckBox size="22" className="check-box" />
                     ) : (
                       <MdCheckBoxOutlineBlank size="22" />
                     )}
                   </button>
-                  <div className="title">{transition.description}</div>
+                  <div
+                    onInput={editTransitionInput}
+                    contenteditable="true"
+                    className="title"
+                    onBlur={editTransition}
+                    id={transition._id}
+                  >
+                    {transition.description}
+                  </div>
 
-                  <button name="수정">
-                    <MdModeEdit size="22" />
-                  </button>
                   <button
                     type="button"
+                    className="del-btn"
                     onClick={() => deleteTransition(transition._id)}
                     name="삭제"
                   >
-                    <MdDelete size="22" />
+                    <MdDelete size="30" />
                   </button>
                 </div>
               </li>
