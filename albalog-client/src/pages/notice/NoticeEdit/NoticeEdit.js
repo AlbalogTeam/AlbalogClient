@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import AdminAside from '../../../components/Aside/Aside';
 import Loading from 'components/Loading/Loading';
 import { withRouter } from 'react-router';
+import Footer from 'components/Footer/Footer';
 
 const NoticeEdit = ({ match, shop, user }) => {
   const noticeId = match.params.id;
@@ -127,6 +128,7 @@ const NoticeEdit = ({ match, shop, user }) => {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -4,6 +4,11 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
   #login {
     display: flex;
@@ -47,12 +52,14 @@
       }
 
       .signUp {
-        background: #fff;
-        line-height: 42px;
-        color: #2987c4;
-        font-weight: 500;
-        border: 1px solid #2987c4;
+        font-size: 12px;
         text-align: center;
+        color: #666;
+        a {
+          text-decoration: underline;
+          color: #333;
+          font-size:14px;
+        }
       }
     }
 

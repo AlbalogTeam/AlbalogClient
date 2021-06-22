@@ -169,6 +169,23 @@
 - 비밀번호 찾기 UI, BackEnd
 - 프론트 테스트 배포
 
+### Implements
+- 인수인계 조회, 등록, 수정, 삭제
+
+### Fix
+- 공지사항 최신순 나열
+- 기존 로그인 방식 LocalStorage -> SessionStorage로 변경
+- 공지사항, 업무매뉴얼 제목 작성부분 autoComplete = "off" 설정
+- 관리자 / 알바 로그인 분리를 하나로 통합
+
+### Issue
+
+
+### Styles
+- messageModal 생성
+- header, aside 반응형으로 구현
+- No data 이미지 삽입
+
 </details>
 
 

@@ -1,12 +1,14 @@
 import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
+import MessageModal from 'components/Modal/MessageModal';
 import TransitionList from 'components/transition/TransitionList';
-// import { ko } from 'date-fns/locale';
+import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Transition.scss';
-// registerLocale('ko', ko);
+registerLocale('ko', ko);
 
 const Transition = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -22,7 +24,6 @@ const Transition = () => {
       <Aside />
       <div id="Transition" className="page-layout">
         <div className="content">
-          <h3>인수인계</h3>
           <div className="cont-box">
             <div className="left-cont">
               <DatePicker
@@ -31,7 +32,7 @@ const Transition = () => {
                   console.log(date);
                   setStartDate(date);
                 }}
-                // locale="ko"
+                locale="ko"
                 inline
               />
             </div>
@@ -41,6 +42,7 @@ const Transition = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

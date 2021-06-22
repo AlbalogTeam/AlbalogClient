@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import './Login.scss';
 import banner from 'static/banner.png';
-import LoginNav from 'components/LoginNav/LoginNav';
 
 function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
   const history = useHistory();
@@ -34,15 +33,16 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
     };
 
     axios
-      .post(`${APIURL}/owner/login`, loginBody)
+      .post(`${APIURL}/login`, loginBody)
       .then((response) => {
+        console.log(response);
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
 
         let userBody = {
-          _id: response.data.employer._id,
-          email: response.data.employer.email,
-          name: response.data.employer.name,
+          _id: response.data.user._id,
+          email: response.data.user.email,
+          name: response.data.user.name,
           role: decoded.role,
           token: response.data.token,
         };
@@ -61,7 +61,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
       console.log('유저가 있습니다');
       history.push('/'); // 홈 화면으로 이동
       try {
-        
         sessionStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
         console.log('로컬스토리지 저장에 실패했습니다');
@@ -73,7 +72,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
 
   return (
     <div id="LoginPage">
-      <LoginNav />
       <div id="login">
         <form action="" className="loginLeft" onSubmit={onSubmit}>
           <input
@@ -91,9 +89,12 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
           <button type="submit" className="signIn btn">
             로그인
           </button>
-          <a href="/signup" className="signUp btn">
-            관리자 회원가입
-          </a>
+          <div className="signUp">
+            Albalog로 쉽고 편한 매장 관리를 원하세요 ?
+            <a href="/signup">
+              관리자 회원가입
+            </a>
+          </div>
         </form>
         <div className="loginRight">
           <img src={banner} alt="" />

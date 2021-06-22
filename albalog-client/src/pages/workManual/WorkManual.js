@@ -7,6 +7,7 @@ import './WorkManual.scss';
 import AdminAside from '../../components/Aside/Aside';
 import { withRouter } from 'react-router';
 import { useSelector } from 'react-redux';
+import Footer from 'components/Footer/Footer';
 
 const WorkManual = ({ match }) => {
   // 카테고리가 선택되지 않았으면 기본값 all 사용
@@ -40,6 +41,7 @@ const WorkManual = ({ match }) => {
       {uploadState && (
         <ManualUpload uploadState={uploadState} ToggleButton={ToggleButton} />
       )}
+      <Footer />
     </>
   );
 };

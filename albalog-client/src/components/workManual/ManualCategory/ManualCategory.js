@@ -9,7 +9,6 @@ const ManualCategory = () => {
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
   const [categories, setCategories] = useState([]);
-  const [categoryLoading, setCategoryLoading] = useState(1);
 
   const activeStyle = {
     color: 'rgb(18, 113, 175)',
@@ -19,7 +18,6 @@ const ManualCategory = () => {
 
   useEffect(() => {
     if (shop.name) {
-      setCategoryLoading(0);
       async function fetchData() {
         const result = await axios.get(`${APIURL}/category/${shop._id}`, {
           headers: {
@@ -34,7 +32,6 @@ const ManualCategory = () => {
 
         const categoryNewArr = categoryDefault.concat(result.data);
         setCategories(categoryNewArr);
-        setCategoryLoading(1);
       }
       fetchData();
     }
@@ -42,7 +39,6 @@ const ManualCategory = () => {
 
   return (
     <div className="manual-category">
-      {!categoryLoading && <Loading />}
       <ul>
         {categories.map((category, index) => (
           <li key={index}>
