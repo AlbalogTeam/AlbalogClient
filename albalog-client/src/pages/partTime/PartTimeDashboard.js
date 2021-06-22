@@ -25,28 +25,37 @@ function PartTimeDashboard() {
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
 
-  let clockIn = false;
+  let clockOut = false;
 
-  // const [form, setForm] = useState({
-  //   locationId: shop._id,
-  //   start_time: new Date(),
-  //   wage: 0,
-  // });
+  // const todaytimeclock = parttime.timeclock.find(
+  //   (a) => new Date(a.start_time).toDateString() === new Date().toDateString(),
+  // );
 
-  const todaytimeclock = parttime.timeclock.find(
-    (a) =>
-      new Date(parttime.timeclock[0].start_time).toDateString() ===
-      new Date().toDateString(),
-  );
-  console.log(todaytimeclock);
-  console.log(!!todaytimeclock);
-
-  const clickClockIn = (e) => {
-    if (!clockIn) {
-      clockIn = true;
-      e.target.style.background = 'gray';
+  const todaytimeclock = async () => {
+    if (parttime.timeclock) {
+      await parttime.timeclock.find(
+        (a) =>
+          new Date(a.start_time).toDateString() === new Date().toDateString(),
+      );
+    } else {
+      return false;
     }
+  };
 
+  console.log(todaytimeclock());
+
+  const getprofile = () => {
+    try {
+      client.get(`/location/${shop._id}/employees/${user._id}`).then((res) => {
+        sessionStorage.setItem('parttime', JSON.stringify(res.data));
+        console.log(res.data);
+        window.location.replace(`/parttime/${shop._id}`);
+      });
+    } catch (e) {
+      console.log('getprofileErr' + e);
+    }
+  };
+  const clickClockIn = (e) => {
     let newForm = {
       locationId: shop._id,
       start_time: new Date(),
@@ -54,21 +63,6 @@ function PartTimeDashboard() {
     };
     console.log(newForm);
     // setForm(newForm);
-
-    const getprofile = () => {
-      try {
-        client
-          .get(`/location/${shop._id}/employees/${user._id}`)
-          .then((res) => {
-            sessionStorage.setItem('parttime', JSON.stringify(res.data));
-            console.log(res.data);
-            window.location.replace(`/parttime/${shop._id}`);
-          });
-      } catch (e) {
-        console.log('getprofileErr' + e);
-      }
-    };
-
     const pushdata = async () => {
       try {
         // console.log(body);
@@ -80,7 +74,6 @@ function PartTimeDashboard() {
               getprofile();
             }
           });
-
         console.log(response.data);
       } catch (e) {
         console.log(e);
@@ -89,23 +82,28 @@ function PartTimeDashboard() {
     pushdata();
   };
 
-  const [clockOut, setclockOut] = useState(false);
   const clickClockOut = (e) => {
     if (!clockOut) {
-      setclockOut(true);
+      clockOut = true;
       e.target.style.background = 'gray';
     }
     const newForm = {
       locationId: shop._id,
       end_time: new Date(),
-      timeClockId: parttime.wage,
+      timeClockId: todaytimeclock._id,
     };
 
     console.log(newForm);
     const pushdata = async () => {
       try {
-        let response = await client.post(`/timeclock/end`, newForm);
-        console.log(response.data);
+        let response = await client
+          .post(`/timeclock/end`, newForm)
+          .then((response) => {
+            if (response.status === 201) {
+              console.log(response.data);
+              getprofile();
+            }
+          });
       } catch (e) {
         console.log(e);
       }
@@ -186,7 +184,7 @@ function PartTimeDashboard() {
                       : { background: 'rgb(18, 113, 175)' }
                   }
                 >
-                  {clockIn ? '출근 완료' : '출근 하기'}
+                  {todaytimeclock ? '출근 완료' : '출근 하기'}
                 </button>
                 <button
                   className="clockOutBtn"
@@ -195,7 +193,7 @@ function PartTimeDashboard() {
                   style={
                     clockOut
                       ? { background: 'gray' }
-                      : clockIn
+                      : todaytimeclock
                       ? { background: 'rgb(18, 113, 175)' }
                       : { background: 'gray' }
                   }
