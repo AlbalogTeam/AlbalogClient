@@ -82,7 +82,7 @@ const NoticeList = ({ user, shop }) => {
                   <th scope="col">등록일</th>
                 </tr>
               </thead>
-              {!pagedNotices.length && (
+              {!pagedNotices.length && shop._id &&  (
                 <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
               )}
 

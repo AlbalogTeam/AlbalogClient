@@ -49,7 +49,7 @@ const ManualList = ({ category, user, shop }) => {
 
   return (
     <div className="manual-list">
-      {!manualList.length && (
+      {!manualList.length && shop._id && (
         <NoDataType1 text={'등록된 업무 매뉴얼이 없습니다.'} />
       )}
 
