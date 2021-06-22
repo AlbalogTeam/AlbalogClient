@@ -13,6 +13,12 @@ registerLocale('ko', ko);
 const Transition = () => {
   const [startDate, setStartDate] = useState(new Date());
 
+  const yesDate = {
+    year: startDate.getFullYear(),
+    month: startDate.getMonth() + 1,
+    day: startDate.getDate() - 1,
+  };
+
   const date = {
     year: startDate.getFullYear(),
     month: startDate.getMonth() + 1,
@@ -35,6 +41,9 @@ const Transition = () => {
                 locale="ko"
                 inline
               />
+            </div>
+            <div className="right-cont yesterday-date">
+              <TransitionList date={yesDate} />
             </div>
             <div className="right-cont">
               <TransitionList date={date} />
