@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import parttime from './parttime';
 import shop from './shop';
+import transition from './transition';
 import user from './user';
 import workManual from './workManual';
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   shop: shop.reducer,
   workManual: workManual.reducer,
   parttime: parttime.reducer,
+  transition: transition.reducer,
 });
 
 const store = configureStore({
