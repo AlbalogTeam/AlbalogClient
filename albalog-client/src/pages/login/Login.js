@@ -5,12 +5,20 @@ import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import './Login.scss';
 import banner from 'static/banner.png';
+import { SetParttime } from 'modules/parttime';
 
-function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
+function Login({
+  form,
+  user,
+  parttime,
+  dispatchSetParttime,
+  dispatchChangeField,
+  dispatchSetUser,
+}) {
   const history = useHistory();
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -19,7 +27,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
       key: name,
       value,
     };
-
     dispatchChangeField(FormBody);
   };
 
@@ -38,6 +45,7 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
         console.log(response);
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
+        console.log(decoded);
 
         let userBody = {
           _id: response.data.user._id,
@@ -46,6 +54,20 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
           role: decoded.role,
           token: response.data.token,
         };
+
+        if (decoded.role === 'staff') {
+          let parttimeBody = {
+            stores: response.data.user.stores,
+            birthdate: response.data.user.birthdate,
+            hourly_wage: response.data.user.hourly_wage,
+            gender: response.data.user.gender,
+            timeClocks: response.data.user.timeClocks,
+            status: response.data.user.status,
+            cellphone: response.data.user.cellphone,
+          };
+          dispatchSetParttime(parttimeBody);
+          sessionStorage.setItem('parttime', JSON.stringify(parttime));
+        }
         dispatchSetUser(userBody);
       })
       .catch(function (error) {
@@ -68,7 +90,7 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
     } else {
       console.log('유저가 없습니다');
     }
-  }, [history, user]);
+  }, [history, user, parttime]);
 
   return (
     <div id="LoginPage">
@@ -103,13 +125,14 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
 }
 
 function mapStateToProps(state) {
-  return { form: state.auth.login, user: state.user };
+  return { form: state.auth.login, user: state.user, parttime: state.parttime };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChangeField: (FormBody) => dispatch(ChangeField(FormBody)),
     dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
+    dispatchSetParttime: (ParttimeBody) => dispatch(SetParttime(ParttimeBody)),
   };
 }
 
