@@ -104,7 +104,7 @@ const App = () => {
             component={Authentication(WorkingTime, true, 'staff')}
           />
           <Route
-            path="/parttime/:shop/signup"
+            path="/parttime/:shop/:invitetoken/signup"
             exact
             component={Authentication(EmployeeSignUp, false)}
           />

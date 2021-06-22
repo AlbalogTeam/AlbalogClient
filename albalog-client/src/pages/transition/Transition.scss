@@ -26,6 +26,9 @@
           height: 8rem;
           font-size: 15px;
         }
+        .react-datepicker__header {
+          background-color: #eaf0f4;
+        }
       }
 
       .right-cont {
@@ -33,6 +36,12 @@
         flex: 1 auto;
       }
     }
+  }
+}
+
+@media screen and(max-width:1780px) {
+  .yesterday-date {
+    display: none;
   }
 }
 

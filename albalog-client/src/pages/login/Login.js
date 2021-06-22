@@ -66,7 +66,7 @@ function Login({
             cellphone: response.data.user.cellphone,
           };
           dispatchSetParttime(parttimeBody);
-          sessionStorage.setItem('parttime', JSON.stringify(parttime));
+          sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
         }
         dispatchSetUser(userBody);
       })
@@ -90,7 +90,7 @@ function Login({
     } else {
       console.log('유저가 없습니다');
     }
-  }, [history, user, parttime]);
+  }, [history, user]);
 
   return (
     <div id="LoginPage">
