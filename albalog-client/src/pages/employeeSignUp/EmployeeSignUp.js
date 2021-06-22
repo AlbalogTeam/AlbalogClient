@@ -83,18 +83,17 @@ function EmployeeSignUp({ match }) {
         };
 
         let parttimeBody = {
-          store: response.data.employee.stores,
+          stores: response.data.employee.stores,
           birthdate: response.data.employee.birthdate,
-          wage: response.data.employee.wage,
+          hourly_wage: response.data.employee.hourly_wage,
           gender: response.data.employee.gender,
-          shift: response.data.employee.shifts,
-          timeclock: response.data.employee.timeClocks,
+          timeClocks: response.data.employee.timeClocks,
           status: response.data.employee.status,
           cellphone: response.data.employee.cellphone,
         };
         dispatch(SetUser(userBody));
         dispatch(SetParttime(parttimeBody));
-        sessionStorage.setItem('parttime', JSON.stringify(parttime));
+        sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
       })
       .catch(function (error) {
         // status 코드가 200이 아닌경우 처리
