@@ -91,9 +91,7 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
           </button>
           <div className="signUp">
             Albalog로 쉽고 편한 매장 관리를 원하세요 ?
-            <a href="/signup">
-              관리자 회원가입
-            </a>
+            <a href="/signup">관리자 회원가입</a>
           </div>
         </form>
         <div className="loginRight">

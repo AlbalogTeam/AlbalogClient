@@ -43,10 +43,10 @@ const Transition = () => {
               />
             </div>
             <div className="right-cont yesterday-date">
-              <TransitionList date={yesDate} />
+              <TransitionList date={yesDate} text={"어제"} />
             </div>
             <div className="right-cont">
-              <TransitionList date={date} />
+              <TransitionList date={date} text={"오늘"} />
             </div>
           </div>
         </div>

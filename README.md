@@ -177,6 +177,7 @@
 - 기존 로그인 방식 LocalStorage -> SessionStorage로 변경
 - 공지사항, 업무매뉴얼 제목 작성부분 autoComplete = "off" 설정
 - 관리자 / 알바 로그인 분리를 하나로 통합
+- 직원 초대 url 토큰으로 변경, 유저 계정, 유저 이름 변경 불가로 설정
 
 ### Issue
 
