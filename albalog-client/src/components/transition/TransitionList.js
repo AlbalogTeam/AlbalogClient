@@ -109,7 +109,6 @@ const TransitionList = ({ date }) => {
   const messageModalToggle = (transition) => {
     setMessageModalState(!messageModalState);
     dispatch(setTransition(transition));
-    console.log('d');
   };
   return (
     <div id="TransitionList">
@@ -175,7 +174,7 @@ const TransitionList = ({ date }) => {
           {messageModalState && (
             <MessageModal
               messageModalToggle={messageModalToggle}
-              deleteTransition={deleteTransition}
+              deleteCont={deleteTransition}
             />
           )}
         </ul>

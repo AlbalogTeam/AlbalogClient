@@ -2,7 +2,7 @@ import React from 'react';
 import './MessageModal.scss';
 import { AiOutlineClose } from 'react-icons/ai';
 
-const MessageModal = ({ messageModalToggle, deleteTransition }) => {
+const MessageModal = ({ messageModalToggle, deleteCont }) => {
   return (
     <div id="MessageModal">
       <div className="message-alert">
@@ -20,7 +20,7 @@ const MessageModal = ({ messageModalToggle, deleteTransition }) => {
           </button>
         </div>
         <div className="message-footer">
-          <button onClick={deleteTransition} className="message-btn">
+          <button onClick={deleteCont} className="message-btn">
             삭제
           </button>
           <button
