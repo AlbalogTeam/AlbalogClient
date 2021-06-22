@@ -83,6 +83,22 @@ const TransitionList = ({ date }) => {
       console.log(response.data);
     });
   };
+
+  const toggleTransition = (id) => {
+    console.log(id);
+
+    let body = {
+      locationId: shop._id,
+      transitionId: id,
+    };
+
+    client.patch(`/transition/toggle`, body).then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        setDataLoading(!dataLoading);
+      }
+    });
+  };
   return (
     <div id="TransitionList">
       <div className="current-date">
@@ -112,7 +128,10 @@ const TransitionList = ({ date }) => {
                     transition.completed ? 'completed' : ''
                   }`}
                 >
-                  <button className="tran-check">
+                  <button
+                    className="tran-check"
+                    onClick={() => toggleTransition(transition._id)}
+                  >
                     {transition.completed ? (
                       <MdCheckBox size="22" className="check-box" />
                     ) : (

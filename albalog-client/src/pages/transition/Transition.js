@@ -1,6 +1,7 @@
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
+import MessageModal from 'components/Modal/MessageModal';
 import TransitionList from 'components/transition/TransitionList';
 // import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
@@ -21,6 +22,7 @@ const Transition = () => {
     <>
       <Header />
       <Aside />
+      <MessageModal />
       <div id="Transition" className="page-layout">
         <div className="content">
           <div className="cont-box">
