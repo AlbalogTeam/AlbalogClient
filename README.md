@@ -170,7 +170,7 @@
 - 프론트 테스트 배포
 
 ### Implements
-
+- 인수인계 조회, 등록, 수정, 삭제
 
 ### Fix
 - 공지사항 최신순 나열
@@ -181,7 +181,9 @@
 
 
 ### Styles
-
+- messageModal 생성
+- header, aside 반응형으로 구현
+- No data 이미지 삽입
 
 </details>
 
