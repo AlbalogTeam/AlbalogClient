@@ -90,7 +90,10 @@ const TransitionList = ({ date, text }) => {
     console.log(body);
 
     client.patch('/transition/desc/update', body).then((response) => {
-      console.log(response.data);
+      console.log(response);
+      if (response.data.updatedTransition) {
+        setDataLoading(!dataLoading);
+      }
     });
   };
 
@@ -101,6 +104,7 @@ const TransitionList = ({ date, text }) => {
     let body = {
       locationId: shop._id,
       transitionId: id,
+      userId: user._id,
     };
 
     client.patch(`/transition/toggle`, body).then((response) => {
@@ -172,6 +176,48 @@ const TransitionList = ({ date, text }) => {
                   >
                     <MdDelete size="30" />
                   </button>
+                </div>
+
+                <div className="tran-who">
+                  <div className="tran-writer who">
+                    등록 :<span>{transition.who_worked[0].name}</span>
+                  </div>
+                  {transition.modify_person[0] && (
+                    <div className="tran-modify who">
+                      마지막 수정 :
+                      <span>
+                        {
+                          transition.modify_person[
+                            transition.modify_person.length - 1
+                          ].name
+                        }
+                      </span>
+                    </div>
+                  )}
+                  {transition.who_worked[1] && (
+                    <div className="tran-checked who">
+                      {transition.who_worked[transition.who_worked.length - 1]
+                        .completed === true ? (
+                        <div className="complete">
+                          완료 :
+                          {
+                            transition.who_worked[
+                              transition.who_worked.length - 1
+                            ].name
+                          }
+                        </div>
+                      ) : (
+                        <div className="cancel">
+                          취소 :
+                          {
+                            transition.who_worked[
+                              transition.who_worked.length - 1
+                            ].name
+                          }
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </li>
             ))}

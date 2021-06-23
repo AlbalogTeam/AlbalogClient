@@ -69,6 +69,21 @@
           color: #adb5bd;
         }
       }
+      .tran-who {
+        display: flex;
+        color: #979797;
+        font-size: 12px;
+        padding: 0 10px 10px;
+      }
+      .who {
+        margin-right: 10px;
+        .complete {
+          color: #0f851a;
+        }
+        .cancel {
+          color: #b3130b;
+        }
+      }
     }
   }
 }
