@@ -1,13 +1,18 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import './CategorySetting.scss';
 import { AiOutlineClose } from 'react-icons/ai';
+import ModalLoading from 'components/Loading/ModalLoading';
+import { reRender } from 'modules/render';
 
 const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   const shop = useSelector((state) => state.shop);
+  const render = useSelector((state) => state.render);
+  console.log(render);
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [addCategoryName, setAddCategoryName] = useState('');
   const [loadingCategory, setLoadingCategory] = useState(false);
@@ -75,11 +80,11 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     });
   };
 
-  // 모달창 끄기
   const Exit = () => {
     CategorySetToggle();
-    window.location.replace(`/${shop._id}/workmanual/`);
+    dispatch(reRender(!render.render))
   };
+
   return categorySetState ? (
     <div id="CategorySetting">
       <div className="setting-modal">

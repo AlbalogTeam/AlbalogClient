@@ -14,6 +14,7 @@
     padding: 20px;
     background: #fff;
     overflow-y: scroll;
+    animation: fadein 2s;
     .modal-tit {
       position: relative;
       margin-bottom: 20px;
@@ -94,5 +95,15 @@
         }
       }
     }
+  }
+}
+
+
+@keyframes fadein {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
   }
 }

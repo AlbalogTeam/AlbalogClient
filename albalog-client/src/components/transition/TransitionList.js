@@ -49,6 +49,7 @@ const TransitionList = ({ date, text }) => {
       locationId: shop._id,
       date: `${year}-${month}-${day}`,
       description: transitionDescription,
+      userId: user._id,
     };
     client.post('/transition/create', body).then((response) => {
       console.log(response);
