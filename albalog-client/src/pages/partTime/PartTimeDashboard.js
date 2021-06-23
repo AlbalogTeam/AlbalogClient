@@ -27,22 +27,15 @@ function PartTimeDashboard() {
 
   let clockOut = false;
 
-  // const todaytimeclock = parttime.timeclock.find(
-  //   (a) => new Date(a.start_time).toDateString() === new Date().toDateString(),
-  // );
+  const todaytimeclockIn = parttime.timeclock.find(
+    (a) => new Date(a.start_time).toDateString() === new Date().toDateString(),
+  );
 
-  const todaytimeclock = async () => {
-    if (parttime.timeclock) {
-      await parttime.timeclock.find(
-        (a) =>
-          new Date(a.start_time).toDateString() === new Date().toDateString(),
-      );
-    } else {
-      return false;
-    }
-  };
+  const todaytimeclockOut = parttime.timeclock.find(
+    (a) => new Date(a.end_time).toDateString() === new Date().toDateString(),
+  );
 
-  console.log(todaytimeclock());
+  console.log(todaytimeclockIn);
 
   const getprofile = () => {
     try {
@@ -90,7 +83,7 @@ function PartTimeDashboard() {
     const newForm = {
       locationId: shop._id,
       end_time: new Date(),
-      timeClockId: todaytimeclock._id,
+      timeClockId: todaytimeclockIn._id,
     };
 
     console.log(newForm);
@@ -177,23 +170,23 @@ function PartTimeDashboard() {
                 <button
                   className="clockInBtn"
                   onClick={clickClockIn}
-                  disabled={todaytimeclock ? true : false}
+                  disabled={todaytimeclockIn ? true : false}
                   style={
-                    todaytimeclock
+                    todaytimeclockIn
                       ? { background: 'gray' }
                       : { background: 'rgb(18, 113, 175)' }
                   }
                 >
-                  {todaytimeclock ? '출근 완료' : '출근 하기'}
+                  {todaytimeclockIn ? '출근 완료' : '출근 하기'}
                 </button>
                 <button
                   className="clockOutBtn"
                   onClick={clickClockOut}
-                  disabled={clockOut ? true : false}
+                  disabled={todaytimeclockOut ? true : false}
                   style={
-                    clockOut
+                    todaytimeclockOut
                       ? { background: 'gray' }
-                      : todaytimeclock
+                      : todaytimeclockIn
                       ? { background: 'rgb(18, 113, 175)' }
                       : { background: 'gray' }
                   }
