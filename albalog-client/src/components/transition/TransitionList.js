@@ -16,13 +16,13 @@ const TransitionList = ({ date, text }) => {
   const { year, month, day } = date;
   const dispatch = useDispatch();
   const shop = useSelector((state) => state.shop);
+  const user = useSelector((state) => state.user);
   const transition = useSelector((state) => state.transition);
 
   const [getTransition, setGetTransition] = useState('');
   const [transitionDescription, setTransitionDescription] = useState('');
   const [editTransitionDes, setEditTransition] = useState('');
   const [dataLoading, setDataLoading] = useState(1);
-  const [changeData, setChangeData] = useState(false);
   const [messageModalState, setMessageModalState] = useState(false);
 
   const transitionDesOnChange = (e) => {
@@ -30,7 +30,6 @@ const TransitionList = ({ date, text }) => {
   };
 
   useEffect(() => {
-    setChangeData(0);
     async function fetchData() {
       const response = await client.get(
         `/transition/${shop._id}/${year}-${month}-${day}`,
@@ -39,12 +38,12 @@ const TransitionList = ({ date, text }) => {
       console.log(response.data.satisfyTransitions);
       const newArr = [...response.data.satisfyTransitions].reverse();
       setGetTransition(newArr);
-      setChangeData(1);
     }
 
     fetchData();
   }, [shop, year, month, day, dataLoading]);
 
+  // 인수인계 추가
   const addTransition = () => {
     let body = {
       locationId: shop._id,
@@ -60,13 +59,15 @@ const TransitionList = ({ date, text }) => {
     });
   };
 
+  // 인수인계 삭제
   const deleteTransition = () => {
     client
       .delete(`/transition/${shop._id}/delete/${transition._id}`)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          window.location.replace(`/${shop._id}/transition`);
+          setMessageModalState(!messageModalState);
+          setDataLoading(!dataLoading);
         }
       });
   };
@@ -76,11 +77,13 @@ const TransitionList = ({ date, text }) => {
     setEditTransition(e.target.innerText);
   };
 
+  // 인수인계 수정
   const editTransition = (e) => {
     let body = {
       locationId: shop._id,
       transitionId: e.target.id,
       description: editTransitionDes,
+      userId: user._id,
     };
 
     console.log(body);
@@ -90,6 +93,7 @@ const TransitionList = ({ date, text }) => {
     });
   };
 
+  // 인수인계 체크박스
   const toggleTransition = (id) => {
     console.log(id);
 
@@ -129,7 +133,6 @@ const TransitionList = ({ date, text }) => {
         </button>
       </div>
       <div className="transition-list">
-        {!changeData && <ModalLoading />}
         <ul>
           {getTransition &&
             getTransition.map((transition, index) => (
