@@ -1,9 +1,33 @@
 #WorkManual {
+  .cont {
+    .upload {
+
+      overflow: hidden;
+      .btn {
+        float: right;
+        width: 100px;
+        height: 40px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #1271af;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      .category-set {
+        background-color: #fff;
+        border: 1px solid #1271af;
+        color: #1271af;
+      }
+    }
+  }
+
   .manual-category {
     margin: 0 auto;
     padding: 60px 30px 8px;
     overflow: hidden;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #ddd;
     li {
       float: left;
       padding: 15px;

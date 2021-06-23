@@ -12,9 +12,7 @@ const ManualEdit = ({ editState, ToggleButton }) => {
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
   const workManual = useSelector((state) => state.workManual);
-  const [categoryDefault, setCategoryDefault] = useState(
-    workManual.category_id.name,
-  );
+
   const [categories, setCategories] = useState([]);
   const [manualContent, setManualContent] = useState({
     title: workManual.title,
@@ -95,17 +93,11 @@ const ManualEdit = ({ editState, ToggleButton }) => {
   };
 
   return editState ? (
-    <div id="ManualUpload" onClick={ToggleButton}>
-      <div className="upload-modal" onClick={(e) => e.stopPropagation()}>
-        {/* e.stopPropagation는 상위 이벤트에 이벤트값을 전달하는걸 막음*/}
+    <div id="ManualUpload">
+      <div className="upload-modal">
         <form action="" onSubmit={manualOnSubmit}>
           <div className="form-category">
-            <select
-              name="category"
-              value={category}
-              onChange={formOnChange}
-              style={{ width: '96%' }}
-            >
+            <select name="category" value={category} onChange={formOnChange}>
               {categories.map((item, index) => (
                 <option key={index} value={item._id}>
                   {item.name}
@@ -157,10 +149,17 @@ const ManualEdit = ({ editState, ToggleButton }) => {
           </div>
           <div className="update-btn">
             <button className="btn" type="submit">
-              등록
+              수정완료
             </button>
-            <button onClick={confirmDelete} className="btn" type="button">
+            <button
+              onClick={confirmDelete}
+              className="btn delete"
+              type="button"
+            >
               삭제
+            </button>
+            <button onClick={ToggleButton} className="btn" type="button">
+              취소
             </button>
           </div>
         </form>
