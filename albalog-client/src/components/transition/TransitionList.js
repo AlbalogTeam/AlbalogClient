@@ -90,7 +90,10 @@ const TransitionList = ({ date, text }) => {
     console.log(body);
 
     client.patch('/transition/desc/update', body).then((response) => {
-      console.log(response.data);
+      console.log(response);
+      if (response.data.updatedTransition) {
+        setDataLoading(!dataLoading);
+      }
     });
   };
 
@@ -141,14 +144,14 @@ const TransitionList = ({ date, text }) => {
               <li key={index}>
                 <div
                   className={`tran-cont ${
-                    transition.last_completed.completed ? 'completed' : ''
+                    transition.completed ? 'completed' : ''
                   }`}
                 >
                   <button
                     className="tran-check"
                     onClick={() => toggleTransition(transition._id)}
                   >
-                    {transition.last_completed.completed ? (
+                    {transition.completed ? (
                       <MdCheckBox size="22" className="check-box" />
                     ) : (
                       <MdCheckBoxOutlineBlank size="22" />
@@ -177,10 +180,44 @@ const TransitionList = ({ date, text }) => {
 
                 <div className="tran-who">
                   <div className="tran-writer who">
-                    등록 :<span></span>
+                    등록 :<span>{transition.who_worked[0].name}</span>
                   </div>
-                  <div className="tran-modify who">마지막 수정 :</div>
-                  <div className="tran-checked who">완료 :</div>
+                  {transition.modify_person[0] && (
+                    <div className="tran-modify who">
+                      마지막 수정 :
+                      <span>
+                        {
+                          transition.modify_person[
+                            transition.modify_person.length - 1
+                          ].name
+                        }
+                      </span>
+                    </div>
+                  )}
+                  {transition.who_worked[1] && (
+                    <div className="tran-checked who">
+                      {transition.who_worked[transition.who_worked.length - 1]
+                        .completed === true ? (
+                        <div className="complete">
+                          완료 :
+                          {
+                            transition.who_worked[
+                              transition.who_worked.length - 1
+                            ].name
+                          }
+                        </div>
+                      ) : (
+                        <div className="cancel">
+                          취소 :
+                          {
+                            transition.who_worked[
+                              transition.who_worked.length - 1
+                            ].name
+                          }
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
