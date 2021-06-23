@@ -40,9 +40,9 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
       console.log(response.data);
       if (response.data.newCategory._id) {
         alert('카테고리가 추가 되었습니다');
-        // window.location.replace(`/${shop._id}/workmanual`);
         setLoadingCategory(!loadingCategory);
         setAddCategoryName('');
+        dispatch(reRender(!render.render));
       }
     });
   };
@@ -80,17 +80,12 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     });
   };
 
-  const Exit = () => {
-    CategorySetToggle();
-    dispatch(reRender(!render.render))
-  };
-
   return categorySetState ? (
     <div id="CategorySetting">
       <div className="setting-modal">
         <div className="modal-tit">
           <h3>카테고리 관리</h3>
-          <button onClick={Exit} className="close">
+          <button onClick={CategorySetToggle} className="close">
             <AiOutlineClose size="26" />
           </button>
         </div>

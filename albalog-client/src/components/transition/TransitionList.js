@@ -101,6 +101,7 @@ const TransitionList = ({ date, text }) => {
     let body = {
       locationId: shop._id,
       transitionId: id,
+      userId: user._id,
     };
 
     client.patch(`/transition/toggle`, body).then((response) => {
@@ -140,14 +141,14 @@ const TransitionList = ({ date, text }) => {
               <li key={index}>
                 <div
                   className={`tran-cont ${
-                    transition.completed ? 'completed' : ''
+                    transition.last_completed.completed ? 'completed' : ''
                   }`}
                 >
                   <button
                     className="tran-check"
                     onClick={() => toggleTransition(transition._id)}
                   >
-                    {transition.completed ? (
+                    {transition.last_completed.completed ? (
                       <MdCheckBox size="22" className="check-box" />
                     ) : (
                       <MdCheckBoxOutlineBlank size="22" />
@@ -172,6 +173,14 @@ const TransitionList = ({ date, text }) => {
                   >
                     <MdDelete size="30" />
                   </button>
+                </div>
+
+                <div className="tran-who">
+                  <div className="tran-writer who">
+                    등록 :<span></span>
+                  </div>
+                  <div className="tran-modify who">마지막 수정 :</div>
+                  <div className="tran-checked who">완료 :</div>
                 </div>
               </li>
             ))}
