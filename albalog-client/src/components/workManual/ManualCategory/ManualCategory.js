@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 const ManualCategory = () => {
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
+  const render = useSelector((state) => state.render);
   const [categories, setCategories] = useState([]);
 
   const activeStyle = {
@@ -35,7 +36,7 @@ const ManualCategory = () => {
       }
       fetchData();
     }
-  }, [shop]);
+  }, [shop, render]);
 
   return (
     <div className="manual-category">
