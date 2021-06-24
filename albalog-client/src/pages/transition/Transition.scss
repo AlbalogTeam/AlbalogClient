@@ -33,13 +33,12 @@
 
       .right-cont {
         margin-left: 10px;
-        flex: 1 auto;
       }
     }
   }
 }
 
-@media screen and(max-width:1780px) {
+@media screen and(max-width:1800px) {
   .yesterday-date {
     display: none;
   }
@@ -54,6 +53,7 @@
       .content {
         .cont-box {
           margin-left: 0;
+          min-height: 50vh;
           .left-cont {
             .react-datepicker__day {
               width: 4rem;
@@ -64,6 +64,9 @@
               width: 4rem;
               line-height: 2rem;
             }
+          }
+          .right-cont {
+            flex-grow: 1;
           }
         }
       }

@@ -18,7 +18,14 @@ const TransitionList = ({ date, text }) => {
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
   const transition = useSelector((state) => state.transition);
+  const curdate = new Date();
+  const [currentDate, setCurrentDate] = useState({
+    curYear: curdate.getFullYear(),
+    curMonth: curdate.getMonth() + 1,
+    curDay: curdate.getDate(),
+  });
 
+  const { curYear, curMonth, curDay } = currentDate;
   const [getTransition, setGetTransition] = useState('');
   const [transitionDescription, setTransitionDescription] = useState('');
   const [editTransitionDes, setEditTransition] = useState('');
@@ -127,15 +134,27 @@ const TransitionList = ({ date, text }) => {
         </h4>
       </div>
       <div className="transition-input">
-        <input
-          type="text"
-          value={transitionDescription}
-          onChange={transitionDesOnChange}
-          placeholder="전달 사항을 입력해 주세요"
-        />
-        <button type="button" onClick={addTransition} className="add">
-          <MdAdd size="24" />
-        </button>
+        {year === curYear && month === curMonth && day === curDay ? (
+          <>
+            <input
+              className="input-active"
+              type="text"
+              value={transitionDescription}
+              onChange={transitionDesOnChange}
+              placeholder="전달 사항을 입력해 주세요"
+            />
+            <button type="button" onClick={addTransition} className="add">
+              <MdAdd size="24" />
+            </button>
+          </>
+        ) : (
+          <input
+            type="text"
+            className="input-disable"
+            placeholder="당일만 입력 가능합니다."
+            readOnly
+          />
+        )}
       </div>
       <div className="transition-list">
         <ul>
