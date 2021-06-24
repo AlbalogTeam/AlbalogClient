@@ -96,8 +96,8 @@ const StoreEdit = ({
     border: '1px solid black',
   };
   return (
-    <div id="StoreEdit" onClick={StateToggleButton}>
-      <div className="regi-modal" onClick={(e) => e.stopPropagation()}>
+    <div id="StoreEdit">
+      <div className="regi-modal">
         <div className="modal-tit">
           <h2>매장 수정</h2>
         </div>
@@ -152,11 +152,11 @@ const StoreEdit = ({
               보내주시면 승인 후 매장 등록이 완료됩니다
             </p>
             <div className="modal-btn">
-              <button className="store-btn" type="submit">
-                등록
+              <button className="upload btn" type="submit">
+                수정
               </button>
               <button
-                className="store-btn"
+                className="cancel btn"
                 type="button"
                 onClick={StateToggleButton}
               >

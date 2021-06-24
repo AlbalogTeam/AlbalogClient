@@ -29,10 +29,15 @@
     }
     .btn-invite,
     .btn-logout {
+      display: flex;
+      align-items: center;
       border: 1px solid #dbdbdb;
       border-radius: 4px;
       padding: 0.5rem;
       font-weight: 500;
+      span {
+        margin-right: 10px;
+      }
     }
     .btn-invite {
       background-color: #58c3cc;
@@ -46,6 +51,7 @@
   body {
     .header {
       height: 4rem;
+      padding: 1rem 0;
     }
   }
 }
@@ -54,6 +60,7 @@
   body {
     .header {
       justify-content: center;
+      height: 55px !important;
       .header-middle {
         display: none;
       }
@@ -64,6 +71,22 @@
       .header-right {
         position: absolute;
         right: 10px;
+        .btn-invite {
+          background-color: #fff;
+          border: none;
+          color: rgb(18, 113, 175);
+          margin-right: 0px;
+          span {
+            display: none;
+          }
+        }
+        .btn-logout {
+          border: none;
+
+          span {
+            display: none;
+          }
+        }
       }
     }
   }

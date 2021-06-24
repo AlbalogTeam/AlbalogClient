@@ -1,12 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Footer.scss';
-import { AiFillHome, AiOutlineMenu, AiOutlineExport } from 'react-icons/ai';
+import { AiFillHome, AiOutlineMenu, AiFillAppstore } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const Footer = () => {
   const activeStyle = {
     color: '#1271af',
   };
+
+  const shop = useSelector((state) => state.shop);
 
   return (
     <div id="Footer">
@@ -17,7 +20,7 @@ const Footer = () => {
             <span>홈</span>
           </li>
         </NavLink>
-        <NavLink to="" activeStyle={activeStyle}>
+        <NavLink to={`/${shop._id}/mobile/category`} activeStyle={activeStyle}>
           <li className="menu-item">
             <AiOutlineMenu size="25" />
             <span>카테고리</span>
@@ -25,7 +28,7 @@ const Footer = () => {
         </NavLink>
         <NavLink to="" activeStyle={activeStyle}>
           <li className="menu-item">
-            <AiOutlineExport size="25" />
+            <AiFillAppstore size="25" />
             <span>매장 리스트</span>
           </li>
         </NavLink>

@@ -26,13 +26,13 @@ const Aside = ({ shop, user }) => {
         <NavLink to={`/${shop._id}/workmanual/`}>
           <li className="menu-item">
             <AiOutlineSolution size="25" />
-            <span>업무 메뉴얼</span>
+            <span>업무메뉴얼</span>
           </li>
         </NavLink>
         <NavLink to={`/${shop._id}/transition`}>
           <li className="menu-item">
             <AiOutlineSwap size="25" />
-            <span>인수 인계</span>
+            <span>인수인계</span>
           </li>
         </NavLink>
       </ul>
@@ -43,31 +43,31 @@ const Aside = ({ shop, user }) => {
             <NavLink to={`/admin/${shop._id}`} exact>
               <li className="menu-item">
                 <RiDashboardLine size="25" />
-                <span>대시 보드</span>
+                <span>대시보드</span>
               </li>
             </NavLink>
             <NavLink to={`/admin/${shop._id}/employeelist`} exact>
               <li className="menu-item">
                 <HiOutlineUsers size="25" />
-                <span>직원 관리</span>
+                <span>직원관리</span>
               </li>
             </NavLink>
             <NavLink to={`/admin/${shop._id}/schedule`} exact>
               <li className="menu-item">
                 <AiOutlineSchedule size="25" />
-                <span>스케줄 관리</span>
+                <span>스케줄관리</span>
               </li>
             </NavLink>
             <NavLink to={`/admin/${shop._id}/payroll`} exact>
               <li className="menu-item">
                 <BiDollar size="25" />
-                <span>급여 관리</span>
+                <span>급여관리</span>
               </li>
             </NavLink>
             <NavLink to={`/admin/${shop._id}/info`} exact>
               <li className="menu-item">
                 <IoSettingsOutline size="25" />
-                <span>계정 정보</span>
+                <span>계정정보</span>
               </li>
             </NavLink>
           </ul>
@@ -80,13 +80,13 @@ const Aside = ({ shop, user }) => {
             <NavLink to={`/parttime/${shop._id}`} exact>
               <li className="menu-item">
                 <RiDashboardLine size="25" />
-                <span>대시 보드</span>
+                <span>대시보드</span>
               </li>
             </NavLink>
             <NavLink to={`/parttime/${shop._id}/accountinfo`} exact>
               <li className="menu-item">
                 <IoSettingsOutline size="25" />
-                <span>계정 정보</span>
+                <span>계정정보</span>
               </li>
             </NavLink>
             <NavLink to={`/parttime/${shop._id}/scheduler`} exact>
