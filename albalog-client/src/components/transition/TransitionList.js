@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import './TransitionList.scss';
 
-const TransitionList = ({ date, text }) => {
+const TransitionList = ({ date }) => {
   const { year, month, day } = date;
   const dispatch = useDispatch();
   const shop = useSelector((state) => state.shop);
@@ -130,7 +130,7 @@ const TransitionList = ({ date, text }) => {
     <div id="TransitionList">
       <div className="current-date">
         <h4>
-          {year}년 {month}월 {day}일 ({text})
+          {year}년 {month}월 {day}일
         </h4>
       </div>
       <div className="transition-input">

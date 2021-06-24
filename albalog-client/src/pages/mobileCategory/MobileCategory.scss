@@ -1,0 +1,38 @@
+#MobileCategory {
+  h3 {
+    height: 26px;
+    color: #777;
+    font-size: 0.857em;
+    font-weight: normal;
+    text-indent: 15px;
+
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#fff),
+      to(#f5f5f5)
+    );
+    border-bottom: 1px solid #f4f4f4;
+    line-height: 26px;
+  }
+  ul {
+    li {
+      a {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        height: 51px;
+        padding: 10px 0 10px 20px;
+        border-bottom: 1px solid #f4f4f4;
+        .txt {
+          float: left;
+          padding: 2px 6px 0 10px;
+          font-size: 16px;
+          color: #333;
+        }
+      }
+    }
+  }
+}

@@ -16,10 +16,10 @@ import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
+import MobileCategory from 'pages/mobileCategory/MobileCategory';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -36,6 +36,11 @@ const App = () => {
             path="/signup"
             component={Authentication(SignUp, false)}
             exact
+          />
+          <Route
+            path="/:shop/mobile/category"
+            exact
+            component={Authentication(MobileCategory, true)}
           />
           <Route
             path="/:shop?/notice"
