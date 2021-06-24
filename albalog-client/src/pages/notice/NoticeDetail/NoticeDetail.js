@@ -40,7 +40,6 @@ const NoticeDetail = ({ match, shop, user }) => {
       });
   }, [shop]);
 
-
   const noticeDelete = () => {
     axios
       .delete(`${APIURL}/location/${shop._id}/notice/${noticeId}/delete`, {
@@ -66,11 +65,7 @@ const NoticeDetail = ({ match, shop, user }) => {
       <AdminAside />
       <div id="NoticeDetail" className="page-layout">
         {!title && <Loading />}
-        <div className="tit">
-          <h4 className="tit-corp">
-            <a href="/notice">공지사항</a>
-          </h4>
-        </div>
+
         <div className="notice-cont">
           <div className="content-tit">
             {title}
