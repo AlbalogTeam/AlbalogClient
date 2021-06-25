@@ -1,48 +1,18 @@
 #Notice,
 .page-layout {
-  width: 1160px;
-  padding-bottom: 200px;
+  // width: 1160px;
   padding-top: 20px;
   margin-left: 50px;
   overflow: hidden;
 
-  .tit {
-    float: left;
-    width: 300px;
-    .tit-corp {
-      display: block;
-      padding: 76px 40px 0 0;
-      font-size: 18px;
-      line-height: 30px;
-      color: #1e1e1e;
-    }
-    .upload {
-      overflow: hidden;
-      padding: 19px 40px 0 0;
-      a,
-      button {
-        float: left;
-        width: 70px;
-        height: 40px;
-        font-size: 13px;
-        line-height: 40px;
-        color: #fff;
-        background-color: #4d4d4d;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    }
-  }
   .cont {
-    float: right;
-    width: 860px;
-
+    width: 1060px;
+    margin: 0 auto;
     .search-comm {
       width: 500px;
       margin: 0 auto;
       padding-top: 60px;
-      border-bottom: 1px solid #1e1e1e;
+      border-bottom: 1px solid #999;
       form {
         position: relative;
         fieldset {
@@ -66,10 +36,27 @@
       }
     }
 
+    .upload {
+      overflow: hidden;
+      padding: 10px 0;
+      a {
+        float: right;
+        width: 70px;
+        height: 40px;
+        font-size: 13px;
+        line-height: 40px;
+        color: #fff;
+        background-color: #1271af;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    }
+
     .table-comm {
       overflow: hidden;
-      margin-top: 50px;
-      border-top: 2px solid #4d4d4d;
+      margin-top: 10px;
+      border-top: 2px solid #7ba4c4;
       word-break: normal;
       .table {
         width: 100%;
@@ -195,7 +182,7 @@
     #Notice {
       .cont {
         .search-comm {
-          width: 100%;
+          width: 90%;
         }
         .table-comm {
           .table {

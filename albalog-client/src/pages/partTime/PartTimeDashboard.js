@@ -14,48 +14,51 @@ import client from 'utils/api';
 import Footer from 'components/Footer/Footer';
 
 function PartTimeDashboard() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const date = today.getDate();
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
+  const date = new Date().getDate();
+  const today = year + '-' + month + '-' + date;
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
   const parttime = useSelector((state) => state.parttime);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
-  const day = weekArray[today.getDay()];
+  const day = weekArray[new Date().getDay()];
 
-  const [clockIn, setclockIn] = useState(false);
+  let clockOut = false;
 
-  const clickClockIn = (e) => {
-    if (!clockIn) {
-      setclockIn(true);
-      e.target.style.background = 'gray';
+  const todaytimeclockIn = parttime.timeclock.find(
+    (a) => new Date(a.start_time).toDateString() === new Date().toDateString(),
+  );
+
+  const todaytimeclockOut = parttime.timeclock.find(
+    (a) => new Date(a.end_time).toDateString() === new Date().toDateString(),
+  );
+
+  console.log(todaytimeclockIn);
+
+  const getprofile = () => {
+    try {
+      client.get(`/location/${shop._id}/employees/${user._id}`).then((res) => {
+        sessionStorage.setItem('parttime', JSON.stringify(res.data));
+        console.log(res.data);
+        window.location.replace(`/parttime/${shop._id}`);
+      });
+    } catch (e) {
+      console.log('getprofileErr' + e);
     }
+  };
+  const clickClockIn = (e) => {
     let newForm = {
       locationId: shop._id,
       start_time: new Date(),
-      wage: 0,
+      wage: 1000,
     };
     console.log(newForm);
-
-    const getprofile = () => {
-      try {
-        client
-          .get(`/location/${shop._id}/employees/${user._id}`)
-          .then((res) => {
-            localStorage.setItem('parttime', JSON.stringify(res.data));
-            console.log(res.data);
-            window.location.replace(`/parttime/${shop._id}`);
-            setclockIn(true);
-          });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
+    // setForm(newForm);
     const pushdata = async () => {
       try {
+        // console.log(body);
         let response = await client
           .post(`/timeclock/start`, newForm)
           .then((response) => {
@@ -64,35 +67,38 @@ function PartTimeDashboard() {
               getprofile();
             }
           });
-
         console.log(response.data);
       } catch (e) {
-        // console.log('Error : ' + e);
+        console.log(e);
       }
     };
     pushdata();
   };
 
-  const [clockOut, setclockOut] = useState(false);
   const clickClockOut = (e) => {
     if (!clockOut) {
-      setclockOut(true);
+      clockOut = true;
       e.target.style.background = 'gray';
     }
     const newForm = {
       locationId: shop._id,
       end_time: new Date(),
-      timeClockId: parttime,
+      timeClockId: todaytimeclockIn._id,
     };
 
     console.log(newForm);
     const pushdata = async () => {
       try {
-        // console.log(body);
-        let response = await client.post(`/timeclock/end`, newForm);
-        console.log(response.data);
+        let response = await client
+          .post(`/timeclock/end`, newForm)
+          .then((response) => {
+            if (response.status === 201) {
+              console.log(response.data);
+              getprofile();
+            }
+          });
       } catch (e) {
-        // console.log('Error : ' + e);
+        console.log(e);
       }
     };
     pushdata();
@@ -116,7 +122,7 @@ function PartTimeDashboard() {
             <div className="topRightBox">
               <div className="title">
                 <h2>
-                  {year} - {month} - {date} - {day}
+                  {today}-{day}
                 </h2>
               </div>
               <div className="schedule">
@@ -164,21 +170,23 @@ function PartTimeDashboard() {
                 <button
                   className="clockInBtn"
                   onClick={clickClockIn}
+                  disabled={todaytimeclockIn ? true : false}
                   style={
-                    clockIn
+                    todaytimeclockIn
                       ? { background: 'gray' }
                       : { background: 'rgb(18, 113, 175)' }
                   }
                 >
-                  {clockIn ? '출근 완료' : '출근 하기'}
+                  {todaytimeclockIn ? '출근 완료' : '출근 하기'}
                 </button>
                 <button
                   className="clockOutBtn"
                   onClick={clickClockOut}
+                  disabled={todaytimeclockOut ? true : false}
                   style={
-                    clockOut
+                    todaytimeclockOut
                       ? { background: 'gray' }
-                      : clockIn
+                      : todaytimeclockIn
                       ? { background: 'rgb(18, 113, 175)' }
                       : { background: 'gray' }
                   }

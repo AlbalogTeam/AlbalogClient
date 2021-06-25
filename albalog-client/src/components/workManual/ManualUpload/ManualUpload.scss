@@ -14,13 +14,14 @@
     padding: 20px;
     background: #fff;
     border-radius: 10px;
+    animation: fadein 1s;
     .form-category {
       display: flex;
       select {
         display: block;
         padding: 6px;
         font-size: 1rem;
-        width: 40%;
+        width: 100%;
         outline: none;
         border: 1px solid #ccc;
       }
@@ -47,7 +48,7 @@
       display: block;
       padding: 6px;
       font-size: 1rem;
-      width: 96%;
+      width: 100%;
       line-height: 1.5;
       outline: none;
       color: #212529;
@@ -83,6 +84,20 @@
         margin-top: 20px;
         background-color: #4d4d4d;
       }
+      .delete {
+        background-color: #fff;
+        color: rgb(18, 113, 175);
+        border: 1px solid rgb(18, 113, 175);
+      }
     }
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

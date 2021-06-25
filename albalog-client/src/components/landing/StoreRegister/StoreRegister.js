@@ -99,8 +99,8 @@ const StoreRegister = ({
     border: '1px solid black',
   };
   return (
-    <div id="StoreRegister" onClick={ToggleButton}>
-      <div className="regi-modal" onClick={(e) => e.stopPropagation()}>
+    <div id="StoreRegister">
+      <div className="regi-modal">
         <div className="modal-tit">
           <h2>매장 추가</h2>
         </div>
@@ -152,8 +152,14 @@ const StoreRegister = ({
               보내주시면 승인 후 매장 등록이 완료됩니다
             </p>
             <div className="modal-btn">
-              <button type="submit">등록</button>
-              <button type="button" onClick={ToggleButton}>
+              <button className="upload btn" type="submit">
+                등록
+              </button>
+              <button
+                className="cancel btn"
+                type="button"
+                onClick={ToggleButton}
+              >
                 취소
               </button>
             </div>

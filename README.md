@@ -164,24 +164,26 @@
  <summary>3주차</summary>
 
 
-- 인수인계
-- 스케쥴관리
-- 비밀번호 찾기 UI, BackEnd
-- 프론트 테스트 배포
 
 ### Implements
-
+- 인수인계 조회, 등록, 수정, 삭제
+- 출근, 퇴근 기능
 
 ### Fix
 - 공지사항 최신순 나열
 - 기존 로그인 방식 LocalStorage -> SessionStorage로 변경
 - 공지사항, 업무매뉴얼 제목 작성부분 autoComplete = "off" 설정
+- 관리자 / 알바 로그인 분리를 하나로 통합
+- 직원 초대 url 토큰으로 변경, 유저 계정, 유저 이름 변경 불가로 설정
+- 업무 매뉴얼 페이지 카테고리 관리를 위한 카테고리 설정 추가
 
 ### Issue
 
 
 ### Styles
-
+- messageModal 생성
+- header, aside 반응형으로 구현
+- No data 이미지 삽입
 
 </details>
 

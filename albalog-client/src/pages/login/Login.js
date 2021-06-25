@@ -5,13 +5,20 @@ import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import './Login.scss';
 import banner from 'static/banner.png';
-import LoginNav from 'components/LoginNav/LoginNav';
+import { SetParttime } from 'modules/parttime';
 
-function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
+function Login({
+  form,
+  user,
+  parttime,
+  dispatchSetParttime,
+  dispatchChangeField,
+  dispatchSetUser,
+}) {
   const history = useHistory();
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -20,7 +27,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
       key: name,
       value,
     };
-
     dispatchChangeField(FormBody);
   };
 
@@ -34,18 +40,34 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
     };
 
     axios
-      .post(`${APIURL}/owner/login`, loginBody)
+      .post(`${APIURL}/login`, loginBody)
       .then((response) => {
+        console.log(response);
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
+        console.log(decoded);
 
         let userBody = {
-          _id: response.data.employer._id,
-          email: response.data.employer.email,
-          name: response.data.employer.name,
+          _id: response.data.user._id,
+          email: response.data.user.email,
+          name: response.data.user.name,
           role: decoded.role,
           token: response.data.token,
         };
+
+        if (decoded.role === 'staff') {
+          let parttimeBody = {
+            stores: response.data.user.stores,
+            birthdate: response.data.user.birthdate,
+            hourly_wage: response.data.user.hourly_wage,
+            gender: response.data.user.gender,
+            timeClocks: response.data.user.timeClocks,
+            status: response.data.user.status,
+            cellphone: response.data.user.cellphone,
+          };
+          dispatchSetParttime(parttimeBody);
+          sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
+        }
         dispatchSetUser(userBody);
       })
       .catch(function (error) {
@@ -61,7 +83,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
       console.log('유저가 있습니다');
       history.push('/'); // 홈 화면으로 이동
       try {
-        
         sessionStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
         console.log('로컬스토리지 저장에 실패했습니다');
@@ -73,7 +94,6 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
 
   return (
     <div id="LoginPage">
-      <LoginNav />
       <div id="login">
         <form action="" className="loginLeft" onSubmit={onSubmit}>
           <input
@@ -91,9 +111,10 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
           <button type="submit" className="signIn btn">
             로그인
           </button>
-          <a href="/signup" className="signUp btn">
-            관리자 회원가입
-          </a>
+          <div className="signUp">
+            Albalog로 쉽고 편한 매장 관리를 원하세요 ?
+            <a href="/signup">관리자 회원가입</a>
+          </div>
         </form>
         <div className="loginRight">
           <img src={banner} alt="" />
@@ -104,13 +125,14 @@ function Login({ form, user, dispatchChangeField, dispatchSetUser }) {
 }
 
 function mapStateToProps(state) {
-  return { form: state.auth.login, user: state.user };
+  return { form: state.auth.login, user: state.user, parttime: state.parttime };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChangeField: (FormBody) => dispatch(ChangeField(FormBody)),
     dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
+    dispatchSetParttime: (ParttimeBody) => dispatch(SetParttime(ParttimeBody)),
   };
 }
 

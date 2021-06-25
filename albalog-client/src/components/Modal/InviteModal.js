@@ -27,7 +27,7 @@ const InviteModal = ({ handleModal }) => {
 
     const postForm = async () => {
       try {
-        await axios.post(
+        const response = await axios.post(
           `${APIURL}/location/${locationId}/invite`,
           {
             name,
@@ -40,6 +40,7 @@ const InviteModal = ({ handleModal }) => {
           },
         );
         alert('메일 전송 성공 !');
+        console.log(response.data);
       } catch (e) {
         console.log(e);
         alert('메일 전송을 실패하였습니다.');

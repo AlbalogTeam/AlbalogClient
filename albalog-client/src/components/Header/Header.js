@@ -1,8 +1,6 @@
-import axios from 'axios';
 import Loading from 'components/Loading/Loading';
 import InviteModal from 'components/Modal/InviteModal';
-import { APIURL } from 'config';
-import shop, { SetShop } from 'modules/shop';
+import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -11,6 +9,8 @@ import './Header.scss';
 import logo from 'static/albalog-logo.png';
 import client from 'utils/api';
 import { FaStoreAlt } from 'react-icons/fa';
+import { BsFillPersonPlusFill } from 'react-icons/bs';
+import { AiOutlineExport } from 'react-icons/ai';
 
 const Header = ({
   user,
@@ -75,7 +75,7 @@ const Header = ({
         let shopBody = {
           _id: response.data._id,
           name: response.data.name,
-          notices: [...response.data.notices].reverse(),
+          notices: response.data.notices,
           workManuals: response.data.workManuals,
           address: response.data.address,
           phone_number: response.data.phone_number,
@@ -92,7 +92,7 @@ const Header = ({
         let shopBody = {
           _id: response.data._id,
           name: response.data.name,
-          notices: [...response.data.notices].reverse(),
+          notices: response.data.notices,
           workManuals: response.data.workManuals,
           address: response.data.address,
           phone_number: response.data.phone_number,
@@ -130,14 +130,16 @@ const Header = ({
           </span>
           {user.role === 'owner' ? (
             <button className="btn-invite" onClick={handleModal}>
-              직원초대+
+              <span>직원초대</span>
+              <BsFillPersonPlusFill size="25" />
             </button>
           ) : (
             ''
           )}
 
           <button className="btn-logout" onClick={logOutHandler}>
-            로그아웃
+            <span>로그아웃</span>
+            <AiOutlineExport size="25" />
           </button>
         </div>
       </header>

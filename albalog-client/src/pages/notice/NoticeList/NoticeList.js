@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
+import NoDataType2 from 'components/NoData/NodataType2';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -45,14 +46,6 @@ const NoticeList = ({ user, shop }) => {
       <Header />
       <AdminAside />
       <div id="Notice" className="page-layout">
-        <div className="tit">
-          <h4 className="tit-corp">공지사항</h4>
-          {user.role === 'owner' && (
-            <div className="upload">
-              <Link to={`/${shop._id}/notice/upload`}>작성</Link>
-            </div>
-          )}
-        </div>
         <div className="cont">
           <div className="search-comm">
             <form action="">
@@ -69,6 +62,11 @@ const NoticeList = ({ user, shop }) => {
             </form>
           </div>
 
+          {user.role === 'owner' && (
+            <div className="upload">
+              <Link to={`/${shop._id}/notice/upload`}>작성</Link>
+            </div>
+          )}
           <div className="table-comm">
             <table className="table">
               <colgroup>
@@ -81,6 +79,10 @@ const NoticeList = ({ user, shop }) => {
                   <th scope="col">등록일</th>
                 </tr>
               </thead>
+              {!pagedNotices.length && shop._id && (
+                <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
+              )}
+
               <tbody>
                 {pagedNotices.map((notice, index) => (
                   <tr key={index}>

@@ -52,12 +52,14 @@
       }
 
       .signUp {
-        background: #fff;
-        line-height: 42px;
-        color: #2987c4;
-        font-weight: 500;
-        border: 1px solid #2987c4;
+        font-size: 12px;
         text-align: center;
+        color: #666;
+        a {
+          text-decoration: underline;
+          color: #333;
+          font-size:14px;
+        }
       }
     }
 

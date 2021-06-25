@@ -1,0 +1,119 @@
+#TransitionList {
+  height: 72%;
+  .current-date {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  .transition-input {
+    display: flex;
+    .input-active {
+      display: inline-block;
+      padding: 6px;
+      font-size: 1rem;
+      width: 93%;
+      line-height: 1.5;
+      outline: none;
+      color: #212529;
+      border: 1px solid #ccc;
+    }
+    .input-disable {
+      display: inline-block;
+      padding: 6px;
+      font-size: 1rem;
+      width: 100%;
+      line-height: 1.5;
+      outline: none;
+      color: #212529;
+      border: 1px solid #ccc;
+      background-color: #e2e2e2;
+    }
+    .add {
+      border: 1px solid #ccc;
+      border-left: none;
+    }
+    .add:hover {
+      background-color: rgb(209, 207, 207);
+    }
+  }
+  .transition-list {
+    border: 1px solid #ccc;
+    height: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow-x: hidden;
+    li {
+      border-bottom: 1px solid #ccc;
+      .tran-cont {
+        display: flex;
+        position: relative;
+        .tran-check {
+          flex-grow: 1;
+          &:hover {
+            background-color: rgb(246, 246, 246);
+          }
+        }
+        .title {
+          width: 200px;
+          padding: 6px;
+          min-height: 60px;
+
+          flex-grow: 27;
+          padding: 20px 15px;
+          &:focus {
+            outline: none;
+          }
+          &:hover {
+            background-color: rgb(246, 246, 246);
+          }
+        }
+        .del-btn {
+          flex-grow: 1;
+          &:hover {
+            background-color: rgb(246, 246, 246);
+          }
+        }
+      }
+      .completed {
+        color: #adb5bd;
+        text-decoration: line-through;
+        .check-box {
+          color: #adb5bd;
+        }
+      }
+      .tran-who {
+        display: flex;
+        color: #979797;
+        font-size: 12px;
+        padding: 0 10px 10px;
+      }
+      .who {
+        margin-right: 10px;
+        .complete {
+          color: #0f851a;
+        }
+        .cancel {
+          color: #b3130b;
+        }
+      }
+    }
+  }
+}
+
+
+
+@media screen and(max-width:768px) {
+  body {
+    #TransitionList {
+      .transition-list {
+        margin-bottom: 80px;
+        li {
+          .tran-cont {
+            .title {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

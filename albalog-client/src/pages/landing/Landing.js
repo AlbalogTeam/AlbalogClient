@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Landing.scss';
 
+
 const Landing = () => {
   const [registerState, setRegisterState] = useState(false);
   const user = useSelector((state) => state.user);
@@ -23,12 +24,14 @@ const Landing = () => {
           </div>
           <div className="lp-regi">
             {user.role === 'owner' && (
-              <button onClick={ToggleButton}>매장 추가</button>
+              <button className="add-store" onClick={ToggleButton}>매장 추가</button>
             )}
             {registerState && <StoreRegister ToggleButton={ToggleButton} />}
           </div>
         </div>
       </div>
+
+
     </div>
   );
 };

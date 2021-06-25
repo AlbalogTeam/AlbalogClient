@@ -1,7 +1,5 @@
 #NoticeDetail {
   .notice-cont {
-    float: right;
-    width: 860px;
     .content-tit {
       width: 580px;
       margin: 0 auto;
@@ -50,9 +48,18 @@
         font-size: 14px;
         line-height: 40px;
         color: #fff;
-        background-color: #4d4d4d;
+        background-color: #1271af;
         text-align: center;
         text-decoration: none;
+      }
+      .btn-list:first-child {
+        background-color: #494949;
+      }
+
+      .btn-list:last-child {
+        background-color: #fff;
+        color: #1271af;
+        border: 1px solid #1271af;
       }
     }
   }
@@ -63,7 +70,7 @@
     #NoticeDetail {
       .notice-cont {
         width: 100%;
-        float: none;
+        margin-top: 50px;
         .content-tit {
           width: 100%;
           padding: 10px;

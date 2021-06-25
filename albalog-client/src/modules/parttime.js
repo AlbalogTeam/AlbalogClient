@@ -5,6 +5,7 @@ const initialState = {
   birthdate: '',
   wage: '',
   gender: '',
+  shift: [],
   timeclock: [],
   status: '',
   cellphone: '',
@@ -15,13 +16,22 @@ const parttime = createSlice({
   initialState,
   reducers: {
     SetParttime: (state, action) => {
-      const { stores, birthdate, wage, gender, timeClocks, status, cellphone } =
-        action.payload;
+      const {
+        stores,
+        birthdate,
+        hourly_wage,
+        gender,
+        shifts,
+        timeClocks,
+        status,
+        cellphone,
+      } = action.payload;
 
       state.store = stores;
       state.birthdate = birthdate;
-      state.wage = wage;
+      state.wage = hourly_wage;
       state.gender = gender;
+      state.shift = shifts;
       state.timeclock = timeClocks;
       state.status = status;
       state.cellphone = cellphone;

@@ -16,11 +16,10 @@ import SignUp from 'pages/signUp/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
-import Header from 'components/Header/Header';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
-import EmployeeLogin from 'pages/employeeLogIn/EmployeeLogin';
+import MobileCategory from 'pages/mobileCategory/MobileCategory';
 import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 
 const App = () => {
@@ -38,6 +37,11 @@ const App = () => {
             path="/signup"
             component={Authentication(SignUp, false)}
             exact
+          />
+          <Route
+            path="/:shop/mobile/category"
+            exact
+            component={Authentication(MobileCategory, true)}
           />
           <Route
             path="/:shop?/notice"
@@ -89,11 +93,7 @@ const App = () => {
           />
 
           {/** 나중에 staff로 바꿔야함 */}
-          <Route
-            path="/parttime/login"
-            exact
-            component={Authentication(EmployeeLogin, false)}
-          />
+
           <Route
             path="/parttime/:shop?"
             exact
@@ -115,7 +115,7 @@ const App = () => {
             component={Authentication(WorkingTime, true, 'staff')}
           />
           <Route
-            path="/parttime/:shop/signup"
+            path="/parttime/:shop/:invitetoken/signup"
             exact
             component={Authentication(EmployeeSignUp, false)}
           />
