@@ -70,7 +70,7 @@ const Header = ({
 
     if (user.role === 'owner') {
       client.get(`/location/${shopId}`).then((response) => {
-        console.log(response.data);
+        console.log(response);
 
         let shopBody = {
           _id: response.data._id,

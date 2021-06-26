@@ -35,13 +35,10 @@ function PartTimeDashboard() {
     (a) => new Date(a.end_time).toDateString() === new Date().toDateString(),
   );
 
-  console.log(todaytimeclockIn);
-
   const getprofile = () => {
     try {
       client.get(`/location/${shop._id}/employees/${user._id}`).then((res) => {
         sessionStorage.setItem('parttime', JSON.stringify(res.data));
-        console.log(res.data);
         window.location.replace(`/parttime/${shop._id}`);
       });
     } catch (e) {
@@ -54,20 +51,17 @@ function PartTimeDashboard() {
       start_time: new Date(),
       wage: 1000,
     };
-    console.log(newForm);
-    // setForm(newForm);
+
     const pushdata = async () => {
       try {
         // console.log(body);
         let response = await client
           .post(`/timeclock/start`, newForm)
           .then((response) => {
-            console.log(response.data);
             if (response.status === 201) {
               getprofile();
             }
           });
-        console.log(response.data);
       } catch (e) {
         console.log(e);
       }
@@ -85,15 +79,12 @@ function PartTimeDashboard() {
       end_time: new Date(),
       timeClockId: todaytimeclockIn._id,
     };
-
-    console.log(newForm);
     const pushdata = async () => {
       try {
         let response = await client
           .post(`/timeclock/end`, newForm)
           .then((response) => {
             if (response.status === 201) {
-              console.log(response.data);
               getprofile();
             }
           });
@@ -173,7 +164,11 @@ function PartTimeDashboard() {
                   disabled={todaytimeclockIn ? true : false}
                   style={
                     todaytimeclockIn
-                      ? { background: 'gray' }
+                      ? {
+                          background: '#ededee',
+                          color: 'gray',
+                          cursor: 'default',
+                        }
                       : { background: 'rgb(18, 113, 175)' }
                   }
                 >
@@ -185,13 +180,21 @@ function PartTimeDashboard() {
                   disabled={todaytimeclockOut ? true : false}
                   style={
                     todaytimeclockOut
-                      ? { background: 'gray' }
+                      ? {
+                          background: '#ededee',
+                          color: 'gray',
+                          cursor: 'default',
+                        }
                       : todaytimeclockIn
                       ? { background: 'rgb(18, 113, 175)' }
-                      : { background: 'gray' }
+                      : {
+                          background: '#ededee',
+                          color: 'gray',
+                          cursor: 'default',
+                        }
                   }
                 >
-                  {clockOut ? '퇴근 완료' : '퇴근 하기'}
+                  {todaytimeclockOut ? '퇴근 완료' : '퇴근 하기'}
                 </button>
               </div>
             </div>
