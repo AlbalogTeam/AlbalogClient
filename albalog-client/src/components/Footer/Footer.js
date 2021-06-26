@@ -14,19 +14,27 @@ const Footer = () => {
   return (
     <div id="Footer">
       <ul className="menu">
-        <NavLink to="" activeStyle={activeStyle}>
+        <NavLink
+          to={`/${'admin' || 'parttime'}/${shop._id}`}
+          activeStyle={activeStyle}
+          exact
+        >
           <li className="menu-item">
             <AiFillHome size="25" />
             <span>홈</span>
           </li>
         </NavLink>
-        <NavLink to={`/${shop._id}/mobile/category`} activeStyle={activeStyle}>
+        <NavLink
+          to={`/${shop._id}/mobile/category`}
+          exact
+          activeStyle={activeStyle}
+        >
           <li className="menu-item">
             <AiOutlineMenu size="25" />
             <span>카테고리</span>
           </li>
         </NavLink>
-        <NavLink to="" activeStyle={activeStyle}>
+        <NavLink to={`/`} exact activeStyle={activeStyle}>
           <li className="menu-item">
             <AiFillAppstore size="25" />
             <span>매장 리스트</span>

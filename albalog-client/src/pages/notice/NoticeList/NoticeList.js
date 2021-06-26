@@ -4,16 +4,20 @@ import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/notice/Pagination';
 import { paginate } from 'utils/paginate';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import NoDataType2 from 'components/NoData/NodataType2';
+import client from 'utils/api';
 
 const NoticeList = ({ user, shop }) => {
+  const dispatch = useDispatch();
+
   const [getNotices, setGetNotices] = useState([]);
+  const [searchNoticeInput, setSearchNoticeInput] = useState('');
   const [noticeInfo, setNoticeInfo] = useState({
     pageSize: 10, // 한 페이지에 보여줄 공지사항 게시물 수
     currentPage: 1, // 현재 활성화 된 페이지 위치
@@ -41,6 +45,22 @@ const NoticeList = ({ user, shop }) => {
     });
   };
 
+  const NoticeSearchInputChange = (e) => {
+    setSearchNoticeInput(e.target.value);
+  };
+
+  const NoticeSearchHandle = (e) => {
+    e.preventDefault();
+    let body = {
+      locationId: shop._id,
+      content: searchNoticeInput,
+    };
+    client.post('/location/notice/search', body).then((response) => {
+      console.log(response);
+      setGetNotices(response.data);
+    });
+  };
+
   return (
     <>
       <Header />
@@ -48,12 +68,14 @@ const NoticeList = ({ user, shop }) => {
       <div id="Notice" className="page-layout">
         <div className="cont">
           <div className="search-comm">
-            <form action="">
+            <form action="" onSubmit={NoticeSearchHandle}>
               <fieldset>
                 <input
                   type="text"
                   className="search-input"
                   placeholder="검색어를 입력해주세요"
+                  value={searchNoticeInput}
+                  onChange={NoticeSearchInputChange}
                 />
                 <button type="submit" className="search-btn">
                   <AiOutlineSearch size="23" />

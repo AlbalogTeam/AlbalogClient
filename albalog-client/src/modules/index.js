@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import auth from './auth';
+
 import parttime from './parttime';
 import render from './render';
 import shop from './shop';
