@@ -137,10 +137,12 @@ function PartTimeDashboard() {
                 <div className="personalSchedule">
                   <div className="textLine">
                     <span>개인 스케줄</span>
-                    <span className="moreBtn">
-                      더보기
-                      <IoIosArrowForward />
-                    </span>
+                    <Link to={`/parttime/${shop._id}/scheduler`}>
+                      <span className="moreBtn">
+                        더보기
+                        <IoIosArrowForward />
+                      </span>
+                    </Link>
                   </div>
                   <div className="personalScheduleContent">
                     <DashboardPersonalschedule

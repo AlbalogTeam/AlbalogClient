@@ -48,6 +48,7 @@ function ParttimeScheduler() {
 
         return newData;
       });
+      console.log(shift);
       console.log(response.data);
       setShifts(shift);
     } catch (error) {}
@@ -67,7 +68,7 @@ function ParttimeScheduler() {
           <div className="calendar-box">
             <Calendar
               localizer={localizer}
-              defaultView={'week'}
+              defaultView={'month'}
               showMultiDayTimes={true}
               views={['week', 'month']}
               defaultDate={new Date(year, month, date)}

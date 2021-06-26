@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MdEdit } from 'react-icons/md';
-import axios from 'axios';
 import 'components/partTime/accountinfo/ProfileInfo.scss';
 import client from 'utils/api';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 function ProfileInfo() {
