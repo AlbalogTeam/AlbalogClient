@@ -1,0 +1,26 @@
+@import 'react-big-calendar/lib/sass/styles';
+
+.AdminSchedule {
+  height: 100%;
+  padding: 3rem;
+  background-color: #fafafa;
+  .schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    .btn-add {
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+      font-weight: 500;
+      color: #fff;
+      background-color: #58c3cc;
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+  .schedule-calendar {
+    border: 1px solid red;
+    height: 600px;
+  }
+}

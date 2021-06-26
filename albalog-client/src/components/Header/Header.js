@@ -21,6 +21,7 @@ const Header = ({
   match,
 }) => {
   const [isModal, setIsModal] = useState(false);
+  console.log('Header 리렌더링');
 
   const handleModal = () => {
     setIsModal(!isModal);

@@ -2,8 +2,11 @@ import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './AdminPayroll.scss';
 const AdminPayroll = () => {
+  const employeeList = useSelector(({ shop }) => shop.employees);
+  console.log(employeeList);
   return (
     <>
       <Header />
@@ -25,41 +28,13 @@ const AdminPayroll = () => {
               <th>지급액</th>
             </thead>
             <tbody>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
-              <tr>
-                <td>윤영훈</td>
-                <td>200시간</td>
-                <td>700,000원</td>
-              </tr>
+              {employeeList.map((employee) => (
+                <tr>
+                  <td>{employee.employee.name}</td>
+                  <td>{}</td>
+                  <td>700,000원</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
