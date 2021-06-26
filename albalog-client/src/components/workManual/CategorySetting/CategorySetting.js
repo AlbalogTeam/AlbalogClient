@@ -49,13 +49,20 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
 
   // 카테고리 삭제
   const DeleteCategoryHandle = (id) => {
-    client.delete(`/category/${shop._id}/delete/${id}`).then((response) => {
-      console.log(response);
-      if (response.data.deletedCategory) {
-        alert('카테고리가 삭제되었습니다');
-        setLoadingCategory(!loadingCategory);
-      }
-    });
+    client
+      .delete(`/category/${shop._id}/delete/${id}`)
+      .then((response) => {
+        console.log(response);
+        if (response.data.deletedCategory) {
+          alert('카테고리가 삭제되었습니다');
+          setLoadingCategory(!loadingCategory);
+        }
+      })
+      .catch(function (error) {
+        if (error) {
+          alert('해당 카테고리에 업무매뉴얼이 존재합니다.');
+        }
+      });
   };
 
   // 카테고리 수정
