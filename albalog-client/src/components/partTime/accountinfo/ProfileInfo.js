@@ -3,8 +3,10 @@ import { MdEdit } from 'react-icons/md';
 import axios from 'axios';
 import 'components/partTime/accountinfo/ProfileInfo.scss';
 import client from 'utils/api';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { SetUser } from 'modules/user';
 
 function ProfileInfo() {
   const shop = useSelector((state) => state.shop);
@@ -21,6 +23,8 @@ function ProfileInfo() {
     phone: parttime.cellphone,
   });
 
+  const dispatch = useDispatch();
+  const history = useHistory();
   const {
     name,
     password,
@@ -65,7 +69,18 @@ function ProfileInfo() {
       let response = await client.patch(`/employee/${shop._id}/update`, body);
       console.log(response);
       if (response.status === 200) {
-        window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
+        // window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
+        alert('변경된 비밀번호로 다시 로그인 해주세요');
+        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+        let UserBody = {
+          _id: '',
+          email: '',
+          name: '',
+          role: '',
+          token: '',
+        };
+        dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
+        history.push('/login');
       }
     } catch (e) {
       console.log('Error : ' + e);
