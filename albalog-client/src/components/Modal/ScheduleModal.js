@@ -1,54 +1,22 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import { useSelector } from 'react-redux';
+import client from 'utils/api';
 import './Modal.scss';
 
 const ScheduleModal = ({ handleModal, employeeList }) => {
+  const locationId = useSelector(({ shop }) => shop._id);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [id, setId] = useState('');
   const [days, setDays] = useState([
-    {
-      Mon: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Tue: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Wed: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Thu: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Fri: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Sat: {
-        startTime: '',
-        endTime: '',
-      },
-    },
-    {
-      Sun: {
-        startTime: '',
-        endTime: '',
-      },
-    },
+    { day: 0, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 1, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 2, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 3, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 4, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 5, start_time: '00:00', end_time: '00:00', checked: false },
+    { day: 6, start_time: '00:00', end_time: '00:00', checked: false },
   ]);
 
   const employeeChange = (e) => {
@@ -56,17 +24,40 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
   };
 
   // 원본을 훼손하지 않고 배열 수정.
-  const changeTime = (e) => {};
+  const changeTime = (e) => {
+    setDays(
+      days.map((day) =>
+        day.day === Number(e.target.name)
+          ? { ...day, [e.target.id]: e.target.value, checked: true }
+          : day,
+      ),
+    );
+  };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log({
-      _id: id,
+      staffId: id,
       startDate: startDate.toISOString().substring(0, 10),
       endDate: endDate.toISOString().substring(0, 10),
-      time: days,
+      time: days.filter((day) => day.checked === true),
     });
+
+    try {
+      const response = await client.post(
+        `/shift/location/${locationId}/create`,
+        {
+          staffId: id,
+          startDate: startDate.toISOString().substring(0, 10),
+          endDate: endDate.toISOString().substring(0, 10),
+          time: days.filter((day) => day.checked === true),
+        },
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -105,86 +96,51 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
 
           <label>월요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Mon"
-              id="startTime"
-              onChange={(e) => console.log(e.target.value)}
-            />
+            <input type="time" name={0} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Mon" id="endTime" onChange={changeTime} />
+            <input type="time" name={0} id="end_time" onChange={changeTime} />
           </div>
 
           <label>화요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Tue"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={1} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Tue" id="endTime" onChange={changeTime} />
+            <input type="time" name={1} id="end_time" onChange={changeTime} />
           </div>
 
           <label>수요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Wed"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={2} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Wed" id="endTime" onChange={changeTime} />
+            <input type="time" name={2} id="end_time" onChange={changeTime} />
           </div>
 
           <label>목요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Thu"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={3} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Thu" id="endTime" onChange={changeTime} />
+            <input type="time" name={3} id="end_time" onChange={changeTime} />
           </div>
 
           <label>금요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Fri"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={4} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Fri" id="endTime" onChange={changeTime} />
+            <input type="time" name={4} id="end_time" onChange={changeTime} />
           </div>
 
           <label>토요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Sat"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={5} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Sat" id="endTime" onChange={changeTime} />
+            <input type="time" name={5} id="end_time" onChange={changeTime} />
           </div>
 
           <label>일요일</label>
           <div className="choose-time">
-            <input
-              type="time"
-              name="Sun"
-              id="startTime"
-              onChange={changeTime}
-            />
+            <input type="time" name={6} id="start_time" onChange={changeTime} />
             ~
-            <input type="time" name="Sun" id="endTime" onChange={changeTime} />
+            <input type="time" name={6} id="end_time" onChange={changeTime} />
           </div>
 
           <button className="btn-invite">추가하기</button>
