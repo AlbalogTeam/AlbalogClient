@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 function DashboardNotice() {
   const shop = useSelector((state) => state.shop);
   const notices = shop.notices;
-  console.log(notices);
 
   return (
     <div id="DashboardNotice">
