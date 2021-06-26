@@ -92,7 +92,7 @@ const Header = ({
         let shopBody = {
           _id: response.data._id,
           name: response.data.name,
-          notices: response.data.notices,
+          notices: [...response.data.notices].reverse(),
           workManuals: response.data.workManuals,
           address: response.data.address,
           phone_number: response.data.phone_number,

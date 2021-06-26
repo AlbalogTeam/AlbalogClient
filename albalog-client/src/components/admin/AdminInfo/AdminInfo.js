@@ -52,7 +52,7 @@ const AdminInfo = ({ history }) => {
       console.log(response);
       if (response.status === 200) {
         alert('변경된 비밀번호로 다시 로그인 해주세요');
-        localStorage.removeItem('user'); // localStorage에서 user를 제거
+        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
         let UserBody = {
           _id: '',
           email: '',
