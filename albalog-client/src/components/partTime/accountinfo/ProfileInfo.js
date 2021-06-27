@@ -88,6 +88,7 @@ function ProfileInfo() {
           sessionStorage.setItem('user', JSON.stringify(userBody));
           dispatch(SetUser(userBody));
           dispatch(SetParttime(parttimeBody));
+          
           // window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
         }
       } catch (error) {
