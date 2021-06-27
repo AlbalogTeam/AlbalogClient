@@ -33,6 +33,9 @@ function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
   const [shifts, setShifts] = useState([]);
 
+  // moment.utc(fromDate).toDate()
+  // moment.utc(new Date()).toDate()
+
   const getSchedule = async () => {
     try {
       const response = await client.get(`${APIURL}/shift/employee/${user._id}`);

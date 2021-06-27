@@ -56,6 +56,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
         if (response.data.deletedCategory) {
           alert('카테고리가 삭제되었습니다');
           setLoadingCategory(!loadingCategory);
+          dispatch(reRender(!render.render));
         }
       })
       .catch(function (error) {
@@ -83,6 +84,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
       if (response.data.UpdatedCategory) {
         alert('카테고리가 수정되었습니다.');
         setLoadingCategory(!loadingCategory);
+        dispatch(reRender(!render.render));
       }
     });
   };

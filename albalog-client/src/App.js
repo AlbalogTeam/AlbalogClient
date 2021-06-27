@@ -20,6 +20,7 @@ import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
 import MobileCategory from 'pages/mobileCategory/MobileCategory';
+import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -72,6 +73,11 @@ const App = () => {
             path="/admin/:shop?"
             exact
             component={Authentication(AdminDashboardPage, true, 'admin')}
+          />
+          <Route
+            path="/admin/:shop?/schedule"
+            exact
+            component={Authentication(AdminSchedulePage, true, true)}
           />
           <Route
             path="/admin/:shop?/info"
