@@ -33,6 +33,9 @@ function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
   const [shifts, setShifts] = useState([]);
 
+  // moment.utc(fromDate).toDate()
+  // moment.utc(new Date()).toDate()
+
   const getSchedule = async () => {
     try {
       const response = await client.get(`${APIURL}/shift/employee/${user._id}`);
@@ -48,6 +51,7 @@ function ParttimeScheduler() {
 
         return newData;
       });
+      console.log(shift);
       console.log(response.data);
       setShifts(shift);
     } catch (error) {}
@@ -67,7 +71,7 @@ function ParttimeScheduler() {
           <div className="calendar-box">
             <Calendar
               localizer={localizer}
-              defaultView={'week'}
+              defaultView={'month'}
               showMultiDayTimes={true}
               views={['week', 'month']}
               defaultDate={new Date(year, month, date)}

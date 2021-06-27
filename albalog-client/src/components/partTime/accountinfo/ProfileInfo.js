@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MdEdit } from 'react-icons/md';
-import axios from 'axios';
 import 'components/partTime/accountinfo/ProfileInfo.scss';
 import client from 'utils/api';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { SetUser } from 'modules/user';
+import { SetParttime } from 'modules/parttime';
 
 function ProfileInfo() {
   const shop = useSelector((state) => state.shop);
@@ -37,7 +36,6 @@ function ProfileInfo() {
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     const newForm = {
       ...form,
       [name]: value,
@@ -45,50 +43,59 @@ function ProfileInfo() {
     setForm(newForm);
   };
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(form);
-  // };
-
   // 유효성 검사
   const { register, handleSubmit, watch, errors } = useForm();
-  // console.log(watch('name'));
+
   const onSubmit = async (body) => {
     console.log('data', body);
-    // useEffect(() => {
-    //   const pushdata = async () => {
-    try {
-      // let body = {
-      //   name,
-      //   birthdate,
-      //   cellphone,
-      //   gender,
-      //   password,
-      //   newPassword,
-      // };
-      let response = await client.patch(`/employee/${shop._id}/update`, body);
-      console.log(response);
-      if (response.status === 200) {
-        // window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
-        alert('변경된 비밀번호로 다시 로그인 해주세요');
-        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
-        let UserBody = {
-          _id: '',
-          email: '',
-          name: '',
-          role: '',
-          token: '',
-        };
-        dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
-        history.push('/login');
+
+    if (!!body.newPassword) {
+      try {
+        let response = await client.patch(`/employee/${shop._id}/update`, body);
+        console.log(response);
+        if (response.status === 200) {
+          alert('변경된 비밀번호로 다시 로그인 해주세요');
+          sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+          let userBody = {
+            _id: '',
+            email: '',
+            name: '',
+            role: '',
+            token: '',
+          };
+          dispatch(SetUser(userBody));
+          history.push('/login');
+        }
+      } catch (e) {
+        console.log('Error : ' + e);
       }
-    } catch (e) {
-      console.log('Error : ' + e);
+    } else {
+      try {
+        let response = await client.patch(`/employee/${shop._id}/update`, body);
+        if (response.status === 200) {
+          let userBody = {
+            ...user,
+            name: body.name,
+          };
+          let parttimeBody = {
+            ...parttime,
+            birthdate: body.birthdate,
+            gender: body.gender,
+            cellphone: body.phone,
+          };
+          console.log(userBody, parttimeBody);
+          sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
+          sessionStorage.setItem('user', JSON.stringify(userBody));
+          dispatch(SetUser(userBody));
+          dispatch(SetParttime(parttimeBody));
+          
+          // window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
-  //     pushdata();
-  //   }, [user]);
-  // };
 
   return (
     <div id="ProfileInfo">
@@ -114,7 +121,7 @@ function ProfileInfo() {
             name="password"
             value={password}
             onChange={onChange}
-            ref={register({ required: true })}
+            ref={register()}
           />
         </div>
         <div className="tr">

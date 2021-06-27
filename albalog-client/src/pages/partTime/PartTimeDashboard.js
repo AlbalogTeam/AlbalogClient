@@ -72,7 +72,6 @@ function PartTimeDashboard() {
   const clickClockOut = (e) => {
     if (!clockOut) {
       clockOut = true;
-      e.target.style.background = 'gray';
     }
     const newForm = {
       locationId: shop._id,
@@ -137,10 +136,12 @@ function PartTimeDashboard() {
                 <div className="personalSchedule">
                   <div className="textLine">
                     <span>개인 스케줄</span>
-                    <span className="moreBtn">
-                      더보기
-                      <IoIosArrowForward />
-                    </span>
+                    <Link to={`/parttime/${shop._id}/scheduler`}>
+                      <span className="moreBtn">
+                        더보기
+                        <IoIosArrowForward />
+                      </span>
+                    </Link>
                   </div>
                   <div className="personalScheduleContent">
                     <DashboardPersonalschedule
@@ -177,7 +178,6 @@ function PartTimeDashboard() {
                 <button
                   className="clockOutBtn"
                   onClick={clickClockOut}
-                  // disabled={todaytimeclockOut ? true : false}
                   disabled={
                     todaytimeclockOut ? true : todaytimeclockIn ? false : true
                   }

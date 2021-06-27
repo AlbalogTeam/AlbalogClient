@@ -2,76 +2,56 @@
 
 ### <div align="center">사장님과 알바생의 편한 업무 관리를 위한 웹앱</div>
 
-
 <div align="center">Albalog를 통해서 편안한 업무관리, 급여관리, 스케줄관리, 출-퇴근관리를 해보세요😁 
-</div>  
+</div>
 
-
-<img src="https://user-images.githubusercontent.com/64634992/122313912-13b79b80-cf52-11eb-900a-a1d50bb073f9.png" />  
-
-
-
+<img src="https://user-images.githubusercontent.com/64634992/122313912-13b79b80-cf52-11eb-900a-a1d50bb073f9.png" />
 
 ## Albalog 기능
 
-
 #### 관리자
-
 
 - 매장 관리 ( 매장등록, 매장수정, 직원초대)
 
-
 - 직원 관리 ( 시급설정, 자동급여계산, 급여 내역 조회)
-
 
 - 스케줄 관리 ( 근무 일정 관리, 출-퇴근 관리)
 
-
 - 공지사항 등록
-
 
 - 업무 매뉴얼 관리
 
-
 #### 알바( or 직원)
-
 
 - 출-퇴근 기능
 
-
 - 개인/전체 스케줄 확인 , 스케줄 변경 신청
-
 
 - 근무 시간 조회
 
-
 - 급여 내역 조회
-
 
 - 인수인계(메모) 기능
 
-
-<br/>  
+<br/>
 
 ## UI/UX
+
 완성되면 업로드😂😂😂
 <br />
-
 
 ## DataBase
 
 <div>
 <img src="https://user-images.githubusercontent.com/44861205/122632213-57ee9b80-d10c-11eb-9bad-b6125c2ca389.jpeg" align="left" height="450" width="1100" />    
-</div> 
-
-
+</div>
 
 ## API DOCS
+
 완성되면 업로드😂😂😂
 <br />
 
 ## 개발 스택
-
 
 ### Front-End
 
@@ -88,12 +68,12 @@
 - mongoDB
 - mongoose
 
-<br/>  
+<br/>
 
 ## 개발 내용
 
 <details>
-<summary>1주차</summary> 
+<summary>1주차</summary>
 
 ### Implements
 
@@ -125,8 +105,7 @@
 </details>
 
 <details>
-<summary>2주차</summary> 
-
+<summary>2주차</summary>
 
 ### Implements
 
@@ -139,14 +118,15 @@
 - 백엔드 테스트 배포
 
 ### Fix
+
 - 공지사항 최신순 나열
 - 각 페이지 접근권한 설정
 - 스케줄 Date 전송 방식
 
 ### Issue
 
-- *회원가입 유효성 체크*
-- *공지사항 이미지*
+- _회원가입 유효성 체크_
+- _공지사항 이미지_
 - embedded document 쿼리 방식
 -
 
@@ -161,18 +141,17 @@
 <details>
  <summary>3주차</summary>
 
-
-
 ### Implements
+
 - 인수인계 조회, 등록, 수정, 삭제
-- 출근, 퇴근 기능  
+- 출근, 퇴근 기능
 - 공지사항 검색
 - 직원,관리자 개인정보 변경
 - 직원 스케줄 등록
 - 직원 스케줄 조회
 
-
 ### Fix
+
 - 관리자 / 알바 로그인 분리를 하나로 통합
 - 공지사항 최신순 나열
 - 기존 로그인 방식 LocalStorage -> SessionStorage로 변경
@@ -181,26 +160,38 @@
 - 업무 매뉴얼 페이지 카테고리 관리를 위한 카테고리 설정 추가
 - 업무 매뉴얼 카테고리에 속한 매뉴얼이 있을 경우 삭제 안되게 설정
 
-
 ### Styles
+
 - messageModal 생성
 - header, aside 반응형으로 구현
 - mobile category page 구현
 - No data 이미지 삽입
 
 ### Issue
+
 - 스케줄 등록 하루씩 밀림
 
 </details>
-
 
 <details>
  <summary>4주차</summary>
 
 - 급여관리
 - 아이디, 비밀번호 찾기 BackEnd
-</details>
 
+### Implements
+
+### Fix
+
+- 비밀번호 없이 직원 계정정보 수정 가능
+
+### Styles
+
+- messageModal 생성
+
+### Issue
+
+</details>
 
 <details>
  <summary>5주차</summary>
@@ -208,13 +199,11 @@
 - 테스트 및 오류해결
 </details>
 
-
 <details>
  <summary>6주차</summary>
 
 - 테스트 및 오류해결
 </details>
-
 
 <details>
  <summary>7주차</summary>
@@ -222,14 +211,13 @@
 - 테스트 및 오류해결
 </details>
 
-
 ## 파트 소개
-| 이름  |  메인 역할  |
-|:----:|:-------:|
-| [서우리](https://github.com/Alexis1226) | `프론트엔드` |
-| [이도현](https://github.com/ksmfou98) | `프론트엔드` |
-| [윤영훈](https://github.com/yoonyounghoon) | `프론트엔드` |
-| [정원석](https://github.com/Dseok12) | `프론트엔드` |
-| [김동완](https://github.com/dongwandonkim)  | `백엔드` |
-| [김태희](https://github.com/godtaehee)  | `백엔드` |  
 
+|                    이름                    |  메인 역할   |
+| :----------------------------------------: | :----------: |
+|  [서우리](https://github.com/Alexis1226)   | `프론트엔드` |
+|   [이도현](https://github.com/ksmfou98)    | `프론트엔드` |
+| [윤영훈](https://github.com/yoonyounghoon) | `프론트엔드` |
+|    [정원석](https://github.com/Dseok12)    | `프론트엔드` |
+| [김동완](https://github.com/dongwandonkim) |   `백엔드`   |
+|   [김태희](https://github.com/godtaehee)   |   `백엔드`   |
