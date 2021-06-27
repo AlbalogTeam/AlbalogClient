@@ -72,7 +72,6 @@ function PartTimeDashboard() {
   const clickClockOut = (e) => {
     if (!clockOut) {
       clockOut = true;
-      e.target.style.background = 'gray';
     }
     const newForm = {
       locationId: shop._id,

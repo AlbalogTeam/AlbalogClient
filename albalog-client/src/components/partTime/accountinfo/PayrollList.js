@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import 'components/partTime/accountinfo/PayrollList.scss';
 
-
 function PayrollList(props) {
   const [monthLine, setMonthLine] = useState([]);
   const [detailLine, setDetailLine] = useState([]);
@@ -36,7 +35,7 @@ function Monthlypay(props) {
     setDetailLine(props.detailLine);
   }, [monthLine, detailLine]);
 
-  console.log(detailLine);
+  // console.log(detailLine);
 
   return (
     <div className="pay-container">
@@ -56,26 +55,18 @@ function Monthlypay(props) {
         </div>
       </div>
       <div className={isActive ? 'detail active' : 'detail'}>
-        {detailLine
-          // .filter((x) => x.id === monthLine.id)
-          .map((item) => (
-            <div className="tr" key={item.date}>
-              <div className="date" key={item.date}>
-                {item.date}
-              </div>
-              <div className="time" key={item.date}>
-                {item.timeFrom}-{item.timeTo}
-              </div>
-              <div className="pay" key={item.date}>
-                {item.dailypay}
-              </div>
+        {detailLine.map((item, i) => (
+          <div className="tr" key={i}>
+            <div className="date">{item.date}</div>
+            <div className="time">
+              {item.timeFrom}-{item.timeTo}
             </div>
-          ))}
+            <div className="pay">{item.dailypay}</div>
+          </div>
+        ))}
       </div>
 
-      <div className="paging-comm">
-
-      </div>
+      <div className="paging-comm"></div>
     </div>
   );
 }
