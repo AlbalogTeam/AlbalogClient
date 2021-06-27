@@ -25,8 +25,18 @@ const AdminSchedule = () => {
   const getAllSchedule = async () => {
     try {
       const response = await client.get(`/shift/location/${locationId}`);
-      console.log(response);
-      setEvents(response.data);
+
+      // setEvents(response.data);
+     const newEvents= response.data.map(d => {
+        const ddd = {
+          title: d.title,
+          start: new Date(new Date(d.start).getTime() - 540 * 60 * 1000),
+          end: new Date(new Date(d.end).getTime() - 540 * 60 * 1000),
+        }
+        return ddd
+      })
+      setEvents(newEvents)
+
     } catch (e) {
       console.error(e);
     }

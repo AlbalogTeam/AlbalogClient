@@ -96,51 +96,51 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
 
           <label>월요일</label>
           <div className="choose-time">
-            <input type="time" name={0} id="start_time" onChange={changeTime} />
-            ~
-            <input type="time" name={0} id="end_time" onChange={changeTime} />
-          </div>
-
-          <label>화요일</label>
-          <div className="choose-time">
             <input type="time" name={1} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={1} id="end_time" onChange={changeTime} />
           </div>
 
-          <label>수요일</label>
+          <label>화요일</label>
           <div className="choose-time">
             <input type="time" name={2} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={2} id="end_time" onChange={changeTime} />
           </div>
 
-          <label>목요일</label>
+          <label>수요일</label>
           <div className="choose-time">
             <input type="time" name={3} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={3} id="end_time" onChange={changeTime} />
           </div>
 
-          <label>금요일</label>
+          <label>목요일</label>
           <div className="choose-time">
             <input type="time" name={4} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={4} id="end_time" onChange={changeTime} />
           </div>
 
-          <label>토요일</label>
+          <label>금요일</label>
           <div className="choose-time">
             <input type="time" name={5} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={5} id="end_time" onChange={changeTime} />
           </div>
 
-          <label>일요일</label>
+          <label>토요일</label>
           <div className="choose-time">
             <input type="time" name={6} id="start_time" onChange={changeTime} />
             ~
             <input type="time" name={6} id="end_time" onChange={changeTime} />
+          </div>
+
+          <label>일요일</label>
+          <div className="choose-time">
+            <input type="time" name={0} id="start_time" onChange={changeTime} />
+            ~
+            <input type="time" name={0} id="end_time" onChange={changeTime} />
           </div>
 
           <button className="btn-invite">추가하기</button>
