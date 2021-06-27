@@ -179,7 +179,9 @@ function PartTimeDashboard() {
                 <button
                   className="clockOutBtn"
                   onClick={clickClockOut}
-                  disabled={todaytimeclockOut ? true : false}
+                  disabled={
+                    todaytimeclockOut ? true : todaytimeclockIn ? false : true
+                  }
                   style={
                     todaytimeclockOut
                       ? {
