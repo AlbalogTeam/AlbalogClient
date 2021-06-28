@@ -40,8 +40,8 @@ function ParttimeScheduler() {
     try {
       const response = await client.get(`${APIURL}/shift/employee/${user._id}`);
       let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+        const st = new Date(new Date(a.start).getTime());
+        const ed = new Date(new Date(a.end).getTime()); //540 * 60 * 1000
 
         let newData = {
           title: user.name,
