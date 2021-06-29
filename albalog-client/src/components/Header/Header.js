@@ -12,14 +12,7 @@ import { FaStoreAlt } from 'react-icons/fa';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
 
-const Header = ({
-  user,
-  shop,
-  dispatchSetUser,
-  dispatchSetShop,
-  history,
-  match,
-}) => {
+const Header = ({ user, shop, dispatchSetUser, dispatchSetShop, match }) => {
   const [isModal, setIsModal] = useState(false);
   console.log('Header 리렌더링');
 
@@ -39,7 +32,7 @@ const Header = ({
       client
         .post('/owner/logout')
         .then((response) => {
-          sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+          sessionStorage.removeItem('user'); // sessionStorage user를 제거
           dispatchSetUser(UserBody); // user redux를 초기값으로 설정
         })
         .catch(function (error) {
@@ -70,18 +63,8 @@ const Header = ({
 
     if (user.role === 'owner') {
       client.get(`/location/${shopId}`).then((response) => {
-        console.log(response);
-
-        let shopBody = {
-          _id: response.data._id,
-          name: response.data.name,
-          notices: response.data.notices,
-          workManuals: response.data.workManuals,
-          address: response.data.address,
-          phone_number: response.data.phone_number,
-          postal_code: response.data.postal_code,
-          employees: response.data.employees,
-        };
+        console.log(response.data);
+        let shopBody = response.data;
 
         dispatchSetShop(shopBody);
       });
