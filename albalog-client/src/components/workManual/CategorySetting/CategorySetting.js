@@ -24,6 +24,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     async function fetchData() {
       const response = await client.get(`/category/${shop._id}`);
       setCategories([...response.data].reverse());
+      
       console.log(response.data);
     }
     fetchData();
