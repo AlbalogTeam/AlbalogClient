@@ -31,17 +31,24 @@
       }
       .wrapper-content {
         display: table;
-        width: 100%;
+        width:100%;
         .content-message {
           height: 60px;
           display: table-cell;
           vertical-align: middle;
-          font-size: 13px;
+          font-size: 14px;
           line-height: 1.5;
           text-align: center;
           width: 100%;
           color: #4c4c4c;
         }
+      }
+
+      .wrapper-alert {
+        text-align: center;
+        font-size: 12px;
+        color: #b3130b;
+        padding-top: 10px;
       }
       .wrapper-button {
         position: absolute;
