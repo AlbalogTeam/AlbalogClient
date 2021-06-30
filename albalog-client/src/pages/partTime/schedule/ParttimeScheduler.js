@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'pages/partTime/schedule/ParttimeScheduler.scss';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
@@ -11,7 +11,6 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import client from 'utils/api';
-import { useEffect } from 'react';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -31,35 +30,65 @@ const date = today.getDate();
 
 function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
-  const [shifts, setShifts] = useState([]);
+  const shop = useSelector((state) => state.shop);
+  const [personalShifts, setPersonalShifts] = useState([]);
+  const [allShifts, setAllShifts] = useState([]);
+  const [selectedRadio, setSelectedRadio] = useState('all');
 
   // moment.utc(fromDate).toDate()
   // moment.utc(new Date()).toDate()
 
-  const getSchedule = async () => {
+  const getPersonalSchedule = async () => {
     try {
       const response = await client.get(`${APIURL}/shift/employee/${user._id}`);
       let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+        const st = new Date(new Date(a.start).getTime());
+        const ed = new Date(new Date(a.end).getTime()); //540 * 60 * 1000
 
         let newData = {
           title: user.name,
           start: new Date(st),
           end: new Date(ed),
         };
-
         return newData;
       });
+      setPersonalShifts(shift);
+    } catch (error) {}
+  };
+
+  const getAllSchedule = async () => {
+    try {
+      const response = await client.get(`${APIURL}/shift/location/${shop._id}`);
+      let shift = await response.data.map((a) => {
+        let newData = {
+          title: a.title,
+          start: new Date(a.start),
+          end: new Date(a.end),
+        };
+        return newData;
+      });
+      setAllShifts(shift);
       console.log(shift);
-      console.log(response.data);
-      setShifts(shift);
     } catch (error) {}
   };
 
   useEffect(() => {
-    getSchedule();
+    getPersonalSchedule();
+    getAllSchedule();
   }, []);
+
+  // const todayShift =
+  //   shifts &&
+  //   shifts.filter(
+  //     (a) =>
+  //       a.start.toDateString() === new Date().toDateString() ||
+  //       a.end.toDateString() === new Date().toDateString(),
+  //   );
+
+  const onChange = (e) => {
+    e.target.value === 'personal' && setSelectedRadio('personal');
+    e.target.value === 'all' && setSelectedRadio('all');
+  };
 
   return (
     <>
@@ -67,22 +96,70 @@ function ParttimeScheduler() {
       <Aside />
       <div id="ParttimeScheduler">
         <div className="container">
-          <h2>직원 스케줄러</h2>
+          <div className="title">
+            <h2>스케줄러</h2>
+            <div className="choice">
+              <label>
+                <input
+                  type="radio"
+                  name="grade"
+                  value="personal"
+                  checked={selectedRadio === 'personal' ? true : false}
+                  onChange={onChange}
+                  className="content-label"
+                />
+                개인
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="grade"
+                  value="all"
+                  checked={selectedRadio === 'all' ? true : false}
+                  defaultChecked
+                  onChange={onChange}
+                  className="content-label"
+                />
+                전체
+              </label>
+            </div>
+          </div>
           <div className="calendar-box">
-            <Calendar
-              localizer={localizer}
-              defaultView={'month'}
-              showMultiDayTimes={true}
-              views={['week', 'month']}
-              defaultDate={new Date(year, month, date)}
-              events={shifts} // array of events
-              startAccessor="start" // the property for the start date of events
-              endAccessor="end" // the property for the end date of events
-              step={30}
-              onSelectEvent={(event, e) => {
-                console.log(event);
-              }}
-            />
+            {selectedRadio === 'personal' ? (
+              <div style={{ width: '100%', height: '100%' }}>
+                <Calendar
+                  localizer={localizer}
+                  defaultView={'month'}
+                  showMultiDayTimes={true}
+                  views={['week', 'month']}
+                  defaultDate={new Date(year, month, date)}
+                  events={personalShifts} // array of events
+                  startAccessor="start" // the property for the start date of events
+                  endAccessor="end" // the property for the end date of events
+                  step={30}
+                  onSelectEvent={(event, e) => {
+                    console.log(event);
+                  }}
+                />
+              </div>
+            ) : (
+              <div style={{ width: '100%', height: '100%' }}>
+                <Calendar
+                  localizer={localizer}
+                  defaultView={'month'}
+                  showMultiDayTimes={true}
+                  views={['week', 'month']}
+                  defaultDate={new Date(year, month, date)}
+                  events={allShifts} // array of events
+                  startAccessor="start" // the property for the start date of events
+                  endAccessor="end" // the property for the end date of events
+                  step={30}
+                  onSelectEvent={(event, e) => {
+                    console.log(event);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -181,13 +181,13 @@
 
 ### Implements
 
+- 직원 스케줄러에서 해당 매장 전직원 스케줄 조회 기능 추가
+
 ### Fix
 
 - 비밀번호 없이 직원 계정정보 수정 가능
 
 ### Styles
-
-- messageModal 생성
 
 ### Issue
 

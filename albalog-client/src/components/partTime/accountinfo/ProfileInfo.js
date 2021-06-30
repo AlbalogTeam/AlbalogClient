@@ -52,7 +52,6 @@ function ProfileInfo() {
     if (!!body.newPassword) {
       try {
         let response = await client.patch(`/employee/${shop._id}/update`, body);
-        console.log(response);
         if (response.status === 200) {
           alert('변경된 비밀번호로 다시 로그인 해주세요');
           sessionStorage.removeItem('user'); // localStorage에서 user를 제거
@@ -83,12 +82,11 @@ function ProfileInfo() {
             gender: body.gender,
             cellphone: body.phone,
           };
-          console.log(userBody, parttimeBody);
           sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
           sessionStorage.setItem('user', JSON.stringify(userBody));
           dispatch(SetUser(userBody));
           dispatch(SetParttime(parttimeBody));
-          
+
           // window.location.replace(`/parttime/${shop._id}/accountinfo`); // 페이지 이동 후 새로고침
         }
       } catch (error) {
@@ -166,7 +164,6 @@ function ProfileInfo() {
                 value="남성"
                 checked={gender === '남성' ? true : false}
                 onChange={onChange}
-                checked={gender === '남성' ? true : false}
                 className="content-label"
                 ref={register({ required: true })}
               />
