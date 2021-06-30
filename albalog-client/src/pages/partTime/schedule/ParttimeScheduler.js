@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'pages/partTime/schedule/ParttimeScheduler.scss';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
@@ -11,7 +11,7 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import client from 'utils/api';
-import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -32,6 +32,7 @@ const date = today.getDate();
 function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
   const [shifts, setShifts] = useState([]);
+  const [selectedRadio, setSelectedRadio] = useState('');
 
   // moment.utc(fromDate).toDate()
   // moment.utc(new Date()).toDate()
@@ -48,11 +49,8 @@ function ParttimeScheduler() {
           start: new Date(st),
           end: new Date(ed),
         };
-
         return newData;
       });
-      console.log(shift);
-      console.log(response.data);
       setShifts(shift);
     } catch (error) {}
   };
@@ -61,13 +59,55 @@ function ParttimeScheduler() {
     getSchedule();
   }, []);
 
+  const todayShift =
+    shifts &&
+    shifts.filter(
+      (a) =>
+        a.start.toDateString() === new Date().toDateString() ||
+        a.end.toDateString() === new Date().toDateString(),
+    );
+
+  const history = useHistory();
+  const shop = useSelector((state) => state.shop);
+
+  const onChange = (e) => {
+    e.target.value === 'personal' && setSelectedRadio('personal');
+    e.target.value === 'all' && setSelectedRadio('all');
+  };
+
   return (
     <>
       <Header />
       <Aside />
       <div id="ParttimeScheduler">
         <div className="container">
-          <h2>직원 스케줄러</h2>
+          <div className="title">
+            <h2>스케줄러</h2>
+            <div className="choice">
+              <label>
+                <input
+                  type="radio"
+                  name="grade"
+                  value="personal"
+                  checked={selectedRadio === 'personal' ? true : false}
+                  onChange={onChange}
+                  className="content-label"
+                />
+                개인
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="grade"
+                  value="all"
+                  checked={selectedRadio === 'all' ? true : false}
+                  onChange={onChange}
+                  className="content-label"
+                />
+                전체
+              </label>
+            </div>
+          </div>
           <div className="calendar-box">
             <Calendar
               localizer={localizer}

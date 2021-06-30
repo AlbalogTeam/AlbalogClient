@@ -187,8 +187,6 @@
 
 ### Styles
 
-- messageModal 생성
-
 ### Issue
 
 </details>
