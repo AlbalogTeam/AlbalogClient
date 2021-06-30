@@ -11,7 +11,6 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import client from 'utils/api';
-import { useHistory } from 'react-router-dom';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -31,13 +30,15 @@ const date = today.getDate();
 
 function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
-  const [shifts, setShifts] = useState([]);
-  const [selectedRadio, setSelectedRadio] = useState('');
+  const shop = useSelector((state) => state.shop);
+  const [personalShifts, setPersonalShifts] = useState([]);
+  const [allShifts, setAllShifts] = useState([]);
+  const [selectedRadio, setSelectedRadio] = useState('all');
 
   // moment.utc(fromDate).toDate()
   // moment.utc(new Date()).toDate()
 
-  const getSchedule = async () => {
+  const getPersonalSchedule = async () => {
     try {
       const response = await client.get(`${APIURL}/shift/employee/${user._id}`);
       let shift = await response.data.map((a) => {
@@ -51,24 +52,38 @@ function ParttimeScheduler() {
         };
         return newData;
       });
-      setShifts(shift);
+      setPersonalShifts(shift);
+    } catch (error) {}
+  };
+
+  const getAllSchedule = async () => {
+    try {
+      const response = await client.get(`${APIURL}/shift/location/${shop._id}`);
+      let shift = await response.data.map((a) => {
+        let newData = {
+          title: a.title,
+          start: new Date(a.start),
+          end: new Date(a.end),
+        };
+        return newData;
+      });
+      setAllShifts(shift);
+      console.log(shift);
     } catch (error) {}
   };
 
   useEffect(() => {
-    getSchedule();
+    getPersonalSchedule();
+    getAllSchedule();
   }, []);
 
-  const todayShift =
-    shifts &&
-    shifts.filter(
-      (a) =>
-        a.start.toDateString() === new Date().toDateString() ||
-        a.end.toDateString() === new Date().toDateString(),
-    );
-
-  const history = useHistory();
-  const shop = useSelector((state) => state.shop);
+  // const todayShift =
+  //   shifts &&
+  //   shifts.filter(
+  //     (a) =>
+  //       a.start.toDateString() === new Date().toDateString() ||
+  //       a.end.toDateString() === new Date().toDateString(),
+  //   );
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
@@ -101,6 +116,7 @@ function ParttimeScheduler() {
                   name="grade"
                   value="all"
                   checked={selectedRadio === 'all' ? true : false}
+                  defaultChecked
                   onChange={onChange}
                   className="content-label"
                 />
@@ -109,20 +125,41 @@ function ParttimeScheduler() {
             </div>
           </div>
           <div className="calendar-box">
-            <Calendar
-              localizer={localizer}
-              defaultView={'month'}
-              showMultiDayTimes={true}
-              views={['week', 'month']}
-              defaultDate={new Date(year, month, date)}
-              events={shifts} // array of events
-              startAccessor="start" // the property for the start date of events
-              endAccessor="end" // the property for the end date of events
-              step={30}
-              onSelectEvent={(event, e) => {
-                console.log(event);
-              }}
-            />
+            {selectedRadio === 'personal' ? (
+              <div style={{ width: '100%', height: '100%' }}>
+                <Calendar
+                  localizer={localizer}
+                  defaultView={'month'}
+                  showMultiDayTimes={true}
+                  views={['week', 'month']}
+                  defaultDate={new Date(year, month, date)}
+                  events={personalShifts} // array of events
+                  startAccessor="start" // the property for the start date of events
+                  endAccessor="end" // the property for the end date of events
+                  step={30}
+                  onSelectEvent={(event, e) => {
+                    console.log(event);
+                  }}
+                />
+              </div>
+            ) : (
+              <div style={{ width: '100%', height: '100%' }}>
+                <Calendar
+                  localizer={localizer}
+                  defaultView={'month'}
+                  showMultiDayTimes={true}
+                  views={['week', 'month']}
+                  defaultDate={new Date(year, month, date)}
+                  events={allShifts} // array of events
+                  startAccessor="start" // the property for the start date of events
+                  endAccessor="end" // the property for the end date of events
+                  step={30}
+                  onSelectEvent={(event, e) => {
+                    console.log(event);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
