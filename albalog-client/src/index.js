@@ -1,4 +1,4 @@
-import store from 'modules';
+import store, { rootSaga, sagaMiddleware } from 'modules';
 import { SetParttime } from 'modules/parttime';
 import { SetUser } from 'modules/user';
 import React from 'react';
@@ -22,6 +22,8 @@ function loadUser() {
 }
 
 loadUser();
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

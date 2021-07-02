@@ -1,0 +1,47 @@
+.payroll-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.2);
+
+  .payroll-modal-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 4rem;
+    overflow: auto;
+
+    .payroll-modal-title {
+      margin-bottom: 1rem;
+    }
+
+    .payroll-header {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+      font-weight: bold;
+    }
+
+    .day-info {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+    }
+
+    .btn-close {
+      background: #58c3cc;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 4px;
+    }
+  }
+}
