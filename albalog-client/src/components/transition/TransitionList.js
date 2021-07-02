@@ -1,4 +1,3 @@
-import ModalLoading from 'components/Loading/ModalLoading';
 import MessageModal from 'components/Modal/MessageModal';
 import { setTransition } from 'modules/transition';
 import React, { useEffect, useState } from 'react';

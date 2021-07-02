@@ -5,8 +5,6 @@ import Header from 'components/Header/Header';
 import Loading from 'components/Loading/Loading';
 import MessageModal from 'components/Modal/MessageModal';
 import { APIURL } from 'config';
-import useConfirm from 'hooks/useConfirm';
-
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
