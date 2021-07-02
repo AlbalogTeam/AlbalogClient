@@ -16,9 +16,23 @@
     margin: 0 auto;
     overflow: hidden;
 
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .choice {
+      font-size: 1.2rem;
+
+      label,
+      input {
+        margin: 0 10px;
+      }
+    }
+
     .calendar-box {
       height: 80%;
-      width: 95%;
+      width: 100%;
       margin: 47px 0;
       padding: 20px 20px 20px 20px;
       background: white;

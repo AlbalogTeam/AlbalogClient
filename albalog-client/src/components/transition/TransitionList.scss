@@ -1,5 +1,5 @@
 #TransitionList {
-  height: 72%;
+  height: 100%;
   .current-date {
     text-align: center;
     padding-bottom: 20px;
@@ -36,7 +36,6 @@
     }
   }
   .transition-list {
-    border: 1px solid #ccc;
     height: 100%;
     margin-top: 10px;
     border-radius: 5px;
@@ -68,6 +67,7 @@
         }
         .del-btn {
           flex-grow: 1;
+          color: #1271af;
           &:hover {
             background-color: rgb(246, 246, 246);
           }
@@ -98,8 +98,6 @@
     }
   }
 }
-
-
 
 @media screen and(max-width:768px) {
   body {

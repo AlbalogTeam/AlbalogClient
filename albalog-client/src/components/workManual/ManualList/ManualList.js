@@ -67,7 +67,7 @@ const ManualList = ({ category, user, shop }) => {
                         onClick={() => EditHandle(manual)}
                         className="btn"
                       >
-                        <AiOutlineEdit size="22" />
+                        <AiOutlineEdit size="24" />
                       </button>
                     </div>
                   )}

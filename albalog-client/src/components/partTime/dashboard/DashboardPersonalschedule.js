@@ -12,10 +12,10 @@ function DashboardPersonalschedule({ year, month, date, day }) {
       </div>
       <div className="personal-table">
         <div className="tr">
-          출근시간 <b>08:00</b>
+          출근시간 <b></b>
         </div>
         <div className="tr">
-          퇴근시간 <b>12:00</b>
+          퇴근시간 <b></b>
         </div>
       </div>
     </div>

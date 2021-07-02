@@ -24,6 +24,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     async function fetchData() {
       const response = await client.get(`/category/${shop._id}`);
       setCategories([...response.data].reverse());
+
       console.log(response.data);
     }
     fetchData();
@@ -39,15 +40,22 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
       name: addCategoryName,
     };
 
-    client.post(`/category/${shop._id}/create`, body).then((response) => {
-      console.log(response.data);
-      if (response.data.newCategory._id) {
-        alert('카테고리가 추가 되었습니다');
-        setLoadingCategory(!loadingCategory);
-        setAddCategoryName('');
-        dispatch(reRender(!render.render));
-      }
-    });
+    client
+      .post(`/category/${shop._id}/create`, body)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.newCategory._id) {
+          alert('카테고리가 추가 되었습니다');
+          setLoadingCategory(!loadingCategory);
+          setAddCategoryName('');
+          dispatch(reRender(!render.render));
+        }
+      })
+      .catch(function (error) {
+        if (error) {
+          alert('중복된 카테고리가 있는지 다시 확인해 주세요.');
+        }
+      });
   };
 
   // 해당 카테고리에 업무 매뉴얼 개수 찾기
