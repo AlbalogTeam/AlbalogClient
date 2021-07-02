@@ -4,6 +4,7 @@ import { getMonthDataAPI } from 'utils/api/date';
 
 // 액션 타입 정의
 const GET_MONTH_DATA = 'date/GET_MONTH_DATA';
+const GET_MONTH_DATA_SUCCESS = 'date/GET_MONTH_SUCCESS';
 const GET_PREV_MONTH = 'date/GET_PREV_MONTH';
 const GET_PREV_MONTH_SUCCESS = 'date/GET_PREV_MONTH_SUCCESS';
 const GET_PREV_MONTH_FAILURE = 'date/GET_PREV_MONTH_FAILURE';
@@ -16,8 +17,24 @@ export const getPrevMonth = createAction(GET_PREV_MONTH);
 export const getNextMonth = createAction(GET_NEXT_MONTH);
 
 export function* dateSaga() {
-  yield takeEvery(GET_PREV_MONTH, getPrevMonthSaga);
-  yield takeEvery(GET_NEXT_MONTH, getNextMonthSaga);
+  yield takeLatest(GET_MONTH_DATA, getMonthSaga);
+  yield takeLatest(GET_PREV_MONTH, getPrevMonthSaga);
+  yield takeLatest(GET_NEXT_MONTH, getNextMonthSaga);
+}
+
+export function* getMonthSaga(action) {
+  // 날짜 설정
+  let { year, month, shopId } = action.payload;
+
+  try {
+    const response = yield call(getMonthDataAPI, { year, month, shopId });
+    yield put({
+      type: GET_MONTH_DATA_SUCCESS,
+      payload: { year, month, response },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export function* getPrevMonthSaga(action) {
@@ -66,6 +83,15 @@ const initialState = {
 };
 
 const date = createReducer(initialState, {
+  [GET_MONTH_DATA]: (state, action) => ({
+    ...state,
+  }),
+  [GET_MONTH_DATA_SUCCESS]: (state, action) => ({
+    ...state,
+    year: action.payload.year,
+    month: action.payload.month,
+    payrollData: action.payload.response,
+  }),
   [GET_PREV_MONTH]: (state, action) => ({
     ...state,
   }),
