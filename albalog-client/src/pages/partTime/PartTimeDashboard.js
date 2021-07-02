@@ -5,7 +5,7 @@ import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
@@ -54,7 +54,6 @@ function PartTimeDashboard() {
 
     const pushdata = async () => {
       try {
-        // console.log(body);
         let response = await client
           .post(`/timeclock/start`, newForm)
           .then((response) => {
