@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { VscAccount } from 'react-icons/vsc';
 import './AccountInfo.scss';
@@ -9,48 +9,6 @@ import Aside from 'components/Aside/Aside';
 import { useSelector } from 'react-redux';
 import Loading from 'components/Loading/Loading';
 import Footer from 'components/Footer/Footer';
-
-const monthlypay = [
-  {
-    id: 20210415,
-    pay: 274880,
-  },
-  {
-    id: 20210515,
-    pay: 274880,
-  },
-];
-
-const detail = [
-  {
-    id: 202104015,
-    date: '0315',
-    timeFrom: '0800',
-    timeTo: '1200',
-    dailypay: 34360,
-  },
-  {
-    id: 202104015,
-    date: '0316',
-    timeFrom: '0800',
-    timeTo: '1200',
-    dailypay: 34360,
-  },
-  {
-    id: 202105015,
-    date: '0417',
-    timeFrom: '0800',
-    timeTo: '1200',
-    dailypay: 34360,
-  },
-  {
-    id: 202105015,
-    date: '0418',
-    timeFrom: '0800',
-    timeTo: '1200',
-    dailypay: 34360,
-  },
-];
 
 function AccountInfo() {
   const user = useSelector((state) => state.user);
@@ -77,7 +35,7 @@ function AccountInfo() {
                 <div className="time"></div>
                 <div className="pay">급여</div>
               </div>
-              <PayrollList month={monthlypay} detail={detail} />
+              <PayrollList />
             </div>
           </div>
         </div>
