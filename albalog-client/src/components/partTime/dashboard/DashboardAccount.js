@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 const DashboardAccount = ({ user, shop, parttime }) => {
   const [account, setAccount] = useState({
     name: user.name,
-    wage: parttime.wage,
+    hourly_wage: parttime.hourly_wage,
     status: parttime.status,
   });
 
-  const { name, wage, status } = account;
+  const { name, hourly_wage, status } = account;
 
   return (
     <div id="frame">
@@ -38,7 +38,7 @@ const DashboardAccount = ({ user, shop, parttime }) => {
             </div>
             <div className="tr">
               <p>시급</p>
-              <p>{wage}</p>
+              <p>{hourly_wage}</p>
             </div>
             <div className="tr">
               <p>재직상태</p>
