@@ -11,28 +11,104 @@ import { APIURL, TOKENKEY } from 'config';
 function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
   const history = useHistory();
   const [formValid, setFormValid] = useState({
-    emailValid: 0,
-    passwordValid: 0,
-    passwordCheckValid: 0,
+    emailValid: 10,
+    passwordValid: 10,
+    passwordCheckValid: 10,
   });
 
   let { emailValid, passwordValid, passwordCheckValid } = formValid;
-
+  const { email, password, name, passwordCheck } = form;
   const onChange = (e) => {
     const { value, name } = e.target;
+    console.log(value, name);
     let FormBody = {
       form: 'register',
       key: name,
       value,
     };
-
     dispatchChangeField(FormBody);
+
+    if (name === 'password') {
+      passwordValidation(e.target.value);
+    }
+
+    if (name === 'passwordCheck') {
+      passwordCheckValidateion(e.target.value);
+    }
+  };
+
+  // 이메일 중복 확인
+  const emailValidation = () => {
+    axios
+      .post(`${APIURL}/owner/check`, { email })
+      .then((response) => {
+        const nextForm = {
+          ...formValid,
+          emailValid: 0,
+        };
+        setFormValid(nextForm);
+      })
+      .catch((error) => {
+        const nextForm = {
+          ...formValid,
+          emailValid: 1,
+        };
+        setFormValid(nextForm);
+      });
+  };
+
+  // 비밀번호 유효성 체크
+  const passwordValidation = (pw) => {
+    let num = /[0-9]/;
+    let eng = /[a-zA-Z]/;
+    console.log(num.test(pw));
+    if (pw.length < 6) {
+      const nextForm = {
+        ...formValid,
+        passwordValid: 1,
+      };
+      setFormValid(nextForm);
+      return;
+    }
+
+    if (num.test(pw) === false || eng.test(pw) === false) {
+      const nextForm = {
+        ...formValid,
+        passwordValid: 1,
+      };
+      setFormValid(nextForm);
+      return;
+    }
+    const nextForm = {
+      ...formValid,
+      passwordValid: 0,
+    };
+    setFormValid(nextForm);
+  };
+
+  // 비밀번호확인 유효성 체크
+  const passwordCheckValidateion = (pwCheck) => {
+    if (password !== pwCheck) {
+      const nextForm = {
+        ...formValid,
+        passwordCheckValid: 1,
+      };
+      setFormValid(nextForm);
+    } else {
+      const nextForm = {
+        ...formValid,
+        passwordCheckValid: 0,
+      };
+      setFormValid(nextForm);
+    }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const { email, password, name } = form;
+    if (emailValid !== 0 || passwordValid !== 0 || passwordCheckValid !== 0) {
+      alert('양식을 정확히 입력해주세요');
+      return;
+    }
 
     let registerBody = {
       email,
@@ -43,10 +119,8 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
     axios
       .post(`${APIURL}/owner/signup`, registerBody)
       .then((response) => {
-        console.log(response.data);
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
-        console.log(decoded);
 
         let userBody = {
           _id: response.data.employer._id,
@@ -57,17 +131,13 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
         };
         dispatchSetUser(userBody);
       })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('회원가입에 실패했습니다.');
-        }
+      .catch((error) => {
+        alert('회원가입에 실패했습니다.');
       });
   };
 
   useEffect(() => {
     if (user.email) {
-      console.log('유저가 있습니다');
       history.push('/'); // 홈 화면으로 이동
       try {
         sessionStorage.setItem('user', JSON.stringify(user));
@@ -84,6 +154,7 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
       <form action="" onSubmit={onSubmit}>
         <div className="signUpLeft">
           <h1>Albalog</h1>
+
           <div className="email-form signup-form">
             <span>이메일</span>
             <input
@@ -92,13 +163,26 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
               onChange={onChange}
               placeholder="이메일을 입력해주세요"
             />
+            <button
+              onClick={emailValidation}
+              type="button"
+              className="email-check"
+            >
+              중복확인
+            </button>
           </div>
-          <p
-            className="error"
-            style={emailValid ? { display: 'block' } : { display: 'none' }}
-          >
-            이미 사용중인 이메일 입니다
-          </p>
+
+          {emailValid === 1 ? (
+            <p className="error">이미 사용중인 이메일 입니다.</p>
+          ) : (
+            ''
+          )}
+          {emailValid === 0 ? (
+            <p className="good">사용 가능한 이메일 입니다.</p>
+          ) : (
+            ''
+          )}
+
           <div className="name-form signup-form">
             <span>이름</span>
             <input
@@ -108,41 +192,53 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
               placeholder="이름을 입력해주세요"
             />
           </div>
+
           <div className="pw-form signup-form">
             <span>비밀번호</span>
             <input
               type="password"
               name="password"
               onChange={onChange}
-              placeholder="비밀번호를 입력해주세요"
+              placeholder="영문+숫자 6자 이상"
             />
           </div>
-          <p
-            className="error"
-            style={passwordValid ? { display: 'block' } : { display: 'none' }}
-          >
-            8글자 이상, 영문/숫자를 조합해주세요
-          </p>
+
+          {passwordValid === 1 ? (
+            <p className="error">6글자 이상, 영문/숫자를 조합해주세요.</p>
+          ) : (
+            ''
+          )}
+          {passwordValid === 0 ? (
+            <p className="good">6글자 이상, 영문/숫자를 조합해주세요.</p>
+          ) : (
+            ''
+          )}
+
           <div className="pwCheck-form signup-form">
             <span>비밀번호 확인</span>
             <input
               type="password"
               name="passwordCheck"
               onChange={onChange}
-              placeholder="비밀번호를 다시 입력해주세요"
+              placeholder="비밀번호 확인"
             />
           </div>
-          <p
-            className="error"
-            style={
-              passwordCheckValid ? { display: 'block' } : { display: 'none' }
-            }
-          >
-            동일한 비밀번호를 입력해주세요
-          </p>
-          <button type="submit" className="form-submit">
-            가입하기
-          </button>
+
+          {passwordCheckValid === 1 ? (
+            <p className="error"> 동일한 비밀번호를 입력해주세요.</p>
+          ) : (
+            ''
+          )}
+          {passwordCheckValid === 0 ? (
+            <p className="good">동일한 비밀번호를 입력해주세요.</p>
+          ) : (
+            ''
+          )}
+          <div className="sign-up-btn">
+            <button type="submit" className="form-submit">
+              가입하기
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -150,8 +246,6 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
 }
 
 function mapStateToProps(state) {
-  // redux state로 부터 state를 component의 props로 전달해줌
-  // store의 값이 여기 함수 state로 들어옴
   return { form: state.auth.register, user: state.user, auth: state.auth };
 }
 

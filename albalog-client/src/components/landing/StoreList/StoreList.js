@@ -1,7 +1,4 @@
-import axios from 'axios';
 import Loading from 'components/Loading/Loading';
-import { APIURL } from 'config';
-import useConfirm from 'hooks/useConfirm';
 import { SetShop } from 'modules/shop';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -9,30 +6,21 @@ import client from 'utils/api';
 import StoreEdit from '../StoreEdit/StoreEdit';
 import './StoreList.scss';
 
-const StoreList = ({ user, dispatchSetshop, role }) => {
-  console.log(role);
+const StoreList = ({ user, dispatchSetshop }) => {
+  const role = user.role;
   const [locations, setLocations] = useState([]);
   const [dataState, setDataState] = useState(0);
   const [editState, setEditState] = useState(false);
-
   useEffect(() => {
     if (role === 'owner') {
-      axios
-        .get(`${APIURL}/owner/me/locations`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        })
+      client
+        .get(`/owner/me/locations`)
         .then((response) => {
           setLocations(response.data.locations);
           setDataState(1);
         })
-        .catch(function (error) {
-          // status 코드가 200이 아닌경우 처리
-
-          if (error) {
-            setDataState(1);
-          }
+        .catch((error) => {
+          setDataState(1);
         });
     } else if (role === 'staff') {
       client
@@ -41,15 +29,11 @@ const StoreList = ({ user, dispatchSetshop, role }) => {
           setLocations(response.data.locations);
           setDataState(1);
         })
-        .catch(function (error) {
-          // status 코드가 200이 아닌경우 처리
-
-          if (error) {
-            setDataState(1);
-          }
+        .catch((error) => {
+          setDataState(1);
         });
     }
-  }, []);
+  }, [role]);
 
   const StateToggleButton = () => {
     setEditState(!editState);
