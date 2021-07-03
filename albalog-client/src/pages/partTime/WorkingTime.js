@@ -64,11 +64,11 @@ function WorkingTime() {
                 </div>
               </div>
             </div>
-            <div className="remark-line">
+            {/* <div className="remark-line">
               <IoIosWarning style={{ width: '20px' }} />
               근무자가 출근한 뒤 15시간동안 퇴근하지 않으면 자동으로
               퇴근처리되며 '퇴근미체크'로 표기됩니다.
-            </div>
+            </div> */}
           </div>
         </div>
       )}
