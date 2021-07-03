@@ -20,7 +20,7 @@ const Landing = () => {
             <h3>매장 리스트</h3>
           </div>
           <div className="lp-cont">
-            <StoreList role={user.role} />
+            <StoreList/>
           </div>
           <div className="lp-regi">
             {user.role === 'owner' && (

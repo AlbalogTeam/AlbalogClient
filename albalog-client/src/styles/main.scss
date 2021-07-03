@@ -12,3 +12,8 @@ body {
   height: 100%;
 }
 
+* {
+  &::placeholder {
+    color: #999;
+  }
+}
