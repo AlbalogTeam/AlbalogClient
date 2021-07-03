@@ -108,6 +108,12 @@ function Login({
             onChange={onChange}
             placeholder="password"
           />
+          <div className="find-pw">
+            <div className="inner-find">
+              <a href="">아이디 찾기</a> |
+              <a href="/findpassword">비밀번호 찾기</a>
+            </div>
+          </div>
           <button type="submit" className="signIn btn">
             로그인
           </button>
