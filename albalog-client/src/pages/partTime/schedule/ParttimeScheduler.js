@@ -77,14 +77,6 @@ function ParttimeScheduler() {
     getAllSchedule();
   }, []);
 
-  // const todayShift =
-  //   shifts &&
-  //   shifts.filter(
-  //     (a) =>
-  //       a.start.toDateString() === new Date().toDateString() ||
-  //       a.end.toDateString() === new Date().toDateString(),
-  //   );
-
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
     e.target.value === 'all' && setSelectedRadio('all');

@@ -53,15 +53,14 @@ function PartTimeDashboard() {
   let clockOut = false;
 
   const todaytimeclockIn =
-    parttime.timeclock &&
-    parttime.timeclock.find(
-      (a) =>
-        new Date(a.start_time).toDateString() === new Date().toDateString(),
+    parttime.timeClocks &&
+    parttime.timeClocks.find(
+      (a) => new Date(a.start_time).toDateString() == new Date().toDateString(),
     );
 
   const todaytimeclockOut =
-    parttime.timeclock &&
-    parttime.timeclock.find(
+    parttime.timeClocks &&
+    parttime.timeClocks.find(
       (a) => new Date(a.end_time).toDateString() === new Date().toDateString(),
     );
 
