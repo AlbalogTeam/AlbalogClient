@@ -1,31 +1,29 @@
 import React from 'react';
 import 'components/partTime/ContentLine.scss';
-import { useSelector } from 'react-redux';
 
-function ContentLine({ month }) {
-  const payrolls = useSelector((state) => state.parttime.payrolls);
-
+function ContentLine({ month, filteredPayroll }) {
   return (
     <div id="contentline-container">
-      {payrolls &&
-        payrolls.filter(
-          (a) => a.yearAndMonth === month.slice(0, 4) + month.slice(5),
-        )}
-      {console.log(payrolls)}
-      <div className="content-line">
-        <div className="date-column">2021.05.29</div>
-        <div className="day-column">토</div>
-        <div className="clockIn-column">09:00</div>
-        <div className="clockOut-column">12:00</div>
-        <div className="workingtime-column">3시간 00분</div>
-      </div>
-      <div className="content-line">
-        <div className="date-column">2021.05.30</div>
-        <div className="day-column">토</div>
-        <div className="clockIn-column">09:00</div>
-        <div className="clockOut-column">12:00</div>
-        <div className="workingtime-column">3시간 00분</div>
-      </div>
+      {/* {console.log(filteredPayroll[0].timeClock)} */}
+      {filteredPayroll().map((a) => {
+        return (
+          <div className="content-line">
+            <div className="date-column">
+              {a.start_time.slice(0, 2)}.{a.start_time.slice(2)}
+            </div>
+            <div className="day-column">토</div>
+            <div className="clockIn-column">
+              {a.workTime.slice(0, 2)}:{a.workTime.slice(2, 4)}
+            </div>
+            <div className="clockOut-column">
+              {a.workTime.slice(5, 7)}:{a.workTime.slice(7)}
+            </div>
+            <div className="workingtime-column">
+              {parseInt(a.workInToday / 60)}시간 {a.workInToday % 60}분
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
