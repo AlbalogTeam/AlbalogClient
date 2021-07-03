@@ -30,7 +30,7 @@ const Table = ({ employeeList }) => {
 const TableItem = ({ employee }) => {
   const [isModal, setIsModal] = useState(false);
   const { name, monthTime, monthWage } = employee;
-  const hour = monthTime / 60;
+  const hour = Math.floor(monthTime / 60);
   const minute = monthTime % 60;
 
   const handleModal = () => {
@@ -55,7 +55,6 @@ const AdminPayroll = () => {
   const shopId = useSelector(({ shop }) => shop._id);
   const { year, month } = useSelector(({ date }) => date);
   const employeeList = useSelector(({ date }) => date.payrollData);
-  const fixed = 1;
 
   const dispatch = useDispatch();
 
@@ -69,7 +68,7 @@ const AdminPayroll = () => {
 
   useEffect(() => {
     dispatch(getMonthData({ year, month, shopId }));
-  }, [fixed]);
+  }, []);
 
   return (
     <>
