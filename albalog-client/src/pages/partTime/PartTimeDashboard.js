@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import Footer from 'components/Footer/Footer';
 import { SetParttime } from 'modules/parttime';
-import { APIURL } from 'config';
+import Loading from 'components/Loading/Loading';
 
 function PartTimeDashboard() {
   const year = new Date().getFullYear();
@@ -130,6 +130,7 @@ function PartTimeDashboard() {
 
   return (
     <>
+      {!parttime && <Loading />}
       <Header />
       <Aside />
       <div id="partTimeDashboard">

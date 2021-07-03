@@ -11,6 +11,7 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import client from 'utils/api';
+import Loading from 'components/Loading/Loading';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -68,7 +69,6 @@ function ParttimeScheduler() {
         return newData;
       });
       setAllShifts(shift);
-      console.log(shift);
     } catch (error) {}
   };
 
@@ -92,6 +92,7 @@ function ParttimeScheduler() {
 
   return (
     <>
+      {!allShifts && <Loading />}
       <Header />
       <Aside />
       <div id="ParttimeScheduler">

@@ -10,6 +10,7 @@ import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
+import Loading from 'components/Loading/Loading';
 
 function WorkingTime() {
   const [month, setMonth] = useState(`${new Date().toISOString().slice(0, 7)}`);
@@ -30,6 +31,7 @@ function WorkingTime() {
 
   return (
     <>
+      {!payrolls && <Loading />}
       <Header />
       <Aside />
       <div id="workingtime">
