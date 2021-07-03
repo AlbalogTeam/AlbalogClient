@@ -24,6 +24,7 @@ const StoreList = ({ user, dispatchSetshop, role }) => {
           },
         })
         .then((response) => {
+          console.log(response);
           setLocations(response.data.locations);
           setDataState(1);
         })
