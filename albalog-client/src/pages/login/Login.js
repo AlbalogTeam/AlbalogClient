@@ -110,7 +110,6 @@ function Login({
           />
           <div className="find-pw">
             <div className="inner-find">
-              <a href="">아이디 찾기</a> |
               <a href="/findpassword">비밀번호 찾기</a>
             </div>
           </div>

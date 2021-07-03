@@ -13,6 +13,7 @@ import './NoticeDetail.scss';
 const NoticeDetail = ({ match, shop, user }) => {
   const noticeId = match.params.id;
   const [messageModalState, setMessageModalState] = useState(false);
+  const [noticeDate, setNoticeDate] = useState('');
 
   const [noticeInfo, setNoticeInfo] = useState({
     title: '',
@@ -29,7 +30,8 @@ const NoticeDetail = ({ match, shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.notice[0].updatedAt.slice(0, 10));
+        setNoticeDate(response.data.notice[0].updatedAt.slice(0, 10));
         setNoticeInfo({
           ...noticeInfo,
           title: response.data.notice[0].title,
@@ -67,7 +69,7 @@ const NoticeDetail = ({ match, shop, user }) => {
         <div className="notice-cont">
           <div className="content-tit">
             {title}
-            <div className="tit-date">2021-05-19</div>
+            <div className="tit-date">{noticeDate}</div>
           </div>
           <div
             className="content-cont"

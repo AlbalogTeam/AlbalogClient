@@ -49,8 +49,7 @@ function Monthlypay({ data }) {
         {timeClock.map((item, i) => (
           <div className="tr" key={i}>
             <div className="date">
-              {item.start_time.toString().slice(0, 2)}.
-              {item.start_time.toString().slice(2)}
+              <div className="date">{item.start_time.slice(5)}</div>
             </div>
             <div className="time">
               {item.workTime.slice(0, 2)}:{item.workTime.slice(2, -2)}:
