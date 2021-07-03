@@ -43,8 +43,8 @@ function PartTimeDashboard() {
   };
 
   useEffect(() => {
-    getPayroll();
-  }, []);
+    shop._id && getPayroll();
+  }, [shop]);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];

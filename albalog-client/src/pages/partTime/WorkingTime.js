@@ -11,6 +11,7 @@ import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 
 function WorkingTime() {
+  const [month, setMonth] = useState(`${new Date().toISOString().slice(0, 7)}`);
   return (
     <>
       <Header />
@@ -20,9 +21,9 @@ function WorkingTime() {
           <h2>일한시간</h2>
           <div className="table">
             <div className="date-line">
-              <IoIosArrowBack style={{ width: '30px', margin: '0 50px' }} />
-              2021.05
-              <IoIosArrowForward style={{ width: '30px', margin: '0 50px' }} />
+              {/* <IoIosArrowBack style={{ width: '30px', margin: '0 50px' }} /> */}
+              {month}
+              {/* <IoIosArrowForward style={{ width: '30px', margin: '0 50px' }} /> */}
             </div>
             <div className="head-line">
               <div className="date-column">날짜</div>
@@ -31,7 +32,7 @@ function WorkingTime() {
               <div className="clockOut-column">퇴근시간</div>
               <div className="workingtime-column">근무시간</div>
             </div>
-            <ContentLine />
+            <ContentLine month={month} />
             <div className="total-line">
               <div className="date-column"></div>
               <div className="day-column"></div>
