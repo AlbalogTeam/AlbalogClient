@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
-import Pagination from 'components/notice/Pagination';
+import Pagination from 'components/Pagination/Pagination';
 import { paginate } from 'utils/paginate';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { APIURL } from 'config';
