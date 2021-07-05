@@ -1,20 +1,27 @@
-.title {
-  margin-bottom: 1rem;
-}
-.notice {
-  border: 1px solid #dbdbdb;
-  background-color: #fff;
+.notice-container {
+  margin-bottom: 2rem;
   width: 80%;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 1rem;
 
-  &:hover {
-    border-width: 2px;
-    border-color: #58c3cc;
+  .title {
+    width: 80%;
+    text-align: left;
+    margin-bottom: 1.5rem;
   }
-  .date {
-    font-weight: bold;
+  .notice {
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 4px;
+    padding: 1rem;
     margin-bottom: 1rem;
+
+    &:hover {
+      border-width: 2px;
+      border-color: #58c3cc;
+    }
+    .date {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
   }
 }

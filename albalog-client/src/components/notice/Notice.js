@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Notice.scss';
 
-const Notice = () => {
+const Notice = ({ shopId }) => {
   const announce = useSelector(({ shop }) => shop.notices[0]);
-  const shopId = useSelector(({ shop }) => shop._id);
+  // const shopId = useSelector(({ shop }) => shop._id);
   const days = {
     0: '일',
     1: '월',
@@ -17,7 +17,7 @@ const Notice = () => {
   };
 
   return (
-    <>
+    <div className="notice-container">
       <h3 className="title">📢 최근 공지사항 </h3>
       <div className="notice">
         {!announce && <strong>등록된 공지사항이 없습니다.</strong>}
@@ -37,7 +37,7 @@ const Notice = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
