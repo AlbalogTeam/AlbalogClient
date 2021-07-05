@@ -11,6 +11,7 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import { APIURL } from 'config';
 import client from 'utils/api';
+import Loading from 'components/Loading/Loading';
 
 const locales = {
   ko: require('date-fns/locale/ko'),
@@ -40,10 +41,10 @@ function ParttimeScheduler() {
 
   const getPersonalSchedule = async () => {
     try {
-      const response = await client.get(`${APIURL}/shift/employee/${user._id}`);
+      const response = await client.get(`/shift/employee/${user._id}`);
       let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime());
-        const ed = new Date(new Date(a.end).getTime()); //540 * 60 * 1000
+        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000); //540 * 60 * 1000
 
         let newData = {
           title: user.name,
@@ -58,32 +59,26 @@ function ParttimeScheduler() {
 
   const getAllSchedule = async () => {
     try {
-      const response = await client.get(`${APIURL}/shift/location/${shop._id}`);
+      const response = await client.get(`/shift/location/${shop._id}`);
+      console.log(response);
       let shift = await response.data.map((a) => {
+        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000); //540 * 60 * 1000
         let newData = {
           title: a.title,
-          start: new Date(a.start),
-          end: new Date(a.end),
+          start: new Date(st),
+          end: new Date(ed),
         };
         return newData;
       });
       setAllShifts(shift);
-      console.log(shift);
     } catch (error) {}
   };
 
   useEffect(() => {
     getPersonalSchedule();
     getAllSchedule();
-  }, []);
-
-  // const todayShift =
-  //   shifts &&
-  //   shifts.filter(
-  //     (a) =>
-  //       a.start.toDateString() === new Date().toDateString() ||
-  //       a.end.toDateString() === new Date().toDateString(),
-  //   );
+  }, [shop]);
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
@@ -92,6 +87,7 @@ function ParttimeScheduler() {
 
   return (
     <>
+      {!allShifts && <Loading />}
       <Header />
       <Aside />
       <div id="ParttimeScheduler">

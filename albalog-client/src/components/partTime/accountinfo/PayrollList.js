@@ -1,34 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import 'components/partTime/accountinfo/PayrollList.scss';
-import client from 'utils/api';
 import { useSelector } from 'react-redux';
-import { APIURL } from 'config';
 
 function PayrollList() {
-  const shop = useSelector((state) => state.shop);
-  const [staffPayroll, setStaffPayroll] = useState([]);
-
-  const getPayroll = async () => {
-    try {
-      let response = await client.get(`${APIURL}/timeclock/${shop._id}/staff`);
-      if (response.status === 201) {
-        setStaffPayroll(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getPayroll();
-  }, []);
+  const payrolls = useSelector((state) => state.parttime.payrolls);
 
   return (
     <div id="PayrollList">
       <div className="lines">
-        {staffPayroll &&
-          staffPayroll.map((item, i) => {
+        {payrolls &&
+          payrolls.map((item, i) => {
             return <Monthlypay data={item} key={i} />;
           })}
       </div>
@@ -37,7 +19,6 @@ function PayrollList() {
 }
 
 function Monthlypay({ data }) {
-  console.log(data);
   const { monthWage, timeClock, yearAndMonth } = data;
   const [isActive, setActive] = useState(false);
   const handleClick = () => {
@@ -68,8 +49,7 @@ function Monthlypay({ data }) {
         {timeClock.map((item, i) => (
           <div className="tr" key={i}>
             <div className="date">
-              {item.start_time.toString().slice(0, 2)}.
-              {item.start_time.toString().slice(2)}
+              <div className="date">{item.start_time.slice(5)}</div>
             </div>
             <div className="time">
               {item.workTime.slice(0, 2)}:{item.workTime.slice(2, -2)}:
