@@ -1,0 +1,25 @@
+.hand-over-container {
+  margin-bottom: 2rem;
+  width: 80%;
+
+  .title {
+    margin-bottom: 1.5rem;
+  }
+
+  .hand-over {
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    .content {
+      margin-bottom: 8px;
+      .completed {
+        text-decoration: line-through;
+        text-decoration-color: #18191d;
+        color: #dbdbdb;
+      }
+    }
+  }
+}
