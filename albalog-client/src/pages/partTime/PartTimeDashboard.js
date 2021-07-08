@@ -29,13 +29,14 @@ function PartTimeDashboard() {
   const getPayroll = async () => {
     try {
       let response = await client.get(`/timeclock/${shop._id}/staff`);
-      if (response.status === 201) {
+      if (response.status === 200) {
         const newParttime = {
           ...parttime,
           payrolls: response.data,
         };
         sessionStorage.setItem('parttime', JSON.stringify(newParttime));
         dispatch(SetParttime(newParttime));
+        console.log(newParttime);
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +44,7 @@ function PartTimeDashboard() {
   };
 
   useEffect(() => {
-    shop._id && getPayroll();
+    getPayroll();
   }, [shop]);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
