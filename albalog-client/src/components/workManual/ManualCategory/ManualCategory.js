@@ -1,13 +1,11 @@
-import axios from 'axios';
 import Loading from 'components/Loading/Loading';
-import { APIURL } from 'config';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import client from 'utils/api';
 
 const ManualCategory = () => {
   const shop = useSelector((state) => state.shop);
-  const user = useSelector((state) => state.user);
   const render = useSelector((state) => state.render);
   const [categories, setCategories] = useState([]);
 
@@ -20,11 +18,7 @@ const ManualCategory = () => {
   useEffect(() => {
     if (shop.name) {
       async function fetchData() {
-        const result = await axios.get(`${APIURL}/category/${shop._id}`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
+        const result = await client.get(`/category/${shop._id}`);
         let categoryDefault = [
           {
             name: '전체',

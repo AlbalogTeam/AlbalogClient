@@ -152,19 +152,22 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
 
           <div className="email-form signup-form">
             <span>이메일</span>
-            <input
-              type="text"
-              name="email"
-              onChange={onChange}
-              placeholder="이메일을 입력해주세요"
-            />
-            <button
-              onClick={emailValidation}
-              type="button"
-              className="email-check"
-            >
-              중복확인
-            </button>
+            <div className="inner-email-form">
+              <input
+                type="text"
+                name="email"
+                className="email-input"
+                onChange={onChange}
+                placeholder="이메일을 입력해주세요"
+              />
+              <button
+                onClick={emailValidation}
+                type="button"
+                className="email-check"
+              >
+                중복확인
+              </button>
+            </div>
           </div>
 
           {emailValid === 1 ? (
