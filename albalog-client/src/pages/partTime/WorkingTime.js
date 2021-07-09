@@ -8,16 +8,19 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 
 function WorkingTime() {
-  const [month] = useState(`${new Date().toISOString().slice(0, 7)}`);
   const payrolls = useSelector((state) => state.parttime.payrolls);
+  const [month, setMonth] = useState(
+    Number(
+      new Date().toISOString().slice(0, 4) +
+        new Date().toISOString().slice(5, 7),
+    ),
+  );
 
+  console.log(typeof month);
   function filteredPayroll() {
     const monthlyPayroll =
-      payrolls &&
-      payrolls.filter(
-        (a) => a.yearAndMonth.toString() === month.slice(0, 4) + month.slice(5),
-      );
-    return monthlyPayroll && monthlyPayroll[0].timeClock;
+      payrolls && payrolls.filter((a) => Number(a.yearAndMonth) === month);
+    return monthlyPayroll[0] ? monthlyPayroll[0].timeClock : 0;
   }
 
   const totalWorkingtime = filteredPayroll()
@@ -26,8 +29,12 @@ function WorkingTime() {
       }, 0)
     : 0;
 
-  const onClickLeft = () => {};
-  const onClickRight = () => {};
+  const onClickLeft = () => {
+    setMonth(month - 1);
+  };
+  const onClickRight = () => {
+    setMonth(month + 1);
+  };
 
   return (
     <>
@@ -40,7 +47,9 @@ function WorkingTime() {
           <div className="table">
             <div className="date-line">
               <IoIosArrowBack onClick={onClickLeft} />
-              <b style={{ fontSize: '1.2rem' }}>{month}</b>
+              <b style={{ fontSize: '1.2rem' }}>
+                {month.toString().slice(0, 4)}-{month.toString().slice(4)}
+              </b>
               <IoIosArrowForward onClick={onClickRight} />
             </div>
             <div className="head-line">

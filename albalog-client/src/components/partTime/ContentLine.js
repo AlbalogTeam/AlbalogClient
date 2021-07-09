@@ -2,15 +2,7 @@ import React from 'react';
 import 'components/partTime/ContentLine.scss';
 
 function ContentLine({ month, filteredPayroll }) {
-  function day(number) {
-    if (number === 0) return '일';
-    else if (number === 1) return '월';
-    else if (number === 2) return '화';
-    else if (number === 3) return '수';
-    else if (number === 4) return '목';
-    else if (number === 5) return '금';
-    else if (number === 6) return '토';
-  }
+  const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
     <div id="contentline-container">
@@ -21,13 +13,15 @@ function ContentLine({ month, filteredPayroll }) {
             <div className="content-line">
               <div className="date-column">{a.start_time}</div>
               <div className="day-column">
-                {day(
-                  new Date(
-                    a.start_time.slice(0, 4),
-                    a.start_time.slice(5, 7),
-                    a.start_time.slice(8),
-                  ).getDay(),
-                )}
+                {
+                  weekArray[
+                    new Date(
+                      a.start_time.slice(0, 4),
+                      a.start_time.slice(5, 7),
+                      a.start_time.slice(8),
+                    ).getDay()
+                  ]
+                }
               </div>
               <div className="clockIn-column">
                 {a.workTime.slice(0, 2)}:{a.workTime.slice(2, 4)}
