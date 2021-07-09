@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/Pagination/Pagination';
 import { paginate } from 'utils/paginate';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { APIURL } from 'config';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import AdminAside from 'components/Aside/Aside';
@@ -14,8 +12,6 @@ import NoDataType2 from 'components/NoData/NodataType2';
 import client from 'utils/api';
 
 const NoticeList = ({ user, shop }) => {
-  const dispatch = useDispatch();
-
   const [getNotices, setGetNotices] = useState([]);
   const [searchNoticeInput, setSearchNoticeInput] = useState('');
   const [noticeInfo, setNoticeInfo] = useState({
@@ -56,7 +52,6 @@ const NoticeList = ({ user, shop }) => {
       content: searchNoticeInput,
     };
     client.post('/location/notice/search', body).then((response) => {
-      console.log(response);
       setGetNotices(response.data);
     });
   };
