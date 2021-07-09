@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import './NoticeUpload.scss';
-import axios from 'axios';
-import { APIURL } from 'config';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
+import client from 'utils/api';
 
-const NoticeUpload = ({ shop, user, history }) => {
+const NoticeUpload = ({ shop }) => {
   const [noticeContent, setNoticeContent] = useState({
     title: '',
     content: '',
@@ -34,14 +33,9 @@ const NoticeUpload = ({ shop, user, history }) => {
       content,
     };
 
-    axios
-      .post(`${APIURL}/location/${shop._id}/notice/create`, body, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+    client
+      .post(`/location/${shop._id}/notice/create`, body)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
         }
@@ -66,15 +60,12 @@ const NoticeUpload = ({ shop, user, history }) => {
               <CKEditor
                 config={{ placeholder: '내용을 입력해주세요 ... ' }}
                 onReady={(editor) => {
-                  console.log('Editor is ready to use!', editor);
                   editor.ui
                     .getEditableElement()
                     .parentElement.insertBefore(
                       editor.ui.view.toolbar.element,
                       editor.ui.getEditableElement(),
                     );
-
-                  editor = editor;
                 }}
                 onError={({ willEditorRestart }) => {
                   if (willEditorRestart) {

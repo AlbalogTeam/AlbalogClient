@@ -16,8 +16,8 @@ const PayrollModal = ({ handleModal, data }) => {
     <div className="payroll-modal-container">
       <div className="payroll-modal-wrap">
         <h3 className="payroll-modal-title">이번달 근무</h3>
-        <table class="payroll-modal-table">
-          <thead class="payroll-modal-head">
+        <table className="payroll-modal-table">
+          <thead className="payroll-modal-head">
             <th>날짜</th>
             <th>근무 시간</th>
             <th>누적 시간</th>

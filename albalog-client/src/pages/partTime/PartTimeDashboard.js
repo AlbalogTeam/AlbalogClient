@@ -27,6 +27,7 @@ function PartTimeDashboard() {
 
   // payroll redux에 추가
   const getPayroll = async () => {
+
     try {
       let response = await client.get(`/timeclock/${shop._id}/staff`);
       if (response.status === 200) {
@@ -34,10 +35,12 @@ function PartTimeDashboard() {
           ...parttime,
           payrolls: response.data,
         };
+        console.log(newParttime);
         sessionStorage.setItem('parttime', JSON.stringify(newParttime));
         dispatch(SetParttime(newParttime));
         console.log(newParttime);
       }
+
     } catch (error) {
       console.log(error);
     }

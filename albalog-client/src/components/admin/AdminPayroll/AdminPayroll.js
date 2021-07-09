@@ -68,7 +68,7 @@ const AdminPayroll = () => {
 
   useEffect(() => {
     dispatch(getMonthData({ year, month, shopId }));
-  }, []);
+  }, [shopId]);
 
   return (
     <>
