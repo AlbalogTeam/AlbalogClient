@@ -1,20 +1,14 @@
 import { React, useState } from 'react';
-import {
-  IoIosArrowBack,
-  IoIosArrowForward,
-  IoIosWarning,
-} from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import 'pages/partTime/WorkingTime.scss';
 import ContentLine from 'components/partTime/ContentLine';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
-import Loading from 'components/Loading/Loading';
-import { useEffect } from 'react';
 
 function WorkingTime() {
-  const [month, setMonth] = useState(`${new Date().toISOString().slice(0, 7)}`);
+  const [month] = useState(`${new Date().toISOString().slice(0, 7)}`);
   const payrolls = useSelector((state) => state.parttime.payrolls);
 
   function filteredPayroll() {
@@ -31,8 +25,6 @@ function WorkingTime() {
         return accum + curr.workInToday;
       }, 0)
     : 0;
-
-  console.log(totalWorkingtime);
 
   const onClickLeft = () => {};
   const onClickRight = () => {};

@@ -26,29 +26,27 @@ function PartTimeDashboard() {
   const dispatch = useDispatch();
 
   // payroll redux에 추가
-  const getPayroll = async () => {
+  // const getPayroll = async () => {
+  //   try {
+  //     let response = await client.get(`/timeclock/${shop._id}/staff`);
+  //     if (response.status === 200) {
+  //       const newParttime = {
+  //         ...parttime,
+  //         payrolls: response.data,
+  //       };
+  //       console.log(newParttime);
+  //       sessionStorage.setItem('parttime', JSON.stringify(newParttime));
+  //       dispatch(SetParttime(newParttime));
+  //       console.log(newParttime);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-    try {
-      let response = await client.get(`/timeclock/${shop._id}/staff`);
-      if (response.status === 200) {
-        const newParttime = {
-          ...parttime,
-          payrolls: response.data,
-        };
-        console.log(newParttime);
-        sessionStorage.setItem('parttime', JSON.stringify(newParttime));
-        dispatch(SetParttime(newParttime));
-        console.log(newParttime);
-      }
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getPayroll();
-  }, [shop]);
+  // useEffect(() => {
+  //   getPayroll();
+  // }, [shop]);
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];

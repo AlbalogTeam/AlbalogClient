@@ -2,8 +2,9 @@ import Loading from 'components/Loading/Loading';
 import InviteModal from 'components/Modal/InviteModal';
 import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
+import { SetParttime } from 'modules/parttime';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
@@ -12,7 +13,15 @@ import { FaStoreAlt } from 'react-icons/fa';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
 
-const Header = ({ user, shop, dispatchSetUser, dispatchSetShop, match }) => {
+const Header = ({
+  user,
+  shop,
+  parttime,
+  dispatchSetParttime,
+  dispatchSetUser,
+  dispatchSetShop,
+  match,
+}) => {
   const [isModal, setIsModal] = useState(false);
   console.log('Header 리렌더링');
 
@@ -92,6 +101,27 @@ const Header = ({ user, shop, dispatchSetUser, dispatchSetShop, match }) => {
     }
   }, [user]);
 
+  // payroll를 parttime 리덕스에 추가
+  const getPayroll = async () => {
+    try {
+      let response = await client.get(`/timeclock/${shop._id}/staff`);
+      if (response.status === 200) {
+        const newParttime = {
+          ...parttime,
+          payrolls: response.data,
+        };
+        console.log(newParttime);
+        sessionStorage.setItem('parttime', JSON.stringify(newParttime));
+      }
+    } catch (error) {
+      console.log('payroll', error);
+    }
+  };
+
+  useEffect(() => {
+    getPayroll();
+  }, [shop]);
+
   return (
     <>
       {!shop._id && <Loading />}
@@ -131,13 +161,14 @@ const Header = ({ user, shop, dispatchSetUser, dispatchSetShop, match }) => {
 function mapStateToProps(state) {
   // redux state로 부터 state를 component의 props로 전달해줌
   // store의 값이 여기 함수 state로 들어옴
-  return { user: state.user, shop: state.shop };
+  return { user: state.user, shop: state.shop, parttime: state.parttime };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
     dispatchSetShop: (ShopBody) => dispatch(SetShop(ShopBody)),
+    dispatchSetParttime: (ParttimeBody) => dispatch(SetParttime(ParttimeBody)),
   };
 }
 
