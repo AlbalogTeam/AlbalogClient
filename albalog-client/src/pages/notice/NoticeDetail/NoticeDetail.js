@@ -48,7 +48,6 @@ const NoticeDetail = ({ match, shop, user }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data.deletedNotice) {
           window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
         }
@@ -64,7 +63,7 @@ const NoticeDetail = ({ match, shop, user }) => {
       <Header />
       <AdminAside />
       <div id="NoticeDetail" className="page-layout">
-        {!title && <Loading />}
+        {shop._id && !title && <Loading />}
 
         <div className="notice-cont">
           <div className="content-tit">
