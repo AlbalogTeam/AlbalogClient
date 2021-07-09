@@ -9,7 +9,6 @@ import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
-import { APIURL } from 'config';
 import client from 'utils/api';
 import Loading from 'components/Loading/Loading';
 

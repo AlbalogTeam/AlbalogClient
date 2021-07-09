@@ -87,10 +87,7 @@ const Header = ({ user, shop, dispatchSetUser, dispatchSetShop, match }) => {
       });
     }
 
-    if (user.email) {
-      console.log('유저가 있습니다');
-    } else {
-      console.log('유저가 없습니다');
+    if (!user.email) {
       window.location.replace('/login');
     }
   }, [user]);

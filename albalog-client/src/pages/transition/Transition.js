@@ -1,14 +1,11 @@
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
-import MessageModal from 'components/Modal/MessageModal';
 import TransitionList from 'components/transition/TransitionList';
-import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
-import DatePicker, { registerLocale } from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Transition.scss';
-registerLocale('ko', ko);
 
 const Transition = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -29,7 +26,6 @@ const Transition = () => {
               <DatePicker
                 selected={startDate}
                 onChange={(date) => {
-                  console.log(date);
                   setStartDate(date);
                 }}
                 inline

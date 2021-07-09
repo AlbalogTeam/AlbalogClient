@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import '../NoticeUpload/NoticeUpload.scss';
-import axios from 'axios';
 import Header from 'components/Header/Header';
-import { APIURL } from 'config';
 import { connect } from 'react-redux';
-import AdminAside from '../../../components/Aside/Aside';
 import Loading from 'components/Loading/Loading';
 import { withRouter } from 'react-router';
 import Footer from 'components/Footer/Footer';
+import client from 'utils/api';
+import Aside from 'components/Aside/Aside';
 
-const NoticeEdit = ({ match, shop, user }) => {
+const NoticeEdit = ({ match, shop}) => {
   const noticeId = match.params.id;
 
   const [noticeContent, setNoticeContent] = useState({
@@ -25,15 +24,9 @@ const NoticeEdit = ({ match, shop, user }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(
-        `${APIURL}/location/${shop._id}/notice/${noticeId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        },
+      const result = await client.get(
+        `/location/${shop._id}/notice/${noticeId}`,
       );
-      console.log('공지사항 수정' + result.data);
       setNoticeContent({
         ...noticeContent,
         title: result.data.notice[0].title,
@@ -60,14 +53,9 @@ const NoticeEdit = ({ match, shop, user }) => {
       title,
       content,
     };
-    axios
-      .patch(`${APIURL}/location/${shop._id}/notice/${noticeId}/update`, body, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+    client
+      .patch(`/location/${shop._id}/notice/${noticeId}/update`, body)
       .then((response) => {
-        console.log(response.data);
         if (response.data.updatedNotice) {
           window.location.replace(`/${shop._id}/notice/${noticeId}`); // 페이지 이동 후 새로고침
         }
@@ -77,7 +65,7 @@ const NoticeEdit = ({ match, shop, user }) => {
   return (
     <>
       <Header />
-      <AdminAside />
+      <Aside />
       <div id="NoticeEdit">
         {dataState === 0 ? (
           <Loading />
@@ -101,8 +89,6 @@ const NoticeEdit = ({ match, shop, user }) => {
                         editor.ui.view.toolbar.element,
                         editor.ui.getEditableElement(),
                       );
-
-                    editor = editor;
                   }}
                   onError={({ willEditorRestart }) => {
                     if (willEditorRestart) {

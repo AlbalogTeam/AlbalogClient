@@ -40,6 +40,7 @@ const ManualCategory = () => {
 
   return (
     <div className="manual-category">
+      {shop._id && !categories[0] && <Loading />}
       <ul>
         {categories.map((category, index) => (
           <li key={index}>
