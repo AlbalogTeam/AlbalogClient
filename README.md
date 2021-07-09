@@ -206,7 +206,11 @@
 <details>
  <summary>5주차</summary>
 
-- 테스트 및 오류해결
+### Styles  
+
+- 회원가입 페이지 반응형 구현
+- 로그인 페이지 반응형 구현
+
 </details>
 
 <details>
