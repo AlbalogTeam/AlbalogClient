@@ -29,6 +29,12 @@
         justify-content: center;
         align-items: center;
         height: 45px;
+
+        svg {
+          width: 30px;
+          margin: 0 50px;
+          cursor: pointer;
+        }
       }
 
       .head-line {
