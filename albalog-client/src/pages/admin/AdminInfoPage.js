@@ -1,4 +1,4 @@
-import AdminInfo from 'components/admin/AdminInfo/AdminInfo';
+import AdminInfo from 'components/admin/AdminInfo';
 import React from 'react';
 
 const AdminInfoPage = () => {

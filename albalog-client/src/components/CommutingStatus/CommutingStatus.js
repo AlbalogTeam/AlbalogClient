@@ -15,7 +15,7 @@ const CommutingStatus = ({ shopId }) => {
   const getData = async () => {
     try {
       const response = await client.get(
-        `/shift/location/${shopId}/daily/2021-05-12`,
+        `/shift/location/${shopId}/daily/${year}-${month}-${day}`,
       );
       setEmployeeList(response.data);
       console.log(employeeList);
@@ -35,15 +35,24 @@ const CommutingStatus = ({ shopId }) => {
       <div className="status">
         <div className="commute-card">
           <h3 className="title">출근전</h3>
-          <div className="content">윤영훈</div>
+          <div className="content">
+            {employeeList.before &&
+              employeeList.before.map((employee) => <p>{employee.name}</p>)}
+          </div>
         </div>
         <div className="commute-card">
           <h3 className="title">근무중</h3>
-          <div className="content">이도현</div>
+          <div className="content">
+            {employeeList.working &&
+              employeeList.working.map((employee) => <p>{employee.name}</p>)}
+          </div>
         </div>
         <div className="commute-card">
           <h3 className="title">퇴근</h3>
-          <div className="content">서우리</div>
+          <div className="content">
+            {employeeList.off &&
+              employeeList.off.map((employee) => <p>{employee.name}</p>)}
+          </div>
         </div>
       </div>
     </div>

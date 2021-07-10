@@ -1,5 +1,5 @@
-import Aside from 'components/Aside/Aside';
-import Footer from 'components/Footer/Footer';
+import Aside from 'components/Aside';
+import Footer from 'components/Footer';
 import Header from 'components/Header/Header';
 import Modal from 'components/Modal/Modal';
 import SearchBox from 'components/SearchBox/SearchBox';

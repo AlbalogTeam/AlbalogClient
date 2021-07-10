@@ -1,3 +1,5 @@
+@import 'styles/constants/colors';
+
 .header {
   position: fixed;
   top: 0;
@@ -31,7 +33,7 @@
     .btn-logout {
       display: flex;
       align-items: center;
-      border: 1px solid #dbdbdb;
+      border: 1px solid $border;
       border-radius: 4px;
       padding: 0.5rem;
       font-weight: 500;
