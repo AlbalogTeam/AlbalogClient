@@ -1,3 +1,5 @@
+@import 'styles/constants/colors';
+
 .adminInfo-container {
   display: flex;
   justify-content: center;
@@ -32,13 +34,13 @@
       input {
         height: 40px;
         border: none;
-        border-bottom: 1px solid #dbdbdb;
+        border-bottom: 1px solid;
         background-color: #ffff;
         margin-bottom: 8px;
       }
 
       button {
-        border: 1px solid #dbdbdb;
+        border: 1px solid $border;
         padding: 0.75rem;
         background-color: #18191d;
         margin-top: 1rem;

@@ -1,4 +1,4 @@
-import AdminSchedule from 'components/admin/AdminSchedule/AdminSchedule';
+import AdminSchedule from 'components/admin/AdminSchedule';
 import React from 'react';
 
 const AdminSchedulePage = () => {

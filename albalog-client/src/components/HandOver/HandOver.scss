@@ -1,3 +1,5 @@
+@import 'styles/constants/colors';
+
 .hand-over-container {
   margin-bottom: 2rem;
   width: 80%;
@@ -7,7 +9,7 @@
   }
 
   .hand-over {
-    border: 1px solid #dbdbdb;
+    border: 1px solid $border;
     background-color: #fff;
     width: 100%;
     border-radius: 4px;
@@ -18,7 +20,7 @@
       .completed {
         text-decoration: line-through;
         text-decoration-color: #18191d;
-        color: #dbdbdb;
+        color: $border;
       }
     }
   }

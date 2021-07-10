@@ -1,13 +1,13 @@
-import Aside from 'components/Aside/Aside';
-import Header from 'components/Header/Header';
-import React, { useEffect, useState } from 'react';
+import Aside from 'components/Aside';
+import Header from 'components/Header';
+import React, { useState } from 'react';
 import { IoPerson } from 'react-icons/io5';
 import './AdminInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import { withRouter } from 'react-router';
 import { SetUser } from 'modules/user';
-import Footer from 'components/Footer/Footer';
+import Footer from 'components/Footer';
 
 const AdminInfo = ({ history }) => {
   const { name: originName, email } = useSelector(({ user }) => user);

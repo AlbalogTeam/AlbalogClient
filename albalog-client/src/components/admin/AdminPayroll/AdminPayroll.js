@@ -1,6 +1,6 @@
-import Aside from 'components/Aside/Aside';
-import Footer from 'components/Footer/Footer';
-import Header from 'components/Header/Header';
+import Aside from 'components/Aside';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './AdminPayroll.scss';
@@ -82,7 +82,7 @@ const AdminPayroll = () => {
             <h3>{`📅 ${year}년 ${month}월`}</h3>
             <RiArrowRightSLine className="month-button" onClick={nextMonth} />
           </nav>
-          <Table employeeList={employeeList} />
+          <Table key={1} employeeList={employeeList} />
         </div>
       </div>
       <Footer />

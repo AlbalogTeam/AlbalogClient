@@ -1,4 +1,4 @@
-import AdminPayroll from 'components/admin/AdminPayroll/AdminPayroll';
+import AdminPayroll from 'components/admin/AdminPayroll';
 import React from 'react';
 
 const AdminPayrollPage = () => {

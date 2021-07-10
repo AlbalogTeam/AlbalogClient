@@ -1,10 +1,12 @@
+@import 'styles/constants/colors';
+
 .searchBox-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 90%;
   height: 45px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid $border;
   border-radius: 4px;
   background-color: #fff;
   margin-bottom: 3rem;
