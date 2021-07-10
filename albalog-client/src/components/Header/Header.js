@@ -119,7 +119,6 @@ const Header = ({
           };
           return newData;
         });
-
         const shiftParttime = {
           ...parttime,
           payrolls: responseP.data,
@@ -132,8 +131,11 @@ const Header = ({
         console.log('payroll', error);
       }
     };
-    if (shop._id && user.role === parttime) getPayroll();
-  }, [shop]);
+
+    if (shop._id && user.role === 'staff') {
+      getPayroll();
+    }
+  }, [shop._id]);
 
   return (
     <>

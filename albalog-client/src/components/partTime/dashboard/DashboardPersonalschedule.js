@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 function DashboardPersonalschedule({ year, month, date }) {
   const one_shift = useSelector((state) => state.parttime.one_shift);
+
   const [today, setToday] = useState(new Date(year, month - 1, date));
   const [filteredShift, setFilteredShift] = useState([]);
 
@@ -38,6 +39,7 @@ function DashboardPersonalschedule({ year, month, date }) {
           .replace('.', '')}
         <IoIosArrowForward onClick={onClickRight} />
       </div>
+
       <div className="personal-table">
         <div className="tr">
           출근시간

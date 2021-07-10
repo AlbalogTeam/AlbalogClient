@@ -92,7 +92,7 @@ const NoticeList = ({ user, shop }) => {
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col">내용</th>
+                  <th scope="col">제목</th>
                   <th scope="col">등록일</th>
                 </tr>
               </thead>

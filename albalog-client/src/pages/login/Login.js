@@ -42,10 +42,9 @@ function Login({
     axios
       .post(`${APIURL}/login`, loginBody)
       .then((response) => {
-        console.log(response);
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
-        console.log(decoded);
+        console.log(response);
 
         let userBody = {
           _id: response.data.user._id,
