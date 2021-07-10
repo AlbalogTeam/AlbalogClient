@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import 'components/workManual/ManualUpload/ManualUpload.scss';
-import axios from 'axios';
-import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
 import useConfirm from 'hooks/useConfirm';
+import { getCategories } from 'utils/api/category';
+import { useCallback } from 'react';
+import { deleteManual, updateManual } from 'utils/api/workmanual';
 
 const ManualEdit = ({ editState, ToggleButton }) => {
-  const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
   const workManual = useSelector((state) => state.workManual);
 
@@ -23,38 +22,34 @@ const ManualEdit = ({ editState, ToggleButton }) => {
   const { title, content, category } = manualContent;
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get(`${APIURL}/category/${shop._id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      console.log(result.data);
-      setCategories(result.data);
-    }
-    fetchData();
-  }, []);
+    const getData = async () => {
+      const result = await getCategories(shop._id);
+      setCategories([...result].reverse());
+    };
+    getData();
+  }, [shop._id]);
 
   // Form 입력 값 onChange 함수
-  const formOnChange = (e) => {
-    console.log(e.target.name, e.target.value);
-    const nextForm = {
-      ...manualContent,
-      [e.target.name]: e.target.value,
-    };
-    setManualContent(nextForm);
-  };
+  const formOnChange = useCallback(
+    (e) => {
+      const nextForm = {
+        ...manualContent,
+        [e.target.name]: e.target.value,
+      };
+      setManualContent(nextForm);
+    },
+    [manualContent],
+  );
 
   // 매뉴얼 삭제 함수
-  const manualDelete = () => {
-    client
-      .delete(`/location/${shop._id}/workmanual/${workManual._id}/delete`)
-      .then((response) => {
-        if (response.data.deletedWorkManual._id) {
-          window.location.replace(`/${shop._id}/workmanual`);
-        }
-      });
-  };
+  const manualDelete = useCallback(async () => {
+    try {
+      await deleteManual(shop._id, workManual._id);
+      window.location.replace(`/${shop._id}/workmanual`);
+    } catch (e) {
+      alert('매뉴얼 삭제에 실패하였습니다.');
+    }
+  }, [shop._id, workManual._id]);
 
   const cancelConfirm = () => console.log('취소하였습니다');
   const confirmDelete = useConfirm(
@@ -64,33 +59,19 @@ const ManualEdit = ({ editState, ToggleButton }) => {
   );
 
   // 업무매뉴얼 submit 함수
-  const manualOnSubmit = (e) => {
-    e.preventDefault();
+  const manualOnSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    let body = {
-      title,
-      content,
-      category,
-    };
-
-    console.log(body);
-    axios
-      .patch(
-        `${APIURL}/location/${shop._id}/workmanual/${workManual._id}/update`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        },
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          window.location.replace(`/${shop._id}/workmanual`); // 페이지 이동 후 새로고침
-        }
-      });
-  };
+      try {
+        await updateManual(shop._id, workManual._id, title, content, category);
+        window.location.replace(`/${shop._id}/workmanual`);
+      } catch (e) {
+        alert('매뉴얼 수정에 실패했습니다');
+      }
+    },
+    [category, content, title, shop._id, workManual._id],
+  );
 
   return editState ? (
     <div id="ManualUpload">
@@ -126,8 +107,6 @@ const ManualEdit = ({ editState, ToggleButton }) => {
                     editor.ui.view.toolbar.element,
                     editor.ui.getEditableElement(),
                   );
-
-                editor = editor;
               }}
               onError={({ willEditorRestart }) => {
                 if (willEditorRestart) {

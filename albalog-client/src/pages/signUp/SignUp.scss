@@ -99,3 +99,47 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  body {
+    #signup {
+      position: relative;
+      display: block;
+      .signUpLeft {
+        margin: 0;
+        height: auto;
+        padding: 0 20px;
+        .signup-form {
+          display: block;
+          .inner-email-form {
+            position: relative;
+            padding-right: 80px;
+            .email-check {
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 70px;
+              font-size: 14px;
+            }
+          }
+          input {
+            width: 100%;
+          }
+          span {
+            display: block;
+            margin-bottom: 8px;
+          }
+        }
+        .error,
+        .good {
+          margin-left: 0;
+        }
+        .sign-up-btn {
+          .form-submit {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
