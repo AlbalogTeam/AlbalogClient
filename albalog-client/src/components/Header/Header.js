@@ -131,10 +131,10 @@ const Header = ({
         console.log('payroll', error);
       }
     };
-    if (shop._id && user.role === parttime) {
+    if (shop._id && user.role === 'staff') {
       getPayroll();
     }
-  }, [shop]);
+  }, [shop._id]);
 
   return (
     <>
