@@ -1,7 +1,7 @@
 import React from 'react';
 import 'components/partTime/ContentLine.scss';
 
-function ContentLine({ month, filteredPayroll }) {
+function ContentLine({ filteredPayroll }) {
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
