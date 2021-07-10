@@ -4,7 +4,7 @@ import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
 import React, { useEffect, useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
@@ -99,54 +99,41 @@ const Header = ({
     if (!user.email) {
       window.location.replace('/login');
     }
-  }, [user]);
+  }, [user, dispatchSetShop, match.params.shop]);
 
   // payroll과 개인스케줄을 리덕스에 추가
   useEffect(() => {
     const getPayroll = async () => {
       try {
-        let responseP = await client.get(`/timeclock/${shop._id}/staff`);
-        if (responseP.status === 200) {
-          const getPersonalSchedule = async () => {
-            try {
-              const responseOneSht = await client.get(
-                `/shift/employee/${user._id}`,
-              );
-              let shift = await responseOneSht.data.map((a) => {
-                const st = new Date(
-                  new Date(a.start).getTime() - 540 * 60 * 1000,
-                );
-                const ed = new Date(
-                  new Date(a.end).getTime() - 540 * 60 * 1000,
-                );
+        const responseP = await client.get(`/timeclock/${shop._id}/staff`);
+        const responseOneSht = await client.get(`/shift/employee/${user._id}`);
 
-                let newData = {
-                  title: user.name,
-                  start: new Date(st),
-                  end: new Date(ed),
-                };
-                return newData;
-              });
-              const shiftParttime = {
-                ...parttime,
-                payrolls: responseP.data,
-                one_shift: shift,
-              };
-              console.log(shiftParttime);
-              sessionStorage.setItem('parttime', JSON.stringify(shiftParttime));
-              dispatchSetParttime(shiftParttime);
-            } catch (error) {
-              console.log(error);
-            }
+        let shift = await responseOneSht.data.map((a) => {
+          const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+          const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+
+          let newData = {
+            title: user.name,
+            start: new Date(st),
+            end: new Date(ed),
           };
-          getPersonalSchedule();
-        }
+          return newData;
+        });
+
+        const shiftParttime = {
+          ...parttime,
+          payrolls: responseP.data,
+          one_shift: shift,
+        };
+        console.log(shiftParttime);
+        sessionStorage.setItem('parttime', JSON.stringify(shiftParttime));
+        dispatchSetParttime(shiftParttime);
       } catch (error) {
         console.log('payroll', error);
       }
     };
-    if (shop._id && user.role === 'staff') getPayroll();
-  }, [shop._id]);
+    if (shop._id && user.role === parttime) getPayroll();
+  }, [shop]);
 
   return (
     <>

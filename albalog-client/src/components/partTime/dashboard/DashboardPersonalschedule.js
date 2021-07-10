@@ -20,12 +20,9 @@ function DashboardPersonalschedule({ year, month, date }) {
     if (!one_shift) {
       return;
     }
-    let filteredShift =
-      one_shift &&
-      one_shift.filter(
-        (a) =>
-          a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
-      );
+    let filteredShift = one_shift.filter(
+      (a) => a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
+    );
     setFilteredShift(filteredShift);
   }, [one_shift, today]);
 
