@@ -32,7 +32,9 @@ function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
   const parttime = useSelector((state) => state.parttime);
-  const [personalShifts, setPersonalShifts] = useState(parttime.one_shift);
+  const [personalShifts, setPersonalShifts] = useState(
+    parttime.one_shift || [],
+  );
   const [allShifts, setAllShifts] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState('all');
 

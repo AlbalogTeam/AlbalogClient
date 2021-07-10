@@ -23,7 +23,6 @@ function PartTimeDashboard() {
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
   const parttime = useSelector((state) => state.parttime);
-  const dispatch = useDispatch();
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
@@ -32,9 +31,12 @@ function PartTimeDashboard() {
   const lastTimeClock =
     parttime.timeClocks && parttime.timeClocks[parttime.timeClocks.length - 1];
 
-  let clockIn =
-    lastTimeClock.start_time & lastTimeClock.end_time ? false : true; // false면 값을 클릭 가능
-  let clockOut = lastTimeClock.end_time ? true : false; // true면 값을 클릭 불가능
+  let clockIn = lastTimeClock
+    ? lastTimeClock.start_time & lastTimeClock.end_time
+      ? false
+      : true // true면 값을 클릭 불가능
+    : false; // false면 값을 클릭 가능
+  let clockOut = clockIn ? (lastTimeClock.end_time ? false : true) : true;
 
   const getprofile = () => {
     try {
