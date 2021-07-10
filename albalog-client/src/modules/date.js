@@ -1,5 +1,5 @@
-import { createAction, createReducer, createSlice } from '@reduxjs/toolkit';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { createAction, createReducer } from '@reduxjs/toolkit';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { getMonthDataAPI } from 'utils/api/date';
 
 // 액션 타입 정의

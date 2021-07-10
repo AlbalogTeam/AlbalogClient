@@ -82,7 +82,7 @@ const AdminPayroll = () => {
             <h3>{`📅 ${year}년 ${month}월`}</h3>
             <RiArrowRightSLine className="month-button" onClick={nextMonth} />
           </nav>
-          <Table employeeList={employeeList} />
+          <Table key={1} employeeList={employeeList} />
         </div>
       </div>
       <Footer />
