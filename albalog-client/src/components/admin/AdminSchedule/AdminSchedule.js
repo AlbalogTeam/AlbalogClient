@@ -1,5 +1,5 @@
-import Aside from 'components/Aside/Aside';
-import Header from 'components/Header/Header';
+import Aside from 'components/Aside';
+import Header from 'components/Header';
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
