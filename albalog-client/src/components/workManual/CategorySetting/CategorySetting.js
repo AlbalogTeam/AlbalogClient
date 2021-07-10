@@ -122,6 +122,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   const EditCategoryHandle = (id) => {
     let body = {
       categoryId: id,
+      locationId: shop._id,
       name: editCategory,
     };
 
