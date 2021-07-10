@@ -48,9 +48,7 @@ function Monthlypay({ data }) {
       <div className={isActive ? 'detail active' : 'detail'}>
         {timeClock.map((item, i) => (
           <div className="tr" key={i}>
-            <div className="date">
-              <div className="date">{item.start_time.slice(5)}</div>
-            </div>
+            <div className="date">{item.start_time.slice(5)}</div>
             <div className="time">
               {item.workTime.slice(0, 2)}:{item.workTime.slice(2, -2)}:
               {item.workTime.slice(-2)}

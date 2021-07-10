@@ -5,7 +5,8 @@ const initialState = {
   birthdate: '',
   hourly_wage: '',
   gender: '',
-  shifts: [],
+  all_shifts: [],
+  one_shift: [],
   payrolls: [],
   timeClocks: [],
   status: '',
@@ -22,7 +23,8 @@ const parttime = createSlice({
         birthdate,
         hourly_wage,
         gender,
-        shifts,
+        all_shifts,
+        one_shift,
         payrolls,
         timeClocks,
         status,
@@ -33,7 +35,8 @@ const parttime = createSlice({
       state.birthdate = birthdate;
       state.hourly_wage = hourly_wage;
       state.gender = gender;
-      state.shifts = shifts;
+      state.all_shifts = all_shifts;
+      state.one_shift = one_shift;
       state.payrolls = payrolls;
       state.timeClocks = timeClocks;
       state.status = status;

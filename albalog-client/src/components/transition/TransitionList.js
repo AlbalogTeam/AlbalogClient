@@ -28,7 +28,6 @@ const TransitionList = ({ date }) => {
   const [getTransition, setGetTransition] = useState('');
   const [transitionDescription, setTransitionDescription] = useState('');
   const [editTransitionDes, setEditTransition] = useState('');
-  const [dataLoading, setDataLoading] = useState(1);
   const [messageModalState, setMessageModalState] = useState(false);
 
   const transitionDesOnChange = (e) => {
@@ -40,14 +39,12 @@ const TransitionList = ({ date }) => {
       const response = await client.get(
         `/transition/${shop._id}/${year}-${month}-${day}`,
       );
-
-      console.log(response.data.satisfyTransitions);
       const newArr = [...response.data.satisfyTransitions].reverse();
       setGetTransition(newArr);
     }
 
     fetchData();
-  }, [shop, year, month, day, dataLoading]);
+  }, [shop, year, month, day]);
 
   // 인수인계 추가
   const addTransition = () => {
@@ -60,7 +57,7 @@ const TransitionList = ({ date }) => {
     client.post('/transition/create', body).then((response) => {
       console.log(response);
       if (response.status === 201) {
-        setDataLoading(!dataLoading);
+        setGetTransition([...response.data.transitions].reverse());
         setTransitionDescription('');
       }
     });
@@ -71,16 +68,14 @@ const TransitionList = ({ date }) => {
     client
       .delete(`/transition/${shop._id}/delete/${transition._id}`)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           setMessageModalState(!messageModalState);
-          setDataLoading(!dataLoading);
+          setGetTransition([...response.data.transitions].reverse());
         }
       });
   };
 
   const editTransitionInput = (e) => {
-    console.log(e.target.innerText);
     setEditTransition(e.target.innerText);
   };
 
@@ -93,19 +88,15 @@ const TransitionList = ({ date }) => {
       userId: user._id,
     };
 
-    console.log(body);
-
     client.patch('/transition/desc/update', body).then((response) => {
-      console.log(response);
       if (response.data.updatedTransition) {
-        setDataLoading(!dataLoading);
+        setGetTransition([...response.data.transitions].reverse());
       }
     });
   };
 
   // 인수인계 체크박스
   const toggleTransition = (id) => {
-    console.log(id);
 
     let body = {
       locationId: shop._id,
@@ -114,9 +105,8 @@ const TransitionList = ({ date }) => {
     };
 
     client.patch(`/transition/toggle`, body).then((response) => {
-      console.log(response);
-      if (response.status === 201) {
-        setDataLoading(!dataLoading);
+      if (response.status === 200) {
+        setGetTransition([...response.data.transitions].reverse());
       }
     });
   };
@@ -188,7 +178,6 @@ const TransitionList = ({ date }) => {
                   <button
                     type="button"
                     className="del-btn"
-                    // onClick={() => deleteTransition(transition._id)}
                     onClick={() => messageModalToggle(transition)}
                     name="삭제"
                   >

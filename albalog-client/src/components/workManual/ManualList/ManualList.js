@@ -1,51 +1,53 @@
 import NoDataType1 from 'components/NoData/NoDataType1';
 import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import { useCallback } from 'react';
+import { AiOutlineEdit } from 'react-icons/ai';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { getWorkManuals } from 'utils/api/workmanual';
 import ManualEdit from '../ManualEdit/ManualEdit';
 
 const ManualList = ({ category, user, shop }) => {
-  const workManual = useSelector((state) => state.workManual);
   const [manualList, setManualList] = useState([]);
   const [editState, setEditState] = useState(false);
+  const render = useSelector((state) => state.render);
   const dispatch = useDispatch();
 
-  const ToggleButton = () => {
+  const ToggleButton = useCallback(() => {
     setEditState(!editState);
-  };
+  }, [editState]);
 
   // 매뉴얼 수정 함수
-  const EditHandle = (manual) => {
-    let manualBody = {
-      _id: manual._id,
-      category_id: manual.category_id,
-      title: manual.title,
-      content: manual.content,
-    };
-
-    dispatch(setWorkManual(manualBody));
-    ToggleButton();
-  };
-
-  console.log(`category: ${category}`);
-  useEffect(() => {
-    if (category === 'all') {
-      setManualList(shop.workManuals);
-    } else {
-      const filterHandle = async () => {
-        const WorkManualList = await shop.workManuals.filter(
-          (manual) => manual.category_id.name === category,
-        );
-
-        setManualList(WorkManualList);
+  const EditHandle = useCallback(
+    (manual) => {
+      let manualBody = {
+        _id: manual._id,
+        category_id: manual.category_id,
+        title: manual.title,
+        content: manual.content,
       };
 
-      filterHandle();
-    }
+      dispatch(setWorkManual(manualBody));
+      ToggleButton();
+    },
+    [ToggleButton, dispatch],
+  );
 
-    console.log(manualList);
-  }, [shop, category]);
+  useEffect(() => {
+    const getData = async () => {
+      const workmanuals = await getWorkManuals(shop._id);
+      if (category === 'all') {
+        setManualList(workmanuals);
+      } else {
+        setManualList(
+          workmanuals.filter((manual) => manual.category_id.name === category),
+        );
+      }
+    };
+    if (shop.name) {
+      getData();
+    }
+  }, [shop, category, render]);
 
   return (
     <div className="manual-list">

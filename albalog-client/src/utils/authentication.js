@@ -44,7 +44,7 @@ const Authentication = (Component, option, adminRoute = null) => {
           }
         }
       }
-    }, []);
+    }, [props.history, user.name, user.role]);
     return <Component />;
   }
   return AuthenticationCheck;

@@ -9,7 +9,6 @@ import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
-import { APIURL } from 'config';
 import client from 'utils/api';
 import Loading from 'components/Loading/Loading';
 
@@ -32,30 +31,10 @@ const date = today.getDate();
 function ParttimeScheduler() {
   const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
-  const [personalShifts, setPersonalShifts] = useState([]);
+  const parttime = useSelector((state) => state.parttime);
+  const [personalShifts, setPersonalShifts] = useState(parttime.one_shift);
   const [allShifts, setAllShifts] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState('all');
-
-  // moment.utc(fromDate).toDate()
-  // moment.utc(new Date()).toDate()
-
-  const getPersonalSchedule = async () => {
-    try {
-      const response = await client.get(`/shift/employee/${user._id}`);
-      let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000); //540 * 60 * 1000
-
-        let newData = {
-          title: user.name,
-          start: new Date(st),
-          end: new Date(ed),
-        };
-        return newData;
-      });
-      setPersonalShifts(shift);
-    } catch (error) {}
-  };
 
   const getAllSchedule = async () => {
     try {
@@ -76,9 +55,9 @@ function ParttimeScheduler() {
   };
 
   useEffect(() => {
-    getPersonalSchedule();
+    // getPersonalSchedule();
     getAllSchedule();
-  }, [shop]);
+  }, [shop, parttime.one_shift]);
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');

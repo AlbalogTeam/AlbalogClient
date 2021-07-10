@@ -17,10 +17,9 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
   });
 
   let { emailValid, passwordValid, passwordCheckValid } = formValid;
-  const { email, password, name, passwordCheck } = form;
+  const { email, password, name } = form;
   const onChange = (e) => {
     const { value, name } = e.target;
-    console.log(value, name);
     let FormBody = {
       form: 'register',
       key: name,
@@ -141,11 +140,7 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
       history.push('/'); // 홈 화면으로 이동
       try {
         sessionStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('로컬스토리지 저장에 실패했습니다');
-      }
-    } else {
-      console.log('유저가 없습니다');
+      } catch (e) {}
     }
   }, [history, user]);
 
@@ -157,19 +152,22 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
 
           <div className="email-form signup-form">
             <span>이메일</span>
-            <input
-              type="text"
-              name="email"
-              onChange={onChange}
-              placeholder="이메일을 입력해주세요"
-            />
-            <button
-              onClick={emailValidation}
-              type="button"
-              className="email-check"
-            >
-              중복확인
-            </button>
+            <div className="inner-email-form">
+              <input
+                type="text"
+                name="email"
+                className="email-input"
+                onChange={onChange}
+                placeholder="이메일을 입력해주세요"
+              />
+              <button
+                onClick={emailValidation}
+                type="button"
+                className="email-check"
+              >
+                중복확인
+              </button>
+            </div>
           </div>
 
           {emailValid === 1 ? (
