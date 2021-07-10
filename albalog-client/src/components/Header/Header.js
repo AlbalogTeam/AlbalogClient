@@ -101,24 +101,50 @@ const Header = ({
     }
   }, [user]);
 
-  // payroll를 parttime 리덕스에 추가
-  const getPayroll = async () => {
-    try {
-      let response = await client.get(`/timeclock/${shop._id}/staff`);
-      if (response.status === 200) {
-        const newParttime = {
-          ...parttime,
-          payrolls: response.data,
-        };
-        console.log(newParttime);
-        sessionStorage.setItem('parttime', JSON.stringify(newParttime));
-      }
-    } catch (error) {
-      console.log('payroll', error);
-    }
-  };
-
+  // payroll과 개인스케줄을 리덕스에 추가
   useEffect(() => {
+    const getPayroll = async () => {
+      try {
+        let responseP = await client.get(`/timeclock/${shop._id}/staff`);
+        if (responseP.status === 200) {
+          const getPersonalSchedule = async () => {
+            try {
+              const responseOneSht = await client.get(
+                `/shift/employee/${user._id}`,
+              );
+              let shift = await responseOneSht.data.map((a) => {
+                const st = new Date(
+                  new Date(a.start).getTime() - 540 * 60 * 1000,
+                );
+                const ed = new Date(
+                  new Date(a.end).getTime() - 540 * 60 * 1000,
+                );
+
+                let newData = {
+                  title: user.name,
+                  start: new Date(st),
+                  end: new Date(ed),
+                };
+                return newData;
+              });
+              const shiftParttime = {
+                ...parttime,
+                payrolls: responseP.data,
+                one_shift: shift,
+              };
+              console.log(shiftParttime);
+              sessionStorage.setItem('parttime', JSON.stringify(shiftParttime));
+              dispatchSetParttime(shiftParttime);
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          getPersonalSchedule();
+        }
+      } catch (error) {
+        console.log('payroll', error);
+      }
+    };
     getPayroll();
   }, [shop]);
 
