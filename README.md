@@ -215,10 +215,7 @@
 ### Fix
 
 - 일한시간, payroll 날짜 sort
-
-### Styles
-
--
+- 출근 누르고 퇴근 누르지 않은 상태에서 payroll 부분 들어갈시 에러나는거 해결
 
 ### Issue
 
