@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 function DashboardPersonalschedule({ year, month, date }) {
   const one_shift = useSelector((state) => state.parttime.one_shift);
+
   const [today, setToday] = useState(new Date(year, month - 1, date));
   const [filteredShift, setFilteredShift] = useState([]);
 
@@ -17,12 +18,12 @@ function DashboardPersonalschedule({ year, month, date }) {
   };
 
   useEffect(() => {
-    let filteredShift =
-      one_shift &&
-      one_shift.filter(
-        (a) =>
-          a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
-      );
+    if (!one_shift) {
+      return;
+    }
+    let filteredShift = one_shift.filter(
+      (a) => a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
+    );
     setFilteredShift(filteredShift);
   }, [one_shift, today]);
 
@@ -38,6 +39,7 @@ function DashboardPersonalschedule({ year, month, date }) {
           .replace('.', '')}
         <IoIosArrowForward onClick={onClickRight} />
       </div>
+
       <div className="personal-table">
         <div className="tr">
           출근시간
@@ -50,7 +52,7 @@ function DashboardPersonalschedule({ year, month, date }) {
           </b>
         </div>
         <div className="tr">
-          퇴근시간{' '}
+          퇴근시간
           <b>
             {filteredShift[0]
               ? filteredShift[0].start.toString().slice(0, 15) ===

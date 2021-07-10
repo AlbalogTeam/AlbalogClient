@@ -3,7 +3,7 @@ import CommutingStatus from 'components/CommutingStatus/CommutingStatus';
 import Footer from 'components/Footer/Footer';
 import HandOver from 'components/HandOver/HandOver';
 import Header from 'components/Header/Header';
-import Notice from 'components/Notice/Notice';
+import Notice from 'components/notice/Notice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './AdminDashboard.scss';

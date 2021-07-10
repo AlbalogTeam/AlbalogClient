@@ -44,6 +44,7 @@ function Login({
       .then((response) => {
         const token = response.data.token;
         const decoded = jwt.verify(token, TOKENKEY);
+        console.log(response);
 
         let userBody = {
           _id: response.data.user._id,

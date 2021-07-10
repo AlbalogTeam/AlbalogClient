@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import 'pages/partTime/schedule/ParttimeScheduler.scss';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
@@ -36,7 +36,7 @@ function ParttimeScheduler() {
   const [allShifts, setAllShifts] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState('all');
 
-  const getAllSchedule = async () => {
+  const getAllSchedule = useCallback(async () => {
     try {
       const response = await client.get(`/shift/location/${shop._id}`);
       console.log(response);
@@ -52,12 +52,12 @@ function ParttimeScheduler() {
       });
       setAllShifts(shift);
     } catch (error) {}
-  };
+  }, [shop._id]);
 
   useEffect(() => {
     // getPersonalSchedule();
     getAllSchedule();
-  }, [shop, parttime.one_shift]);
+  }, [shop, getAllSchedule]);
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
