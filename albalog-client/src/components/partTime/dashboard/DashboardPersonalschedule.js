@@ -17,6 +17,9 @@ function DashboardPersonalschedule({ year, month, date }) {
   };
 
   useEffect(() => {
+    if (!one_shift) {
+      return;
+    }
     let filteredShift =
       one_shift &&
       one_shift.filter(
@@ -50,7 +53,7 @@ function DashboardPersonalschedule({ year, month, date }) {
           </b>
         </div>
         <div className="tr">
-          퇴근시간{' '}
+          퇴근시간
           <b>
             {filteredShift[0]
               ? filteredShift[0].start.toString().slice(0, 15) ===

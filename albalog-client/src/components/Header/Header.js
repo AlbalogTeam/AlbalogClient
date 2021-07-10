@@ -145,8 +145,8 @@ const Header = ({
         console.log('payroll', error);
       }
     };
-    getPayroll();
-  }, [shop]);
+    if (shop._id && user.role === 'staff') getPayroll();
+  }, [shop._id]);
 
   return (
     <>
