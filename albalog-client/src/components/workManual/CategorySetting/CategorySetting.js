@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import client from 'utils/api';
 import './CategorySetting.scss';
 import { AiOutlineClose } from 'react-icons/ai';
 import { reRender } from 'modules/render';
 import MessageModal from 'components/Modal/MessageModal';
 import { setWorkManual } from 'modules/workManual';
+import { addCategory, deleteCategory, getCategories, updateCategory } from 'utils/api/category';
+import { useCallback } from 'react';
 
 const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   const shop = useSelector((state) => state.shop);
@@ -20,113 +21,94 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await client.get(`/category/${shop._id}`);
-      setCategories([...response.data].reverse());
-
-      console.log(response.data);
+      const categories = await getCategories(shop._id);
+      setCategories(categories);
     }
     fetchData();
+  }, [shop._id]);
+
+  // 카테고리 추가 인풋 상태 관리 함수
+  const categoryNameOnChange = useCallback((e) => {
+    setAddCategoryName(e.target.value);
   }, []);
 
-  const categoryNameOnChange = (e) => {
-    setAddCategoryName(e.target.value);
-  };
+  // 모달창 토글 함수
+  const messageModalToggle = useCallback(() => {
+    setMessageModalState(!messageModalState);
+  }, [messageModalState]);
 
   // 카테고리 추가 onClick 함수
-  const AddCategoryHandle = () => {
-    let body = {
-      name: addCategoryName,
-    };
-
-    client
-      .post(`/category/${shop._id}/create`, body)
-      .then((response) => {
-        if (response.status === 201) {
-          setCategories([...response.data.categories].reverse());
-          setAddCategoryName('');
-          dispatch(reRender(!render.render));
-        }
-      })
-      .catch(function (error) {
-        if (error) {
-          alert('중복된 카테고리가 있는지 다시 확인해 주세요.');
-        }
-      });
-  };
+  const AddCategoryHandle = useCallback(async () => {
+    try {
+      const result = await addCategory(shop._id, addCategoryName);
+      setCategories(result);
+      setAddCategoryName('');
+      dispatch(reRender(!render.render));
+    } catch (e) {
+      alert('중복된 카테고리가 있는지 다시 확인해 주세요.');
+    }
+  }, [addCategoryName, shop._id, dispatch, render.render]);
 
   // 해당 카테고리에 업무 매뉴얼 개수 찾기
-  const findCategoryManuals = async (id) => {
-    messageModalToggle();
-    let categoryManualList = await shop.workManuals.filter(
-      (manual) => manual.category_id._id === id,
-    );
-    const title =
-      categoryManualList.length === 0
-        ? '정말 삭제하시겠습니까?'
-        : `매뉴얼이 ${categoryManualList.length}개 존재합니다. 그래도 삭제하시겠습니까?
+  const findCategoryManuals = useCallback(
+    async (id) => {
+      messageModalToggle();
+      let categoryManualList = await shop.workManuals.filter(
+        (manual) => manual.category_id._id === id,
+      );
+      const title =
+        categoryManualList.length === 0
+          ? '정말 삭제하시겠습니까?'
+          : `매뉴얼이 ${categoryManualList.length}개 존재합니다. 그래도 삭제하시겠습니까?
         `;
 
-    const content =
-      categoryManualList.length === 0
-        ? ''
-        : `※ 매뉴얼은 전부 삭제 됩니다 ※
+      const content =
+        categoryManualList.length === 0
+          ? ''
+          : `※ 매뉴얼은 전부 삭제 됩니다 ※
     `;
 
-    let body = {
-      _id: id,
-      title,
-      content,
-    };
-
-    dispatch(setWorkManual(body));
-    console.log(categoryManualList);
-  };
+      let body = {
+        _id: id,
+        title,
+        content,
+      };
+      dispatch(setWorkManual(body));
+    },
+    [dispatch, messageModalToggle, shop.workManuals],
+  );
 
   // 카테고리 삭제
+  const DeleteCategoryHandle = useCallback(async () => {
+    try {
+      const result = await deleteCategory(shop._id, workManual._id);
+      setCategories(result);
+      dispatch(reRender(!render.render));
+      messageModalToggle();
+    } catch (e) {
+      alert('카테고리 삭제에 실패했습니다.');
+    }
+  }, [dispatch, messageModalToggle, render.render, shop._id, workManual._id]);
 
-  const DeleteCategoryHandle = () => {
-    const id = workManual._id;
-    client
-      .delete(`/category/${shop._id}/delete/${id}`)
-      .then((response) => {
-        if (response.data.deletedCategory) {
-          setCategories([...response.data.categories].reverse());
-          dispatch(reRender(!render.render));
-          messageModalToggle();
-        }
-      })
-      .catch(function (error) {
-        if (error) {
-          alert('해당 카테고리에 업무매뉴얼이 존재합니다.');
-        }
-      });
-  };
-
-  const messageModalToggle = () => {
-    setMessageModalState(!messageModalState);
-  };
+  // 카테고리 수정 인풋 상태관리 함수
+  const EditCategoryInput = useCallback((e) => {
+    setEditCategory(e.target.innerText);
+  }, []);
 
   // 카테고리 수정
-
-  const EditCategoryInput = (e) => {
-    setEditCategory(e.target.innerText);
-  };
-
-  const EditCategoryHandle = (id) => {
-    let body = {
-      categoryId: id,
-      locationId: shop._id,
-      name: editCategory,
-    };
-
-    client.patch(`/category/update`, body).then((response) => {
-      console.log(response);
-      if (response.data.UpdatedCategory) {
-        setCategories([...response.data.categories].reverse());
+  const EditCategoryHandle = useCallback(
+    async (categoryId) => {
+      try {
+        const result = await updateCategory(shop._id, categoryId, editCategory);
+        setCategories(result);
         dispatch(reRender(!render.render));
+      } catch (e) {
+        console.log(e);
+        alert('카테고리 수정에 실패했습니다');
       }
-    });
-  };
+    },
+    [dispatch, editCategory, render.render, shop._id],
+  );
 
   return categorySetState ? (
     <div id="CategorySetting">
