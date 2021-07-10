@@ -1,11 +1,9 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import client from 'utils/api';
 import './CategorySetting.scss';
 import { AiOutlineClose } from 'react-icons/ai';
-import ModalLoading from 'components/Loading/ModalLoading';
 import { reRender } from 'modules/render';
 import MessageModal from 'components/Modal/MessageModal';
 import { setWorkManual } from 'modules/workManual';
@@ -18,8 +16,8 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   const [categories, setCategories] = useState([]);
   const [messageModalState, setMessageModalState] = useState(false);
   const [addCategoryName, setAddCategoryName] = useState('');
-  const [loadingCategory, setLoadingCategory] = useState(false);
   const [editCategory, setEditCategory] = useState('');
+
   useEffect(() => {
     async function fetchData() {
       const response = await client.get(`/category/${shop._id}`);
@@ -28,7 +26,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
       console.log(response.data);
     }
     fetchData();
-  }, [loadingCategory]);
+  }, []);
 
   const categoryNameOnChange = (e) => {
     setAddCategoryName(e.target.value);
@@ -43,10 +41,8 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     client
       .post(`/category/${shop._id}/create`, body)
       .then((response) => {
-        console.log(response.data);
-        if (response.data.newCategory._id) {
-          alert('카테고리가 추가 되었습니다');
-          setLoadingCategory(!loadingCategory);
+        if (response.status === 201) {
+          setCategories([...response.data.categories].reverse());
           setAddCategoryName('');
           dispatch(reRender(!render.render));
         }
@@ -93,10 +89,8 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     client
       .delete(`/category/${shop._id}/delete/${id}`)
       .then((response) => {
-        console.log(response);
         if (response.data.deletedCategory) {
-          alert('카테고리가 삭제되었습니다');
-          setLoadingCategory(!loadingCategory);
+          setCategories([...response.data.categories].reverse());
           dispatch(reRender(!render.render));
           messageModalToggle();
         }
@@ -115,7 +109,6 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   // 카테고리 수정
 
   const EditCategoryInput = (e) => {
-    console.log(e.target.innerText);
     setEditCategory(e.target.innerText);
   };
 
@@ -129,8 +122,7 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
     client.patch(`/category/update`, body).then((response) => {
       console.log(response);
       if (response.data.UpdatedCategory) {
-        alert('카테고리가 수정되었습니다.');
-        setLoadingCategory(!loadingCategory);
+        setCategories([...response.data.categories].reverse());
         dispatch(reRender(!render.render));
       }
     });
