@@ -8,17 +8,18 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 
 function WorkingTime() {
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
-  const date = new Date().getDate();
-  const [today, setToday] = useState(new Date(year, month - 1, date));
   const payrolls = useSelector((state) => state.parttime.payrolls);
+  const [month, setMonth] = useState(
+    Number(
+      new Date().toISOString().slice(0, 4) +
+        new Date().toISOString().slice(5, 7),
+    ),
+  );
 
-  console.log(today.toLocaleDateString());
+  console.log(typeof month);
   function filteredPayroll() {
     const monthlyPayroll =
-      payrolls &&
-      payrolls.filter((a) => Number(a.yearAndMonth) === today.toString());
+      payrolls && payrolls.filter((a) => Number(a.yearAndMonth) === month);
     return monthlyPayroll[0] ? monthlyPayroll[0].timeClock : 0;
   }
 
@@ -29,10 +30,10 @@ function WorkingTime() {
     : 0;
 
   const onClickLeft = () => {
-    setToday(new Date(today.setDate(today.getMonth - 1)));
+    setMonth(month - 1);
   };
   const onClickRight = () => {
-    setToday(new Date(today.setDate(today.getMonth + 1)));
+    setMonth(month + 1);
   };
 
   return (
@@ -47,11 +48,7 @@ function WorkingTime() {
             <div className="date-line">
               <IoIosArrowBack onClick={onClickLeft} />
               <b style={{ fontSize: '1.2rem' }}>
-                {today
-                  .toLocaleDateString()
-                  .slice(0, 9)
-                  .replace('.', '-')
-                  .replace('.', '')}
+                {month.toString().slice(0, 4)}-{month.toString().slice(4)}
               </b>
               <IoIosArrowForward onClick={onClickRight} />
             </div>
@@ -62,7 +59,7 @@ function WorkingTime() {
               <div className="clockOut-column">퇴근시간</div>
               <div className="workingtime-column">근무시간</div>
             </div>
-            <ContentLine filteredPayroll={filteredPayroll} />
+            <ContentLine month={month} filteredPayroll={filteredPayroll} />
             <div className="total-line">
               <div className="date-column"></div>
               <div className="day-column"></div>
