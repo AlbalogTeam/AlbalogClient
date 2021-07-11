@@ -18,20 +18,22 @@ const PayrollModal = ({ handleModal, data }) => {
         <h3 className="payroll-modal-title">이번달 근무</h3>
         <table className="payroll-modal-table">
           <thead className="payroll-modal-head">
-            <th>날짜</th>
-            <th>근무 시간</th>
-            <th>누적 시간</th>
-            <th>일급</th>
+            <tr>
+              <th>날짜</th>
+              <th>근무 시간</th>
+              <th>누적 시간</th>
+              <th>일급</th>
+            </tr>
           </thead>
           <tbody>
-            {timeClocks.map((day) => {
+            {timeClocks.map((day, index) => {
               const { start_time, end_time, totalWorkTime, total } = day;
               const hour = Math.floor(totalWorkTime / 60);
               const minute = totalWorkTime % 60;
               const d = days[new Date(start_time).getDay()];
 
               return (
-                <tr className="day-info">
+                <tr className="day-info" key={index}>
                   <td>{`${start_time.substr(5, 5)} (${d})`}</td>
                   <td>{`🔥${start_time.substr(11, 5)}~${end_time.substr(
                     11,

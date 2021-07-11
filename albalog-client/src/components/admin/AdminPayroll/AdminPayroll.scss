@@ -25,6 +25,13 @@
     justify-content: space-around;
     align-items: center;
     margin-bottom: 1rem;
+
+    .month-button {
+      font-size: 3rem;
+      &:hover {
+        color: $btn-main;
+      }
+    }
   }
 }
 
