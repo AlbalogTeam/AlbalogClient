@@ -5,14 +5,13 @@ import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import client from 'utils/api';
 import Footer from 'components/Footer/Footer';
-import { SetParttime } from 'modules/parttime';
 import Loading from 'components/Loading/Loading';
 
 function PartTimeDashboard() {

@@ -19,7 +19,7 @@ function WorkingTime() {
       payrolls.filter(
         (a) =>
           (a.yearAndMonth.toString().slice(0, 4) * 1 === today.getFullYear()) &
-          (a.yearAndMonth.toString().slice(4) * 1 === today.getMonth()),
+          (a.yearAndMonth.toString().slice(4) * 1 === today.getMonth() + 1),
       );
     return !!monthlyPayroll[0] ? monthlyPayroll[0].timeClock : 0;
   }
