@@ -11,9 +11,11 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi';
 import './Aside.scss';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const Aside = ({ shop, user }) => {
+const Aside = () => {
+  const shop = useSelector((state) => state.shop);
+  const user = useSelector((state) => state.user);
   return (
     <aside className="aside-container">
       <ul className="menu">
@@ -108,8 +110,4 @@ const Aside = ({ shop, user }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { shop: state.shop, user: state.user };
-}
-
-export default connect(mapStateToProps)(Aside);
+export default React.memo(Aside);
