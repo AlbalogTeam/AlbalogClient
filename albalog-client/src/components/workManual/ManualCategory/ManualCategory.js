@@ -24,6 +24,7 @@ const ManualCategory = () => {
     }
     if (shop.name) {
       fetchData();
+      console.log('render');
     }
   }, [shop, render]);
 

@@ -6,7 +6,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { reRender } from 'modules/render';
 import MessageModal from 'components/Modal/MessageModal';
 import { setWorkManual } from 'modules/workManual';
-import { addCategory, deleteCategory, getCategories, updateCategory } from 'utils/api/category';
+import {
+  addCategory,
+  deleteCategory,
+  getCategories,
+  updateCategory,
+} from 'utils/api/category';
 import { useCallback } from 'react';
 
 const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
@@ -180,4 +185,4 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
   ) : null;
 };
 
-export default CategorySetting;
+export default React.memo(CategorySetting);

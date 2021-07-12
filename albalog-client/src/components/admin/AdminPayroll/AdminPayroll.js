@@ -1,23 +1,25 @@
 import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import './AdminPayroll.scss';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
-import { getMonthData, getNextMonth, getPrevMonth } from 'modules/date';
 import PayrollModal from 'components/Modal/PayrollModal';
 
 const Table = ({ employeeList }) => {
   return (
     <table>
       <thead>
-        <th>이름</th>
-        <th>근무시간</th>
-        <th>지급액</th>
-        <th>상세보기</th>
+        <tr>
+          <th>이름</th>
+          <th>근무시간</th>
+          <th>지급액</th>
+          <th>상세보기</th>
+        </tr>
       </thead>
       <tbody>
+        {!employeeList && <p>데이터를 가져오고 있습니다!</p>}
         {employeeList &&
           employeeList.map((employee) => (
             <TableItem key={employee._id} employee={employee} />
@@ -51,24 +53,8 @@ const TableItem = ({ employee }) => {
   );
 };
 
-const AdminPayroll = () => {
-  const shopId = useSelector(({ shop }) => shop._id);
-  const { year, month } = useSelector(({ date }) => date);
+const AdminPayroll = ({ year, month, prevMonth, nextMonth }) => {
   const employeeList = useSelector(({ date }) => date.payrollData);
-
-  const dispatch = useDispatch();
-
-  const prevMonth = () => {
-    dispatch(getPrevMonth({ year, month, shopId }));
-  };
-
-  const nextMonth = () => {
-    dispatch(getNextMonth({ year, month, shopId }));
-  };
-
-  useEffect(() => {
-    dispatch(getMonthData({ year, month, shopId }));
-  }, [shopId]);
 
   return (
     <>
