@@ -45,9 +45,11 @@ function DashboardPersonalschedule({ year, month, date }) {
           출근시간
           <b>
             {filteredShift[0]
-              ? filteredShift[0].start.toLocaleTimeString('en-US', {
-                  hour12: false,
-                })
+              ? filteredShift[0].start
+                  .toLocaleTimeString('en-US', {
+                    hour12: false,
+                  })
+                  .slice(0, 5)
               : '-'}
           </b>
         </div>
@@ -57,12 +59,16 @@ function DashboardPersonalschedule({ year, month, date }) {
             {filteredShift[0]
               ? filteredShift[0].start.toString().slice(0, 15) ===
                 filteredShift[0].end.toString().slice(0, 15)
-                ? filteredShift[0].end.toLocaleTimeString('en-US', {
-                    hour12: false,
-                  })
-                : filteredShift[0].end.toLocaleTimeString('en-US', {
-                    hour12: false,
-                  }) + '+1'
+                ? filteredShift[0].end
+                    .toLocaleTimeString('en-US', {
+                      hour12: false,
+                    })
+                    .slice(0, 5)
+                : filteredShift[0].end
+                    .toLocaleTimeString('en-US', {
+                      hour12: false,
+                    })
+                    .slice(0, 5) + '+1'
               : '-'}
           </b>
         </div>
