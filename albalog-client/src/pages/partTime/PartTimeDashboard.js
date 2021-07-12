@@ -33,8 +33,8 @@ function PartTimeDashboard() {
 
   let clockIn = lastTimeClock
     ? lastTimeClock.start_time & lastTimeClock.end_time
-      ? false
-      : true // true면 값을 클릭 불가능
+      ? true
+      : false // true면 값을 클릭 불가능
     : false; // false면 값을 클릭 가능
   let clockOut = clockIn ? (lastTimeClock.end_time ? false : true) : true;
 
