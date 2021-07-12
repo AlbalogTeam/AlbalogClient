@@ -58,7 +58,6 @@ const ManualList = ({ category, user, shop }) => {
       {manualList && (
         <ul>
           {manualList.map((manual, index) => {
-            console.log(manual);
             return (
               <li key={index}>
                 <div className="manual-title">

@@ -5,8 +5,8 @@ import Pagination from 'components/Pagination/Pagination';
 import { paginate } from 'utils/paginate';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Header from 'components/Header/Header';
-import AdminAside from 'components/Aside/Aside';
+import Header from 'components/Header';
+import Aside from 'components/Aside';
 import Footer from 'components/Footer/Footer';
 import NoDataType2 from 'components/NoData/NodataType2';
 import client from 'utils/api';
@@ -59,7 +59,7 @@ const NoticeList = ({ user, shop }) => {
   return (
     <>
       <Header />
-      <AdminAside />
+      <Aside />
       <div id="Notice" className="page-layout">
         <div className="cont">
           <div className="search-comm">

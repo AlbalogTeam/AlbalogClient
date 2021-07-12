@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import './ManualUpload.scss';
-import axios from 'axios';
-import { APIURL } from 'config';
 import { useSelector } from 'react-redux';
+import { getCategories } from 'utils/api/category';
+import { createManual } from 'utils/api/workmanual';
+import { useCallback } from 'react';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
-  const user = useSelector((state) => state.user);
   const shop = useSelector((state) => state.shop);
-
   const [categories, setCategories] = useState([]);
   const [manualContent, setManualContent] = useState({
     title: '',
@@ -20,51 +19,38 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
   const { title, content, category } = manualContent;
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get(`${APIURL}/category/${shop._id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      console.log(result.data);
-      setCategories(result.data);
-    }
-    fetchData();
-  }, []);
+    const getData = async () => {
+      const categories = await getCategories(shop._id);
+      setCategories(categories);
+    };
+    getData();
+  }, [shop._id]);
 
   // Form 입력 값 onChange 함수
-  const formOnChange = (e) => {
-    const nextForm = {
-      ...manualContent,
-      [e.target.name]: e.target.value,
-    };
-    setManualContent(nextForm);
-  };
+  const formOnChange = useCallback(
+    (e) => {
+      const nextForm = {
+        ...manualContent,
+        [e.target.name]: e.target.value,
+      };
+      setManualContent(nextForm);
+    },
+    [manualContent],
+  );
 
   // 업무매뉴얼 submit 함수
-  const manualOnSubmit = (e) => {
-    e.preventDefault();
-
-    let body = {
-      title,
-      content,
-      category,
-    };
-
-    console.log(body);
-    axios
-      .post(`${APIURL}/location/${shop._id}/workmanual/create`, body, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          window.location.replace(`/${shop._id}/workmanual`); // 페이지 이동 후 새로고침
-        }
-      });
-  };
+  const manualOnSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await createManual(shop._id, title, content, category);
+        window.location.replace(`/${shop._id}/workmanual`);
+      } catch (e) {
+        alert('매뉴얼 등록에 실패하였습니다.');
+      }
+    },
+    [category, content, shop._id, title],
+  );
 
   return uploadState ? (
     <div id="ManualUpload">
@@ -79,16 +65,6 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
                 </option>
               ))}
             </select>
-
-            {/* <input
-              type="text"
-              value={categoryName}
-              placeholder="카테고리 추가"
-              onChange={categoryNameOnchange}
-            />
-            <button type="button" onClick={AddCategoryHandle}>
-              추가
-            </button> */}
           </div>
 
           <input
@@ -104,15 +80,12 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
           <div className="modal-size">
             <CKEditor
               onReady={(editor) => {
-                console.log('Editor is ready to use!', editor);
                 editor.ui
                   .getEditableElement()
                   .parentElement.insertBefore(
                     editor.ui.view.toolbar.element,
                     editor.ui.getEditableElement(),
                   );
-
-                editor = editor;
               }}
               onError={({ willEditorRestart }) => {
                 if (willEditorRestart) {
@@ -121,7 +94,6 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                // console.log({ event, editor, data });
                 const nextForm = {
                   ...manualContent,
                   content: data,
@@ -146,4 +118,4 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
   ) : null;
 };
 
-export default ManualUpload;
+export default React.memo(ManualUpload);
