@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { APIURL } from 'config.js';
 import './Modal.scss';
 import { useSelector } from 'react-redux';

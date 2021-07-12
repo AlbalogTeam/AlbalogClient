@@ -68,38 +68,39 @@ const Header = ({
   };
 
   useEffect(() => {
-    const shopId = match.params.shop;
+    if (!shop._id) {
+      const shopId = match.params.shop;
+      if (user.role === 'owner') {
+        client.get(`/location/${shopId}`).then((response) => {
+          console.log(response.data);
+          let shopBody = response.data;
 
-    if (user.role === 'owner') {
-      client.get(`/location/${shopId}`).then((response) => {
-        console.log(response.data);
-        let shopBody = response.data;
+          dispatchSetShop(shopBody);
+        });
+      } else if (user.role === 'staff') {
+        client.get(`/employee/${shopId}`).then((response) => {
+          console.log(response.data);
 
-        dispatchSetShop(shopBody);
-      });
-    } else if (user.role === 'staff') {
-      client.get(`/employee/${shopId}`).then((response) => {
-        console.log(response.data);
+          let shopBody = {
+            _id: response.data._id,
+            name: response.data.name,
+            notices: [...response.data.notices].reverse(),
+            workManuals: response.data.workManuals,
+            address: response.data.address,
+            phone_number: response.data.phone_number,
+            postal_code: response.data.postal_code,
+            employees: response.data.employees,
+          };
 
-        let shopBody = {
-          _id: response.data._id,
-          name: response.data.name,
-          notices: [...response.data.notices].reverse(),
-          workManuals: response.data.workManuals,
-          address: response.data.address,
-          phone_number: response.data.phone_number,
-          postal_code: response.data.postal_code,
-          employees: response.data.employees,
-        };
-
-        dispatchSetShop(shopBody);
-      });
+          dispatchSetShop(shopBody);
+        });
+      }
     }
 
     if (!user.email) {
       window.location.replace('/login');
     }
-  }, [user, dispatchSetShop, match.params.shop]);
+  }, [user, dispatchSetShop, match.params.shop, shop._id]);
 
   // payroll과 개인스케줄을 리덕스에 추가
   useEffect(() => {
@@ -174,8 +175,6 @@ const Header = ({
 };
 
 function mapStateToProps(state) {
-  // redux state로 부터 state를 component의 props로 전달해줌
-  // store의 값이 여기 함수 state로 들어옴
   return { user: state.user, shop: state.shop, parttime: state.parttime };
 }
 
@@ -187,4 +186,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default React.memo(
+  withRouter(connect(mapStateToProps, mapDispatchToProps)(Header)),
+);

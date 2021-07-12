@@ -1,8 +1,8 @@
-import AdminPayroll from 'components/admin/AdminPayroll/AdminPayroll';
+import AdminPayrollContainer from 'container/AdminPayrollContainer';
 import React from 'react';
 
 const AdminPayrollPage = () => {
-  return <AdminPayroll />;
+  return <AdminPayrollContainer />;
 };
 
 export default AdminPayrollPage;

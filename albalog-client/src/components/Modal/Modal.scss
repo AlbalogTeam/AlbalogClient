@@ -1,3 +1,5 @@
+@import 'styles/constants/colors';
+
 .modal-container {
   display: flex;
   justify-content: center;
@@ -45,7 +47,7 @@
         input {
           margin-bottom: 0;
           border: none;
-          border-bottom: 1px solid #dbdbdb;
+          border-bottom: 1px solid $border;
         }
         margin-bottom: 2rem;
       }
@@ -66,7 +68,7 @@
         margin-top: 1rem;
       }
       .btn-close {
-        border: 1px solid #dbdbdb;
+        border: 1px solid $border;
       }
     }
   }

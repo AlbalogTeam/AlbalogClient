@@ -1,9 +1,8 @@
-import Aside from 'components/Aside/Aside';
-import Header from 'components/Header/Header';
+import Aside from 'components/Aside';
+import Header from 'components/Header';
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import events from './events';
 import ScheduleModal from 'components/Modal/ScheduleModal';
 import './AdminSchedule.scss';
 import { useSelector } from 'react-redux';
@@ -27,16 +26,15 @@ const AdminSchedule = () => {
       const response = await client.get(`/shift/location/${locationId}`);
 
       // setEvents(response.data);
-     const newEvents= response.data.map(d => {
+      const newEvents = response.data.map((d) => {
         const ddd = {
           title: d.title,
           start: new Date(new Date(d.start).getTime() - 540 * 60 * 1000),
           end: new Date(new Date(d.end).getTime() - 540 * 60 * 1000),
-        }
-        return ddd
-      })
-      setEvents(newEvents)
-
+        };
+        return ddd;
+      });
+      setEvents(newEvents);
     } catch (e) {
       console.error(e);
     }

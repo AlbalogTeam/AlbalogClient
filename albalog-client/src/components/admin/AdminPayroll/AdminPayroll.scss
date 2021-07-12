@@ -1,3 +1,5 @@
+@import 'styles/constants/colors';
+
 .payroll-container {
   height: 100%;
   background-color: #fafafa;
@@ -23,19 +25,26 @@
     justify-content: space-around;
     align-items: center;
     margin-bottom: 1rem;
+
+    .month-button {
+      font-size: 3rem;
+      &:hover {
+        color: $btn-main;
+      }
+    }
   }
 }
 
 table {
   width: 80%;
-  border: 1px solid #dbdbdb;
+  border: 1px solid $border;
   background-color: #fff;
   border-spacing: 0;
   border-radius: 8px;
   thead th,
   tbody td {
     height: 60px;
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid $border;
     text-align: center;
     .btn-detail {
       width: 80px;

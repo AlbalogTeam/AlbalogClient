@@ -1,7 +1,10 @@
-import AdminDashboardPage from 'pages/admin/AdminDashboardPage';
-import AdminEmployeePage from 'pages/admin/AdminEmployeePage';
-import AdminInfoPage from 'pages/admin/AdminInfoPage';
-import AdminPayrollPage from 'pages/admin/AdminPayrollPage';
+import {
+  AdminDashboardPage,
+  AdminEmployeePage,
+  AdminInfoPage,
+  AdminPayrollPage,
+  AdminSchedulePage,
+} from 'pages/admin';
 import NoticeList from 'pages/notice/NoticeList/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
@@ -20,10 +23,8 @@ import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
 import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
 import MobileCategory from 'pages/mobileCategory/MobileCategory';
-import AdminSchedulePage from 'pages/admin/AdminSchedulePage';
 import FindPassword from 'pages/findPassword/FindPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
-
 
 const App = () => {
   // Authentication(a, b, c)

@@ -1,4 +1,4 @@
-import AdminEmployeeList from 'components/admin/AdminEmployeeList/AdminEmployeeList';
+import AdminEmployeeList from 'components/admin/AdminEmployeeList';
 import React from 'react';
 
 const AdminEmployeePage = () => {
