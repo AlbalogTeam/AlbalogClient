@@ -33,8 +33,8 @@ const HandOver = ({ shopId }) => {
               <p className="content">
                 <strong className={transition.completed ? 'completed' : ''}>
                   {transition.completed
-                    ? `- ✔️${transition.description}`
-                    : `- ❌${transition.description}`}
+                    ? `- ✔️ ${transition.description}`
+                    : `- ❌ ${transition.description}`}
                 </strong>
               </p>
             );
