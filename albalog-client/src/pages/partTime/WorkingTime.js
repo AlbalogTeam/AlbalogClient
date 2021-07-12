@@ -8,19 +8,20 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 
 function WorkingTime() {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  const [today, setToday] = useState(new Date(year, month));
   const payrolls = useSelector((state) => state.parttime.payrolls);
-  const [month, setMonth] = useState(
-    Number(
-      new Date().toISOString().slice(0, 4) +
-        new Date().toISOString().slice(5, 7),
-    ),
-  );
 
-  console.log(typeof month);
   function filteredPayroll() {
     const monthlyPayroll =
-      payrolls && payrolls.filter((a) => Number(a.yearAndMonth) === month);
-    return monthlyPayroll[0] ? monthlyPayroll[0].timeClock : 0;
+      payrolls &&
+      payrolls.filter(
+        (a) =>
+          (a.yearAndMonth.toString().slice(0, 4) * 1 === today.getFullYear()) &
+          (a.yearAndMonth.toString().slice(4) * 1 === today.getMonth() + 1),
+      );
+    return !!monthlyPayroll[0] ? monthlyPayroll[0].timeClock : 0;
   }
 
   const totalWorkingtime = filteredPayroll()
@@ -30,10 +31,11 @@ function WorkingTime() {
     : 0;
 
   const onClickLeft = () => {
-    setMonth(month - 1);
+    setToday(new Date(today.setMonth(today.getMonth() - 1)));
   };
+
   const onClickRight = () => {
-    setMonth(month + 1);
+    setToday(new Date(today.setMonth(today.getMonth() + 1)));
   };
 
   return (
@@ -48,7 +50,11 @@ function WorkingTime() {
             <div className="date-line">
               <IoIosArrowBack onClick={onClickLeft} />
               <b style={{ fontSize: '1.2rem' }}>
-                {month.toString().slice(0, 4)}-{month.toString().slice(4)}
+                {today
+                  .toLocaleDateString()
+                  .slice(0, 9)
+                  .replace('.', '-')
+                  .replace('.', '')}
               </b>
               <IoIosArrowForward onClick={onClickRight} />
             </div>
@@ -59,7 +65,7 @@ function WorkingTime() {
               <div className="clockOut-column">퇴근시간</div>
               <div className="workingtime-column">근무시간</div>
             </div>
-            <ContentLine month={month} filteredPayroll={filteredPayroll} />
+            <ContentLine filteredPayroll={filteredPayroll} />
             <div className="total-line">
               <div className="date-column"></div>
               <div className="day-column"></div>
@@ -70,11 +76,6 @@ function WorkingTime() {
               </div>
             </div>
           </div>
-          {/* <div className="remark-line">
-            <IoIosWarning style={{ width: '20px' }} />
-            근무자가 출근한 뒤 15시간동안 퇴근하지 않으면 자동으로 퇴근처리되며
-            '퇴근미체크'로 표기됩니다.
-          </div> */}
         </div>
       </div>
       <Footer />

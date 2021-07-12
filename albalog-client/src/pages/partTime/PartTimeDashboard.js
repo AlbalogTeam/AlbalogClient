@@ -5,14 +5,13 @@ import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import client from 'utils/api';
 import Footer from 'components/Footer/Footer';
-import { SetParttime } from 'modules/parttime';
 import Loading from 'components/Loading/Loading';
 
 function PartTimeDashboard() {
@@ -23,7 +22,6 @@ function PartTimeDashboard() {
   const shop = useSelector((state) => state.shop);
   const user = useSelector((state) => state.user);
   const parttime = useSelector((state) => state.parttime);
-  const dispatch = useDispatch();
 
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
@@ -32,9 +30,12 @@ function PartTimeDashboard() {
   const lastTimeClock =
     parttime.timeClocks && parttime.timeClocks[parttime.timeClocks.length - 1];
 
-  let clockIn =
-    lastTimeClock.start_time & lastTimeClock.end_time ? false : true; // false면 값을 클릭 가능
-  let clockOut = lastTimeClock.end_time ? true : false; // true면 값을 클릭 불가능
+  let clockIn = lastTimeClock
+    ? lastTimeClock.start_time & lastTimeClock.end_time
+      ? true
+      : false // true면 값을 클릭 불가능
+    : false; // false면 값을 클릭 가능
+  let clockOut = clockIn ? (lastTimeClock.end_time ? false : true) : true;
 
   const getprofile = () => {
     try {

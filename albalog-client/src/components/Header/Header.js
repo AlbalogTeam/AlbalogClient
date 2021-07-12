@@ -106,7 +106,7 @@ const Header = ({
   useEffect(() => {
     const getPayroll = async () => {
       try {
-        let responseP = await client.get(`/timeclock/${shop._id}/staff`);
+        const responseP = await client.get(`/timeclock/${shop._id}/staff`);
         const responseOneSht = await client.get(`/shift/employee/${user._id}`);
 
         let shift = await responseOneSht.data.map((a) => {
