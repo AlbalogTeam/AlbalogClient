@@ -5,26 +5,26 @@ import {
   AdminPayrollPage,
   AdminSchedulePage,
 } from 'pages/admin';
-import NoticeList from 'pages/notice/NoticeList/NoticeList';
-import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
+import NoticeList from 'pages/notice/NoticeList';
+import NoticeDetail from 'pages/notice/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
-import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
-import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
-import WorkManual from 'pages/workManual/WorkManual';
-import Transition from 'pages/transition/Transition';
-import Landing from 'pages/landing/Landing';
+import NoticeUpload from 'pages/notice/NoticeUpload';
+import NoticeEdit from 'pages/notice/NoticeEdit';
+import WorkManual from 'pages/WorkManual';
+import Transition from 'pages/Transition';
+import Landing from 'pages/Landing';
 import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
-import Login from 'pages/login/Login';
-import SignUp from 'pages/signUp/SignUp';
+import Login from 'pages/Login';
+import SignUp from 'pages/SignUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
-import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
-import MobileCategory from 'pages/mobileCategory/MobileCategory';
-import FindPassword from 'pages/findPassword/FindPassword';
-import ResetPassword from 'pages/findPassword/ResetPassword';
+import EmployeeSignUp from 'pages/EmployeeSignUp';
+import MobileCategory from 'pages/MobileCategory';
+import FindPassword from 'pages/FindPassword';
+import ResetPassword from 'pages/FindPassword/ResetPassword';
 
 const App = () => {
   // Authentication(a, b, c)
