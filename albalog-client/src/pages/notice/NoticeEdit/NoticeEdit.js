@@ -10,7 +10,7 @@ import Footer from 'components/Footer/Footer';
 import client from 'utils/api';
 import Aside from 'components/Aside/Aside';
 
-const NoticeEdit = ({ match, shop}) => {
+const NoticeEdit = ({ match, shop }) => {
   const noticeId = match.params.id;
 
   const [noticeContent, setNoticeContent] = useState({
@@ -36,7 +36,7 @@ const NoticeEdit = ({ match, shop}) => {
     }
 
     fetchData();
-  }, [shop]);
+  }, [shop, noticeContent, noticeId, shop._id]);
 
   const titleOnChange = (e) => {
     const nextForm = {

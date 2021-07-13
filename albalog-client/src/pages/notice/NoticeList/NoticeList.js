@@ -23,6 +23,7 @@ const NoticeList = ({ user, shop }) => {
 
   // utils 함수에 있는 paginate로 화면에 보여줘야할 컨텐츠 개수의 배열을 가져옴
   const pagedNotices = paginate(getNotices, currentPage, pageSize);
+
   useEffect(() => {
     setGetNotices(shop.notices);
   }, [user, shop]);
@@ -96,32 +97,39 @@ const NoticeList = ({ user, shop }) => {
                   <th scope="col">등록일</th>
                 </tr>
               </thead>
-              {!pagedNotices.length && shop._id && (
-                <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
-              )}
 
               <tbody>
-                {pagedNotices.map((notice, index) => (
-                  <tr key={index}>
-                    <td className="td-left">
-                      <div className="inner-cont">
-                        <span className="inner-text">
-                          <Link
-                            to={`/${shop._id}/notice/${notice._id}`}
-                            className="link-text"
-                          >
-                            {notice.title}
-                          </Link>
-                        </span>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="inner-cont inner-date">
-                        {notice.createdAt.slice(0, 10)}
-                      </div>
+                {shop._id && pagedNotices.length === 0 ? (
+                  <tr>
+                    <td style={{ borderBottom: 'none' }}>
+                      <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  <>
+                    {pagedNotices.map((notice, index) => (
+                      <tr key={index}>
+                        <td className="td-left">
+                          <div className="inner-cont">
+                            <span className="inner-text">
+                              <Link
+                                to={`/${shop._id}/notice/${notice._id}`}
+                                className="link-text"
+                              >
+                                {notice.title}
+                              </Link>
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="inner-cont inner-date">
+                            {notice.createdAt.slice(0, 10)}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </tbody>
             </table>
           </div>

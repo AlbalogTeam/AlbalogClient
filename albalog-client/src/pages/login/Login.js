@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import './Login.scss';
 import banner from 'static/banner.png';

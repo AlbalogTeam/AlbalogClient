@@ -1,7 +1,7 @@
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
-import TransitionList from 'components/transition/TransitionList';
+import TransitionList from 'components/TransitionList/TransitionList';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

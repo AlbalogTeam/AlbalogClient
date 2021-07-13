@@ -133,10 +133,10 @@ const Header = ({
       }
     };
 
-    if (shop._id && user.role === 'staff') {
+    if (!parttime.payrolls && shop._id && user.role === 'staff') {
       getPayroll();
     }
-  }, [shop._id]);
+  }, [shop._id, dispatchSetParttime, user._id, parttime, user.name, user.role]);
 
   return (
     <>

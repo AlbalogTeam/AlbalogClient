@@ -5,25 +5,25 @@ import {
   AdminPayrollPage,
   AdminSchedulePage,
 } from 'pages/admin';
-import NoticeList from 'pages/notice/NoticeList/NoticeList';
-import NoticeDetail from 'pages/notice/NoticeDetail/NoticeDetail';
+import NoticeList from 'pages/notice/NoticeList';
+import NoticeDetail from 'pages/notice/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
-import NoticeUpload from 'pages/notice/NoticeUpload/NoticeUpload';
-import NoticeEdit from 'pages/notice/NoticeEdit/NoticeEdit';
-import WorkManual from 'pages/workManual/WorkManual';
-import Transition from 'pages/transition/Transition';
-import Landing from 'pages/landing/Landing';
+import NoticeUpload from 'pages/notice/NoticeUpload';
+import NoticeEdit from 'pages/notice/NoticeEdit';
+import WorkManual from 'pages/workManual';
+import Transition from 'pages/transition';
+import Landing from 'pages/landing';
 import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
-import Login from 'pages/login/Login';
-import SignUp from 'pages/signUp/SignUp';
+import Login from 'pages/login';
+import SignUp from 'pages/signUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
-import EmployeeSignUp from 'pages/employeeSignUp/EmployeeSignUp';
-import MobileCategory from 'pages/mobileCategory/MobileCategory';
-import FindPassword from 'pages/findPassword/FindPassword';
+import EmployeeSignUp from 'pages/employeeSignUp';
+import MobileCategory from 'pages/mobileCategory';
+import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
 
 const App = () => {
@@ -106,7 +106,6 @@ const App = () => {
             component={Authentication(AdminEmployeePage, true, 'admin')}
           />
 
-          {/** 나중에 staff로 바꿔야함 */}
 
           <Route
             path="/parttime/:shop?"

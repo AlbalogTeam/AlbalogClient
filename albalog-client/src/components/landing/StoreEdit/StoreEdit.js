@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { APIURL } from 'config';
 import { SetShop } from 'modules/shop';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { connect } from 'react-redux';
 import 'components/landing/StoreRegister/StoreRegister.scss';
