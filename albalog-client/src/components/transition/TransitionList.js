@@ -1,6 +1,7 @@
 import MessageModal from 'components/Modal/MessageModal';
 import { setTransition } from 'modules/transition';
 import React, { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import {
   MdCheckBox,
   MdCheckBoxOutlineBlank,
@@ -8,7 +9,13 @@ import {
   MdAdd,
 } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import client from 'utils/api';
+import {
+  createTransition,
+  deleteTransition,
+  getTransitions,
+  toggleTransition,
+  updateTransition,
+} from 'utils/api/transition';
 import './TransitionList.scss';
 
 const TransitionList = ({ date }) => {
@@ -25,96 +32,98 @@ const TransitionList = ({ date }) => {
   });
 
   const { curYear, curMonth, curDay } = currentDate;
-  const [getTransition, setGetTransition] = useState('');
-  const [transitionDescription, setTransitionDescription] = useState('');
-  const [editTransitionDes, setEditTransition] = useState('');
+  const [transitions, setTransitions] = useState([]);
+  const [description, setDescription] = useState('');
+  const [updateDescription, setUpdateDescription] = useState('');
   const [messageModalState, setMessageModalState] = useState(false);
 
-  const transitionDesOnChange = (e) => {
-    setTransitionDescription(e.target.value);
-  };
+  const onChangeDescription = useCallback((e) => {
+    setDescription(e.target.value);
+  }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await client.get(
-        `/transition/${shop._id}/${year}-${month}-${day}`,
-      );
-      const newArr = [...response.data.satisfyTransitions].reverse();
-      setGetTransition(newArr);
+    const getData = async () => {
+      const transitions = await getTransitions(shop._id, year, month, day);
+      setTransitions(transitions);
+    };
+    if (shop._id) {
+      getData();
     }
-
-    fetchData();
   }, [shop, year, month, day]);
 
   // 인수인계 추가
-  const addTransition = () => {
-    let body = {
-      locationId: shop._id,
-      date: `${year}-${month}-${day}`,
-      description: transitionDescription,
-      userId: user._id,
-    };
-    client.post('/transition/create', body).then((response) => {
-      console.log(response);
-      if (response.status === 201) {
-        setGetTransition([...response.data.transitions].reverse());
-        setTransitionDescription('');
-      }
-    });
-  };
+  const onCreate = useCallback(async () => {
+    try {
+      const transitions = await createTransition(
+        shop._id,
+        `${year}-${month}-${day}`,
+        description,
+        user._id,
+      );
+      setTransitions(transitions);
+      setDescription('');
+    } catch (e) {
+      alert('인수인계 추가에 실패하였습니다.');
+    }
+  }, [day, month, shop._id, year, user._id, description]);
 
   // 인수인계 삭제
-  const deleteTransition = () => {
-    client
-      .delete(`/transition/${shop._id}/delete/${transition._id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setMessageModalState(!messageModalState);
-          setGetTransition([...response.data.transitions].reverse());
-        }
-      });
-  };
+  const onDelete = useCallback(async () => {
+    try {
+      const transitions = await deleteTransition(shop._id, transition._id);
+      setMessageModalState(!messageModalState);
+      setTransitions(transitions);
+    } catch (e) {
+      alert('인수인계 삭제에 실패했습니다.');
+    }
+  }, [messageModalState, shop._id, transition._id]);
 
-  const editTransitionInput = (e) => {
-    setEditTransition(e.target.innerText);
-  };
+  const onChangeDescriptionUpdate = useCallback((e) => {
+    setUpdateDescription(e.target.innerText);
+  }, []);
 
   // 인수인계 수정
-  const editTransition = (e) => {
-    let body = {
-      locationId: shop._id,
-      transitionId: e.target.id,
-      description: editTransitionDes,
-      userId: user._id,
-    };
-
-    client.patch('/transition/desc/update', body).then((response) => {
-      if (response.data.updatedTransition) {
-        setGetTransition([...response.data.transitions].reverse());
+  const onUpdate = useCallback(
+    async (e) => {
+      try {
+        const transitions = await updateTransition(
+          shop._id,
+          e.target.id,
+          updateDescription,
+          user._id,
+        );
+        setTransitions(transitions);
+      } catch (e) {
+        alert('인수인계 수정에 실패하였습니다.');
       }
-    });
-  };
+    },
+    [updateDescription, shop._id, user._id],
+  );
 
   // 인수인계 체크박스
-  const toggleTransition = (id) => {
-
-    let body = {
-      locationId: shop._id,
-      transitionId: id,
-      userId: user._id,
-    };
-
-    client.patch(`/transition/toggle`, body).then((response) => {
-      if (response.status === 200) {
-        setGetTransition([...response.data.transitions].reverse());
+  const onToggle = useCallback(
+    async (transitionId) => {
+      try {
+        const transitions = await toggleTransition(
+          shop._id,
+          transitionId,
+          user._id,
+        );
+        setTransitions(transitions);
+      } catch (e) {
+        alert('인수인계 체크박스를 실패하였습니다.');
       }
-    });
-  };
+    },
+    [shop._id, user._id],
+  );
 
-  const messageModalToggle = (transition) => {
-    setMessageModalState(!messageModalState);
-    dispatch(setTransition(transition));
-  };
+  const messageModalToggle = useCallback(
+    (transition) => {
+      setMessageModalState(!messageModalState);
+      dispatch(setTransition(transition));
+    },
+    [dispatch, messageModalState],
+  );
   return (
     <div id="TransitionList">
       <div className="current-date">
@@ -128,11 +137,11 @@ const TransitionList = ({ date }) => {
             <input
               className="input-active"
               type="text"
-              value={transitionDescription}
-              onChange={transitionDesOnChange}
+              value={description}
+              onChange={onChangeDescription}
               placeholder="전달 사항을 입력해 주세요"
             />
-            <button type="button" onClick={addTransition} className="add">
+            <button type="button" onClick={onCreate} className="add">
               <MdAdd size="24" />
             </button>
           </>
@@ -147,8 +156,8 @@ const TransitionList = ({ date }) => {
       </div>
       <div className="transition-list">
         <ul>
-          {getTransition &&
-            getTransition.map((transition, index) => (
+          {transitions &&
+            transitions.map((transition, index) => (
               <li key={index}>
                 <div
                   className={`tran-cont ${
@@ -157,7 +166,7 @@ const TransitionList = ({ date }) => {
                 >
                   <button
                     className="tran-check"
-                    onClick={() => toggleTransition(transition._id)}
+                    onClick={() => onToggle(transition._id)}
                   >
                     {transition.completed ? (
                       <MdCheckBox size="22" className="check-box" />
@@ -166,10 +175,11 @@ const TransitionList = ({ date }) => {
                     )}
                   </button>
                   <div
-                    onInput={editTransitionInput}
-                    contenteditable="true"
+                    onInput={onChangeDescriptionUpdate}
+                    contentEditable="true"
+                    suppressContentEditableWarning={true}
                     className="title"
-                    onBlur={editTransition}
+                    onBlur={onUpdate}
                     id={transition._id}
                   >
                     {transition.description}
@@ -231,7 +241,7 @@ const TransitionList = ({ date }) => {
           {messageModalState && (
             <MessageModal
               messageModalToggle={messageModalToggle}
-              deleteCont={deleteTransition}
+              deleteCont={onDelete}
             />
           )}
         </ul>
