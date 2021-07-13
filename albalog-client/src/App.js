@@ -10,21 +10,21 @@ import NoticeDetail from 'pages/notice/NoticeDetail';
 import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit';
-import WorkManual from 'pages/WorkManual';
-import Transition from 'pages/Transition';
-import Landing from 'pages/Landing';
+import WorkManual from 'pages/workManual';
+import Transition from 'pages/transition';
+import Landing from 'pages/landing';
 import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
-import Login from 'pages/Login';
-import SignUp from 'pages/SignUp';
+import Login from 'pages/login';
+import SignUp from 'pages/signUp';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
 import Authentication from 'utils/authentication';
 import ParttimeScheduler from 'pages/partTime/schedule/ParttimeScheduler';
-import EmployeeSignUp from 'pages/EmployeeSignUp';
-import MobileCategory from 'pages/MobileCategory';
-import FindPassword from 'pages/FindPassword';
-import ResetPassword from 'pages/FindPassword/ResetPassword';
+import EmployeeSignUp from 'pages/employeeSignUp';
+import MobileCategory from 'pages/mobileCategory';
+import FindPassword from 'pages/findPassword';
+import ResetPassword from 'pages/findPassword/ResetPassword';
 
 const App = () => {
   // Authentication(a, b, c)
