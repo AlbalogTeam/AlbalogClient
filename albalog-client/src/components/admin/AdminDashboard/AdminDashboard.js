@@ -5,7 +5,7 @@ import CommutingStatus from 'components/CommutingStatus';
 import Footer from 'components/Footer';
 import HandOver from 'components/HandOver';
 import Header from 'components/Header';
-import Notice from 'components/Notice';
+import Notice from 'components/notice';
 import './AdminDashboard.scss';
 
 const AdminDashboard = () => {
