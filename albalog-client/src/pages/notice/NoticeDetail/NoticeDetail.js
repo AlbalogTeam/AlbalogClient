@@ -1,13 +1,12 @@
-import axios from 'axios';
-import AdminAside from 'components/Aside/Aside';
-import Footer from 'components/Footer/Footer';
-import Header from 'components/Header/Header';
+import AdminAside from 'components/Aside';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
 import Loading from 'components/Loading/Loading';
 import MessageModal from 'components/Modal/MessageModal';
-import { APIURL } from 'config';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import client from 'utils/api';
 import './NoticeDetail.scss';
 
 const NoticeDetail = ({ match, shop, user }) => {
@@ -23,30 +22,19 @@ const NoticeDetail = ({ match, shop, user }) => {
   const { title, content } = noticeInfo;
   const noticeLength = shop.notices.length; // 게시물 길이
   useEffect(() => {
-    axios
-      .get(`${APIURL}/location/${shop._id}/notice/${noticeId}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.notice[0].updatedAt.slice(0, 10));
-        setNoticeDate(response.data.notice[0].updatedAt.slice(0, 10));
-        setNoticeInfo({
-          ...noticeInfo,
-          title: response.data.notice[0].title,
-          content: response.data.notice[0].content,
-        });
+    client.get(`/location/${shop._id}/notice/${noticeId}`).then((response) => {
+      setNoticeDate(response.data.notice[0].updatedAt.slice(0, 10));
+      setNoticeInfo({
+        ...noticeInfo,
+        title: response.data.notice[0].title,
+        content: response.data.notice[0].content,
       });
-  }, [shop]);
+    });
+  }, [shop, noticeId, noticeInfo]);
 
   const noticeDelete = () => {
-    axios
-      .delete(`${APIURL}/location/${shop._id}/notice/${noticeId}/delete`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+    client
+      .delete(`/location/${shop._id}/notice/${noticeId}/delete`)
       .then((response) => {
         if (response.data.deletedNotice) {
           window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침

@@ -15,47 +15,39 @@ const Pagination = ({ pageCount, currentPage, onPageChange }) => {
   const pages = _.range(1, pageCount + 1); // 마지막 페이지에 보여줄 컨텐츠를 위해 +1을 해줌 https://lodash.com/docs/#range 참고
   return (
     <div className="inner-paging">
-      <a
-        href={() => false}
-        onClick={() => onPageChange(1)}
-        className="paging-btn paging-fst"
-      >
+      <button onClick={() => onPageChange(1)} className="paging-btn paging-fst">
         <AiOutlineDoubleLeft size="14" />
-      </a>
-      <a
-        href={() => false}
+      </button>
+      <button
         onClick={() => onPageChange(currentPage - 1)}
         className="paging-btn paging-prev"
       >
         <AiOutlineLeft size="14" />
-      </a>
+      </button>
       <ul>
         {pages.map((page, index) => (
           <li key={index} className="paging-link">
-            <a
-              href={() => false}
+            <button
               className={page === currentPage ? 'active' : ''}
               onClick={() => onPageChange(page)}
             >
               {page}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
-      <a
-        href={() => false}
+      <button
         onClick={() => onPageChange(currentPage + 1)}
         className="paging-btn paging-next"
       >
         <AiOutlineRight size="14" />
-      </a>
-      <a
-        href={() => false}
+      </button>
+      <button
         onClick={() => onPageChange(pages.length)}
         className="paging-btn paging-last"
       >
         <AiOutlineDoubleRight size="14" />
-      </a>
+      </button>
     </div>
   );
 };
