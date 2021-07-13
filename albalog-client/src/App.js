@@ -106,7 +106,6 @@ const App = () => {
             component={Authentication(AdminEmployeePage, true, 'admin')}
           />
 
-          {/** 나중에 staff로 바꿔야함 */}
 
           <Route
             path="/parttime/:shop?"
