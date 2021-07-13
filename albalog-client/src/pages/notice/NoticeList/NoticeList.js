@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './NoticeList.scss';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Pagination from 'components/Pagination/Pagination';
@@ -9,7 +9,7 @@ import Header from 'components/Header';
 import Aside from 'components/Aside';
 import Footer from 'components/Footer/Footer';
 import NoDataType2 from 'components/NoData/NodataType2';
-import client from 'utils/api';
+import { searchNotice } from 'utils/api/notice';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -26,36 +26,41 @@ const NoticeList = ({ user, shop }) => {
 
   useEffect(() => {
     setGetNotices(shop.notices);
-  }, [user, shop]);
+  }, [shop]);
 
   const pageCount = Math.ceil(getNotices.length / pageSize); // 몇 페이지가 필요한지 계산
-  const handlePageChange = (page) => {
-    if (page >= pageCount) {
-      page = pageCount;
-    }
-    if (page <= 1) {
-      page = 1;
-    }
-    setNoticeInfo({
-      ...noticeInfo,
-      currentPage: page,
-    });
-  };
+  const handlePageChange = useCallback(
+    (page) => {
+      if (page >= pageCount) {
+        page = pageCount;
+      }
+      if (page <= 1) {
+        page = 1;
+      }
+      setNoticeInfo({
+        ...noticeInfo,
+        currentPage: page,
+      });
+    },
+    [noticeInfo, pageCount],
+  );
 
-  const NoticeSearchInputChange = (e) => {
+  const NoticeSearchInputChange = useCallback((e) => {
     setSearchNoticeInput(e.target.value);
-  };
+  }, []);
 
-  const NoticeSearchHandle = (e) => {
-    e.preventDefault();
-    let body = {
-      locationId: shop._id,
-      content: searchNoticeInput,
-    };
-    client.post('/location/notice/search', body).then((response) => {
-      setGetNotices(response.data);
-    });
-  };
+  const NoticeSearchHandle = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const notices = await searchNotice(shop._id, searchNoticeInput);
+        setGetNotices(notices);
+      } catch (e) {
+        alert('공지사항 검색에 실패했습니다.');
+      }
+    },
+    [searchNoticeInput, shop._id],
+  );
 
   return (
     <>
@@ -152,4 +157,4 @@ function mapStateToProps(state) {
   return { shop: state.shop, user: state.user };
 }
 
-export default connect(mapStateToProps)(NoticeList);
+export default React.memo(connect(mapStateToProps)(NoticeList));

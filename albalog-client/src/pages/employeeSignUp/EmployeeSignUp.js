@@ -9,8 +9,6 @@ import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
 import { withRouter } from 'react-router-dom';
-import client from 'utils/api';
-import { SetShop } from 'modules/shop';
 
 function EmployeeSignUp({ match }) {
   const [employeeInfo, setEmployeeInfo] = useState({
@@ -36,7 +34,6 @@ function EmployeeSignUp({ match }) {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const parttime = useSelector((state) => state.parttime);
   const history = useHistory();
   const shopId = match.params.shop;
 
@@ -137,7 +134,7 @@ function EmployeeSignUp({ match }) {
     } else {
       console.log('유저가 없습니다');
     }
-  }, [history, user]);
+  }, [history, user, employeeInfo, match.params.invitetoken, shopId]);
 
   return (
     <div className="EmployeeSignUp">
@@ -216,12 +213,6 @@ function EmployeeSignUp({ match }) {
                 placeholder="2021/01/01"
               />
             </div>
-            {/* <div className="input-box">
-            <label for="position-select">직급: </label>
-              <select name="position" id="position-select">
-                  <option value="alba">알바생</option>
-              </select>
-            </div> */}
           </div>
           <div className="right-box">
             <div className="right-top">

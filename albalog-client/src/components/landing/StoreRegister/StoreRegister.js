@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
 import { APIURL } from 'config';
 import { connect } from 'react-redux';
 import { SetShop } from 'modules/shop';
-import { withRouter } from 'react-router';
 
 const StoreRegister = ({
   ToggleButton,
