@@ -1,18 +1,11 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import { SetShop } from 'modules/shop';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { connect } from 'react-redux';
 import 'components/landing/StoreRegister/StoreRegister.scss';
+import { updateStore } from 'utils/api/store';
 
-const StoreEdit = ({
-  StateToggleButton,
-  user,
-  shop,
-  dispatchSetShop,
-  history,
-}) => {
+const StoreEdit = ({ StateToggleButton, shop }) => {
   const [address, setAddress] = useState(shop.address);
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
   const [StoreEditForm, setStoreEditForm] = useState({
@@ -41,50 +34,37 @@ const StoreEdit = ({
     setAddressSearchOpen(!addressSearchOpen);
   };
 
-  const PostOpen = () => {
+  const PostOpen = useCallback(() => {
     setAddressSearchOpen(!addressSearchOpen);
-  };
+  }, [addressSearchOpen]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
-
     const ChangeForm = {
       ...StoreEditForm,
       [name]: value,
     };
-    console.log(ChangeForm);
     setStoreEditForm(ChangeForm);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    let StoreEditBody = {
-      name: storeName,
-      address,
-      postal_code: addressDetail,
-      phone_number: phoneNumber,
-    };
-
-    axios
-      .patch(`${APIURL}/location/${shop._id}/update`, StoreEditBody, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.status);
-        if (response.status === 200) {
-          window.location.reload(); // 새로고침
-        }
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('매장 생성에 실패했습니다.');
-        }
-      });
-  };
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await updateStore(
+          storeName,
+          address,
+          addressDetail,
+          phoneNumber,
+          shop._id,
+        );
+        window.location.reload();
+      } catch (e) {
+        alert('수정에 실패했습니다.');
+      }
+    },
+    [storeName, address, addressDetail, phoneNumber, shop._id],
+  );
 
   const postCodeStyle = {
     display: 'block',

@@ -1,8 +1,9 @@
 import Loading from 'components/Loading/Loading';
 import { SetShop } from 'modules/shop';
 import React, { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { connect } from 'react-redux';
-import client from 'utils/api';
+import { getStoreForOwner, getStoreForParttime } from 'utils/api/store';
 import StoreEdit from '../StoreEdit/StoreEdit';
 import './StoreList.scss';
 
@@ -12,36 +13,31 @@ const StoreList = ({ user, dispatchSetshop }) => {
   const [dataState, setDataState] = useState(0);
   const [editState, setEditState] = useState(false);
   useEffect(() => {
+    const getDataForOwner = async () => {
+      const locations = await getStoreForOwner();
+      setLocations(locations);
+      setDataState(1);
+    };
+
+    const getDataForParttime = async () => {
+      const locations = await getStoreForParttime();
+      setLocations(locations);
+      setDataState(1);
+    };
+
     if (role === 'owner') {
-      client
-        .get(`/owner/me/locations`)
-        .then((response) => {
-          setLocations(response.data.locations);
-          setDataState(1);
-        })
-        .catch((error) => {
-          setDataState(1);
-        });
-    } else if (role === 'staff') {
-      client
-        .get(`/employee/locations`)
-        .then((response) => {
-          setLocations(response.data.locations);
-          setDataState(1);
-        })
-        .catch((error) => {
-          setDataState(1);
-        });
+      getDataForOwner();
+    } else {
+      getDataForParttime();
     }
   }, [role]);
 
-  const StateToggleButton = () => {
+  const StateToggleButton = useCallback(() => {
     setEditState(!editState);
-  };
+  }, [editState]);
 
   const EditHandle = (location) => {
     StateToggleButton();
-
     let shopBody = {
       _id: location._id,
       name: location.name,

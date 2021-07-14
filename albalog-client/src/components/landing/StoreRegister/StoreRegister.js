@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
-import axios from 'axios';
-import { APIURL } from 'config';
 import { connect } from 'react-redux';
 import { SetShop } from 'modules/shop';
+import { createStore } from 'utils/api/store';
 
-const StoreRegister = ({
-  ToggleButton,
-  user,
-  shop,
-  dispatchSetShop,
-  history,
-}) => {
+const StoreRegister = ({ ToggleButton }) => {
   const [address, setAddress] = useState('');
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
   const [storeRegisterForm, setStoreRegisterForm] = useState({
@@ -52,41 +45,21 @@ const StoreRegister = ({
       ...storeRegisterForm,
       [name]: value,
     };
-    console.log(ChangeForm);
     setStoreRegisterForm(ChangeForm);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    let StoreRegisterBody = {
-      name: storeName,
-      address,
-      postal_code: addressDetail,
-      phone_number: phoneNumber,
-    };
-
-    axios
-      .post(`${APIURL}/location`, StoreRegisterBody, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-
-        if (response.data) {
-          // 나중에 동완님이 status 코드를 201에서 200 으로 바꿔주면 response.status === 200 으로 바꿀 예정
-          window.location.reload(); // 새로고침
-        }
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('매장 생성에 실패했습니다.');
-        }
-      });
-  };
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await createStore(storeName, address, addressDetail, phoneNumber);
+        window.location.reload();
+      } catch (e) {
+        alert('매장 생성에 실패했습니다.');
+      }
+    },
+    [storeName, address, addressDetail, phoneNumber],
+  );
 
   const postCodeStyle = {
     display: 'block',
