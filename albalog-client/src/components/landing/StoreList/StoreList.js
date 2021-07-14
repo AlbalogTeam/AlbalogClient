@@ -14,15 +14,23 @@ const StoreList = ({ user, dispatchSetshop }) => {
   const [editState, setEditState] = useState(false);
   useEffect(() => {
     const getDataForOwner = async () => {
-      const locations = await getStoreForOwner();
-      setLocations(locations);
-      setDataState(1);
+      try {
+        const locations = await getStoreForOwner();
+        setLocations(locations);
+        setDataState(1);
+      } catch (e) {
+        setDataState(1);
+      }
     };
 
     const getDataForParttime = async () => {
-      const locations = await getStoreForParttime();
-      setLocations(locations);
-      setDataState(1);
+      try {
+        const locations = await getStoreForParttime();
+        setLocations(locations);
+        setDataState(1);
+      } catch (e) {
+        setDataState(1);
+      }
     };
 
     if (role === 'owner') {

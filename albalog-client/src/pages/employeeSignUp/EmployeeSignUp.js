@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -9,6 +7,7 @@ import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
 import { withRouter } from 'react-router-dom';
+import { getInviteToken, parttimeRegister } from 'utils/api/user';
 
 function EmployeeSignUp({ match }) {
   const [employeeInfo, setEmployeeInfo] = useState({
@@ -27,10 +26,9 @@ function EmployeeSignUp({ match }) {
     gender: '',
     checkbox: checkState,
   });
-  // 밑에거는 form객체의 비구조할당
+
   const { password, passwordCheck, cellphone, birthdate, gender, checkbox } =
     form;
-  // console.log(email);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -39,8 +37,6 @@ function EmployeeSignUp({ match }) {
 
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
-    // console.log(value, name);
-    // console.log(e.target.value, e.target.name);
     const nextForm = {
       ...form,
       [name]: value,
@@ -52,87 +48,70 @@ function EmployeeSignUp({ match }) {
     setCheckState(!checkState);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    let body = {
-      name: user_name,
-      email: user_email,
-      password,
-      birthdate,
-      cellphone,
-      gender,
-    };
-    console.log(body);
-    axios
-      .post(`${APIURL}/employee/${shopId}/signup`, body)
-      .then((response) => {
-        console.log(response.data);
-        const token = response.data.token;
-        const decoded = jwt.verify(token, TOKENKEY);
-        console.log(decoded);
+    try {
+      const response = await parttimeRegister(
+        user_name,
+        user_email,
+        password,
+        birthdate,
+        cellphone,
+        gender,
+        shopId,
+      );
+      const token = response.data.token;
+      const decoded = jwt.verify(token, TOKENKEY);
 
-        let userBody = {
-          _id: response.data.employee._id,
-          email: response.data.employee.email,
-          name: response.data.employee.name,
-          role: decoded.role,
-          token: response.data.token,
-        };
+      let userBody = {
+        _id: response.data.employee._id,
+        email: response.data.employee.email,
+        name: response.data.employee.name,
+        role: decoded.role,
+        token: response.data.token,
+      };
 
-        let parttimeBody = {
-          stores: response.data.employee.stores,
-          birthdate: response.data.employee.birthdate,
-          hourly_wage: response.data.employee.hourly_wage,
-          gender: response.data.employee.gender,
-          timeClocks: response.data.employee.timeClocks,
-          status: response.data.employee.status,
-          cellphone: response.data.employee.cellphone,
-        };
-        dispatch(SetUser(userBody));
-        dispatch(SetParttime(parttimeBody));
-        sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('회원가입에 실패했습니다.');
-        }
-      });
-    // console.log(form);
+      let parttimeBody = {
+        stores: response.data.employee.stores,
+        birthdate: response.data.employee.birthdate,
+        hourly_wage: response.data.employee.hourly_wage,
+        gender: response.data.employee.gender,
+        timeClocks: response.data.employee.timeClocks,
+        status: response.data.employee.status,
+        cellphone: response.data.employee.cellphone,
+      };
+      dispatch(SetUser(userBody));
+      dispatch(SetParttime(parttimeBody));
+      sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
+    } catch (e) {
+      alert('회원가입에 실패했습니다.');
+    }
   };
   useEffect(() => {
     const inviteToken = match.params.invitetoken;
-    axios
-      .get(`${APIURL}/employee/${shopId}/${inviteToken}/signup`)
-      .then((response) => {
-        console.log(response.data);
+    const getData = async () => {
+      try {
+        const response = await getInviteToken(shopId, inviteToken);
         const nextForm = {
           ...employeeInfo,
           location_name: response.data.location_name,
           user_email: response.data.user_email,
           user_name: response.data.user_name,
         };
-
         setEmployeeInfo(nextForm);
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('유효하지 않은 링크입니다.');
-          history.push('/login');
-        }
-      });
-
+      } catch (e) {
+        alert('유효하지 않은 링크입니다.');
+        history.push('/login');
+      }
+    };
+    getData();
     if (user.email) {
-      console.log('유저가 있습니다');
-      history.push('/'); // 홈 화면으로 이동
+      history.push('/');
       try {
         sessionStorage.setItem('user', JSON.stringify(user));
       } catch (e) {
         console.log('로컬스토리지 저장에 실패했습니다');
       }
-    } else {
-      console.log('유저가 없습니다');
     }
   }, [history, user, employeeInfo, match.params.invitetoken, shopId]);
 
