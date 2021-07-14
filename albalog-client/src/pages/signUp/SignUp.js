@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ChangeField } from 'modules/auth';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -6,9 +5,10 @@ import jwt from 'jsonwebtoken';
 import './SignUp.scss';
 import { SetUser } from 'modules/user';
 import { useHistory } from 'react-router-dom';
-import { APIURL, TOKENKEY } from 'config';
+import { TOKENKEY } from 'config';
+import { checkEmailValidation, ownerRegister } from 'utils/api/user';
 
-function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
+function SignUp({ form, user, dispatchChangeField, dispatchSetUser }) {
   const history = useHistory();
   const [formValid, setFormValid] = useState({
     emailValid: 10,
@@ -37,23 +37,19 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
   };
 
   // 이메일 중복 확인
-  const emailValidation = () => {
-    axios
-      .post(`${APIURL}/owner/check`, { email })
-      .then((response) => {
-        const nextForm = {
-          ...formValid,
-          emailValid: 0,
-        };
-        setFormValid(nextForm);
-      })
-      .catch((error) => {
-        const nextForm = {
-          ...formValid,
-          emailValid: 1,
-        };
-        setFormValid(nextForm);
+  const emailValidation = async () => {
+    try {
+      await checkEmailValidation(email);
+      setFormValid({
+        ...formValid,
+        emailValid: 0,
       });
+    } catch (e) {
+      setFormValid({
+        ...formValid,
+        emailValid: 1,
+      });
+    }
   };
 
   // 비밀번호 유효성 체크
@@ -62,77 +58,62 @@ function SignUp({ form, user, auth, dispatchChangeField, dispatchSetUser }) {
     let eng = /[a-zA-Z]/;
     console.log(num.test(pw));
     if (pw.length < 6) {
-      const nextForm = {
+      setFormValid({
         ...formValid,
         passwordValid: 1,
-      };
-      setFormValid(nextForm);
+      });
       return;
     }
-
     if (num.test(pw) === false || eng.test(pw) === false) {
-      const nextForm = {
+      setFormValid({
         ...formValid,
         passwordValid: 1,
-      };
-      setFormValid(nextForm);
+      });
       return;
     }
-    const nextForm = {
+    setFormValid({
       ...formValid,
       passwordValid: 0,
-    };
-    setFormValid(nextForm);
+    });
   };
 
   // 비밀번호확인 유효성 체크
   const passwordCheckValidateion = (pwCheck) => {
     if (password !== pwCheck) {
-      const nextForm = {
+      setFormValid({
         ...formValid,
         passwordCheckValid: 1,
-      };
-      setFormValid(nextForm);
+      });
     } else {
-      const nextForm = {
+      setFormValid({
         ...formValid,
         passwordCheckValid: 0,
-      };
-      setFormValid(nextForm);
+      });
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (emailValid !== 0 || passwordValid !== 0 || passwordCheckValid !== 0) {
       alert('양식을 정확히 입력해주세요');
       return;
     }
-
-    let registerBody = {
-      email,
-      name,
-      password,
-    };
-
-    axios
-      .post(`${APIURL}/owner/signup`, registerBody)
-      .then((response) => {
-        const token = response.data.token;
-        const decoded = jwt.verify(token, TOKENKEY);
-
-        let userBody = {
-          _id: response.data.employer._id,
-          email: response.data.employer.email,
-          name: response.data.employer.name,
-          role: decoded.role,
-          token: response.data.token,
-        };
-        dispatchSetUser(userBody);
-      })
-      .catch((error) => {
-        alert('회원가입에 실패했습니다.');
-      });
+    try {
+      const response = await ownerRegister(email, name, password);
+      const token = response.data.token;
+      const decoded = jwt.verify(token, TOKENKEY);
+      let userBody = {
+        _id: response.data.employer._id,
+        email: response.data.employer.email,
+        name: response.data.employer.name,
+        role: decoded.role,
+        token: response.data.token,
+      };
+      dispatchSetUser(userBody);
+    } catch (e) {
+      alert('회원가입에 실패했습니다.');
+      console.log(e);
+    }
   };
 
   useEffect(() => {

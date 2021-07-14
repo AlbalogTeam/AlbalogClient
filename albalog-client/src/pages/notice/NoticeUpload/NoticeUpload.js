@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import './NoticeUpload.scss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Header from 'components/Header/Header';
-import Aside from 'components/Aside/Aside';
-import Footer from 'components/Footer/Footer';
-import client from 'utils/api';
+import Header from 'components/Header';
+import Aside from 'components/Aside';
+import Footer from 'components/Footer';
+import { createNotice } from 'utils/api/notice';
 
 const NoticeUpload = ({ shop }) => {
   const [noticeContent, setNoticeContent] = useState({
@@ -17,30 +17,29 @@ const NoticeUpload = ({ shop }) => {
 
   const { title, content } = noticeContent;
 
-  const titleOnChange = (e) => {
-    const nextForm = {
-      ...noticeContent,
-      title: e.target.value,
-    };
-    setNoticeContent(nextForm);
-  };
+  const onChangeTitle = useCallback(
+    (e) => {
+      const nextForm = {
+        ...noticeContent,
+        title: e.target.value,
+      };
+      setNoticeContent(nextForm);
+    },
+    [noticeContent],
+  );
 
-  const noticeOnSubmit = (e) => {
-    e.preventDefault();
-
-    let body = {
-      title,
-      content,
-    };
-
-    client
-      .post(`/location/${shop._id}/notice/create`, body)
-      .then((response) => {
-        if (response.status === 201) {
-          window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
-        }
-      });
-  };
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await createNotice(title, content, shop._id);
+        window.location.replace(`/${shop._id}/notice`);
+      } catch (e) {
+        alert('공지등록에 실패하였습니다.');
+      }
+    },
+    [content, title, shop._id],
+  );
 
   return (
     <>
@@ -48,11 +47,11 @@ const NoticeUpload = ({ shop }) => {
       <Aside />
       <div id="NoticeUpload" className="page-layout">
         <div className="upload-form">
-          <form action="" onSubmit={noticeOnSubmit}>
+          <form action="" onSubmit={onSubmit}>
             <input
               type="text"
               value={title}
-              onChange={titleOnChange}
+              onChange={onChangeTitle}
               placeholder="제목을 입력하세요"
               autoComplete="off"
             />
@@ -74,7 +73,6 @@ const NoticeUpload = ({ shop }) => {
                 }}
                 onChange={(event, editor) => {
                   const data = editor.getData();
-                  // console.log({ event, editor, data });
                   const nextForm = {
                     ...noticeContent,
                     content: data,
