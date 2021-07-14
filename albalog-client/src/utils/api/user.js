@@ -93,3 +93,19 @@ export const parttimeLogout = async () => {
   const response = await client.post('/employee/logout');
   return response;
 };
+
+// 이미 가입된 직원 가입시 정보 불러오기
+export const getJoinInfo = async (shopId, invitetoken) => {
+  const response = await axios.get(
+    `${APIURL}/location/${shopId}/${invitetoken}/join`,
+  );
+  return response;
+};
+
+// 이미 가입된 직원 매장 가입 시키기
+export const Join = async (shopId, invitetoken) => {
+  const response = await axios.post(
+    `${APIURL}/location/${shopId}/${invitetoken}/join`,
+  );
+  return response;
+};
