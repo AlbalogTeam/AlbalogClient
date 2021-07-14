@@ -34,7 +34,7 @@ const Landing = () => {
     } else if (user.role === 'staff') {
       try {
         await parttimeLogout();
-        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+        sessionStorage.removeItem('user');
         sessionStorage.removeItem('parttime');
         dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
       } catch (e) {
@@ -47,7 +47,7 @@ const Landing = () => {
       <div className="landing-header">
         <div className="inner-header">
           <span>
-            <b>이도현</b>님 안녕하세요
+            <b>{user.name}</b>님 안녕하세요
           </span>
           <button type="button" onClick={logOutHandler}>
             로그아웃
