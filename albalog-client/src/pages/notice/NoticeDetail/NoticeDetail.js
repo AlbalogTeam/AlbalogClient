@@ -57,9 +57,9 @@ const NoticeDetail = ({ match, shop, user }) => {
             dangerouslySetInnerHTML={{ __html: content }}
           ></div>
           <div className="content-btn">
-            <a href={`/${shop._id}/notice`} className="btn-list">
+            <Link to={`/${shop._id}/notice`} className="btn-list">
               목록
-            </a>
+            </Link>
 
             {user.role === 'owner' && (
               <>

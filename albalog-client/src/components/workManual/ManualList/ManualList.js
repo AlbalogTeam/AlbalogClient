@@ -1,3 +1,4 @@
+import ModalLoading from 'components/Loading/ModalLoading';
 import NoDataType1 from 'components/NoData/NoDataType1';
 import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +11,7 @@ import ManualEdit from '../ManualEdit/ManualEdit';
 const ManualList = ({ category, user, shop }) => {
   const [manualList, setManualList] = useState([]);
   const [editState, setEditState] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
   const render = useSelector((state) => state.render);
   const dispatch = useDispatch();
 
@@ -35,6 +37,7 @@ const ManualList = ({ category, user, shop }) => {
 
   useEffect(() => {
     const getData = async () => {
+      setLoadingState(false);
       const workmanuals = await getWorkManuals(shop._id);
       if (category === 'all') {
         setManualList(workmanuals);
@@ -43,6 +46,7 @@ const ManualList = ({ category, user, shop }) => {
           workmanuals.filter((manual) => manual.category_id.name === category),
         );
       }
+      setLoadingState(true);
     };
     if (shop.name) {
       getData();
@@ -51,11 +55,10 @@ const ManualList = ({ category, user, shop }) => {
 
   return (
     <div className="manual-list">
-      {!manualList.length && shop._id && (
+      {!manualList.length && shop._id && loadingState && (
         <NoDataType1 text={'등록된 업무 매뉴얼이 없습니다.'} />
       )}
-
-      {manualList && (
+      {loadingState === true && manualList ? (
         <ul>
           {manualList.map((manual, index) => {
             return (
@@ -79,7 +82,10 @@ const ManualList = ({ category, user, shop }) => {
             );
           })}
         </ul>
+      ) : (
+        <ModalLoading />
       )}
+
       {editState && (
         <ManualEdit editState={editState} ToggleButton={ToggleButton} />
       )}
