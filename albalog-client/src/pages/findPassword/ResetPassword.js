@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import React from 'react';
 import { useState } from 'react';
 import { withRouter } from 'react-router-dom';

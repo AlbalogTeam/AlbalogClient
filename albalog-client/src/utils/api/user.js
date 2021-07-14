@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { APIURL } from 'config';
+import client from 'utils/api';
 
 // 이메일 중복확인
 export const checkEmailValidation = async (email) => {
@@ -78,5 +79,33 @@ export const resetPassword = async (tokenId, newPassword) => {
     newPassword,
   };
   const response = await axios.patch(`${APIURL}/reset_password`, body);
+  return response;
+};
+
+// 관리자 로그아웃
+export const ownerLogout = async () => {
+  const response = await client.post('/owner/logout');
+  return response;
+};
+
+// 알바 로그아웃
+export const parttimeLogout = async () => {
+  const response = await client.post('/employee/logout');
+  return response;
+};
+
+// 이미 가입된 직원 가입시 정보 불러오기
+export const getJoinInfo = async (shopId, invitetoken) => {
+  const response = await axios.get(
+    `${APIURL}/location/${shopId}/${invitetoken}/join`,
+  );
+  return response;
+};
+
+// 이미 가입된 직원 매장 가입 시키기
+export const Join = async (shopId, invitetoken) => {
+  const response = await axios.post(
+    `${APIURL}/location/${shopId}/${invitetoken}/join`,
+  );
   return response;
 };

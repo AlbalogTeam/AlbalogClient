@@ -7,12 +7,22 @@
   left: 0;
   bottom: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #f9f9f9;
+  .landing-header {
+    width: 100%;
+    padding: 20px 50px;
+    overflow: hidden;
+    margin-bottom: 100px;
+    .inner-header {
+      float: right;
+      button {
+        margin-left: 20px;
+      }
+    }
+  }
   .shop {
     width: 100%;
+    padding: 50px 0;
     .landing {
       width: 650px;
       margin: 0 auto;
