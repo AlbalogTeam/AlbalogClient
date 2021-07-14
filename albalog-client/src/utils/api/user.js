@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { APIURL } from 'config';
+import client from 'utils/api';
 
 // 이메일 중복확인
 export const checkEmailValidation = async (email) => {
@@ -78,5 +79,17 @@ export const resetPassword = async (tokenId, newPassword) => {
     newPassword,
   };
   const response = await axios.patch(`${APIURL}/reset_password`, body);
+  return response;
+};
+
+// 관리자 로그아웃
+export const ownerLogout = async () => {
+  const response = await client.post('/owner/logout');
+  return response;
+};
+
+// 알바 로그아웃
+export const parttimeLogout = async () => {
+  const response = await client.post('/employee/logout');
   return response;
 };

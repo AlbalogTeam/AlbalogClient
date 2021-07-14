@@ -12,6 +12,7 @@ import client from 'utils/api';
 import { FaStoreAlt } from 'react-icons/fa';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
+import { ownerLogout, parttimeLogout } from 'utils/api/user';
 
 const Header = ({
   user,
@@ -29,7 +30,7 @@ const Header = ({
     setIsModal(!isModal);
   };
 
-  const logOutHandler = () => {
+  const logOutHandler = async () => {
     let UserBody = {
       _id: '',
       email: '',
@@ -38,32 +39,22 @@ const Header = ({
       token: '',
     };
     if (user.role === 'owner') {
-      client
-        .post('/owner/logout')
-        .then((response) => {
-          sessionStorage.removeItem('user'); // sessionStorage user를 제거
-          dispatchSetUser(UserBody); // user redux를 초기값으로 설정
-        })
-        .catch(function (error) {
-          // status 코드가 200이 아닌경우 처리
-          if (error) {
-            alert('로그아웃에 실패했습니다.');
-          }
-        });
+      try {
+        await ownerLogout();
+        sessionStorage.removeItem('user'); // sessionStorage user를 제거
+        dispatchSetUser(UserBody); // user redux를 초기값으로 설정
+      } catch (e) {
+        alert('로그아웃에 실패했습니다.');
+      }
     } else if (user.role === 'staff') {
-      client
-        .post('/employee/logout')
-        .then((response) => {
-          sessionStorage.removeItem('user'); // localStorage에서 user를 제거
-          dispatchSetUser(UserBody); // user redux를 초기값으로 설정
-          sessionStorage.removeItem('parttime');
-        })
-        .catch(function (error) {
-          // status 코드가 200이 아닌경우 처리
-          if (error) {
-            alert('로그아웃에 실패했습니다.');
-          }
-        });
+      try {
+        await parttimeLogout();
+        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+        sessionStorage.removeItem('parttime');
+        dispatchSetUser(UserBody); // user redux를 초기값으로 설정
+      } catch (e) {
+        alert('로그아웃에 실패했습니다.');
+      }
     }
   };
 
@@ -72,15 +63,11 @@ const Header = ({
       const shopId = match.params.shop;
       if (user.role === 'owner') {
         client.get(`/location/${shopId}`).then((response) => {
-          console.log(response.data);
           let shopBody = response.data;
-
           dispatchSetShop(shopBody);
         });
       } else if (user.role === 'staff') {
         client.get(`/employee/${shopId}`).then((response) => {
-          console.log(response.data);
-
           let shopBody = {
             _id: response.data._id,
             name: response.data.name,
