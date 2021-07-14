@@ -25,6 +25,7 @@ import EmployeeSignUp from 'pages/employeeSignUp';
 import MobileCategory from 'pages/mobileCategory';
 import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
+import EmployeeJoin from 'pages/employeeJoin';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -106,7 +107,6 @@ const App = () => {
             component={Authentication(AdminEmployeePage, true, 'admin')}
           />
 
-
           <Route
             path="/parttime/:shop?"
             exact
@@ -131,6 +131,12 @@ const App = () => {
             path="/parttime/:shop/:invitetoken/signup"
             exact
             component={Authentication(EmployeeSignUp, false)}
+          />
+
+          <Route
+            path="/parttime/:shop/:invitetoken/join"
+            exact
+            component={Authentication(EmployeeJoin, false)}
           />
         </Switch>
       </div>

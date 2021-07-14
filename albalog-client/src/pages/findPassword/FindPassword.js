@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import React, { useState } from 'react';
 import { findPasswordEmail } from 'utils/api/user';
 import './FindPassword.scss';

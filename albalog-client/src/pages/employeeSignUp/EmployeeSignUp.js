@@ -113,7 +113,7 @@ function EmployeeSignUp({ match }) {
         console.log('로컬스토리지 저장에 실패했습니다');
       }
     }
-  }, [history, user, employeeInfo, match.params.invitetoken, shopId]);
+  }, [history, user, match.params.invitetoken, shopId]);
 
   return (
     <div className="EmployeeSignUp">

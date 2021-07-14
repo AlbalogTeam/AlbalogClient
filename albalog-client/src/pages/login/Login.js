@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { TOKENKEY } from 'config';
-import { APIURL } from 'config';
 import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
