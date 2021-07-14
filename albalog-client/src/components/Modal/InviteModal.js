@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { APIURL } from 'config.js';
 import './Modal.scss';
 import { useSelector } from 'react-redux';
+import client from 'utils/api';
 
 const InviteModal = ({ handleModal }) => {
   const [form, setForm] = useState({
@@ -27,20 +28,12 @@ const InviteModal = ({ handleModal }) => {
 
     const postForm = async () => {
       try {
-        const response = await axios.post(
-          `${APIURL}/location/${locationId}/invite`,
-          {
-            name,
-            email,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
+        const response = await client.post(`/location/${locationId}/invite`, {
+          name,
+          email,
+        });
         alert('메일 전송 성공 !');
-        console.log(response.data);
+        console.log(response);
       } catch (e) {
         console.log(e);
         alert('메일 전송을 실패하였습니다.');

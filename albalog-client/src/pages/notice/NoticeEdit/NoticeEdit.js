@@ -2,64 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import '../NoticeUpload/NoticeUpload.scss';
-import Header from 'components/Header/Header';
+import Header from 'components/Header';
 import { connect } from 'react-redux';
 import Loading from 'components/Loading/Loading';
 import { withRouter } from 'react-router';
-import Footer from 'components/Footer/Footer';
-import client from 'utils/api';
-import Aside from 'components/Aside/Aside';
+import Footer from 'components/Footer';
+import Aside from 'components/Aside';
+import { getNoticeDetail, updateNotice } from 'utils/api/notice';
 
 const NoticeEdit = ({ match, shop }) => {
   const noticeId = match.params.id;
-
-  const [noticeContent, setNoticeContent] = useState({
-    title: '',
-    content: '',
-  });
-
-  const { title, content } = noticeContent;
-
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [dataState, setDataState] = useState(0);
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await client.get(
-        `/location/${shop._id}/notice/${noticeId}`,
-      );
-      setNoticeContent({
-        ...noticeContent,
-        title: result.data.notice[0].title,
-        content: result.data.notice[0].content,
-      });
+    const getData = async () => {
+      const notice = await getNoticeDetail(shop._id, noticeId);
+      setTitle(notice.title);
+      setContent(notice.content);
       setDataState(1);
-    }
-
-    fetchData();
-  }, [shop, noticeContent, noticeId, shop._id]);
-
-  const titleOnChange = (e) => {
-    const nextForm = {
-      ...noticeContent,
-      title: e.target.value,
     };
-    setNoticeContent(nextForm);
+    if (shop._id) getData();
+  }, [shop, noticeId]);
+
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
   };
 
-  const noticeOnSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    let body = {
-      title,
-      content,
-    };
-    client
-      .patch(`/location/${shop._id}/notice/${noticeId}/update`, body)
-      .then((response) => {
-        if (response.data.updatedNotice) {
-          window.location.replace(`/${shop._id}/notice/${noticeId}`); // 페이지 이동 후 새로고침
-        }
-      });
+    try {
+      await updateNotice(title, content, shop._id, noticeId);
+      window.location.replace(`/${shop._id}/notice/${noticeId}`);
+    } catch (e) {
+      alert('공지사항 수정에 실패했습니다.');
+    }
   };
 
   return (
@@ -67,16 +45,16 @@ const NoticeEdit = ({ match, shop }) => {
       <Header />
       <Aside />
       <div id="NoticeEdit">
-        {dataState === 0 ? (
+        {dataState === 0 && shop._id ? (
           <Loading />
         ) : (
           <div className="upload-form">
-            <form action="" onSubmit={noticeOnSubmit}>
+            <form action="" onSubmit={onSubmit}>
               <input
                 type="text"
                 value={title}
                 autoComplete="off"
-                onChange={titleOnChange}
+                onChange={onChangeTitle}
                 placeholder="제목을 입력하세요"
               />
               <div className="write-cont">
@@ -97,12 +75,7 @@ const NoticeEdit = ({ match, shop }) => {
                   }}
                   onChange={(event, editor) => {
                     const data = editor.getData();
-                    // console.log({ event, editor, data });
-                    const nextForm = {
-                      ...noticeContent,
-                      content: data,
-                    };
-                    setNoticeContent(nextForm);
+                    setContent(data);
                   }}
                   editor={DecoupledEditor}
                   data={content}

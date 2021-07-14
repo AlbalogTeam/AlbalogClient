@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import React, { useState } from 'react';
+import { findPasswordEmail } from 'utils/api/user';
 import './FindPassword.scss';
 
 const FindPassword = () => {
@@ -20,20 +19,14 @@ const FindPassword = () => {
     setFindForm(nextForm);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    let body = {
-      name,
-      email,
-    };
-
-    axios.post(`${APIURL}/reset`, body).then((response) => {
-      console.log(response);
-      if (response.status === 200) {
-        alert('이메일을 확인후 비밀번호를 재발급 받으세요 !');
-      }
-    });
+    try {
+      await findPasswordEmail(name, email);
+      alert('이메일을 확인후 비밀번호를 재발급 받으세요 !');
+    } catch (e) {
+      alert('이메일을 다시 확인해주세요.');
+    }
   };
 
   return (

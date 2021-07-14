@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { APIURL } from 'config';
 import React from 'react';
 import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { resetPassword } from 'utils/api/user';
 import './FindPassword.scss';
 
 const ResetPassword = ({ match, history }) => {
@@ -86,26 +85,20 @@ const ResetPassword = ({ match, history }) => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
     if (passwordValid !== 0 || passwordCheckValid !== 0) {
       alert('양식을 정확히 입력해주세요');
       return;
     }
 
-    let body = {
-      tokenId,
-      newPassword: password,
-    };
-
-    axios.patch(`${APIURL}/reset_password`, body).then((response) => {
-      console.log(response);
-      if (response.status === 200) {
-        alert('비밀번호가 변경되었습니다');
-        history.push('/');
-      }
-    });
+    try {
+      await resetPassword(tokenId, password);
+      alert('비밀번호가 변경되었습니다');
+      history.push('/');
+    } catch (e) {
+      alert('비밀번호 변경에 실패했습니다.');
+    }
   };
 
   return (

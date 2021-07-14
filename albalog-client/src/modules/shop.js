@@ -17,7 +17,6 @@ const shop = createSlice({
   initialState,
   reducers: {
     SetShop: (state, action) => {
-      console.log(`shop-payload : ${action.payload}`);
       const {
         _id,
         name,

@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { TOKENKEY } from 'config';
-import { APIURL } from 'config';
 import jwt from 'jsonwebtoken';
 import { ChangeField } from 'modules/auth';
 import { SetUser } from 'modules/user';
@@ -10,11 +8,11 @@ import { useHistory } from 'react-router';
 import './Login.scss';
 import banner from 'static/banner.png';
 import { SetParttime } from 'modules/parttime';
+import { login } from 'utils/api/user';
 
 function Login({
   form,
   user,
-  parttime,
   dispatchSetParttime,
   dispatchChangeField,
   dispatchSetUser,
@@ -30,51 +28,38 @@ function Login({
     dispatchChangeField(FormBody);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = form;
+    try {
+      const response = await login(email, password);
+      const token = response.data.token;
+      const decoded = jwt.verify(token, TOKENKEY);
+      let userBody = {
+        _id: response.data.user._id,
+        email: response.data.user.email,
+        name: response.data.user.name,
+        role: decoded.role,
+        token: response.data.token,
+      };
 
-    let loginBody = {
-      email,
-      password,
-    };
-
-    axios
-      .post(`${APIURL}/login`, loginBody)
-      .then((response) => {
-        const token = response.data.token;
-        const decoded = jwt.verify(token, TOKENKEY);
-        console.log(response);
-
-        let userBody = {
-          _id: response.data.user._id,
-          email: response.data.user.email,
-          name: response.data.user.name,
-          role: decoded.role,
-          token: response.data.token,
+      if (decoded.role === 'staff') {
+        let parttimeBody = {
+          stores: response.data.user.stores,
+          birthdate: response.data.user.birthdate,
+          hourly_wage: response.data.user.hourly_wage,
+          gender: response.data.user.gender,
+          timeClocks: response.data.user.timeClocks,
+          status: response.data.user.status,
+          cellphone: response.data.user.cellphone,
         };
-
-        if (decoded.role === 'staff') {
-          let parttimeBody = {
-            stores: response.data.user.stores,
-            birthdate: response.data.user.birthdate,
-            hourly_wage: response.data.user.hourly_wage,
-            gender: response.data.user.gender,
-            timeClocks: response.data.user.timeClocks,
-            status: response.data.user.status,
-            cellphone: response.data.user.cellphone,
-          };
-          dispatchSetParttime(parttimeBody);
-          sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
-        }
-        dispatchSetUser(userBody);
-      })
-      .catch(function (error) {
-        // status 코드가 200이 아닌경우 처리
-        if (error) {
-          alert('로그인에 실패했습니다.');
-        }
-      });
+        dispatchSetParttime(parttimeBody);
+        sessionStorage.setItem('parttime', JSON.stringify(parttimeBody));
+      }
+      dispatchSetUser(userBody);
+    } catch (e) {
+      alert('로그인에 실패했습니다.');
+    }
   };
 
   useEffect(() => {

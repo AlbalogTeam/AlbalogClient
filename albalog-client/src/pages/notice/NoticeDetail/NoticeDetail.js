@@ -3,48 +3,42 @@ import Footer from 'components/Footer';
 import Header from 'components/Header';
 import Loading from 'components/Loading/Loading';
 import MessageModal from 'components/Modal/MessageModal';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import client from 'utils/api';
+import { deleteNotice, getNoticeDetail } from 'utils/api/notice';
 import './NoticeDetail.scss';
 
 const NoticeDetail = ({ match, shop, user }) => {
   const noticeId = match.params.id;
   const [messageModalState, setMessageModalState] = useState(false);
   const [noticeDate, setNoticeDate] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-  const [noticeInfo, setNoticeInfo] = useState({
-    title: '',
-    content: '',
-  });
-
-  const { title, content } = noticeInfo;
-  const noticeLength = shop.notices.length; // 게시물 길이
   useEffect(() => {
-    client.get(`/location/${shop._id}/notice/${noticeId}`).then((response) => {
-      setNoticeDate(response.data.notice[0].updatedAt.slice(0, 10));
-      setNoticeInfo({
-        ...noticeInfo,
-        title: response.data.notice[0].title,
-        content: response.data.notice[0].content,
-      });
-    });
-  }, [shop, noticeId, noticeInfo]);
+    const getData = async () => {
+      const notice = await getNoticeDetail(shop._id, noticeId);
+      setNoticeDate(notice.updatedAt.slice(0, 10));
+      setTitle(notice.title);
+      setContent(notice.content);
+    };
+    if (shop._id) getData();
+  }, [shop, noticeId]);
 
-  const noticeDelete = () => {
-    client
-      .delete(`/location/${shop._id}/notice/${noticeId}/delete`)
-      .then((response) => {
-        if (response.data.deletedNotice) {
-          window.location.replace(`/${shop._id}/notice`); // 페이지 이동 후 새로고침
-        }
-      });
-  };
+  // 공지 삭제
+  const onDelete = useCallback(async () => {
+    try {
+      await deleteNotice(shop._id, noticeId);
+      window.location.replace(`/${shop._id}/notice`);
+    } catch (e) {
+      alert('공지 삭제에 실패했습니다.');
+    }
+  }, [noticeId, shop._id]);
 
-  const messageModalToggle = () => {
+  const messageModalToggle = useCallback(() => {
     setMessageModalState(!messageModalState);
-  };
+  }, [messageModalState]);
 
   return (
     <>
@@ -63,22 +57,6 @@ const NoticeDetail = ({ match, shop, user }) => {
             dangerouslySetInnerHTML={{ __html: content }}
           ></div>
           <div className="content-btn">
-            {noticeId > 1 ? (
-              <a href={`/notice/${noticeId - 1}`} className="btn-move">
-                이전
-              </a>
-            ) : (
-              ''
-            )}
-
-            {noticeId < noticeLength ? (
-              <a href={`/notice/${noticeId + 1}`} className="btn-move">
-                다음
-              </a>
-            ) : (
-              ''
-            )}
-
             <a href={`/${shop._id}/notice`} className="btn-list">
               목록
             </a>
@@ -100,7 +78,7 @@ const NoticeDetail = ({ match, shop, user }) => {
             {messageModalState && (
               <MessageModal
                 messageModalToggle={messageModalToggle}
-                deleteCont={noticeDelete}
+                deleteCont={onDelete}
               />
             )}
           </div>
