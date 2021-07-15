@@ -13,14 +13,17 @@ import { FaStoreAlt } from 'react-icons/fa';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
 import { ownerLogout, parttimeLogout } from 'utils/api/user';
+import { SetAllShift } from 'modules/allShift';
 
 const Header = ({
   user,
   shop,
   parttime,
+  allShift,
   dispatchSetParttime,
   dispatchSetUser,
   dispatchSetShop,
+  dispatchSetAllShift,
   match,
 }) => {
   const [isModal, setIsModal] = useState(false);
@@ -82,12 +85,24 @@ const Header = ({
           dispatchSetShop(shopBody);
         });
       }
-    }
-
-    if (!user.email) {
+    } else if (!user.email) {
       window.location.replace('/login');
+    } else if (shop._id) {
+      client.get(`/shift/location/${shop._id}`).then((response) => {
+        let shiftBody = response.data.map((a) => {
+          const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+          const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+          let newData = {
+            title: a.title,
+            start: new Date(st),
+            end: new Date(ed),
+          };
+          return newData;
+        });
+        dispatchSetAllShift(shiftBody);
+      });
     }
-  }, [user, dispatchSetShop, match.params.shop, shop._id]);
+  }, [user, dispatchSetShop, match.params.shop, shop._id, dispatchSetAllShift]);
 
   // payroll과 개인스케줄을 리덕스에 추가
   useEffect(() => {
@@ -112,8 +127,6 @@ const Header = ({
           payrolls: responseP.data,
           one_shift: shift,
         };
-        console.log(shiftParttime);
-        sessionStorage.setItem('parttime', JSON.stringify(shiftParttime));
         dispatchSetParttime(shiftParttime);
       } catch (error) {
         console.log('payroll', error);
@@ -162,7 +175,12 @@ const Header = ({
 };
 
 function mapStateToProps(state) {
-  return { user: state.user, shop: state.shop, parttime: state.parttime };
+  return {
+    user: state.user,
+    shop: state.shop,
+    parttime: state.parttime,
+    allShift: state.allShift,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -170,6 +188,7 @@ function mapDispatchToProps(dispatch) {
     dispatchSetUser: (UserBody) => dispatch(SetUser(UserBody)),
     dispatchSetShop: (ShopBody) => dispatch(SetShop(ShopBody)),
     dispatchSetParttime: (ParttimeBody) => dispatch(SetParttime(ParttimeBody)),
+    dispatchSetAllShift: (shiftBody) => dispatch(SetAllShift(shiftBody)),
   };
 }
 

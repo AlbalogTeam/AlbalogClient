@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import 'components/partTime/accountinfo/ProfileInfo.scss';
 import client from 'utils/api';
 import { useDispatch, useSelector } from 'react-redux';

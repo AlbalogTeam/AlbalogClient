@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import 'pages/partTime/schedule/ParttimeScheduler.scss';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
@@ -9,7 +9,6 @@ import Header from '../../../components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
 import Loading from 'components/Loading/Loading';
 
 const locales = {
@@ -28,38 +27,13 @@ const year = today.getFullYear();
 const month = today.getMonth();
 const date = today.getDate();
 
-function ParttimeScheduler() {
-  const user = useSelector((state) => state.user);
-  const shop = useSelector((state) => state.shop);
+function ParttimeScheduler({ option }) {
+  console.log(option);
   const parttime = useSelector((state) => state.parttime);
-  const [personalShifts, setPersonalShifts] = useState(
-    parttime.one_shift || [],
-  );
-  const [allShifts, setAllShifts] = useState([]);
-  const [selectedRadio, setSelectedRadio] = useState('all');
-
-  const getAllSchedule = useCallback(async () => {
-    try {
-      const response = await client.get(`/shift/location/${shop._id}`);
-      console.log(response);
-      let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000); //540 * 60 * 1000
-        let newData = {
-          title: a.title,
-          start: new Date(st),
-          end: new Date(ed),
-        };
-        return newData;
-      });
-      setAllShifts(shift);
-    } catch (error) {}
-  }, [shop._id]);
-
-  useEffect(() => {
-    // getPersonalSchedule();
-    getAllSchedule();
-  }, [shop, getAllSchedule]);
+  const allShift = useSelector((state) => state.allShift);
+  const [personalShifts] = useState(parttime.one_shift || []);
+  const [allShifts] = useState(allShift.allShift || []);
+  const [selectedRadio, setSelectedRadio] = useState(option || 'all');
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
@@ -93,7 +67,6 @@ function ParttimeScheduler() {
                   name="grade"
                   value="all"
                   checked={selectedRadio === 'all' ? true : false}
-                  defaultChecked
                   onChange={onChange}
                   className="content-label"
                 />

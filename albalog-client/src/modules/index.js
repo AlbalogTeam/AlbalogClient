@@ -11,6 +11,7 @@ import transition from './transition';
 import user from './user';
 import workManual from './workManual';
 import date from './date';
+import allShift from './allShift';
 
 const rootReducer = combineReducers({
   auth: auth.reducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   parttime: parttime.reducer,
   transition: transition.reducer,
   render: render.reducer,
+  allShift: allShift.reducer,
   date,
 });
 
