@@ -5,6 +5,14 @@
   .txtline {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 1.2rem;
+
+    svg {
+      width: 1rem;
+      margin: 0 1rem;
+      cursor: pointer;
+    }
   }
 
   .full-table {
@@ -21,12 +29,20 @@
       justify-content: space-between;
       padding: 8px 0;
 
+      .shift {
+        width: 40%;
+      }
       .shift p {
         font-size: 14px;
+      }
+      .working-staff {
+        width: 55%;
+        display: flex;
+        justify-content: center;
+      }
 
-        & + & {
-          margin-top: 8px;
-        }
+      .working-staff > p {
+        margin-left: 5px;
       }
 
       p {

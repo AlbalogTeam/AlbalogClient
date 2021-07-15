@@ -122,7 +122,6 @@ const Header = ({
           };
           return newData;
         });
-        console.log(shift);
         const shiftParttime = {
           ...parttime,
           payrolls: responseP.data,
