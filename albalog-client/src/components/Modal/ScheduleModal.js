@@ -37,13 +37,6 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    console.log({
-      staffId: id,
-      startDate: startDate.toISOString().substring(0, 10),
-      endDate: endDate.toISOString().substring(0, 10),
-      time: days.filter((day) => day.checked === true),
-    });
-
     try {
       const response = await client.post(
         `/shift/location/${locationId}/create`,
@@ -54,7 +47,7 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
           time: days.filter((day) => day.checked === true),
         },
       );
-      console.log(response.data);
+      handleModal();
     } catch (e) {
       console.error(e);
     }
