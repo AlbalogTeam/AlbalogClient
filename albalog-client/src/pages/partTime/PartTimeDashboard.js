@@ -114,24 +114,28 @@ function PartTimeDashboard() {
                 <div className="fullSchedule">
                   <div className="textLine">
                     <span>전체 스케줄</span>
-                    <span className="moreBtn">
-                      더보기
-                      <IoIosArrowForward />
-                    </span>
+                    <Link to={`/parttime/${shop._id}/scheduler`} option={'all'}>
+                      <span className="moreBtn">
+                        더보기
+                        <IoIosArrowForward />
+                      </span>
+                    </Link>
                   </div>
                   <div className="fullScheduleContent">
                     <DashboardFullschedule
                       year={year}
                       month={month}
                       date={date}
-                      day={day}
                     />
                   </div>
                 </div>
                 <div className="personalSchedule">
                   <div className="textLine">
                     <span>개인 스케줄</span>
-                    <Link to={`/parttime/${shop._id}/scheduler`}>
+                    <Link
+                      to={`/parttime/${shop._id}/scheduler`}
+                      option={'personal'}
+                    >
                       <span className="moreBtn">
                         더보기
                         <IoIosArrowForward />
@@ -143,7 +147,6 @@ function PartTimeDashboard() {
                       year={year}
                       month={month}
                       date={date}
-                      day={day}
                     />
                   </div>
                   <button className="">스케줄 변경 신청</button>

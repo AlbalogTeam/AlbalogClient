@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const DashboardAccount = ({ user, shop, parttime }) => {
-  const [account, setAccount] = useState({
+  const [account] = useState({
     name: user.name,
     hourly_wage: parttime.hourly_wage,
     status: parttime.status,
