@@ -30,8 +30,7 @@ const AdminSchedule = () => {
     setDeleteModalOpened(!deleteModalOpened);
   };
 
-  const handleInfoModal = async (e) => {
-    console.log(e);
+  const handleInfoModal = (e) => {
     setEmployee(e);
     setInfoModalOpened(!infoModalOpened);
   };
@@ -78,7 +77,7 @@ const AdminSchedule = () => {
 
   useEffect(() => {
     getAllSchedule();
-  }, [employeeList]);
+  }, [infoModalOpened, deleteModalOpened, isModal]);
 
   return (
     <>
