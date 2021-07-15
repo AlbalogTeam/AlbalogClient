@@ -2,7 +2,6 @@ import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import Modal from 'components/Modal/Modal';
-import SearchBox from 'components/SearchBox/SearchBox';
 import React, { useState } from 'react';
 import { IoPerson } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
@@ -56,7 +55,6 @@ const AdminEmployeeList = () => {
       <Aside />
       <div className="employeeList-container">
         <h1>직원 리스트</h1>
-        <SearchBox />
         <div className="employeeList">
           {employeeList &&
             employeeList.map((employee) => (

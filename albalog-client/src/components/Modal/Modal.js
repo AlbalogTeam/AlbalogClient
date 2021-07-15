@@ -72,7 +72,6 @@ const Modal = ({ handleModal, data }) => {
             id="birthdate"
           />
 
-
           <label htmlFor="cellphone">핸드폰번호</label>
           <input type="text" disabled value={cellphone} id="cellphone" />
 
@@ -85,21 +84,32 @@ const Modal = ({ handleModal, data }) => {
           />
 
           <label htmlFor="status">재직유무</label>
-          <select id="status" value={isStatus} onChange={changeStatus}>
-            {isStatus === '재직자' ? (
-              <>
-                <option value="재직자">재직자</option>
-                <option value="퇴직자">퇴직자</option>
-              </>
-            ) : (
-              <>
-                <option value="퇴직자">퇴직자</option>
-                <option value="재직자">재직자</option>
-              </>
-            )}
-          </select>
+          <div className="radio-group">
+            <div className="radio">
+              <input
+                type="radio"
+                value="재직자"
+                onChange={changeStatus}
+                checked={isStatus === '재직자' ? true : false}
+              />
+              <label htmlFor="">재직자</label>
+            </div>
+            <div className="radio">
+              <input
+                type="radio"
+                value="퇴직자"
+                onChange={changeStatus}
+                checked={isStatus === '퇴직자' ? true : false}
+              />
+              <label htmlFor="">퇴직자</label>
+            </div>
+          </div>
 
-          <button className="btn-invite" onClick={onSubmit}>
+          <button
+            className="btn-invite"
+            onClick={onSubmit}
+            onChange={changeStatus}
+          >
             수정하기
           </button>
           <button className="btn-close" onClick={handleModal}>
