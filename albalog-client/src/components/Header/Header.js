@@ -41,7 +41,7 @@ const Header = ({
     if (user.role === 'owner') {
       try {
         await ownerLogout();
-        sessionStorage.removeItem('user'); // sessionStorage user를 제거
+        sessionStorage.removeItem('user');
         dispatchSetUser(UserBody); // user redux를 초기값으로 설정
       } catch (e) {
         alert('로그아웃에 실패했습니다.');
@@ -49,7 +49,7 @@ const Header = ({
     } else if (user.role === 'staff') {
       try {
         await parttimeLogout();
-        sessionStorage.removeItem('user'); // localStorage에서 user를 제거
+        sessionStorage.removeItem('user');
         sessionStorage.removeItem('parttime');
         dispatchSetUser(UserBody); // user redux를 초기값으로 설정
       } catch (e) {

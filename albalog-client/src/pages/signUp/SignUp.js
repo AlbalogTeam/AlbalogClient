@@ -56,7 +56,6 @@ function SignUp({ form, user, dispatchChangeField, dispatchSetUser }) {
   const passwordValidation = (pw) => {
     let num = /[0-9]/;
     let eng = /[a-zA-Z]/;
-    console.log(num.test(pw));
     if (pw.length < 6) {
       setFormValid({
         ...formValid,
