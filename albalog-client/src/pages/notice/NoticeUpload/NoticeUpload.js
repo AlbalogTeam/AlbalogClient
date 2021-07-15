@@ -8,6 +8,7 @@ import Header from 'components/Header';
 import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import { createNotice } from 'utils/api/notice';
+import { doubleSubmitCheck } from 'utils/doubleSubmitCheck';
 
 const NoticeUpload = ({ shop }) => {
   const [noticeContent, setNoticeContent] = useState({
@@ -31,6 +32,7 @@ const NoticeUpload = ({ shop }) => {
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
+      if (doubleSubmitCheck()) return;
       try {
         await createNotice(title, content, shop._id);
         window.location.replace(`/${shop._id}/notice`);
