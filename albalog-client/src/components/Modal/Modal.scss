@@ -41,6 +41,24 @@
         margin-bottom: 2rem;
       }
 
+      .radio-group {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 2rem;
+        padding: 1rem;
+
+        label {
+          flex-shrink: 0;
+          margin-bottom: 0;
+        }
+        input {
+          width: 20px;
+          margin-bottom: 0;
+        }
+      }
+
       .choose-time {
         display: flex;
         align-items: center;
