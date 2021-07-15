@@ -17,6 +17,7 @@ import {
   toggleTransition,
   updateTransition,
 } from 'utils/api/transition';
+import { doubleSubmitCheck } from 'utils/doubleSubmitCheck';
 import './TransitionList.scss';
 
 const TransitionList = ({ date }) => {
@@ -57,6 +58,7 @@ const TransitionList = ({ date }) => {
 
   // 인수인계 추가
   const onCreate = useCallback(async () => {
+    if (doubleSubmitCheck()) return;
     try {
       const transitions = await createTransition(
         shop._id,

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { getCategories } from 'utils/api/category';
 import { createManual } from 'utils/api/workmanual';
 import { useCallback } from 'react';
+import { doubleSubmitCheck } from 'utils/doubleSubmitCheck';
 
 const ManualUpload = ({ uploadState, ToggleButton }) => {
   const shop = useSelector((state) => state.shop);
@@ -42,6 +43,7 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
   const manualOnSubmit = useCallback(
     async (e) => {
       e.preventDefault();
+      if (doubleSubmitCheck()) return;
       try {
         await createManual(shop._id, title, content, category);
         window.location.replace(`/${shop._id}/workmanual`);
