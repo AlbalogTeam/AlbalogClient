@@ -29,37 +29,11 @@ const month = today.getMonth();
 const date = today.getDate();
 
 function ParttimeScheduler() {
-  const user = useSelector((state) => state.user);
-  const shop = useSelector((state) => state.shop);
   const parttime = useSelector((state) => state.parttime);
-  const [personalShifts, setPersonalShifts] = useState(
-    parttime.one_shift || [],
-  );
-  const [allShifts, setAllShifts] = useState([]);
+  const allShift = useSelector((state) => state.allShift);
+  const [personalShifts] = useState(parttime.one_shift || []);
+  const [allShifts] = useState(allShift.allShift || []);
   const [selectedRadio, setSelectedRadio] = useState('all');
-
-  const getAllSchedule = useCallback(async () => {
-    try {
-      const response = await client.get(`/shift/location/${shop._id}`);
-      console.log(response);
-      let shift = await response.data.map((a) => {
-        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000); //540 * 60 * 1000
-        let newData = {
-          title: a.title,
-          start: new Date(st),
-          end: new Date(ed),
-        };
-        return newData;
-      });
-      setAllShifts(shift);
-    } catch (error) {}
-  }, [shop._id]);
-
-  useEffect(() => {
-    // getPersonalSchedule();
-    getAllSchedule();
-  }, [shop, getAllSchedule]);
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
