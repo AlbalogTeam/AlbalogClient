@@ -11,29 +11,57 @@ import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import Loading from 'components/Loading/Loading';
 
-const locales = {
-  ko: require('date-fns/locale/ko'),
-};
-const localizer = dateFnsLocalizer({
-  format, //to format dates
-  parse, // to parse dates
-  startOfWeek, // the day value for the start of the week for a given locale
-  getDay, // to get the day from a date
-  locales, // arrayof locales
-});
-
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
-const date = today.getDate();
-
-function ParttimeScheduler({ option }) {
-  console.log(option);
+function ParttimeScheduler() {
   const parttime = useSelector((state) => state.parttime);
   const allShift = useSelector((state) => state.allShift);
   const [personalShifts] = useState(parttime.one_shift || []);
   const [allShifts] = useState(allShift.allShift || []);
-  const [selectedRadio, setSelectedRadio] = useState(option || 'all');
+  const [selectedRadio, setSelectedRadio] = useState('all');
+  const [colorAssigned] = useState({});
+  const locales = {
+    ko: require('date-fns/locale/ko'),
+  };
+  const localizer = dateFnsLocalizer({
+    format, //to format dates
+    parse, // to parse dates
+    startOfWeek, // the day value for the start of the week for a given locale
+    getDay, // to get the day from a date
+    locales, // arrayof locales
+  });
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const date = today.getDate();
+
+  // event 슬롯 색 정하기
+  const eventStyleGetter = (event) => {
+    const title = event.title;
+
+    if (!Object.keys(colorAssigned).includes(title)) {
+      const getRandomColor = () => {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+      colorAssigned[title] = getRandomColor();
+    }
+
+    let style = {
+      backgroundColor: colorAssigned[title],
+      borderRadius: '5px',
+      opacity: 0.9,
+      color: 'white',
+      border: '0px',
+      display: 'block',
+    };
+    return {
+      style: style,
+    };
+  };
 
   const onChange = (e) => {
     e.target.value === 'personal' && setSelectedRadio('personal');
@@ -87,6 +115,7 @@ function ParttimeScheduler({ option }) {
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
                   step={30}
+                  eventPropGetter={eventStyleGetter}
                   onSelectEvent={(event, e) => {
                     console.log(event);
                   }}
@@ -104,6 +133,7 @@ function ParttimeScheduler({ option }) {
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
                   step={30}
+                  eventPropGetter={eventStyleGetter}
                   onSelectEvent={(event, e) => {
                     console.log(event);
                   }}
