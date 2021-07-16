@@ -82,11 +82,11 @@ function DashboardFullschedule({ year, month, date }) {
         <div className="tr">
           <div className="shift">
             <p>마감</p>
-            <p>18:00 - 22:00</p>
+            <p>18:00 - 23:00</p>
           </div>
           <div className="working-staff">
-            {filteredByTime(18, 22).length > 0 ? (
-              filteredByTime(18, 22).map((a, i) => <p key={i}>{a}</p>)
+            {filteredByTime(18, 23).length > 0 ? (
+              filteredByTime(18, 23).map((a, i) => <p key={i}>{a}</p>)
             ) : (
               <p>-</p>
             )}
