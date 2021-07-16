@@ -65,7 +65,9 @@ function WorkingTime() {
               <div className="clockOut-column">퇴근시간</div>
               <div className="workingtime-column">근무시간</div>
             </div>
-            <ContentLine filteredPayroll={filteredPayroll} />
+            <div className="context-lines">
+              <ContentLine filteredPayroll={filteredPayroll} />
+            </div>
             <div className="total-line">
               <div className="date-column"></div>
               <div className="day-column"></div>

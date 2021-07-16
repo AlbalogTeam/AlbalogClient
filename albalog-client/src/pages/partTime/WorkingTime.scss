@@ -44,19 +44,18 @@
         border-style: hidden;
       }
 
+      .context-lines {
+        height: 80%;
+        overflow-y: scroll;
+      }
+
       .total-line {
         height: 35px;
         display: flex;
         background: white;
         border-style: hidden;
+        border-radius: 0 0 10px 10px;
         border-top: 2px solid rgb(189, 186, 186);
-
-        // .day-column,
-        // .clockIn-column,
-        // .clockOut-column,
-        // .workingtime-column {
-        //   border-left: 2px solid rgba(189, 186, 186, 0.5);
-        // }
       }
 
       .date-column,

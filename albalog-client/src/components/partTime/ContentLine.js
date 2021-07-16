@@ -8,9 +8,9 @@ function ContentLine({ filteredPayroll }) {
     <div id="contentline-container">
       {/* {console.log(filteredPayroll[0].timeClock)} */}
       {filteredPayroll() ? (
-        filteredPayroll().map((a) => {
+        filteredPayroll().map((a, i) => {
           return (
-            <div className="content-line">
+            <div className="content-line" key={i}>
               <div className="date-column">{a.start_time}</div>
               <div className="day-column">
                 {
