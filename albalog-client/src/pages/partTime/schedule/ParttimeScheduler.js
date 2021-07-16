@@ -17,7 +17,7 @@ function ParttimeScheduler() {
   const [personalShifts] = useState(parttime.one_shift || []);
   const [allShifts] = useState(allShift.allShift || []);
   const [selectedRadio, setSelectedRadio] = useState('all');
-
+  const [colorAssigned] = useState({});
   const locales = {
     ko: require('date-fns/locale/ko'),
   };
@@ -34,17 +34,26 @@ function ParttimeScheduler() {
   const month = today.getMonth();
   const date = today.getDate();
 
-  const eventStyleGetter = (event, start, end, isSelected) => {
-    let key = '';
-    for (let i = 0; i < event.title.length; i++) {
-      key += event.title.charCodeAt(i);
+  // event 슬롯 색 정하기
+  const eventStyleGetter = (event) => {
+    const title = event.title;
+
+    if (!Object.keys(colorAssigned).includes(title)) {
+      const getRandomColor = () => {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+      colorAssigned[title] = getRandomColor();
     }
-    let color = String(key.toString(16)).substr(9, 6);
-    let backgroundColor = '#' + color;
+
     let style = {
-      backgroundColor: backgroundColor,
-      borderRadius: '0px',
-      opacity: 0.8,
+      backgroundColor: colorAssigned[title],
+      borderRadius: '5px',
+      opacity: 0.9,
       color: 'white',
       border: '0px',
       display: 'block',
