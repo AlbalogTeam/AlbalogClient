@@ -35,8 +35,12 @@ const InviteModal = ({ handleModal }) => {
         alert('메일 전송 성공 !');
         console.log(response);
       } catch (e) {
-        console.log(e);
-        alert('메일 전송을 실패하였습니다.');
+        console.log(e.response.data);
+        if (!e.response.data.success) {
+          alert('이미 해당 매장의 직원으로 등록되어있습니다');
+        } else {
+          alert('메일 전송을 실패하였습니다.');
+        }
       }
     };
 
