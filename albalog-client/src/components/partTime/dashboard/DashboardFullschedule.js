@@ -29,17 +29,6 @@ function DashboardFullschedule({ year, month, date }) {
     setFilteredShift(filteredShift);
   }, [allShifts, today]);
 
-  // 시간별 필터 함수
-  const filteredByTime = (from, to) => {
-    const timeFrom = new Date(today.setHours(from));
-    const timeTo = new Date(today.setHours(to));
-    const searchRange = moment.range(timeFrom, timeTo);
-    let filteredTime = filteredShift
-      .filter((a) => searchRange.overlaps(moment.range(a.start, a.end)))
-      .map((a) => a.title);
-    return filteredTime;
-  };
-
   return (
     <div id="fullschedule-content">
       <div className="txtline">
@@ -53,45 +42,25 @@ function DashboardFullschedule({ year, month, date }) {
         <IoIosArrowForward onClick={onClickRight} />
       </div>
       <div className="full-table">
-        <div className="tr">
-          <div className="shift">
-            <p>오픈 </p>
-            <p>08:00 - 12:00</p>
-          </div>
-          <div className="working-staff">
-            {filteredByTime(8, 12).length > 0 ? (
-              filteredByTime(8, 12).map((a, i) => <p key={i}>{a}</p>)
-            ) : (
-              <p>-</p>
-            )}
-          </div>
-        </div>
-        <div className="tr">
-          <div className="shift">
-            <p>미들 </p>
-            <p>14:00 - 18:00</p>
-          </div>
-          <div className="working-staff">
-            {filteredByTime(14, 18).length > 0 ? (
-              filteredByTime(14, 18).map((a, i) => <p key={i}>{a}</p>)
-            ) : (
-              <p>-</p>
-            )}
-          </div>
-        </div>
-        <div className="tr">
-          <div className="shift">
-            <p>마감</p>
-            <p>18:00 - 23:00</p>
-          </div>
-          <div className="working-staff">
-            {filteredByTime(18, 23).length > 0 ? (
-              filteredByTime(18, 23).map((a, i) => <p key={i}>{a}</p>)
-            ) : (
-              <p>-</p>
-            )}
-          </div>
-        </div>
+        {filteredShift.length > 0 ? (
+          filteredShift
+            .sort((a, b) => a.start - b.start)
+            .map((a, i) => {
+              return (
+                <div className="tr" key={i}>
+                  <div className="worker">
+                    <p key={i}>{a.title}</p>
+                  </div>
+                  <div className="working-time">
+                    <p>{a.start.toString().slice(15, 21)}</p>~
+                    <p>{a.end.toString().slice(15, 21)}</p>
+                  </div>
+                </div>
+              );
+            })
+        ) : (
+          <p>-</p>
+        )}
       </div>
     </div>
   );

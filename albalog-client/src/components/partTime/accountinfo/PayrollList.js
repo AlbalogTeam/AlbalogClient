@@ -50,8 +50,14 @@ function Monthlypay({ data }) {
           <div className="tr" key={i}>
             <div className="date">{item.start_time.slice(5)}</div>
             <div className="time">
-              {item.workTime.slice(0, 2)}:{item.workTime.slice(2, -2)}:
-              {item.workTime.slice(-2)}
+              {new Date(new Date(item.workTime[0]).getTime())
+                .toString()
+                .slice(15, 21)}{' '}
+              ~{' '}
+              {new Date(new Date(item.workTime[1]).getTime())
+                .toString()
+                .slice(15, 21)}
+              {/* {item.workTime.slice(-2)} */}
             </div>
             <div className="pay">
               {item.total > 0 ? item.total.toLocaleString() : 0}

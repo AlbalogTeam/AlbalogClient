@@ -5,7 +5,7 @@ import DashboardAccount from 'components/partTime/dashboard/DashboardAccount';
 import DashboardFullschedule from 'components/partTime/dashboard/DashboardFullschedule';
 import DashboardNotice from 'components/partTime/dashboard/DashboardNotice';
 import DashboardPersonalschedule from 'components/partTime/dashboard/DashboardPersonalschedule';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux';
 import client from 'utils/api';
 import Footer from 'components/Footer/Footer';
 import Loading from 'components/Loading/Loading';
+import { useCallback } from 'react';
+import TimeclockModal from 'components/Modal/TimeclockModal';
 
 function PartTimeDashboard() {
   const year = new Date().getFullYear();
@@ -86,12 +88,17 @@ function PartTimeDashboard() {
     };
     pushdata();
   };
-  // 출퇴근 끝
 
-  // const [Modal, setModal] = useState(false);
-  // const handleModal = () => {
-  //   setModal(!Modal);
-  // };
+  // 출퇴근 확인 모달 창
+  const [timeclockInModal, setTimeclockInModal] = useState(false);
+  const [timeclockOutModal, setTimeclockOutModal] = useState(false);
+
+  const timeClockInModalToggle = useCallback(() => {
+    setTimeclockInModal(!timeclockInModal);
+  }, [timeclockInModal]);
+  const timeClockOutModalToggle = useCallback(() => {
+    setTimeclockOutModal(!timeclockOutModal);
+  }, [timeclockOutModal]);
 
   return (
     <>
@@ -158,7 +165,7 @@ function PartTimeDashboard() {
               <div className="btnBox">
                 <button
                   className="clockInBtn"
-                  onClick={clickClockIn}
+                  onClick={timeClockInModalToggle}
                   disabled={clockIn}
                   style={
                     clockIn
@@ -174,7 +181,7 @@ function PartTimeDashboard() {
                 </button>
                 <button
                   className="clockOutBtn"
-                  onClick={clickClockOut}
+                  onClick={timeClockOutModalToggle}
                   disabled={clockOut}
                   style={
                     clockOut
@@ -205,6 +212,20 @@ function PartTimeDashboard() {
               </div>
             </div>
           </div>
+          {timeclockInModal && (
+            <TimeclockModal
+              message="출근 하시겠습니까?"
+              timeClockModalToggle={timeClockInModalToggle}
+              clickClockIn={clickClockIn}
+            />
+          )}
+          {timeclockOutModal && (
+            <TimeclockModal
+              message="퇴근 하시겠습니까?"
+              timeClockModalToggle={timeClockOutModalToggle}
+              clickClockOut={clickClockOut}
+            />
+          )}
         </div>
       </div>
       <Footer />

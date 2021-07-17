@@ -9,7 +9,6 @@ import './Login.scss';
 import banner from 'static/banner.png';
 import { SetParttime } from 'modules/parttime';
 import { login } from 'utils/api/user';
-import { doubleSubmitCheck } from 'utils/doubleSubmitCheck';
 
 function Login({
   form,
