@@ -149,7 +149,6 @@ function PartTimeDashboard() {
                       date={date}
                     />
                   </div>
-                  <button className="">스케줄 변경 신청</button>
                 </div>
               </div>
             </div>
