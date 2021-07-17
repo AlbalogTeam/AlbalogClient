@@ -90,8 +90,8 @@ function PartTimeDashboard() {
   };
 
   // 출퇴근 확인 모달 창
-  const [timeclockInModal, setTimeclockInModal] = useState(0);
-  const [timeclockOutModal, setTimeclockOutModal] = useState(0);
+  const [timeclockInModal, setTimeclockInModal] = useState(false);
+  const [timeclockOutModal, setTimeclockOutModal] = useState(false);
 
   const timeClockInModalToggle = useCallback(() => {
     setTimeclockInModal(!timeclockInModal);
@@ -156,7 +156,6 @@ function PartTimeDashboard() {
                       date={date}
                     />
                   </div>
-                  {/* <button className="">스케줄 변경 신청</button> */}
                 </div>
               </div>
             </div>
@@ -215,15 +214,15 @@ function PartTimeDashboard() {
           </div>
           {timeclockInModal && (
             <TimeclockModal
+              message="출근 하시겠습니까?"
               timeClockModalToggle={timeClockInModalToggle}
-              clickclockIn={clickClockIn}
-              clickClockOut={clickClockOut}
+              clickClockIn={clickClockIn}
             />
           )}
           {timeclockOutModal && (
             <TimeclockModal
+              message="퇴근 하시겠습니까?"
               timeClockModalToggle={timeClockOutModalToggle}
-              clickclockIn={clickClockIn}
               clickClockOut={clickClockOut}
             />
           )}

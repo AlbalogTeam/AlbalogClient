@@ -24,12 +24,12 @@ function ContentLine({ filteredPayroll }) {
                 }
               </div>
               <div className="clockIn-column">
-                {new Date(new Date(a.workTime[0]).getTime() - 540 * 60 * 1000)
+                {new Date(new Date(a.workTime[0]).getTime())
                   .toString()
                   .slice(15, 21)}
               </div>
               <div className="clockOut-column">
-                {new Date(new Date(a.workTime[1]).getTime() - 540 * 60 * 1000)
+                {new Date(new Date(a.workTime[1]).getTime())
                   .toString()
                   .slice(15, 21)}
               </div>

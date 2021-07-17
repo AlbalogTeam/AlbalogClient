@@ -3,8 +3,9 @@ import { AiOutlineClose } from 'react-icons/ai';
 import './TimeclockModal.scss';
 
 const TimeclockModal = ({
+  message,
   timeClockModalToggle,
-  clickclockIn,
+  clickClockIn,
   clickClockOut,
 }) => {
   return (
@@ -13,7 +14,7 @@ const TimeclockModal = ({
         <div className="message-wrapper">
           <div className="wrapper-header">알림</div>
           <div className="wrapper-content">
-            <p className="content-message"></p>
+            <p className="content-message">{message}</p>
           </div>
           <div className="wrapper-alert">{alert}</div>
           <button
@@ -25,7 +26,10 @@ const TimeclockModal = ({
           </button>
         </div>
         <div className="message-footer">
-          <button onClick={clickclockIn} className="message-btn">
+          <button
+            onClick={clickClockIn || clickClockOut}
+            className="message-btn"
+          >
             확인
           </button>
           <button
