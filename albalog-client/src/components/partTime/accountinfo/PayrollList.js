@@ -53,7 +53,7 @@ function Monthlypay({ data }) {
               {new Date(new Date(item.workTime[0]).getTime())
                 .toString()
                 .slice(15, 21)}{' '}
-              :{' '}
+              ~{' '}
               {new Date(new Date(item.workTime[1]).getTime())
                 .toString()
                 .slice(15, 21)}
