@@ -31,7 +31,6 @@ function Login({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (doubleSubmitCheck()) return;
     const { email, password } = form;
     try {
       const response = await login(email, password);
