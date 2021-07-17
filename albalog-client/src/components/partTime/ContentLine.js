@@ -24,10 +24,14 @@ function ContentLine({ filteredPayroll }) {
                 }
               </div>
               <div className="clockIn-column">
-                {a.workTime.slice(0, 2)}:{a.workTime.slice(2, 4)}
+                {new Date(new Date(a.workTime[0]).getTime() - 540 * 60 * 1000)
+                  .toString()
+                  .slice(15, 21)}
               </div>
               <div className="clockOut-column">
-                {a.workTime.slice(5, 7)}:{a.workTime.slice(7)}
+                {new Date(new Date(a.workTime[1]).getTime() - 540 * 60 * 1000)
+                  .toString()
+                  .slice(15, 21)}
               </div>
               <div className="workingtime-column">
                 {parseInt(a.workInToday / 60)}시간 {a.workInToday % 60}분
