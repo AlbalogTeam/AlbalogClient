@@ -100,8 +100,8 @@ function EmployeeSignUp({ match }) {
         };
         setEmployeeInfo(nextForm);
       } catch (e) {
-        // alert('유효하지 않은 링크입니다.');
-        // history.push('/login');
+        alert('유효하지 않은 링크입니다.');
+        history.push('/login');
       }
     };
     getData();

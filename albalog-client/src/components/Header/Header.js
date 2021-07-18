@@ -129,7 +129,7 @@ const Header = ({
         };
         dispatchSetParttime(shiftParttime);
       } catch (error) {
-        console.log('payroll', error);
+        console.log(error);
       }
     };
 
