@@ -3,7 +3,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import 'components/workManual/ManualUpload/ManualUpload.scss';
 import { useSelector } from 'react-redux';
-import useConfirm from 'hooks/useConfirm';
+import useConfirm from 'hooks/common/useConfirm';
 import { getCategories } from 'utils/api/category';
 import { useCallback } from 'react';
 import { deleteManual, updateManual } from 'utils/api/workmanual';
