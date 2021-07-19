@@ -36,9 +36,13 @@ const shop = createSlice({
       state.postal_code = postal_code;
       state.employees = employees;
     },
+    ShopFormField: (state, action) => {
+      const { key, value } = action.payload;
+      state[key] = value;
+    },
   },
 });
 
-export const { SetShop } = shop.actions;
+export const { SetShop, ShopFormField } = shop.actions;
 
 export default shop;

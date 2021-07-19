@@ -15,7 +15,7 @@ import Transition from 'pages/transition';
 import Landing from 'pages/landing';
 import PartTimeDashboard from 'pages/partTime/PartTimeDashboard';
 import Login from 'pages/login';
-import SignUp from 'pages/signUp';
+import AdminSignup from 'pages/adminSignup';
 import AccountInfo from 'pages/partTime/AccountInfo';
 import WorkingTime from 'pages/partTime/WorkingTime';
 import React from 'react';
@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/login" component={Authentication(Login, false)} exact />
           <Route
             path="/signup"
-            component={Authentication(SignUp, false)}
+            component={Authentication(AdminSignup, false)}
             exact
           />
           <Route

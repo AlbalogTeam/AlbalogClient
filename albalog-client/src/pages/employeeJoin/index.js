@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
 import banner from 'static/banner.png';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { getJoinInfo, Join } from 'utils/api/user';
 
 const EmployeeJoin = () => {
@@ -10,6 +10,7 @@ const EmployeeJoin = () => {
   const invitetoken = match.params.invitetoken;
   const [shopName, setShopName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
@@ -18,7 +19,8 @@ const EmployeeJoin = () => {
         setShopName(response.data.location_name);
         setUserEmail(response.data.user_email);
       } catch (e) {
-        alert('다시 접속해주세요');
+        alert('유효하지 않은 링크입니다.');
+        history.push('/login');
       }
     };
     getData();
