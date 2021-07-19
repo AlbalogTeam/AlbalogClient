@@ -1,6 +1,6 @@
 import ShopForm from 'components/landing/ShopForm';
 import StoreList from 'components/landing/StoreList';
-import { SetShop, ShopFormField } from 'modules/shop';
+import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

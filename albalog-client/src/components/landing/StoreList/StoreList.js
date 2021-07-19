@@ -9,6 +9,7 @@ import {
   updateShop,
 } from 'utils/api/shop';
 import ShopForm from '../ShopForm';
+
 import './StoreList.scss';
 
 const StoreList = ({ user, dispatchSetshop }) => {

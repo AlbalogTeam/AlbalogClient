@@ -1,47 +1,15 @@
-import { SetShop, ShopFormField } from 'modules/shop';
-import React, { useCallback, useState } from 'react';
+import useShopForm from 'hooks/shop/useShopForm';
+import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './styles.scss';
 
 const ShopForm = ({ ToggleButton, onSubmit }) => {
-  const [addressSearchOpen, setAddressSearchOpen] = useState(false);
-
   const shop = useSelector((state) => state.shop);
   const { name, postal_code, phone_number, address } = shop;
 
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = '';
-
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
-    dispatch(ShopFormField({ key: 'address', value: fullAddress }));
-    setAddressSearchOpen(!addressSearchOpen);
-  };
-
-  const PostOpen = useCallback(() => {
-    setAddressSearchOpen(!addressSearchOpen);
-  }, [addressSearchOpen]);
-
-  const dispatch = useDispatch();
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    const body = {
-      key: name,
-      value,
-    };
-    dispatch(ShopFormField(body));
-  };
+  const { handleComplete, PostOpen, onChange, addressSearchOpen } =
+    useShopForm();
 
   const postCodeStyle = {
     display: 'block',
@@ -127,14 +95,4 @@ const ShopForm = ({ ToggleButton, onSubmit }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { user: state.user, shop: state.shop };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchSetShop: (ShopBody) => dispatch(SetShop(ShopBody)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShopForm);
+export default ShopForm;
