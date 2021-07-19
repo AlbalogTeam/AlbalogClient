@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 당일 인수인계 조회
 export const getTransitions = async (shopid, year, month, day) => {

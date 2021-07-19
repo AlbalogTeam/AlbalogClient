@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
+import { getHandOverList } from 'utils/api/adminDashboard';
 import './HandOver.scss';
 
 const HandOverItem = ({ transition }) => {
@@ -20,13 +21,8 @@ const HandOver = ({ shopId }) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const year = new Date().getFullYear();
-        const month = new Date().getMonth() + 1;
-        const day = new Date().getDate();
-        const response = await client.get(
-          `/transition/${shopId}/${year}-${month}-${day}`,
-        );
-        setAllTransition(response.data.satisfyTransitions);
+        const response = await getHandOverList({ shopId });
+        setAllTransition(response.satisfyTransitions);
       } catch (e) {
         console.log(e);
       }

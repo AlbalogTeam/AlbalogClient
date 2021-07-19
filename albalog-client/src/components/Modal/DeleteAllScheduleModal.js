@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import './DeleteAllScheduleModal.scss';
 
 const DeleteAllScheduleModal = ({

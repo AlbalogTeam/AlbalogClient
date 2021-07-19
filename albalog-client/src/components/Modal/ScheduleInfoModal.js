@@ -1,5 +1,5 @@
 import React from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import './ScheduleInfoModal.scss';
 
 const ScheduleInfoModal = ({ handleInfoModal, employee, locationId }) => {

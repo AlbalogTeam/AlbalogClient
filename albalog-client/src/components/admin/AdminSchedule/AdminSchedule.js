@@ -7,7 +7,7 @@ import ScheduleModal from 'components/Modal/ScheduleModal';
 import './AdminSchedule.scss';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import DeleteAllScheduleModal from 'components/Modal/DeleteAllScheduleModal';
 import ScheduleInfoModal from 'components/Modal/ScheduleInfoModal';
 

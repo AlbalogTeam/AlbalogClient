@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 매장 생성
 export const createStore = async (name, address, postal_code, phone_number) => {
