@@ -1,10 +1,11 @@
 import { ChangeField } from 'modules/auth';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkEmailValidation, ownerRegister } from 'utils/api/user';
+import { checkEmailValidation } from 'utils/api/user';
 import jwt from 'jsonwebtoken';
 import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
+import { ownerRegister } from 'utils/api/auth';
 
 export default function useAdminSignup() {
   const dispatch = useDispatch();

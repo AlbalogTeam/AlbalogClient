@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import client from 'utils/api/client';
+import { patchEmployeeInfoByAdmin } from 'utils/api/user';
 import './Modal.scss';
 
 const Modal = ({ handleModal, data }) => {
@@ -32,12 +32,13 @@ const Modal = ({ handleModal, data }) => {
     e.preventDefault();
 
     try {
-      const response = await client.patch(
-        `/location/${locationId}/employees/${_id}/update`,
-        {
-          hourly_wage: Number(wage),
-          status: isStatus,
-        },
+      const requestBody = {
+        hourly_wage: Number(wage),
+        status: isStatus,
+      };
+      const response = await patchEmployeeInfoByAdmin(
+        { locationId, _id },
+        requestBody,
       );
       alert('변경성공');
       if (response.status === 200) {
