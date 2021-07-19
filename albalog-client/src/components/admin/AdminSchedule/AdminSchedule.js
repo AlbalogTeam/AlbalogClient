@@ -77,7 +77,7 @@ const AdminSchedule = () => {
 
   useEffect(() => {
     getAllSchedule();
-  }, [infoModalOpened, deleteModalOpened, isModal]);
+  }, [infoModalOpened, deleteModalOpened, isModal, locationId]);
 
   return (
     <>

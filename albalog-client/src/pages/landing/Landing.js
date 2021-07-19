@@ -4,8 +4,8 @@ import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ownerLogout, parttimeLogout } from 'utils/api/auth';
 import { createShop } from 'utils/api/shop';
-import { ownerLogout, parttimeLogout } from 'utils/api/user';
 import './Landing.scss';
 
 const Landing = () => {
