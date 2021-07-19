@@ -1,31 +1,32 @@
 import client from 'utils/api/client';
 
 // 매장 생성
-export const createStore = async (name, address, postal_code, phone_number) => {
+export const createShop = async (name, address, postal_code, phone_number) => {
   const body = {
     name,
     address,
     postal_code,
     phone_number,
   };
+  console.log(body);
   const response = await client.post('/location', body);
   return response;
 };
 
 // 매장 조회 (관리자)
-export const getStoreForOwner = async () => {
+export const getShopForOwner = async () => {
   const response = await client.get(`/owner/me/locations`);
   return response.data.locations;
 };
 
 // 매장 조회 (알바)
-export const getStoreForParttime = async () => {
+export const getShopForParttime = async () => {
   const response = await client.get(`/employee/locations`);
   return response.data.locations;
 };
 
 // 매장 수정
-export const updateStore = async (
+export const updateShop = async (
   name,
   address,
   postal_code,
