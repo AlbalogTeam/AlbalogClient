@@ -1,20 +1,14 @@
+import { SetShop, ShopFormField } from 'modules/shop';
 import React, { useCallback, useState } from 'react';
-import './StoreRegister.scss';
 import DaumPostcode from 'react-daum-postcode';
-import { connect } from 'react-redux';
-import { SetShop } from 'modules/shop';
-import { createStore } from 'utils/api/store';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import './styles.scss';
 
-const StoreRegister = ({ ToggleButton }) => {
-  const [address, setAddress] = useState('');
+const ShopForm = ({ ToggleButton, onSubmit }) => {
   const [addressSearchOpen, setAddressSearchOpen] = useState(false);
-  const [storeRegisterForm, setStoreRegisterForm] = useState({
-    storeName: '',
-    addressDetail: '',
-    phoneNumber: '',
-  });
 
-  const { storeName, addressDetail, phoneNumber } = storeRegisterForm;
+  const shop = useSelector((state) => state.shop);
+  const { name, postal_code, phone_number, address } = shop;
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -30,36 +24,24 @@ const StoreRegister = ({ ToggleButton }) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setAddress(fullAddress);
+    dispatch(ShopFormField({ key: 'address', value: fullAddress }));
     setAddressSearchOpen(!addressSearchOpen);
   };
 
-  const PostOpen = () => {
+  const PostOpen = useCallback(() => {
     setAddressSearchOpen(!addressSearchOpen);
-  };
+  }, [addressSearchOpen]);
+
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const { name, value } = e.target;
-
-    const ChangeForm = {
-      ...storeRegisterForm,
-      [name]: value,
+    const body = {
+      key: name,
+      value,
     };
-    setStoreRegisterForm(ChangeForm);
+    dispatch(ShopFormField(body));
   };
-
-  const onSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      try {
-        await createStore(storeName, address, addressDetail, phoneNumber);
-        window.location.reload();
-      } catch (e) {
-        alert('매장 생성에 실패했습니다.');
-      }
-    },
-    [storeName, address, addressDetail, phoneNumber],
-  );
 
   const postCodeStyle = {
     display: 'block',
@@ -71,17 +53,18 @@ const StoreRegister = ({ ToggleButton }) => {
     border: '1px solid black',
   };
   return (
-    <div id="StoreRegister">
+    <div id="ShopForm">
       <div className="regi-modal">
         <div className="modal-tit">
-          <h2>매장 추가</h2>
+          <h2>매장 수정</h2>
         </div>
         <div className="modal-form">
           <form action="" onSubmit={onSubmit}>
             <label>매장 이름</label>
             <input
               type="text"
-              name="storeName"
+              name="name"
+              value={name}
               placeholder="매장 이름을 입력해주세요"
               onChange={onChange}
             />
@@ -94,7 +77,7 @@ const StoreRegister = ({ ToggleButton }) => {
                 className="address"
                 value={address}
               />
-              <button type="button" onClick={PostOpen}>
+              <button className="store-btn" type="button" onClick={PostOpen}>
                 주소검색
               </button>
               {addressSearchOpen && (
@@ -107,17 +90,19 @@ const StoreRegister = ({ ToggleButton }) => {
             <label>상세 주소</label>
             <input
               type="text"
-              name="addressDetail"
+              name="postal_code"
               placeholder="상세 주소를 입력해주세요"
               onChange={onChange}
+              value={postal_code}
             />
 
             <label>휴대폰 번호</label>
             <input
               type="text"
-              name="phoneNumber"
+              name="phone_number"
               placeholder="휴대폰번호를 - 없이 입력해주세요"
               onChange={onChange}
+              value={phone_number}
             />
             <p>
               사업자 등록증을 developer@dev.lop 로 <br />
@@ -125,7 +110,7 @@ const StoreRegister = ({ ToggleButton }) => {
             </p>
             <div className="modal-btn">
               <button className="upload btn" type="submit">
-                등록
+                수정
               </button>
               <button
                 className="cancel btn"
@@ -152,4 +137,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopForm);

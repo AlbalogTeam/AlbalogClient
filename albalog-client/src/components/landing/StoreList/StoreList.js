@@ -2,9 +2,13 @@ import Loading from 'components/Loading/Loading';
 import { SetShop } from 'modules/shop';
 import React, { useEffect, useState } from 'react';
 import { useCallback } from 'react';
-import { connect } from 'react-redux';
-import { getStoreForOwner, getStoreForParttime } from 'utils/api/store';
-import StoreEdit from '../StoreEdit/StoreEdit';
+import { connect, useSelector } from 'react-redux';
+import {
+  getShopForOwner,
+  getShopForParttime,
+  updateShop,
+} from 'utils/api/shop';
+import ShopForm from '../ShopForm';
 import './StoreList.scss';
 
 const StoreList = ({ user, dispatchSetshop }) => {
@@ -12,10 +16,25 @@ const StoreList = ({ user, dispatchSetshop }) => {
   const [locations, setLocations] = useState([]);
   const [dataState, setDataState] = useState(0);
   const [editState, setEditState] = useState(false);
+  const shop = useSelector((state) => state.shop);
+  const { name, postal_code, phone_number, address } = shop;
+
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await updateShop(name, address, postal_code, phone_number, shop._id);
+        window.location.reload();
+      } catch (e) {
+        alert('수정에 실패했습니다.');
+      }
+    },
+    [name, address, postal_code, phone_number, shop._id],
+  );
   useEffect(() => {
     const getDataForOwner = async () => {
       try {
-        const locations = await getStoreForOwner();
+        const locations = await getShopForOwner();
         setLocations(locations);
         setDataState(1);
       } catch (e) {
@@ -25,7 +44,7 @@ const StoreList = ({ user, dispatchSetshop }) => {
 
     const getDataForParttime = async () => {
       try {
-        const locations = await getStoreForParttime();
+        const locations = await getShopForParttime();
         setLocations(locations);
         setDataState(1);
       } catch (e) {
@@ -99,7 +118,9 @@ const StoreList = ({ user, dispatchSetshop }) => {
           ))}
         </ul>
       )}
-      {editState && <StoreEdit StateToggleButton={StateToggleButton} />}
+      {editState && (
+        <ShopForm onSubmit={onSubmit} ToggleButton={StateToggleButton} />
+      )}
     </div>
   );
 };
