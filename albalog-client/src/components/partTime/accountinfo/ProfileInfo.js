@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'components/partTime/accountinfo/ProfileInfo.scss';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';

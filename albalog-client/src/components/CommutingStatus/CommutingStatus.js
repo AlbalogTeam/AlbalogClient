@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
+import { getCommutingStatus } from 'utils/api/adminDashboard';
 import './CommutingStatus.scss';
 
 const CommutingStatus = ({ shopId }) => {
@@ -11,10 +12,8 @@ const CommutingStatus = ({ shopId }) => {
 
   const getData = async () => {
     try {
-      const response = await client.get(
-        `/shift/location/${shopId}/daily/${year}-${month}-${day}`,
-      );
-      setEmployeeList(response.data);
+      const response = await getCommutingStatus({ shopId });
+      setEmployeeList(response);
     } catch (e) {
       console.error(e);
     }

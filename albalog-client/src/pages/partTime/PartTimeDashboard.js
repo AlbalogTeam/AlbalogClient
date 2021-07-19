@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import './PartTimeDashboard.scss';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import Footer from 'components/Footer/Footer';
 import Loading from 'components/Loading/Loading';
 import { useCallback } from 'react';

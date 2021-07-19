@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { APIURL } from 'config.js';
 import './Modal.scss';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 const InviteModal = ({ handleModal }) => {
   const [form, setForm] = useState({

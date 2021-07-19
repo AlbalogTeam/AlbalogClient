@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 카테고리 불러오기
 export const getCategories = async (shopid) => {

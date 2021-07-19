@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { APIURL } from 'config';
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 이메일 중복확인
 export const checkEmailValidation = async (email) => {

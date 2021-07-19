@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import './Modal.scss';
 
 const ScheduleModal = ({ handleModal, employeeList }) => {

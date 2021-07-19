@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 업무매뉴얼 조회
 export const getWorkManuals = async (shopid) => {
