@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import client from 'utils/api';
+import client from 'utils/api/client';
+import { getCommutingStatus } from 'utils/api/adminDashboard';
 import './CommutingStatus.scss';
 
 const CommutingStatus = ({ shopId }) => {
@@ -11,10 +12,8 @@ const CommutingStatus = ({ shopId }) => {
 
   const getData = async () => {
     try {
-      const response = await client.get(
-        `/shift/location/${shopId}/daily/${year}-${month}-${day}`,
-      );
-      setEmployeeList(response.data);
+      const response = await getCommutingStatus({ shopId });
+      setEmployeeList(response);
     } catch (e) {
       console.error(e);
     }
@@ -32,8 +31,8 @@ const CommutingStatus = ({ shopId }) => {
           <h3 className="title">출근전 😵</h3>
           <div className="content">
             {employeeList.before &&
-              employeeList.before.map((employee) => (
-                <div className="content-detail">
+              employeeList.before.map((employee, idx) => (
+                <div className="content-detail" key={idx}>
                   <strong>{employee.name}</strong>
                   <p className="before">{`출근 예정 : ${employee.time.start.substr(
                     11,
@@ -47,8 +46,8 @@ const CommutingStatus = ({ shopId }) => {
           <h3 className="title">근무중 🔥</h3>
           <div className="content">
             {employeeList.working &&
-              employeeList.working.map((employee) => (
-                <div className="content-detail">
+              employeeList.working.map((employee, idx) => (
+                <div className="content-detail" key={idx}>
                   <strong>{employee.name}</strong>
                   <p className="working">{`퇴근 예정 : ${employee.time.end.substr(
                     11,
@@ -62,8 +61,8 @@ const CommutingStatus = ({ shopId }) => {
           <h3 className="title">퇴근 😴</h3>
           <div className="content">
             {employeeList.off &&
-              employeeList.off.map((employee) => (
-                <div className="content-detail">
+              employeeList.off.map((employee, idx) => (
+                <div className="content-detail" key={idx}>
                   <strong>{employee.name}</strong>
                   <p className="off">
                     {`근무 시간 : ${employee.time[0].start_time.substr(

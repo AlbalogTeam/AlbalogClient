@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import client from 'utils/api';
+import { deleteAllSchedule } from 'utils/api/schedule';
 import './DeleteAllScheduleModal.scss';
 
 const DeleteAllScheduleModal = ({
@@ -20,9 +20,7 @@ const DeleteAllScheduleModal = ({
 
     if (isConfirm) {
       try {
-        await client.delete(
-          `/shift/location/${locationId}/employee/${id}/deleteAll`,
-        );
+        await deleteAllSchedule({ locationId, id });
         handleDeleteModal();
       } catch (e) {
         console.error(e);

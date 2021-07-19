@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import { postTimeClockIn, postTimeClockOut } from 'utils/api/timeclock';
 
 export default function useTimeClock() {

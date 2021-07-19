@@ -8,12 +8,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import { FaStoreAlt } from 'react-icons/fa';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
-import { ownerLogout, parttimeLogout } from 'utils/api/user';
 import { SetAllShift } from 'modules/allShift';
+import { ownerLogout, parttimeLogout } from 'utils/api/auth';
 
 const Header = ({
   user,

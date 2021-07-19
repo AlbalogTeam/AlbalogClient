@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { IoPerson } from 'react-icons/io5';
 import './AdminInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import client from 'utils/api';
+import client from 'utils/api/client';
 import { withRouter } from 'react-router';
 import { SetUser } from 'modules/user';
 import Footer from 'components/Footer';

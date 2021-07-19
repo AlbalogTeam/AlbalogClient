@@ -4,7 +4,7 @@ import { ChangeField } from 'modules/auth';
 import { SetParttime } from 'modules/parttime';
 import { SetUser } from 'modules/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from 'utils/api/user';
+import { login } from 'utils/api/auth';
 
 export default function useLogin() {
   const form = useSelector((state) => state.auth.login);

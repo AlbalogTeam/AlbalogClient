@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { APIURL } from 'config.js';
 import './Modal.scss';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import { postSignUpMail } from 'utils/api/user';
 
 const InviteModal = ({ handleModal }) => {
   const [form, setForm] = useState({
@@ -14,7 +12,6 @@ const InviteModal = ({ handleModal }) => {
   const { name, email } = form;
 
   const locationId = useSelector(({ shop }) => shop._id);
-  const token = useSelector(({ user }) => user.token);
 
   const onChange = (e) => {
     setForm({
@@ -28,10 +25,7 @@ const InviteModal = ({ handleModal }) => {
 
     const postForm = async () => {
       try {
-        const response = await client.post(`/location/${locationId}/invite`, {
-          name,
-          email,
-        });
+        const response = await postSignUpMail({ locationId, name, email });
         alert('메일 전송 성공 !');
         console.log(response);
       } catch (e) {

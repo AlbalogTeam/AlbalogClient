@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from 'utils/api/client';
 
 // 공지 검색
 export const searchNotice = async (locationId, content) => {

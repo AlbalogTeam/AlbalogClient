@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useSelector } from 'react-redux';
-import client from 'utils/api';
+import { postSchedule } from 'utils/api/schedule';
 import './Modal.scss';
 
 const ScheduleModal = ({ handleModal, employeeList }) => {
@@ -38,15 +38,13 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
     e.preventDefault();
 
     try {
-      const response = await client.post(
-        `/shift/location/${locationId}/create`,
-        {
-          staffId: id,
-          startDate: startDate.toISOString().substring(0, 10),
-          endDate: endDate.toISOString().substring(0, 10),
-          time: days.filter((day) => day.checked === true),
-        },
-      );
+      const requestBody = {
+        staffId: id,
+        startDate: startDate.toISOString().substring(0, 10),
+        endDate: endDate.toISOString().substring(0, 10),
+        time: days.filter((day) => day.checked === true),
+      };
+      await postSchedule(locationId, requestBody);
       handleModal();
     } catch (e) {
       console.error(e);

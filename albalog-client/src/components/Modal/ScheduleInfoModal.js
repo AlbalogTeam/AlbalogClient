@@ -1,5 +1,5 @@
 import React from 'react';
-import client from 'utils/api';
+import { deleteDailySchedule } from 'utils/api/schedule';
 import './ScheduleInfoModal.scss';
 
 const ScheduleInfoModal = ({ handleInfoModal, employee, locationId }) => {
@@ -10,9 +10,11 @@ const ScheduleInfoModal = ({ handleInfoModal, employee, locationId }) => {
 
     if (isConfirm) {
       try {
-        await client.delete(
-          `shift/${employee.index}/location/${locationId}/employee/${employee.staffId}/delete`,
-        );
+        await deleteDailySchedule({
+          index: employee.index,
+          locationId,
+          staffId: employee.staffId,
+        });
         handleInfoModal();
       } catch (e) {
         console.error(e);

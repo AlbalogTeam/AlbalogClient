@@ -7,7 +7,8 @@ import { TOKENKEY } from 'config';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
 import { withRouter } from 'react-router-dom';
-import { getInviteToken, parttimeRegister } from 'utils/api/user';
+import { parttimeRegister } from 'utils/api/auth';
+import { getInviteToken } from 'utils/api/user';
 
 function EmployeeSignUp({ match }) {
   const [employeeInfo, setEmployeeInfo] = useState({

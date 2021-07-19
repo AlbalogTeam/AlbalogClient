@@ -1,4 +1,4 @@
-import client from 'utils/api';
+import client from './client';
 
 export const postTimeClockIn = async (locationId, wage) => {
   const newForm = {
