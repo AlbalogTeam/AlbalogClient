@@ -25,7 +25,7 @@ import EmployeeSignUp from 'pages/employeeSignUp';
 import MobileCategory from 'pages/mobileCategory';
 import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
-import EmployeeJoin from 'pages/employeeJoin';
+import EmployeeJoin from 'pages/existParttimeSignup';
 
 const App = () => {
   // Authentication(a, b, c)

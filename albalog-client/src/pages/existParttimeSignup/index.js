@@ -4,12 +4,12 @@ import banner from 'static/banner.png';
 
 import useExistParttimeSignup from 'hooks/user/useExistParttimeSignup';
 
-const EmployeeJoin = () => {
+const ExistParttimSignup = () => {
   const { onJoin, shopName, userEmail } = useExistParttimeSignup();
 
   return (
     <>
-      <div id="EmployeeJoin">
+      <div id="ExistParttimSignup">
         <div className="inner-join">
           <div className="join-tit">
             <img src={banner} alt="" />
@@ -33,4 +33,4 @@ const EmployeeJoin = () => {
   );
 };
 
-export default EmployeeJoin;
+export default ExistParttimSignup;
