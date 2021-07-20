@@ -1,39 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './styles.scss';
 import banner from 'static/banner.png';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-import { getJoinInfo, Join } from 'utils/api/user';
+
+import useExistParttimeSignup from 'hooks/user/useExistParttimeSignup';
 
 const EmployeeJoin = () => {
-  const match = useRouteMatch();
-  const shopId = match.params.shop;
-  const invitetoken = match.params.invitetoken;
-  const [shopName, setShopName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const history = useHistory();
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await getJoinInfo(shopId, invitetoken);
-        setShopName(response.data.location_name);
-        setUserEmail(response.data.user_email);
-      } catch (e) {
-        alert('유효하지 않은 링크입니다.');
-        history.push('/login');
-      }
-    };
-    getData();
-  }, [invitetoken, shopId]);
-
-  const onJoin = async () => {
-    try {
-      await Join(shopId, invitetoken);
-      window.location.replace(`/`);
-    } catch (e) {
-      alert('가입에 실패했습니다.');
-    }
-  };
+  const { onJoin, shopName, userEmail } = useExistParttimeSignup();
 
   return (
     <>

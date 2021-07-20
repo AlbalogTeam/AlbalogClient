@@ -1,5 +1,5 @@
 import ShopForm from 'components/landing/ShopForm';
-import StoreList from 'components/landing/StoreList';
+import StoreList from 'components/landing/StopList';
 import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useCallback, useState } from 'react';
