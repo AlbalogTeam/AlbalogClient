@@ -27,4 +27,9 @@ export default function useShopInfoEffect() {
       if (user.role === 'staff') getDataByParttime();
     }
   }, [shop._id, user.role, getDataByParttime, getDataByAdmin]);
+
+  return {
+    user,
+    shop,
+  };
 }

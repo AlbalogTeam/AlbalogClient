@@ -36,7 +36,7 @@ export const parttimeRegister = async (
     `${APIURL}/employee/${shopId}/signup`,
     body,
   );
-  return response;
+  return response.data;
 };
 
 /* 로그인 & 로그아웃 관련 */

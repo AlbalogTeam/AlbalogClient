@@ -23,14 +23,14 @@ function AdminSignup() {
   return (
     <div id="signup">
       <form action="" onSubmit={onSubmit}>
-        <div className="signUpLeft">
+        <div className="inner-signup">
           <h1>Albalog</h1>
 
           <div className="email-form signup-form">
             <span>이메일</span>
             <div className="inner-email-form">
               <input
-                type="text"
+                type="email"
                 name="email"
                 className="email-input"
                 onChange={onChange}
