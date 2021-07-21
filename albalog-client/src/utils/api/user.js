@@ -35,7 +35,7 @@ export const getInviteToken = async (shopId, inviteToken) => {
   const response = await axios.get(
     `${APIURL}/employee/${shopId}/${inviteToken}/signup`,
   );
-  return response;
+  return response.data;
 };
 
 // 직원 메일 초대 API

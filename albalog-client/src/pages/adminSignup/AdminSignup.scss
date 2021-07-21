@@ -11,7 +11,7 @@
   right: 0;
   box-sizing: border-box;
 
-  .signUpLeft {
+  .inner-signup {
     height: 50vh;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,8 @@
       span {
         width: 120px;
       }
-      input {
+      input,
+      .input {
         height: 44px;
         width: 332px;
         padding: 0 14px;
