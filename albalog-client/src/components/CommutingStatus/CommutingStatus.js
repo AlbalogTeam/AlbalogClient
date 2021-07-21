@@ -1,27 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import client from 'utils/api/client';
-import { getCommutingStatus } from 'utils/api/adminDashboard';
+import React from 'react';
 import './CommutingStatus.scss';
+import useCommutingEffect from 'hooks/admin/useCommutingEffect';
 
-const CommutingStatus = ({ shopId }) => {
-  const [employeeList, setEmployeeList] = useState([]);
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  const getData = async () => {
-    try {
-      const response = await getCommutingStatus({ shopId });
-      setEmployeeList(response);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [shopId]);
+const CommutingStatus = () => {
+  const { employeeList, year, month, day } = useCommutingEffect();
+  console.log(employeeList);
 
   return (
     <div className="work">

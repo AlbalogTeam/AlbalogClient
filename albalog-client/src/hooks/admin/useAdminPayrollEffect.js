@@ -1,12 +1,13 @@
-import AdminPayroll from 'components/admin/AdminPayroll';
 import { getMonthData } from 'modules/date';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const AdminPayrollContainer = () => {
+export default function useAdminPayrollEffect() {
   const shopId = useSelector(({ shop }) => shop._id);
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const employeeList = useSelector(({ date }) => date.payrollData);
 
   const dispatch = useDispatch();
 
@@ -32,16 +33,13 @@ const AdminPayrollContainer = () => {
 
   useEffect(() => {
     dispatch(getMonthData({ year, month, shopId }));
-  });
+  }, [shopId, dispatch, year, month]);
 
-  return (
-    <AdminPayroll
-      year={year}
-      month={month}
-      prevMonth={prevMonth}
-      nextMonth={nextMonth}
-    />
-  );
-};
-
-export default AdminPayrollContainer;
+  return {
+    year,
+    month,
+    employeeList,
+    prevMonth,
+    nextMonth,
+  };
+}
