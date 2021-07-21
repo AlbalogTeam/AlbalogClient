@@ -22,7 +22,6 @@ function PartTimeDashboard() {
   const today = year + '-' + month + '-' + date;
   const shop = useSelector((state) => state.shop);
   const parttime = useSelector((state) => state.parttime);
-
   const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
 
@@ -87,11 +86,7 @@ function PartTimeDashboard() {
                     </Link>
                   </div>
                   <div className="personalScheduleContent">
-                    <DashboardPersonalschedule
-                      year={year}
-                      month={month}
-                      date={date}
-                    />
+                    <DashboardPersonalschedule />
                   </div>
                 </div>
               </div>

@@ -14,6 +14,7 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
 import { SetAllShift } from 'modules/allShift';
 import { ownerLogout, parttimeLogout } from 'utils/api/auth';
+import moment from 'moment';
 
 const Header = ({
   user,
@@ -90,8 +91,9 @@ const Header = ({
     } else if (shop._id) {
       client.get(`/shift/location/${shop._id}`).then((response) => {
         let shiftBody = response.data.map((a) => {
-          const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-          const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+          const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
+          const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
+
           let newData = {
             title: a.title,
             start: new Date(st),
@@ -109,11 +111,13 @@ const Header = ({
     const getPayroll = async () => {
       try {
         const responseP = await client.get(`/timeclock/${shop._id}/staff`);
-        const responseOneSht = await client.get(`/shift/employee/${user._id}`);
+        const responseOneSht = await client.get(
+          `/shift/${shop._id}/employee/${user._id}`,
+        );
 
         let shift = await responseOneSht.data.map((a) => {
-          const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
-          const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
+          const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
+          const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
 
           let newData = {
             title: user.name,

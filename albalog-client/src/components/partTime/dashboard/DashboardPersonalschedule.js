@@ -3,18 +3,19 @@ import 'components/partTime/dashboard/DashboardPersonalschedule.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import moment from 'moment';
 
 function DashboardPersonalschedule({ year, month, date }) {
   const one_shift = useSelector((state) => state.parttime.one_shift);
 
-  const [today, setToday] = useState(new Date(year, month - 1, date));
+  const [today, setToday] = useState(moment().format('YYYY-MM-DD'));
   const [filteredShift, setFilteredShift] = useState([]);
 
   const onClickLeft = () => {
-    setToday(new Date(today.setDate(today.getDate() - 1)));
+    setToday(moment(today).subtract(1, 'd').format('YYYY-MM-DD'));
   };
   const onClickRight = () => {
-    setToday(new Date(today.setDate(today.getDate() + 1)));
+    setToday(moment(today).add(1, 'd').format('YYYY-MM-DD'));
   };
 
   useEffect(() => {
@@ -22,7 +23,9 @@ function DashboardPersonalschedule({ year, month, date }) {
       return;
     }
     let filteredShift = one_shift.filter(
-      (a) => a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
+      (a) =>
+        moment(a.start).format('yyyy-MM-DD') ===
+        moment(today).format('yyyy-MM-DD'),
     );
     setFilteredShift(filteredShift);
   }, [one_shift, today]);
@@ -31,12 +34,7 @@ function DashboardPersonalschedule({ year, month, date }) {
     <div id="personalschedule-content">
       <div className="txtline">
         <IoIosArrowBack onClick={onClickLeft} />
-        {today
-          .toLocaleDateString('ko-KR')
-          .toString()
-          .replace('.', '-')
-          .replace('.', '-')
-          .replace('.', '')}
+        {today}
         <IoIosArrowForward onClick={onClickRight} />
       </div>
 
@@ -45,11 +43,7 @@ function DashboardPersonalschedule({ year, month, date }) {
           출근시간
           <b>
             {filteredShift[0]
-              ? filteredShift[0].start
-                  .toLocaleTimeString('en-US', {
-                    hour12: false,
-                  })
-                  .slice(0, 5)
+              ? moment(filteredShift[0].start).format('HH:mm')
               : '-'}
           </b>
         </div>
@@ -57,18 +51,10 @@ function DashboardPersonalschedule({ year, month, date }) {
           퇴근시간
           <b>
             {filteredShift[0]
-              ? filteredShift[0].start.toString().slice(0, 15) ===
-                filteredShift[0].end.toString().slice(0, 15)
-                ? filteredShift[0].end
-                    .toLocaleTimeString('en-US', {
-                      hour12: false,
-                    })
-                    .slice(0, 5)
-                : filteredShift[0].end
-                    .toLocaleTimeString('en-US', {
-                      hour12: false,
-                    })
-                    .slice(0, 5) + '+1'
+              ? moment(filteredShift[0].start).format('yyyy-MM-DD') ===
+                moment(filteredShift[0].end).format('yyyy-MM-DD')
+                ? moment(filteredShift[0].end).format('HH:mm')
+                : moment(filteredShift[0].end).format('HH:mm') + '+1'
               : '-'}
           </b>
         </div>

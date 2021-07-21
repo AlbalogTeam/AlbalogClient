@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import 'components/partTime/accountinfo/PayrollList.scss';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 function PayrollList() {
   const payrolls = useSelector((state) => state.parttime.payrolls);
@@ -50,14 +51,8 @@ function Monthlypay({ data }) {
           <div className="tr" key={i}>
             <div className="date">{item.start_time.slice(5)}</div>
             <div className="time">
-              {new Date(new Date(item.workTime[0]).getTime())
-                .toString()
-                .slice(15, 21)}{' '}
-              ~{' '}
-              {new Date(new Date(item.workTime[1]).getTime())
-                .toString()
-                .slice(15, 21)}
-              {/* {item.workTime.slice(-2)} */}
+              {moment(item.workTime[0]).local().format('HH:mm')} ~{' '}
+              {moment(item.workTime[1]).local().format('HH:mm')}
             </div>
             <div className="pay">
               {item.total > 0 ? item.total.toLocaleString() : 0}

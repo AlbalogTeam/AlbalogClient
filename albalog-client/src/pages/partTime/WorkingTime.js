@@ -6,22 +6,19 @@ import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 function WorkingTime() {
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
-  const [today, setToday] = useState(new Date(year, month));
+  const [today, setToday] = useState(moment().format('yyyyMM'));
   const payrolls = useSelector((state) => state.parttime.payrolls);
 
   function filteredPayroll() {
     const monthlyPayroll =
-      payrolls &&
-      payrolls.filter(
-        (a) =>
-          (a.yearAndMonth.toString().slice(0, 4) * 1 === today.getFullYear()) &
-          (a.yearAndMonth.toString().slice(4) * 1 === today.getMonth() + 1),
-      );
-    return monthlyPayroll.length > 0 ? monthlyPayroll[0].timeClock : 0;
+      payrolls && payrolls.filter((a) => a.yearAndMonth === today * 1);
+    console.log(monthlyPayroll);
+    return payrolls && monthlyPayroll.length > 0
+      ? monthlyPayroll[0].timeClock
+      : 0;
   }
 
   const totalWorkingtime = filteredPayroll()
@@ -31,16 +28,15 @@ function WorkingTime() {
     : 0;
 
   const onClickLeft = () => {
-    setToday(new Date(today.setMonth(today.getMonth() - 1)));
+    setToday(moment(today).subtract(1, 'M').format('yyyyMM'));
   };
 
   const onClickRight = () => {
-    setToday(new Date(today.setMonth(today.getMonth() + 1)));
+    setToday(moment(today).add(1, 'M').format('yyyyMM'));
   };
 
   return (
     <>
-      {/* {!payrolls && <Loading />} */}
       <Header />
       <Aside />
       <div id="workingtime">
@@ -50,11 +46,7 @@ function WorkingTime() {
             <div className="date-line">
               <IoIosArrowBack onClick={onClickLeft} />
               <b style={{ fontSize: '1.2rem' }}>
-                {today
-                  .toLocaleDateString()
-                  .slice(0, 9)
-                  .replace('.', '-')
-                  .replace('.', '')}
+                {moment(today).format('YYYY-MM')}
               </b>
               <IoIosArrowForward onClick={onClickRight} />
             </div>

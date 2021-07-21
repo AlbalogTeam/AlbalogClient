@@ -30,9 +30,6 @@ function ParttimeScheduler() {
   });
 
   const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth();
-  const date = today.getDate();
 
   // event 슬롯 색 정하기
   const eventStyleGetter = (event) => {
@@ -105,12 +102,13 @@ function ParttimeScheduler() {
           <div className="calendar-box">
             {selectedRadio === 'personal' ? (
               <div style={{ width: '100%', height: '100%' }}>
+                {/* 개인 스케줄 */}
                 <Calendar
                   localizer={localizer}
                   defaultView={'month'}
                   showMultiDayTimes={true}
                   views={['week', 'month']}
-                  defaultDate={new Date(year, month, date)}
+                  defaultDate={today}
                   events={personalShifts} // array of events
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
@@ -123,12 +121,13 @@ function ParttimeScheduler() {
               </div>
             ) : (
               <div style={{ width: '100%', height: '100%' }}>
+                {/* 전체 스케줄 */}
                 <Calendar
                   localizer={localizer}
                   defaultView={'month'}
                   showMultiDayTimes={true}
                   views={['week', 'month']}
-                  defaultDate={new Date(year, month, date)}
+                  defaultDate={today}
                   events={allShifts} // array of events
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
