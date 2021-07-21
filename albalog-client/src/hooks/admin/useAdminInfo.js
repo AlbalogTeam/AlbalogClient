@@ -29,13 +29,24 @@ export default function useAdminInfo() {
       return;
     } else if (password.length < 6) {
       setError('비밀번호는 최소 6자리 이상입니다.');
-    }
-
-    if (newPassword !== newPasswordCheck) {
-      setError('새 비밀번호가 일치하지 않습니다.');
       return;
     }
-    // 새로운 비밀번호를 입력했다면 6자리 이상이여야 함.
+
+    // 새로운 비밀번호를 입력하지 않았으면(빈 문자열)이면 넘어가고,
+    if ([newPassword].includes('') && newPasswordCheck.includes('')) {
+    } else {
+      // 빈문자열이 아니라면 둘이 같은지 , 6자리 이상인지 체크
+      console.log('else 진입');
+      if (newPassword.length < 6 || newPasswordCheck.length < 6) {
+        console.log('6자리 이하');
+        setError('새로운 비밀번호는 최소 6자리 이상입니다.');
+        return;
+      }
+      if (newPassword !== newPasswordCheck) {
+        setError('새로운 비밀번호가 서로 다릅니다.');
+        return;
+      }
+    }
 
     try {
       const response = await patchAdminInfo({
