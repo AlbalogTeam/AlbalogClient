@@ -42,3 +42,13 @@ export const updateShop = async (
   const response = await client.patch(`/location/${shopId}/update`, body);
   return response;
 };
+
+export const getShopInfoByAdmin = async (shopId) => {
+  const response = await client.get(`/location/${shopId}`);
+  return response.data;
+};
+
+export const getShopInfoByParttime = async (shopId) => {
+  const response = await client.get(`/employee/${shopId}`);
+  return response.data;
+};

@@ -21,9 +21,10 @@ const user = createSlice({
       state.role = role;
       state.token = token;
     },
+    UserStateEmpty: () => initialState,
   },
 });
 
-export const { SetUser } = user.actions;
+export const { SetUser, UserStateEmpty } = user.actions;
 
 export default user;
