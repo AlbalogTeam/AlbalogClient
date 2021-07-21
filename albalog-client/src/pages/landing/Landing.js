@@ -1,10 +1,10 @@
 import ShopForm from 'components/landing/ShopForm';
-import StoreList from 'components/landing/StoreList';
+import StoreList from 'components/landing/StopList';
 import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ownerLogout, parttimeLogout } from 'utils/api/auth';
+import { adminLogout, parttimeLogout } from 'utils/api/auth';
 import { createShop } from 'utils/api/shop';
 import './Landing.scss';
 
@@ -53,7 +53,7 @@ const Landing = () => {
     };
     if (user.role === 'owner') {
       try {
-        await ownerLogout();
+        await adminLogout();
         sessionStorage.removeItem('user'); // sessionStorage user를 제거
         dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
       } catch (e) {

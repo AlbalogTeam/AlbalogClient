@@ -78,7 +78,7 @@ const ShopForm = ({ ToggleButton, onSubmit }) => {
             </p>
             <div className="modal-btn">
               <button className="upload btn" type="submit">
-                수정
+                완료
               </button>
               <button
                 className="cancel btn"

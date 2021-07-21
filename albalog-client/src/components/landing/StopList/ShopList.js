@@ -10,9 +10,9 @@ import {
 } from 'utils/api/shop';
 import ShopForm from '../ShopForm';
 
-import './StoreList.scss';
+import './ShopList.scss';
 
-const StoreList = ({ user, dispatchSetshop }) => {
+const ShopList = ({ user, dispatchSetshop }) => {
   const role = user.role;
   const [locations, setLocations] = useState([]);
   const [dataState, setDataState] = useState(0);
@@ -80,7 +80,7 @@ const StoreList = ({ user, dispatchSetshop }) => {
   };
 
   return (
-    <div id="StoreList">
+    <div id="ShopList">
       {dataState === 0 ? (
         <Loading />
       ) : (
@@ -138,4 +138,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreList);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopList);

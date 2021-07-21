@@ -52,7 +52,7 @@ export const login = async (email, password) => {
 };
 
 // 관리자 로그아웃
-export const ownerLogout = async () => {
+export const adminLogout = async () => {
   const response = await client.post('/owner/logout');
   return response;
 };
