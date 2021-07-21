@@ -1,19 +1,18 @@
 import Loading from 'components/Loading/Loading';
-import InviteModal from 'components/Modal/InviteModal';
 import { SetShop } from 'modules/shop';
 import { SetUser } from 'modules/user';
 import { SetParttime } from 'modules/parttime';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './Header.scss';
 import logo from 'static/albalog-logo.png';
 import client from 'utils/api/client';
 import { FaStoreAlt } from 'react-icons/fa';
-import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineExport } from 'react-icons/ai';
 import { SetAllShift } from 'modules/allShift';
 import { ownerLogout, parttimeLogout } from 'utils/api/auth';
+import InviteButton from 'components/InviteButton/InviteButton';
 
 const Header = ({
   user,
@@ -26,13 +25,6 @@ const Header = ({
   dispatchSetAllShift,
   match,
 }) => {
-  const [isModal, setIsModal] = useState(false);
-  console.log('Header 리렌더링');
-
-  const handleModal = () => {
-    setIsModal(!isModal);
-  };
-
   const logOutHandler = async () => {
     let UserBody = {
       _id: '',
@@ -154,22 +146,13 @@ const Header = ({
           <span className="user-name">
             <b>{user.name}</b>님 안녕하세요.
           </span>
-          {user.role === 'owner' ? (
-            <button className="btn-invite" onClick={handleModal}>
-              <span>직원초대</span>
-              <BsFillPersonPlusFill size="25" />
-            </button>
-          ) : (
-            ''
-          )}
-
+          {user.role === 'owner' && <InviteButton />}
           <button className="btn-logout" onClick={logOutHandler}>
             <span>로그아웃</span>
             <AiOutlineExport size="25" />
           </button>
         </div>
       </header>
-      {isModal && <InviteModal handleModal={handleModal} />}
     </>
   );
 };
