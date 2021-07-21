@@ -4,8 +4,6 @@ import useCommutingEffect from 'hooks/admin/useCommutingEffect';
 
 const CommutingStatus = () => {
   const { employeeList, year, month, day } = useCommutingEffect();
-  console.log(employeeList);
-
   return (
     <div className="work">
       <h2 className="date">{`${year}년 ${month}월 ${day}일`}</h2>
@@ -48,10 +46,15 @@ const CommutingStatus = () => {
                 <div className="content-detail" key={idx}>
                   <strong>{employee.name}</strong>
                   <p className="off">
-                    {`근무 시간 : ${employee.time[0].start_time.substr(
-                      11,
-                      5,
-                    )}~${employee.time[0].end_time.substr(11, 5)}`}
+                    {`근무 시간 : ${new Date(
+                      employee.time[0].start_time,
+                    ).getHours()}:${new Date(
+                      employee.time[0].start_time,
+                    ).getMinutes()}~${new Date(
+                      employee.time[0].end_time,
+                    ).getHours()}:${new Date(
+                      employee.time[0].end_time,
+                    ).getMinutes()}`}
                   </p>
                 </div>
               ))}
