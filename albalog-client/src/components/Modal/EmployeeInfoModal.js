@@ -73,13 +73,13 @@ const EmployeeInfoModal = ({ handleModal, data }) => {
           </div>
 
           <button
-            className="btn-invite"
+            className="btn btn-invite"
             onClick={onSubmit}
             onChange={changeStatus}
           >
             수정하기
           </button>
-          <button className="btn-close" onClick={handleModal}>
+          <button className="btn btn-close" onClick={handleModal}>
             닫기
           </button>
         </form>

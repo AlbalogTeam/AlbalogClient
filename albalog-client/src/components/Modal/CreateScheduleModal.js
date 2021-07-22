@@ -134,8 +134,8 @@ const CreateScheduleModal = ({ handleCreateModal, employeeList }) => {
             <input type="time" name={0} id="end_time" onChange={changeTime} />
           </div>
 
-          <button className="btn-invite">추가하기</button>
-          <button className="btn-close" onClick={handleCreateModal}>
+          <button className="btn btn-create">추가하기</button>
+          <button className="btn btn-close" onClick={handleCreateModal}>
             닫기
           </button>
         </form>

@@ -26,8 +26,8 @@ const InviteModal = ({ handleModal }) => {
             onChange={onChange}
             placeholder="example@gmail.com"
           />
-          <button className="btn-invite">초대하기</button>
-          <button className="btn-close" onClick={handleModal}>
+          <button className="btn btn-invite">초대하기</button>
+          <button className="btn btn-close" onClick={handleModal}>
             닫기
           </button>
         </form>
