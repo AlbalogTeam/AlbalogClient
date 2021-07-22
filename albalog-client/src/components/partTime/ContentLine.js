@@ -1,9 +1,8 @@
 import React from 'react';
 import 'components/partTime/ContentLine.scss';
+import { weekArray } from 'utils/constants';
 
 function ContentLine({ filteredPayroll }) {
-  const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
-
   return (
     <div id="contentline-container">
       {/* {console.log(filteredPayroll[0].timeClock)} */}
