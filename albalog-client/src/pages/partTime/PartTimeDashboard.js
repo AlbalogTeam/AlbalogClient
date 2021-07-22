@@ -15,6 +15,7 @@ import Footer from 'components/Footer/Footer';
 import Loading from 'components/Loading/Loading';
 import { useCallback } from 'react';
 import TimeclockModal from 'components/Modal/TimeclockModal';
+import { weekArray } from 'utils/constants';
 
 function PartTimeDashboard() {
   const year = new Date().getFullYear();
@@ -25,7 +26,6 @@ function PartTimeDashboard() {
   const user = useSelector((state) => state.user);
   const parttime = useSelector((state) => state.parttime);
 
-  const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
 
   // 출퇴근 기능

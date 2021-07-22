@@ -1,19 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { weekArray } from 'utils/constants';
 import './Notice.scss';
 
 const Notice = () => {
   const announce = useSelector(({ shop }) => shop.notices[0]);
-  const days = {
-    0: '일',
-    1: '월',
-    2: '화',
-    3: '수',
-    4: '목',
-    5: '금',
-    6: '토',
-  };
 
   return (
     <div className="notice-container">
@@ -26,7 +18,7 @@ const Notice = () => {
               <p className="date">
                 📅{' '}
                 {`${announce.updatedAt.substr(0, 10)} ${
-                  days[new Date(announce.updatedAt).getDay()]
+                  weekArray[new Date(announce.updatedAt).getDay()]
                 }`}
               </p>
               <p className="content">
