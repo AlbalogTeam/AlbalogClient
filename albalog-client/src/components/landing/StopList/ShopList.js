@@ -1,109 +1,40 @@
 import Loading from 'components/Loading/Loading';
-import { SetShop } from 'modules/shop';
-import React, { useEffect, useState } from 'react';
-import { useCallback } from 'react';
-import { connect, useSelector } from 'react-redux';
-import {
-  getShopForOwner,
-  getShopForParttime,
-  updateShop,
-} from 'utils/api/shop';
+import useShopEdit from 'hooks/shop/useShopEdit';
+import useShopListEffect from 'hooks/shop/useShopListEffect';
+import React from 'react';
 import ShopForm from '../ShopForm';
 
 import './ShopList.scss';
 
-const ShopList = ({ user, dispatchSetshop }) => {
-  const role = user.role;
-  const [locations, setLocations] = useState([]);
-  const [dataState, setDataState] = useState(0);
-  const [editState, setEditState] = useState(false);
-  const shop = useSelector((state) => state.shop);
-  const { name, postal_code, phone_number, address } = shop;
-
-  const onSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      try {
-        await updateShop(name, address, postal_code, phone_number, shop._id);
-        window.location.reload();
-      } catch (e) {
-        alert('수정에 실패했습니다.');
-      }
-    },
-    [name, address, postal_code, phone_number, shop._id],
-  );
-  useEffect(() => {
-    const getDataForOwner = async () => {
-      try {
-        const locations = await getShopForOwner();
-        setLocations(locations);
-        setDataState(1);
-      } catch (e) {
-        setDataState(1);
-      }
-    };
-
-    const getDataForParttime = async () => {
-      try {
-        const locations = await getShopForParttime();
-        setLocations(locations);
-        setDataState(1);
-      } catch (e) {
-        setDataState(1);
-      }
-    };
-
-    if (role === 'owner') {
-      getDataForOwner();
-    } else {
-      getDataForParttime();
-    }
-  }, [role]);
-
-  const StateToggleButton = useCallback(() => {
-    setEditState(!editState);
-  }, [editState]);
-
-  const EditHandle = (location) => {
-    StateToggleButton();
-    let shopBody = {
-      _id: location._id,
-      name: location.name,
-      notices: location.notices,
-      workManuals: location.workManuals,
-      address: location.address,
-      phone_number: location.phone_number,
-      postal_code: location.postal_code,
-    };
-
-    dispatchSetshop(shopBody);
-  };
+const ShopList = () => {
+  const { locations, loading, user } = useShopListEffect();
+  const { onEditHandler, onToggle, isEditModal, onEdit } = useShopEdit();
 
   return (
     <div id="ShopList">
-      {dataState === 0 ? (
+      {loading === true ? (
         <Loading />
       ) : (
         <ul>
           {locations.map((location) => (
             <li key={location._id}>
               <div className="store-enter">
-                {role === 'owner' && (
+                {user.role === 'owner' && (
                   <button
                     type="button"
-                    onClick={() => EditHandle(location)}
+                    onClick={() => onEditHandler(location)}
                     className="btn"
                   >
                     수정
                   </button>
                 )}
 
-                {role === 'owner' && (
+                {user.role === 'owner' && (
                   <a className="btn" href={`/admin/${location._id}`}>
                     입장
                   </a>
                 )}
-                {role === 'staff' && (
+                {user.role === 'staff' && (
                   <a className="btn" href={`/parttime/${location._id}`}>
                     입장
                   </a>
@@ -119,23 +50,9 @@ const ShopList = ({ user, dispatchSetshop }) => {
           ))}
         </ul>
       )}
-      {editState && (
-        <ShopForm onSubmit={onSubmit} ToggleButton={StateToggleButton} />
-      )}
+      {isEditModal && <ShopForm onSubmit={onEdit} ToggleButton={onToggle} />}
     </div>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchSetshop: (ShopBody) => dispatch(SetShop(ShopBody)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShopList);
+export default ShopList;

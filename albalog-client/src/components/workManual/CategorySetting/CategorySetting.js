@@ -45,7 +45,6 @@ const CategorySetting = ({ categorySetState, CategorySetToggle }) => {
 
   // 카테고리 추가 onClick 함수
   const AddCategoryHandle = useCallback(async () => {
-    if (doubleSubmitCheck()) return;
     try {
       const result = await addCategory(shop._id, addCategoryName);
       setCategories(result);
