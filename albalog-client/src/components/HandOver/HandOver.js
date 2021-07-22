@@ -23,7 +23,7 @@ const HandOver = () => {
       <div className="hand-over">
         {!allTransition && <p>로딩 중..</p>}
         {allTransition &&
-          allTransition.map((transition) => (
+          allTransition.satisfyTransitions.map((transition) => (
             <HandOverItem key={transition._id} transition={transition} />
           ))}
       </div>

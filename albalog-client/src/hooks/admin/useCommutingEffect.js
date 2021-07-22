@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getCommutingStatus } from 'utils/api/adminDashboard';
+import requestAxios from 'utils/requestAxios';
 
 export default function useCommutingEffect() {
   const [employeeList, setEmployeeList] = useState([]);
@@ -10,18 +11,10 @@ export default function useCommutingEffect() {
   const day = date.getDate();
   const shopId = useSelector(({ shop }) => shop._id);
 
-  const getData = async () => {
-    try {
-      const response = await getCommutingStatus({ shopId });
-      setEmployeeList(response);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
-    getData();
+    requestAxios(setEmployeeList, getCommutingStatus, { shopId });
   }, [shopId]);
+
   return {
     employeeList,
     year,
