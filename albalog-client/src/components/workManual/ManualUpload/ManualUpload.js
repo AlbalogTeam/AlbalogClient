@@ -43,7 +43,8 @@ const ManualUpload = ({ uploadState, ToggleButton }) => {
   const manualOnSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      if (doubleSubmitCheck()) return;
+      // if (doubleSubmitCheck()) return;
+      console.log('dd');
       try {
         await createManual(shop._id, title, content, category);
         window.location.replace(`/${shop._id}/workmanual`);
