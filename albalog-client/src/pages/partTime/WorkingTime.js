@@ -15,7 +15,6 @@ function WorkingTime() {
   function filteredPayroll() {
     const monthlyPayroll =
       payrolls && payrolls.filter((a) => a.yearAndMonth === today * 1);
-    console.log(monthlyPayroll);
     return payrolls && monthlyPayroll.length > 0
       ? monthlyPayroll[0].timeClock
       : 0;

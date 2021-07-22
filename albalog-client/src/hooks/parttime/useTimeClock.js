@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import client from 'utils/api/client';
-import { postTimeClockIn, postTimeClockOut } from 'utils/api/timeclock';
+import {
+  postTimeClockIn,
+  postTimeClockOut,
+  getProfile,
+} from 'utils/api/timeclock';
 
 export default function useTimeClock() {
   const parttime = useSelector((state) => state.parttime);
@@ -28,22 +31,10 @@ export default function useTimeClock() {
     : false; // false면 값을 클릭 가능
   let clockOut = clockIn ? false : true;
 
-  const getprofile = async () => {
-    try {
-      const response = await client.get(
-        `/location/${shop._id}/employees/${user._id}`,
-      );
-      sessionStorage.setItem('parttime', JSON.stringify(response.data));
-      window.location.replace(`/parttime/${shop._id}`);
-    } catch (e) {
-      console.log('getprofileErr' + e);
-    }
-  };
-
   const clickClockIn = async (e) => {
     try {
       await postTimeClockIn(shop._id, parttime.hourly_wage);
-      getprofile();
+      getProfile(user._id, shop._id);
     } catch (e) {
       console.log(e);
     }
@@ -54,7 +45,7 @@ export default function useTimeClock() {
     clockIn = false;
     try {
       await postTimeClockOut(shop._id, lastTimeClock._id);
-      getprofile();
+      getProfile(user._id, shop._id);
     } catch (e) {
       console.log(e);
     }
