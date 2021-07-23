@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const ManualCategory = () => {
   const activeStyle = {
     color: 'rgb(18, 113, 175)',
-    fontSize: '16px',
+    fontSize: '20px',
     fontWeight: '700',
   };
 

@@ -64,7 +64,7 @@ const ManualList = ({ category, user, shop }) => {
             return (
               <li key={index}>
                 <div className="manual-title">
-                  {manual.title}
+                  <div className="title">{manual.title}</div>
                   {user.role === 'owner' && (
                     <div className="ico">
                       <button
@@ -77,7 +77,10 @@ const ManualList = ({ category, user, shop }) => {
                   )}
                 </div>
                 <br />
-                <div dangerouslySetInnerHTML={{ __html: manual.content }}></div>
+                <div
+                  className="manual-content"
+                  dangerouslySetInnerHTML={{ __html: manual.content }}
+                ></div>
               </li>
             );
           })}

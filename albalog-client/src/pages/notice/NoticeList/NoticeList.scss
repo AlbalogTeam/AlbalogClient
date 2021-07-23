@@ -1,6 +1,5 @@
 #Notice,
 .page-layout {
-  // width: 1160px;
   padding-top: 20px;
   margin-left: 50px;
   overflow: hidden;
@@ -12,6 +11,7 @@
       width: 500px;
       margin: 0 auto;
       padding-top: 60px;
+      margin-bottom: 30px;
       border-bottom: 1px solid #999;
       form {
         position: relative;
@@ -63,7 +63,7 @@
         border-collapse: collapse;
         border-spacing: 0;
         table-layout: fixed;
-        border:none;
+        border: none;
         colgroup {
           .left {
             width: 81%;
