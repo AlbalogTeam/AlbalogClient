@@ -1,31 +1,16 @@
 import Loading from 'components/Loading/Loading';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import useCategoryEffect from 'hooks/workManual/useCategoryEffect';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { getCategories } from 'utils/api/category';
 
 const ManualCategory = () => {
-  const shop = useSelector((state) => state.shop);
-  const render = useSelector((state) => state.render);
-  const [categories, setCategories] = useState([]);
-
   const activeStyle = {
     color: 'rgb(18, 113, 175)',
-    fontSize: '16px',
+    fontSize: '20px',
     fontWeight: '700',
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getCategories(shop._id);
-      const categoryDefault = [{ name: '전체' }];
-      const categoryNewArr = categoryDefault.concat([...result].reverse());
-      setCategories(categoryNewArr);
-    }
-    if (shop.name) {
-      fetchData();
-    }
-  }, [shop, render]);
+  const { categories, shop } = useCategoryEffect();
 
   return (
     <div className="manual-category">

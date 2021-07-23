@@ -2,44 +2,43 @@ import Header from 'components/Header';
 import MenualCategory from 'components/workManual/ManualCategory/ManualCategory';
 import MenualList from 'components/workManual/ManualList/ManualList';
 import ManualUpload from 'components/workManual/ManualUpload/ManualUpload';
-import React, { useState } from 'react';
+import React from 'react';
 import './WorkManual.scss';
-import AdminAside from 'components/Aside';
-import { useSelector } from 'react-redux';
+import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import CategorySetting from 'components/workManual/CategorySetting/CategorySetting';
 import { useRouteMatch } from 'react-router-dom';
-import { useCallback } from 'react';
+import useManualModal from 'hooks/workManual/useManualModal';
 
 const WorkManual = () => {
   // 카테고리가 선택되지 않았으면 기본값 all 사용
-  const user = useSelector((state) => state.user);
   const match = useRouteMatch();
   const category = match.params.category || 'all';
-  const [uploadState, setUploadState] = useState(false);
-  const [categorySetState, setCategorySetState] = useState(false);
 
-  const ToggleButton = useCallback(() => {
-    setUploadState(!uploadState);
-  }, [uploadState]);
-
-  const CategorySetToggle = useCallback(() => {
-    setCategorySetState(!categorySetState);
-  }, [categorySetState]);
+  const {
+    user,
+    isUploadModal,
+    onToggleForManual,
+    onToggleForCategory,
+    isCategoryModal,
+  } = useManualModal();
 
   return (
     <>
       <Header />
-      <AdminAside />
+      <Aside />
       <div id="WorkManual" className="page-layout">
         <div className="cont">
           <MenualCategory />
           {user.role === 'owner' && (
             <div className="upload">
-              <button className="add-manual btn" onClick={ToggleButton}>
+              <button className="add-manual btn" onClick={onToggleForManual}>
                 매뉴얼 추가
               </button>
-              <button className="category-set btn" onClick={CategorySetToggle}>
+              <button
+                className="category-set btn"
+                onClick={onToggleForCategory}
+              >
                 카테고리 설정
               </button>
             </div>
@@ -47,13 +46,16 @@ const WorkManual = () => {
           <MenualList category={category} />
         </div>
       </div>
-      {uploadState && (
-        <ManualUpload uploadState={uploadState} ToggleButton={ToggleButton} />
+      {isUploadModal && (
+        <ManualUpload
+          uploadState={isUploadModal}
+          ToggleButton={onToggleForManual}
+        />
       )}
-      {categorySetState && (
+      {isCategoryModal && (
         <CategorySetting
-          categorySetState={categorySetState}
-          CategorySetToggle={CategorySetToggle}
+          categorySetState={isCategoryModal}
+          CategorySetToggle={onToggleForCategory}
         />
       )}
       <Footer />

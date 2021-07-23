@@ -3,8 +3,10 @@ import useShopEdit from 'hooks/shop/useShopEdit';
 import useShopListEffect from 'hooks/shop/useShopListEffect';
 import React from 'react';
 import ShopForm from '../ShopForm';
+import LandingImg from 'static/Landing.png';
 
 import './ShopList.scss';
+import NoDataType1 from 'components/NoData/NoDataType';
 
 const ShopList = () => {
   const { locations, loading, user } = useShopListEffect();
@@ -16,6 +18,12 @@ const ShopList = () => {
         <Loading />
       ) : (
         <ul>
+          {console.log(locations)}
+          {locations.length < 1 ? (
+            <NoDataType1 text="매장을 등록해주세요" img={LandingImg} />
+          ) : (
+            ''
+          )}
           {locations.map((location) => (
             <li key={location._id}>
               <div className="store-enter">

@@ -14,7 +14,7 @@ export default function useShopListEffect() {
       const locations = await getShopListForOwner();
       setLocations(locations);
     } catch (e) {
-      alert('매장 리스트를 불러오는데 실패했습니다.');
+
     } finally {
       setLoading(false);
     }

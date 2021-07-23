@@ -8,8 +8,10 @@ import { Link } from 'react-router-dom';
 import Header from 'components/Header';
 import Aside from 'components/Aside';
 import Footer from 'components/Footer/Footer';
-import NoDataType2 from 'components/NoData/NodataType2';
+
+import NoticeIMG from 'static/Notice.png';
 import { searchNotice } from 'utils/api/notice';
+import NoDataType1 from 'components/NoData/NoDataType';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);
@@ -107,7 +109,10 @@ const NoticeList = ({ user, shop }) => {
                 {shop._id && pagedNotices.length === 0 ? (
                   <tr>
                     <td style={{ borderBottom: 'none' }}>
-                      <NoDataType2 text={'등록된 공지사항이 없습니다.'} />
+                      <NoDataType1
+                        text={'등록된 공지사항이 없습니다'}
+                        img={NoticeIMG}
+                      />
                     </td>
                   </tr>
                 ) : (

@@ -1,5 +1,5 @@
 import ModalLoading from 'components/Loading/ModalLoading';
-import NoDataType1 from 'components/NoData/NoDataType1';
+import NoDataType1 from 'components/NoData/NoDataType';
 import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
 import { useCallback } from 'react';
@@ -7,6 +7,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { getWorkManuals } from 'utils/api/workmanual';
 import ManualEdit from '../ManualEdit/ManualEdit';
+import ManualIMG from 'static/WorkManual.png';
 
 const ManualList = ({ category, user, shop }) => {
   const [manualList, setManualList] = useState([]);
@@ -56,7 +57,7 @@ const ManualList = ({ category, user, shop }) => {
   return (
     <div className="manual-list">
       {!manualList.length && shop._id && loadingState && (
-        <NoDataType1 text={'등록된 업무 매뉴얼이 없습니다.'} />
+        <NoDataType1 text={'등록된 업무 매뉴얼이 없습니다.'} img={ManualIMG} />
       )}
       {loadingState === true && manualList ? (
         <ul>
@@ -64,7 +65,7 @@ const ManualList = ({ category, user, shop }) => {
             return (
               <li key={index}>
                 <div className="manual-title">
-                  {manual.title}
+                  <div className="title">{manual.title}</div>
                   {user.role === 'owner' && (
                     <div className="ico">
                       <button
@@ -77,7 +78,10 @@ const ManualList = ({ category, user, shop }) => {
                   )}
                 </div>
                 <br />
-                <div dangerouslySetInnerHTML={{ __html: manual.content }}></div>
+                <div
+                  className="manual-content"
+                  dangerouslySetInnerHTML={{ __html: manual.content }}
+                ></div>
               </li>
             );
           })}
