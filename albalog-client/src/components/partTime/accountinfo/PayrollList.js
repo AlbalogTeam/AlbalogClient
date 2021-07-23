@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import 'components/partTime/accountinfo/PayrollList.scss';
-import { useSelector } from 'react-redux';
 import moment from 'moment';
+import usePayroll from 'hooks/parttime/usePayroll';
 
 function PayrollList() {
-  const payrolls = useSelector((state) => state.parttime.payrolls);
+  const { parttime } = usePayroll();
+  const payrolls = parttime.payrolls;
 
   return (
     <div id="PayrollList">

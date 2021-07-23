@@ -15,6 +15,7 @@ import { AiOutlineExport } from 'react-icons/ai';
 import { SetAllShift } from 'modules/allShift';
 import { ownerLogout, parttimeLogout } from 'utils/api/auth';
 import moment from 'moment';
+import { getOneShft, getPayroll } from 'utils/api/parttime';
 
 const Header = ({
   user,
@@ -88,59 +89,58 @@ const Header = ({
       }
     } else if (!user.email) {
       window.location.replace('/login');
-    } else if (shop._id) {
-      client.get(`/shift/location/${shop._id}`).then((response) => {
-        let shiftBody = response.data.map((a) => {
-          const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
-          const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
-
-          let newData = {
-            title: a.title,
-            start: new Date(st),
-            end: new Date(ed),
-          };
-          return newData;
-        });
-        dispatchSetAllShift(shiftBody);
-      });
     }
+    // else if (shop._id) {
+    //   // 전체 스케줄
+    //   client.get(`/shift/location/${shop._id}`).then((response) => {
+    //     let shiftBody = response.data.map((a) => {
+    //       const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
+    //       const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
+
+    //       let newData = {
+    //         title: a.title,
+    //         start: new Date(st),
+    //         end: new Date(ed),
+    //       };
+    //       return newData;
+    //     });
+    //     dispatchSetAllShift(shiftBody);
+    //   });
+    // }
   }, [user, dispatchSetShop, match.params.shop, shop._id, dispatchSetAllShift]);
 
   // payroll과 개인스케줄을 리덕스에 추가
-  useEffect(() => {
-    const getPayroll = async () => {
-      try {
-        const responseP = await client.get(`/timeclock/${shop._id}/staff`);
-        const responseOneSht = await client.get(
-          `/shift/${shop._id}/employee/${user._id}`,
-        );
+  // useEffect(() => {
+  //   const getPayroll$2 = async () => {
+  //     try {
+  //       const responseP = 0;
+  //       const responseOneSht = await getOneShft(shop._id, user._id);
 
-        let shift = await responseOneSht.data.map((a) => {
-          const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
-          const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
+  //       let shift = await responseOneSht.data.map((a) => {
+  //         const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
+  //         const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
 
-          let newData = {
-            title: user.name,
-            start: new Date(st),
-            end: new Date(ed),
-          };
-          return newData;
-        });
-        const shiftParttime = {
-          ...parttime,
-          payrolls: responseP.data,
-          one_shift: shift,
-        };
-        dispatchSetParttime(shiftParttime);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  //         let newData = {
+  //           title: user.name,
+  //           start: new Date(st),
+  //           end: new Date(ed),
+  //         };
+  //         return newData;
+  //       });
+  //       const shiftParttime = {
+  //         ...parttime,
+  //         one_shift: shift,
+  //       };
+  //       dispatchSetParttime(shiftParttime);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    if (!parttime.payrolls && shop._id && user.role === 'staff') {
-      getPayroll();
-    }
-  }, [shop._id, dispatchSetParttime, user._id, parttime, user.name, user.role]);
+  //   if (!parttime.payrolls && shop._id && user.role === 'staff') {
+  //     getPayroll$2();
+  //   }
+  // }, [shop._id, dispatchSetParttime, user._id, parttime, user.name, user.role]);
 
   return (
     <>

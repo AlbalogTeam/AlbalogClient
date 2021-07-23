@@ -1,38 +1,21 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import 'pages/partTime/WorkingTime.scss';
 import ContentLine from 'components/partTime/ContentLine';
 import Header from 'components/Header/Header';
 import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
-import { useSelector } from 'react-redux';
 import moment from 'moment';
+import usePayroll from 'hooks/parttime/usePayroll';
 
 function WorkingTime() {
-  const [today, setToday] = useState(moment().format('yyyyMM'));
-  const payrolls = useSelector((state) => state.parttime.payrolls);
-
-  function filteredPayroll() {
-    const monthlyPayroll =
-      payrolls && payrolls.filter((a) => a.yearAndMonth === today * 1);
-    return payrolls && monthlyPayroll.length > 0
-      ? monthlyPayroll[0].timeClock
-      : 0;
-  }
-
-  const totalWorkingtime = filteredPayroll()
-    ? filteredPayroll().reduce((accum, curr) => {
-        return accum + curr.workInToday;
-      }, 0)
-    : 0;
-
-  const onClickLeft = () => {
-    setToday(moment(today).subtract(1, 'M').format('yyyyMM'));
-  };
-
-  const onClickRight = () => {
-    setToday(moment(today).add(1, 'M').format('yyyyMM'));
-  };
+  const {
+    filteredMonthlyPayroll,
+    totalWorkingtime,
+    onClickLeft,
+    onClickRight,
+    today,
+  } = usePayroll();
 
   return (
     <>
@@ -57,7 +40,7 @@ function WorkingTime() {
               <div className="workingtime-column">근무시간</div>
             </div>
             <div className="context-lines">
-              <ContentLine filteredPayroll={filteredPayroll} />
+              <ContentLine filteredPayroll={filteredMonthlyPayroll} />
             </div>
             <div className="total-line">
               <div className="date-column"></div>
