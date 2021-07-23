@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'pages/partTime/schedule/ParttimeScheduler.scss';
 import { Calendar } from 'react-big-calendar';
 import Footer from 'components/Footer/Footer';
 import { useSelector } from 'react-redux';
 import useScheduler from 'hooks/parttime/useScheduler';
 import useAllShift from 'hooks/common/useAllShift';
+import useShift from 'hooks/parttime/useShift';
 
 function ParttimeScheduler() {
   const parttime = useSelector((state) => state.parttime);
   const allShift = useSelector((state) => state.allShift);
-  const [personalShifts] = useState(parttime.one_shift || []);
-  const [allShifts] = useState(allShift.allShift || []);
 
   const { today, eventStyleGetter, localizer, onChange, selectedRadio } =
     useScheduler();
   useAllShift();
+  useShift();
 
   return (
     <>
@@ -57,7 +57,7 @@ function ParttimeScheduler() {
                   showMultiDayTimes={true}
                   views={['week', 'month']}
                   defaultDate={today}
-                  events={personalShifts} // array of events
+                  events={parttime.one_shift} // array of events
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
                   step={30}
@@ -76,7 +76,7 @@ function ParttimeScheduler() {
                   showMultiDayTimes={true}
                   views={['week', 'month']}
                   defaultDate={today}
-                  events={allShifts} // array of events
+                  events={allShift.allShift} // array of events
                   startAccessor="start" // the property for the start date of events
                   endAccessor="end" // the property for the end date of events
                   step={30}

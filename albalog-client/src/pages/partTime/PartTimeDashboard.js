@@ -21,9 +21,9 @@ function PartTimeDashboard() {
   const month = new Date().getMonth() + 1;
   const date = new Date().getDate();
   const today = year + '-' + month + '-' + date;
+  const day = weekArray[new Date().getDay()];
   const shop = useSelector((state) => state.shop);
   const parttime = useSelector((state) => state.parttime);
-  const day = weekArray[new Date().getDay()];
 
   const {
     clickClockIn,
@@ -65,11 +65,7 @@ function PartTimeDashboard() {
                     </Link>
                   </div>
                   <div className="fullScheduleContent">
-                    <DashboardFullschedule
-                      year={year}
-                      month={month}
-                      date={date}
-                    />
+                    <DashboardFullschedule />
                   </div>
                 </div>
                 <div className="personalSchedule">

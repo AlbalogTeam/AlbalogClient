@@ -1,34 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'components/partTime/dashboard/DashboardPersonalschedule.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import moment from 'moment';
+import useShift from 'hooks/parttime/useShift';
 
-function DashboardPersonalschedule({ year, month, date }) {
-  const one_shift = useSelector((state) => state.parttime.one_shift);
-
-  const [today, setToday] = useState(moment().format('YYYY-MM-DD'));
-  const [filteredShift, setFilteredShift] = useState([]);
-
-  const onClickLeft = () => {
-    setToday(moment(today).subtract(1, 'd').format('YYYY-MM-DD'));
-  };
-  const onClickRight = () => {
-    setToday(moment(today).add(1, 'd').format('YYYY-MM-DD'));
-  };
-
-  useEffect(() => {
-    if (!one_shift) {
-      return;
-    }
-    let filteredShift = one_shift.filter(
-      (a) =>
-        moment(a.start).format('yyyy-MM-DD') ===
-        moment(today).format('yyyy-MM-DD'),
-    );
-    setFilteredShift(filteredShift);
-  }, [one_shift, today]);
+function DashboardPersonalschedule() {
+  const { today, onClickLeft, onClickRight, filteredShift } = useShift();
 
   return (
     <div id="personalschedule-content">
@@ -42,19 +19,19 @@ function DashboardPersonalschedule({ year, month, date }) {
         <div className="tr">
           출근시간
           <b>
-            {filteredShift[0]
-              ? moment(filteredShift[0].start).format('HH:mm')
+            {filteredShift()
+              ? moment(filteredShift()[0].start).format('HH:mm')
               : '-'}
           </b>
         </div>
         <div className="tr">
           퇴근시간
           <b>
-            {filteredShift[0]
-              ? moment(filteredShift[0].start).format('yyyy-MM-DD') ===
-                moment(filteredShift[0].end).format('yyyy-MM-DD')
-                ? moment(filteredShift[0].end).format('HH:mm')
-                : moment(filteredShift[0].end).format('HH:mm') + '+1'
+            {filteredShift()
+              ? moment(filteredShift()[0].start).format('yyyy-MM-DD') ===
+                moment(filteredShift()[0].end).format('yyyy-MM-DD')
+                ? moment(filteredShift()[0].end).format('HH:mm')
+                : moment(filteredShift()[0].end).format('HH:mm') + '+1'
               : '-'}
           </b>
         </div>
