@@ -1,16 +1,15 @@
 import React from 'react';
 import './NoData.scss';
-import NoDataType from 'static/NoDataType2.png';
 
-const NoDataType2 = ({ text }) => {
+const NoDataType1 = ({ text, img }) => {
   return (
     <div id="NoData">
       <div className="noData-img">
-        <img src={NoDataType} alt="" />
+        <img src={img} alt="" />
       </div>
       <div className="data-txt">{text}</div>
     </div>
   );
 };
 
-export default NoDataType2;
+export default NoDataType1;
