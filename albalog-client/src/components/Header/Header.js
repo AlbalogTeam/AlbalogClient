@@ -12,6 +12,7 @@ const Header = () => {
   const { onLogout } = useLogout();
   const { user, shop } = useShopInfoEffect();
   console.log('헤더 리랜더링');
+
   return (
     <>
       {!shop._id && <Loading />}

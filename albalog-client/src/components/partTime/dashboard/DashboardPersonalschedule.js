@@ -1,42 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'components/partTime/dashboard/DashboardPersonalschedule.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import moment from 'moment';
+import useShift from 'hooks/parttime/useShift';
 
-function DashboardPersonalschedule({ year, month, date }) {
-  const one_shift = useSelector((state) => state.parttime.one_shift);
-
-  const [today, setToday] = useState(new Date(year, month - 1, date));
-  const [filteredShift, setFilteredShift] = useState([]);
-
-  const onClickLeft = () => {
-    setToday(new Date(today.setDate(today.getDate() - 1)));
-  };
-  const onClickRight = () => {
-    setToday(new Date(today.setDate(today.getDate() + 1)));
-  };
-
-  useEffect(() => {
-    if (!one_shift) {
-      return;
-    }
-    let filteredShift = one_shift.filter(
-      (a) => a.start.toString().slice(0, 15) === today.toString().slice(0, 15),
-    );
-    setFilteredShift(filteredShift);
-  }, [one_shift, today]);
+function DashboardPersonalschedule() {
+  const { today, onClickLeft, onClickRight, filteredShift } = useShift();
 
   return (
     <div id="personalschedule-content">
       <div className="txtline">
         <IoIosArrowBack onClick={onClickLeft} />
-        {today
-          .toLocaleDateString('ko-KR')
-          .toString()
-          .replace('.', '-')
-          .replace('.', '-')
-          .replace('.', '')}
+        {today}
         <IoIosArrowForward onClick={onClickRight} />
       </div>
 
@@ -44,31 +19,19 @@ function DashboardPersonalschedule({ year, month, date }) {
         <div className="tr">
           출근시간
           <b>
-            {filteredShift[0]
-              ? filteredShift[0].start
-                  .toLocaleTimeString('en-US', {
-                    hour12: false,
-                  })
-                  .slice(0, 5)
+            {filteredShift()
+              ? moment(filteredShift()[0].start).format('HH:mm')
               : '-'}
           </b>
         </div>
         <div className="tr">
           퇴근시간
           <b>
-            {filteredShift[0]
-              ? filteredShift[0].start.toString().slice(0, 15) ===
-                filteredShift[0].end.toString().slice(0, 15)
-                ? filteredShift[0].end
-                    .toLocaleTimeString('en-US', {
-                      hour12: false,
-                    })
-                    .slice(0, 5)
-                : filteredShift[0].end
-                    .toLocaleTimeString('en-US', {
-                      hour12: false,
-                    })
-                    .slice(0, 5) + '+1'
+            {filteredShift()
+              ? moment(filteredShift()[0].start).format('yyyy-MM-DD') ===
+                moment(filteredShift()[0].end).format('yyyy-MM-DD')
+                ? moment(filteredShift()[0].end).format('HH:mm')
+                : moment(filteredShift()[0].end).format('HH:mm') + '+1'
               : '-'}
           </b>
         </div>

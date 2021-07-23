@@ -17,6 +17,7 @@
 
   .full-table {
     height: 100%;
+    display: flex;
     flex-direction: column;
     padding: 10px 0;
     overflow-y: scroll;
@@ -51,6 +52,12 @@
       p {
         text-align: start;
       }
+    }
+
+    svg {
+      opacity: 30%;
+      margin: auto auto;
+      font-size: 2rem;
     }
   }
 

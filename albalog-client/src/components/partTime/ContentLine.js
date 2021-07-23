@@ -1,36 +1,24 @@
 import React from 'react';
 import 'components/partTime/ContentLine.scss';
+import moment from 'moment';
 import { weekArray } from 'utils/constants';
 
 function ContentLine({ filteredPayroll }) {
   return (
     <div id="contentline-container">
-      {/* {console.log(filteredPayroll[0].timeClock)} */}
       {filteredPayroll() ? (
         filteredPayroll().map((a, i) => {
           return (
             <div className="content-line" key={i}>
               <div className="date-column">{a.start_time}</div>
               <div className="day-column">
-                {
-                  weekArray[
-                    new Date(
-                      a.start_time.slice(0, 4),
-                      a.start_time.slice(5, 7),
-                      a.start_time.slice(8),
-                    ).getDay()
-                  ]
-                }
+                {weekArray[moment(a.start_time).day()]}
               </div>
               <div className="clockIn-column">
-                {new Date(new Date(a.workTime[0]).getTime())
-                  .toString()
-                  .slice(15, 21)}
+                {moment(a.workTime[0]).local().format('HH:mm')}
               </div>
               <div className="clockOut-column">
-                {new Date(new Date(a.workTime[1]).getTime())
-                  .toString()
-                  .slice(15, 21)}
+                {moment(a.workTime[1]).local().format('HH:mm')}
               </div>
               <div className="workingtime-column">
                 {parseInt(a.workInToday / 60)}시간 {a.workInToday % 60}분
