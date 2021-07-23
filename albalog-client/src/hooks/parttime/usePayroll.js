@@ -26,12 +26,12 @@ export default function usePayroll() {
   }, [dispatch, parttime, shop._id]);
 
   useEffect(() => {
-    if (!parttime.payrolls) {
+    if (shop._id && !parttime.payrolls) {
       setPayroll();
     }
-  }, [parttime.payrolls, setPayroll]);
+  }, [shop._id, parttime.payrolls, setPayroll]);
 
-  // 해당 달로 필터
+  // 급여정보를 해당 달로 필터
   const filteredMonthlyPayroll = () => {
     const result =
       parttime.payrolls &&
@@ -57,6 +57,7 @@ export default function usePayroll() {
   };
 
   return {
+    parttime,
     filteredMonthlyPayroll,
     totalWorkingtime,
     onClickLeft,

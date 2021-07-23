@@ -1,10 +1,9 @@
 import ShopForm from 'components/landing/ShopForm';
-import StoreList from 'components/landing/StoreList';
+import StoreList from 'components/landing/StopList';
+import useLogout from 'hooks/user/useLogout';
 import { SetShop } from 'modules/shop';
-import { SetUser } from 'modules/user';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ownerLogout, parttimeLogout } from 'utils/api/auth';
 import { createShop } from 'utils/api/shop';
 import './Landing.scss';
 
@@ -43,33 +42,7 @@ const Landing = () => {
     [name, address, postal_code, phone_number],
   );
 
-  const logOutHandler = async () => {
-    let UserBody = {
-      _id: '',
-      email: '',
-      name: '',
-      role: '',
-      token: '',
-    };
-    if (user.role === 'owner') {
-      try {
-        await ownerLogout();
-        sessionStorage.removeItem('user'); // sessionStorage user를 제거
-        dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
-      } catch (e) {
-        alert('로그아웃에 실패했습니다.');
-      }
-    } else if (user.role === 'staff') {
-      try {
-        await parttimeLogout();
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('parttime');
-        dispatch(SetUser(UserBody)); // user redux를 초기값으로 설정
-      } catch (e) {
-        alert('로그아웃에 실패했습니다.');
-      }
-    }
-  };
+  const { onLogout } = useLogout();
   return (
     <div id="LandingPage" className="page-layout">
       <div className="landing-header">
@@ -77,7 +50,7 @@ const Landing = () => {
           <span>
             <b>{user.name}</b>님 안녕하세요
           </span>
-          <button type="button" onClick={logOutHandler}>
+          <button type="button" onClick={onLogout}>
             로그아웃
           </button>
         </div>

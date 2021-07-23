@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import client from 'utils/api/client';
-import { getHandOverList } from 'utils/api/adminDashboard';
+import React from 'react';
 import './HandOver.scss';
+import useHandOverEffect from 'hooks/admin/useHandOverEffect';
 
 const HandOverItem = ({ transition }) => {
   return (
@@ -15,20 +14,8 @@ const HandOverItem = ({ transition }) => {
   );
 };
 
-const HandOver = ({ shopId }) => {
-  const [allTransition, setAllTransition] = useState(null);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await getHandOverList({ shopId });
-        setAllTransition(response.satisfyTransitions);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getData();
-  }, [shopId]);
+const HandOver = () => {
+  const { allTransition } = useHandOverEffect();
 
   return (
     <div className="hand-over-container">
@@ -36,7 +23,7 @@ const HandOver = ({ shopId }) => {
       <div className="hand-over">
         {!allTransition && <p>로딩 중..</p>}
         {allTransition &&
-          allTransition.map((transition) => (
+          allTransition.satisfyTransitions.map((transition) => (
             <HandOverItem key={transition._id} transition={transition} />
           ))}
       </div>

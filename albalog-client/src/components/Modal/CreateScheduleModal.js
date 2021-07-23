@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { postSchedule } from 'utils/api/schedule';
 import './Modal.scss';
 
-const ScheduleModal = ({ handleModal, employeeList }) => {
+const CreateScheduleModal = ({ handleCreateModal, employeeList }) => {
   const locationId = useSelector(({ shop }) => shop._id);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -45,7 +45,7 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
         time: days.filter((day) => day.checked === true),
       };
       await postSchedule(locationId, requestBody);
-      handleModal();
+      handleCreateModal();
     } catch (e) {
       console.error(e);
     }
@@ -60,7 +60,7 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
           <select onChange={employeeChange}>
             <option>직원을 선택해주세요</option>
             {employeeList.map((employee) => (
-              <option value={employee.employee._id}>
+              <option key={employee.employee._id} value={employee.employee._id}>
                 {employee.employee.name}
               </option>
             ))}
@@ -134,8 +134,8 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
             <input type="time" name={0} id="end_time" onChange={changeTime} />
           </div>
 
-          <button className="btn-invite">추가하기</button>
-          <button className="btn-close" onClick={handleModal}>
+          <button className="btn btn-create">추가하기</button>
+          <button className="btn btn-close" onClick={handleCreateModal}>
             닫기
           </button>
         </form>
@@ -144,4 +144,4 @@ const ScheduleModal = ({ handleModal, employeeList }) => {
   );
 };
 
-export default ScheduleModal;
+export default CreateScheduleModal;

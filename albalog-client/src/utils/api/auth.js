@@ -36,7 +36,7 @@ export const parttimeRegister = async (
     `${APIURL}/employee/${shopId}/signup`,
     body,
   );
-  return response;
+  return response.data;
 };
 
 /* 로그인 & 로그아웃 관련 */
@@ -52,7 +52,7 @@ export const login = async (email, password) => {
 };
 
 // 관리자 로그아웃
-export const ownerLogout = async () => {
+export const adminLogout = async () => {
   const response = await client.post('/owner/logout');
   return response;
 };

@@ -2,8 +2,6 @@ import { React } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import 'pages/partTime/WorkingTime.scss';
 import ContentLine from 'components/partTime/ContentLine';
-import Header from 'components/Header/Header';
-import Aside from 'components/Aside/Aside';
 import Footer from 'components/Footer/Footer';
 import moment from 'moment';
 import usePayroll from 'hooks/parttime/usePayroll';
@@ -19,8 +17,6 @@ function WorkingTime() {
 
   return (
     <>
-      <Header />
-      <Aside />
       <div id="workingtime">
         <div className="workingtime-container">
           <h2>일한시간</h2>

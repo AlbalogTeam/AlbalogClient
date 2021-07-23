@@ -14,6 +14,7 @@ import Footer from 'components/Footer/Footer';
 import Loading from 'components/Loading/Loading';
 import TimeclockModal from 'components/Modal/TimeclockModal';
 import useTimeClock from 'hooks/parttime/useTimeClock';
+import { weekArray } from 'utils/constants';
 
 function PartTimeDashboard() {
   const year = new Date().getFullYear();
@@ -22,7 +23,6 @@ function PartTimeDashboard() {
   const today = year + '-' + month + '-' + date;
   const shop = useSelector((state) => state.shop);
   const parttime = useSelector((state) => state.parttime);
-  const weekArray = ['일', '월', '화', '수', '목', '금', '토'];
   const day = weekArray[new Date().getDay()];
 
   const {

@@ -6,7 +6,7 @@ import usePayroll from 'hooks/parttime/usePayroll';
 
 function PayrollList() {
   const { parttime } = usePayroll();
-  const payrolls = parttime.payrolls;
+  const payrolls = parttime && parttime.payrolls;
 
   return (
     <div id="PayrollList">

@@ -14,13 +14,13 @@ export const createShop = async (name, address, postal_code, phone_number) => {
 };
 
 // 매장 조회 (관리자)
-export const getShopForOwner = async () => {
+export const getShopListForOwner = async () => {
   const response = await client.get(`/owner/me/locations`);
   return response.data.locations;
 };
 
 // 매장 조회 (알바)
-export const getShopForParttime = async () => {
+export const getShopListForParttime = async () => {
   const response = await client.get(`/employee/locations`);
   return response.data.locations;
 };
@@ -41,4 +41,14 @@ export const updateShop = async (
   };
   const response = await client.patch(`/location/${shopId}/update`, body);
   return response;
+};
+
+export const getShopInfoByAdmin = async (shopId) => {
+  const response = await client.get(`/location/${shopId}`);
+  return response.data;
+};
+
+export const getShopInfoByParttime = async (shopId) => {
+  const response = await client.get(`/employee/${shopId}`);
+  return response.data;
 };

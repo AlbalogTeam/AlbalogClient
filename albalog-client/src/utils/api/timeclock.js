@@ -5,7 +5,6 @@ export const postTimeClockIn = async (locationId, wage) => {
     locationId,
     wage,
   };
-
   await client.post(`/timeclock/start`, newForm);
 };
 

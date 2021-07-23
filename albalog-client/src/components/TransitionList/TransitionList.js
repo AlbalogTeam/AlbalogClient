@@ -58,7 +58,6 @@ const TransitionList = ({ date }) => {
 
   // 인수인계 추가
   const onCreate = useCallback(async () => {
-    if (doubleSubmitCheck()) return;
     try {
       const transitions = await createTransition(
         shop._id,

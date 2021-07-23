@@ -35,7 +35,7 @@ export const getInviteToken = async (shopId, inviteToken) => {
   const response = await axios.get(
     `${APIURL}/employee/${shopId}/${inviteToken}/signup`,
   );
-  return response;
+  return response.data;
 };
 
 // 직원 메일 초대 API
@@ -47,7 +47,7 @@ export const postSignUpMail = async ({ locationId, name, email }) => {
 };
 
 // 이미 가입된 직원 가입시 정보 불러오기
-export const getJoinInfo = async (shopId, invitetoken) => {
+export const getJoinUserInfo = async (shopId, invitetoken) => {
   const response = await axios.get(
     `${APIURL}/location/${shopId}/${invitetoken}/join`,
   );
@@ -55,7 +55,7 @@ export const getJoinInfo = async (shopId, invitetoken) => {
 };
 
 // 이미 가입된 직원 매장 가입 시키기
-export const Join = async (shopId, invitetoken) => {
+export const existParttimeSignup = async (shopId, invitetoken) => {
   const response = await axios.post(
     `${APIURL}/location/${shopId}/${invitetoken}/join`,
   );

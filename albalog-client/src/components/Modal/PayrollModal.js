@@ -1,17 +1,10 @@
 import React from 'react';
+import { weekArray } from 'utils/constants';
 import './PayrollModal.scss';
 
 const PayrollModal = ({ handleModal, data }) => {
   const { timeClocks } = data;
-  const days = {
-    0: '일',
-    1: '월',
-    2: '화',
-    3: '수',
-    4: '목',
-    5: '금',
-    6: '토',
-  };
+
   return (
     <div className="payroll-modal-container">
       <div className="payroll-modal-wrap">
@@ -30,7 +23,7 @@ const PayrollModal = ({ handleModal, data }) => {
               const { start_time, end_time, totalWorkTime, total } = day;
               const hour = Math.floor(totalWorkTime / 60);
               const minute = totalWorkTime % 60;
-              const d = days[new Date(start_time).getDay()];
+              const d = weekArray[new Date(start_time).getDay()];
 
               return (
                 <tr className="day-info" key={index}>

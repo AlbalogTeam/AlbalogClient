@@ -2,10 +2,10 @@ import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import './AdminPayroll.scss';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import PayrollModal from 'components/Modal/PayrollModal';
+import useAdminPayrollEffect from 'hooks/admin/useAdminPayrollEffect';
 
 const Table = ({ employeeList }) => {
   return (
@@ -53,8 +53,9 @@ const TableItem = ({ employee }) => {
   );
 };
 
-const AdminPayroll = ({ year, month, prevMonth, nextMonth }) => {
-  const employeeList = useSelector(({ date }) => date.payrollData);
+const AdminPayroll = () => {
+  const { employeeList, nextMonth, prevMonth, year, month } =
+    useAdminPayrollEffect();
 
   return (
     <>

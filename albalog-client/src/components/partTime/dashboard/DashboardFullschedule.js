@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'components/partTime/dashboard/DashboardFullschedule.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useSelector } from 'react-redux';
 import { FaCalendarTimes } from 'react-icons/fa';
 import moment from 'moment';
+import useAllShift from 'hooks/common/useAllShift';
 
 function DashboardFullschedule() {
-  const allShifts = useSelector((state) => state.allShift.allShift);
-  const [today, setToday] = useState(moment().format('YYYY-MM-DD'));
-  const [filteredShift, setFilteredShift] = useState([]);
-
-  const onClickLeft = () => {
-    setToday(moment(today).subtract(1, 'd').format('YYYY-MM-DD'));
-  };
-  const onClickRight = () => {
-    setToday(moment(today).add(1, 'd').format('YYYY-MM-DD'));
-  };
-
-  // 날짜별 shift 필터
-  useEffect(() => {
-    if (!allShifts) {
-      return;
-    }
-    let filteredShift = allShifts.filter(
-      (a) => moment(a.start).format('YYYY-MM-DD') === today,
-    );
-    setFilteredShift(filteredShift);
-  }, [allShifts, today]);
+  const { today, onClickLeft, onClickRight, filteredShift } = useAllShift();
 
   return (
     <div id="fullschedule-content">
@@ -36,8 +16,8 @@ function DashboardFullschedule() {
         <IoIosArrowForward onClick={onClickRight} />
       </div>
       <div className="full-table">
-        {filteredShift.length > 0 ? (
-          filteredShift
+        {filteredShift().length > 0 ? (
+          filteredShift()
             .sort((a, b) => a.start - b.start)
             .map((a, i) => {
               return (

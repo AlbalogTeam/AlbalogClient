@@ -14,6 +14,7 @@ export default function useLogin() {
   const onLogin = async () => {
     try {
       const response = await login(email, password);
+      console.log(response);
       const token = response.data.token;
       const decoded = jwt.verify(token, TOKENKEY);
       let userBody = {

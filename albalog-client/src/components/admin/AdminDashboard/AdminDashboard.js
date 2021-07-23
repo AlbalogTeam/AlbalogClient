@@ -9,15 +9,14 @@ import Notice from 'components/Notice';
 import './AdminDashboard.scss';
 
 const AdminDashboard = () => {
-  const shopId = useSelector(({ shop }) => shop._id);
   return (
     <>
       <Header />
       <Aside />
       <div className="AdminDashboard">
         <Notice />
-        <HandOver shopId={shopId} />
-        <CommutingStatus shopId={shopId} />
+        <HandOver />
+        <CommutingStatus />
       </div>
       <Footer />
     </>

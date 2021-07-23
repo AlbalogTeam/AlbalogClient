@@ -25,7 +25,9 @@ import EmployeeSignUp from 'pages/employeeSignUp';
 import MobileCategory from 'pages/mobileCategory';
 import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
-import EmployeeJoin from 'pages/employeeJoin';
+import EmployeeJoin from 'pages/existParttimeSignup';
+import Header from 'components/Header';
+import Aside from 'components/Aside';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -53,91 +55,95 @@ const App = () => {
             exact
             component={Authentication(ResetPassword, false)}
           />
-          <Route
-            path="/:shop/mobile/category"
-            exact
-            component={Authentication(MobileCategory, true)}
-          />
-          <Route
-            path="/:shop?/notice"
-            exact
-            component={Authentication(NoticeList, true)}
-          />
-          <Route
-            path="/:shop?/notice/edit/:id?"
-            component={Authentication(NoticeEdit, true, 'admin')}
-          />
-          <Route
-            path="/:shop?/notice/upload"
-            component={Authentication(NoticeUpload, true, 'admin')}
-          />
-          <Route
-            path="/:shop?/notice/:id?"
-            component={Authentication(NoticeDetail, true)}
-          />
-          <Route
-            path="/:shop?/workmanual/:category?"
-            component={Authentication(WorkManual, true)}
-          />
-          <Route
-            path="/:shop?/transition"
-            exact
-            component={Authentication(Transition, true)}
-          />
-          <Route
-            path="/admin/:shop?"
-            exact
-            component={Authentication(AdminDashboardPage, true, 'admin')}
-          />
-          <Route
-            path="/admin/:shop?/schedule"
-            exact
-            component={Authentication(AdminSchedulePage, true, true)}
-          />
-          <Route
-            path="/admin/:shop?/info"
-            component={Authentication(AdminInfoPage, true, 'admin')}
-          />
-          <Route
-            path="/admin/:shop?/payroll"
-            component={Authentication(AdminPayrollPage, true, 'admin')}
-          />
-          <Route
-            path="/admin/:shop?/employeelist"
-            component={Authentication(AdminEmployeePage, true, 'admin')}
-          />
+          <>
+            <Header />
+            <Aside />
+            <Route
+              path="/:shop/mobile/category"
+              exact
+              component={Authentication(MobileCategory, true)}
+            />
+            <Route
+              path="/:shop?/notice"
+              exact
+              component={Authentication(NoticeList, true)}
+            />
+            <Route
+              path="/:shop?/notice/edit/:id?"
+              component={Authentication(NoticeEdit, true, 'admin')}
+            />
+            <Route
+              path="/:shop?/notice/upload"
+              component={Authentication(NoticeUpload, true, 'admin')}
+            />
+            <Route
+              path="/:shop?/notice/:id?"
+              component={Authentication(NoticeDetail, true)}
+            />
+            <Route
+              path="/:shop?/workmanual/:category?"
+              component={Authentication(WorkManual, true)}
+            />
+            <Route
+              path="/:shop?/transition"
+              exact
+              component={Authentication(Transition, true)}
+            />
+            <Route
+              path="/admin/:shop?"
+              exact
+              component={Authentication(AdminDashboardPage, true, 'admin')}
+            />
+            <Route
+              path="/admin/:shop?/schedule"
+              exact
+              component={Authentication(AdminSchedulePage, true, true)}
+            />
+            <Route
+              path="/admin/:shop?/info"
+              component={Authentication(AdminInfoPage, true, 'admin')}
+            />
+            <Route
+              path="/admin/:shop?/payroll"
+              component={Authentication(AdminPayrollPage, true, 'admin')}
+            />
+            <Route
+              path="/admin/:shop?/employeelist"
+              component={Authentication(AdminEmployeePage, true, 'admin')}
+            />
 
-          <Route
-            path="/parttime/:shop?"
-            exact
-            component={Authentication(PartTimeDashboard, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/accountinfo"
-            exact
-            component={Authentication(AccountInfo, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/scheduler"
-            exact
-            component={Authentication(ParttimeScheduler, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/workingtime"
-            exact
-            component={Authentication(WorkingTime, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop/:invitetoken/signup"
-            exact
-            component={Authentication(EmployeeSignUp, false)}
-          />
+            <Route
+              path="/parttime/:shop?"
+              exact
+              component={Authentication(PartTimeDashboard, true, 'staff')}
+            />
+            <Route
+              path="/parttime/:shop?/accountinfo"
+              exact
+              component={Authentication(AccountInfo, true, 'staff')}
+            />
+            <Route
+              path="/parttime/:shop?/scheduler"
+              exact
+              component={Authentication(ParttimeScheduler, true, 'staff')}
+            />
+            <Route
+              path="/parttime/:shop?/workingtime"
+              exact
+              component={Authentication(WorkingTime, true, 'staff')}
+            />
+            <Route
+              path="/parttime/:shop/:invitetoken/signup"
+              exact
+              component={Authentication(EmployeeSignUp, false)}
+            />
 
-          <Route
-            path="/parttime/:shop/:invitetoken/join"
-            exact
-            component={Authentication(EmployeeJoin, false)}
-          />
+            <Route
+              path="/parttime/:shop/:invitetoken/join"
+              exact
+              component={Authentication(EmployeeJoin, false)}
+            />
+          </>
         </Switch>
       </div>
     </div>
