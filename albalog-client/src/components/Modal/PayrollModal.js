@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { weekArray } from 'utils/constants';
 import './PayrollModal.scss';
@@ -20,6 +21,10 @@ const PayrollModal = ({ handleModal, data }) => {
           </thead>
           <tbody>
             {timeClocks.map((day, index) => {
+              console.log(day);
+              console.log(
+                moment('2021-07-24T08:25:23.536Z').local().format('HH:mm'),
+              );
               const { start_time, end_time, totalWorkTime, total } = day;
               const hour = Math.floor(totalWorkTime / 60);
               const minute = totalWorkTime % 60;
@@ -28,10 +33,11 @@ const PayrollModal = ({ handleModal, data }) => {
               return (
                 <tr className="day-info" key={index}>
                   <td>{`${start_time.substr(5, 5)} (${d})`}</td>
-                  <td>{`🔥${start_time.substr(11, 5)}~${end_time.substr(
-                    11,
-                    5,
-                  )}`}</td>
+                  <td>{`🔥${moment(start_time)
+                    .local()
+                    .format('HH:mm')}~${moment(end_time)
+                    .local()
+                    .format('HH:mm')}`}</td>
                   <td>{`🕑${hour}시간 ${minute}분`}</td>
                   <td>{`💸${total.toLocaleString()}원`}</td>
                 </tr>
