@@ -16,8 +16,8 @@ export default function useShift() {
       const one = await getOneShft(shop._id, user._id);
 
       let shift = await one.data.map((a) => {
-        const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
-        const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
+        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
 
         let newData = {
           title: user.name,

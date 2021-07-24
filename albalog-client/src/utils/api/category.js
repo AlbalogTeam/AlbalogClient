@@ -13,6 +13,7 @@ export const addCategory = async (shopid, name) => {
     name,
   };
   const response = await client.post(`/category/${shopid}/create`, body);
+  console.log(response);
   return [...response.data.categories].reverse();
 };
 
