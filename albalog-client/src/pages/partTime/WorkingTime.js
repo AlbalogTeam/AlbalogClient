@@ -5,6 +5,8 @@ import ContentLine from 'components/partTime/ContentLine';
 import Footer from 'components/Footer/Footer';
 import moment from 'moment';
 import usePayroll from 'hooks/parttime/usePayroll';
+import Header from 'components/Header';
+import Aside from 'components/Aside';
 
 function WorkingTime() {
   const {
@@ -17,6 +19,8 @@ function WorkingTime() {
 
   return (
     <>
+      <Header />
+      <Aside />
       <div id="workingtime">
         <div className="workingtime-container">
           <h2>일한시간</h2>

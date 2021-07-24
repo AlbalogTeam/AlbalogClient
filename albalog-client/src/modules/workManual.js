@@ -19,9 +19,16 @@ const workManual = createSlice({
       state.title = title;
       state.content = content;
     },
+
+    WorkManualForm: (state, action) => {
+      const { key, value } = action.payload;
+      state[key] = value;
+    },
+    resetManual: () => initialState,
   },
 });
 
-export const { setWorkManual } = workManual.actions;
+export const { setWorkManual, WorkManualForm, resetManual } =
+  workManual.actions;
 
 export default workManual;

@@ -1,6 +1,6 @@
 import ModalLoading from 'components/Loading/ModalLoading';
 import MessageModal from 'components/Modal/MessageModal';
-import NoDataType1 from 'components/NoData/NoDataType';
+import NoDataType1 from 'components/NoData/NoDataType1';
 import { setTransition } from 'modules/transition';
 import React, { useEffect, useState } from 'react';
 import { useCallback } from 'react';

@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import useScheduler from 'hooks/parttime/useScheduler';
 import useAllShift from 'hooks/common/useAllShift';
 import useShift from 'hooks/parttime/useShift';
+import Header from 'components/Header';
+import Aside from 'components/Aside';
 
 function ParttimeScheduler() {
   const parttime = useSelector((state) => state.parttime);
@@ -18,6 +20,8 @@ function ParttimeScheduler() {
 
   return (
     <>
+      <Header />
+      <Aside />
       <div id="ParttimeScheduler">
         <div className="container">
           <div className="title">
