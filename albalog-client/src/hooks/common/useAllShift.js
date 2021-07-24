@@ -33,10 +33,10 @@ export default function useAllShift() {
   }, [dispatch, shop._id]);
 
   useEffect(() => {
-    if (shop._id && !allShift.length) {
+    if (shop._id && allShift.length < 1) {
       setAllShiftR();
     }
-  }, [shop, allShift, setAllShiftR]);
+  }, [shop._id, setAllShiftR, allShift.length]);
 
   // 해당 일자로 필터링
   const filteredShift = () => {
