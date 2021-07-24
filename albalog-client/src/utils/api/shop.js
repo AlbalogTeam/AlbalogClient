@@ -45,10 +45,12 @@ export const updateShop = async (
 
 export const getShopInfoByAdmin = async (shopId) => {
   const response = await client.get(`/location/${shopId}`);
+  console.log(response);
   return response.data;
 };
 
 export const getShopInfoByParttime = async (shopId) => {
   const response = await client.get(`/employee/${shopId}`);
+  console.log(response);
   return response.data;
 };
