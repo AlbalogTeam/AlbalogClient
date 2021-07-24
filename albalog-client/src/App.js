@@ -26,8 +26,10 @@ import MobileCategory from 'pages/mobileCategory';
 import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
 import EmployeeJoin from 'pages/existParttimeSignup';
-import Header from 'components/Header';
-import Aside from 'components/Aside';
+import CategoryManage from 'pages/workManualManage/CategoryManage';
+import ManualUpload from 'pages/workManualManage/ManualUpload';
+import ManualEdit from 'pages/workManualManage/ManualEdit';
+import WorkManualManage from 'pages/workManualManage';
 
 const App = () => {
   // Authentication(a, b, c)
@@ -79,7 +81,17 @@ const App = () => {
             component={Authentication(NoticeDetail, true)}
           />
           <Route
-            path="/:shop?/workmanual/:category?"
+            path="/:shop?/workmanual/manage/"
+            component={Authentication(WorkManualManage, true, 'admin')}
+          />
+
+          <Route
+            path="/:shop?/workmanual/edit/:id"
+            exact
+            component={Authentication(ManualEdit, true, 'admin')}
+          />
+          <Route
+            path="/:shop?/workmanual/list/:category?"
             component={Authentication(WorkManual, true)}
           />
           <Route

@@ -1,0 +1,57 @@
+#ManageNav {
+  background-color: rgb(245, 245, 245);
+  position: fixed;
+  top: 75px;
+  height: 100%;
+  left: 250px;
+  width: 230px;
+  .nav-tit {
+    font-size: 20px;
+    color: rgb(55, 71, 79);
+    padding: 30px 30px 0;
+  }
+  .nav-tit-des {
+    color: rgb(153, 156, 158);
+    font-size: 14px;
+    padding: 10px 30px;
+  }
+  .nav-menu {
+    margin: 60px 0;
+    ul {
+      li {
+        margin-bottom: 5px;
+        a {
+          display: block;
+          overflow: hidden;
+          padding: 20px 30px;
+          height: 100px;
+          &:hover {
+            background: #fff;
+            margin-left: 15px;
+            box-shadow: 0px 7px 6px rgba(0, 0, 0, 0.08);
+            .menu-tit {
+              color: #1271af;
+            }
+          }
+          .menu-tit {
+            display: flex;
+            align-items: center;
+            color: #999;
+            svg {
+              margin-right: 7px;
+            }
+          }
+          .menu-des {
+            font-size: 12px;
+            color: #999;
+          }
+        }
+        .active {
+          .menu-tit {
+            color: #1271af;
+          }
+        }
+      }
+    }
+  }
+}

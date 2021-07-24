@@ -25,7 +25,7 @@ const Aside = () => {
             <span>공지사항</span>
           </li>
         </NavLink>
-        <NavLink to={`/${shop._id}/workmanual/`}>
+        <NavLink to={`/${shop._id}/workmanual/list`}>
           <li className="menu-item">
             <AiOutlineSolution size="25" />
             <span>업무메뉴얼</span>

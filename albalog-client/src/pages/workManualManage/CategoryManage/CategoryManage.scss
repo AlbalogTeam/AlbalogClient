@@ -1,0 +1,110 @@
+#CategoryManage {
+  .manage-tit {
+    margin-bottom: 2rem;
+    display: flex;
+    span {
+      font-weight: 500;
+      color: rgb(55, 71, 79);
+      font-size: 1.5rem;
+      padding: 5px;
+      margin-right: 15px;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #d3cece;
+      width: 270px;
+      border-radius: 7px;
+      height: 50px;
+      font-size: 16px;
+    }
+    button {
+      margin: 0 20px;
+      background-color: #1271af;
+      color: #fff;
+      height: 50px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+  }
+  .category-list-table {
+    .search-box {
+      overflow: hidden;
+      padding: 20px 40px;
+      .search {
+        float: right;
+        position: relative;
+        input {
+          padding: 10px;
+          border: 1px solid #d3cece;
+          width: 270px;
+          border-radius: 7px;
+          height: 50px;
+          font-size: 16px;
+        }
+        button {
+          position: absolute;
+          right: 7px;
+          top: 10px;
+          color: #787575;
+        }
+      }
+    }
+  }
+
+  .category-list {
+    padding: 20px;
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      thead {
+        tr {
+          th {
+            padding: 10px;
+            border-bottom: 1px solid #cacbd3;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.08);
+          td {
+            padding: 30px 10px;
+            text-align: center;
+          }
+          .category-edit {
+            input {
+              padding: 10px;
+              border: 1px solid #d3cece;
+              width: 400px;
+              border-radius: 7px;
+              height: 50px;
+              font-size: 16px;
+            }
+          }
+          .name {
+            color: #1271af;
+            font-size: 17px;
+          }
+          .ico {
+            button {
+              color: #1271af;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.inner-manage {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.manage-layout {
+  padding-left: 230px;
+  padding-top: 60px;
+}
