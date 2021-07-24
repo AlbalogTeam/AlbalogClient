@@ -6,7 +6,7 @@ import ShopForm from '../ShopForm';
 import LandingImg from 'static/Landing.png';
 
 import './ShopList.scss';
-import NoDataType1 from 'components/NoData/NoDataType';
+import NoDataType1 from 'components/NoData/NoDataType1';
 
 const ShopList = () => {
   const { locations, loading, user } = useShopListEffect();

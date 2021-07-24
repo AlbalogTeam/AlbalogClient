@@ -11,7 +11,7 @@ import Footer from 'components/Footer/Footer';
 
 import NoticeIMG from 'static/Notice.png';
 import { searchNotice } from 'utils/api/notice';
-import NoDataType1 from 'components/NoData/NoDataType';
+import NoDataType1 from 'components/NoData/NoDataType1';
 
 const NoticeList = ({ user, shop }) => {
   const [getNotices, setGetNotices] = useState([]);

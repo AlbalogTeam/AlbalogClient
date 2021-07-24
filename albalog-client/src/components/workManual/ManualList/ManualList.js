@@ -1,5 +1,5 @@
 import ModalLoading from 'components/Loading/ModalLoading';
-import NoDataType1 from 'components/NoData/NoDataType';
+import NoDataType1 from 'components/NoData/NoDataType1';
 import { setWorkManual } from 'modules/workManual';
 import React, { useEffect, useState } from 'react';
 import { useCallback } from 'react';
