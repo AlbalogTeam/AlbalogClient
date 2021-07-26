@@ -1,49 +1,26 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import './ManualForm.scss';
-import { getCategories } from 'utils/api/category';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { WorkManualForm } from 'modules/workManual';
+import useCategoryEffect from 'hooks/workManual/useCategoryEffect';
+import useManualForm from 'hooks/workManual/useManualForm';
 
 const ManualForm = ({ onSubmit }) => {
-  const [categories, setCategories] = useState([]);
-  const shop = useSelector((state) => state.shop);
   const dispatch = useDispatch();
-  const workManual = useSelector((state) => state.workManual);
-  const { title, content, category_id } = workManual;
-
-  // Form 입력 값 onChange 함수
-  const formOnChange = useCallback(
-    (e) => {
-      const { value, name } = e.target;
-      let body = {
-        key: name,
-        value,
-      };
-      dispatch(WorkManualForm(body));
-    },
-    [dispatch],
-  );
-
-  useEffect(() => {
-    const getData = async () => {
-      const categories = await getCategories(shop._id);
-      setCategories(categories);
-    };
-    getData();
-  }, [shop._id]);
+  const { categories } = useCategoryEffect();
+  const { workManual, title, content, onChange } = useManualForm();
   return (
     <>
       <div id="ManualForm" className="page-layout">
         <div className="upload-form">
           <form action="">
             <div className="form-item">
-              
               <select
                 name="category_id"
                 // value={category_id._id}
-                onChange={formOnChange}
+                onChange={onChange}
               >
                 {!workManual.category_id && (
                   <option value="">카테고리를 선택해주세요</option>
@@ -60,7 +37,7 @@ const ManualForm = ({ onSubmit }) => {
               <input
                 type="text"
                 value={title}
-                onChange={formOnChange}
+                onChange={onChange}
                 name="title"
                 placeholder="제목을 입력하세요"
                 autoComplete="off"

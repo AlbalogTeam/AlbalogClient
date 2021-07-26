@@ -1,5 +1,5 @@
 import Loading from 'components/Loading/Loading';
-import useCategoryEffect from 'hooks/workManual/useCategoryEffect';
+import useAllCategoryEffect from 'hooks/workManual/useAllCategoryEffect';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const ManualCategory = () => {
     fontWeight: '700',
   };
 
-  const { categories, shop } = useCategoryEffect();
+  const { categories, shop } = useAllCategoryEffect();
 
   return (
     <div className="manual-category">

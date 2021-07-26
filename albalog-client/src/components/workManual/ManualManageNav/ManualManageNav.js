@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import './ManualManageNav.scss';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import { SiCmake } from 'react-icons/si';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetManual } from 'modules/workManual';
 
 const ManageNav = () => {
   const activeStyle = {
@@ -12,6 +13,7 @@ const ManageNav = () => {
     boxShadow: '0px 7px 6px rgba(0, 0, 0, 0.08)',
   };
   const shop = useSelector((state) => state.shop);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -36,6 +38,7 @@ const ManageNav = () => {
             <li>
               <NavLink
                 activeStyle={activeStyle}
+                onClick={() => dispatch(resetManual())}
                 to={`/${shop._id}/workmanual/manage/upload`}
               >
                 <div className="menu-tit">

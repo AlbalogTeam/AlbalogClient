@@ -6,7 +6,8 @@ import './WorkManual.scss';
 import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetManual } from 'modules/workManual';
 
 const WorkManual = () => {
   // 카테고리가 선택되지 않았으면 기본값 all 사용
@@ -14,6 +15,7 @@ const WorkManual = () => {
   const match = useRouteMatch();
   const category = match.params.category || 'all';
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -26,6 +28,7 @@ const WorkManual = () => {
             <div className="upload">
               <Link
                 className="btn"
+                onClick={() => dispatch(resetManual())}
                 to={`/${shop._id}/workmanual/manage/category`}
               >
                 매뉴얼 관리
