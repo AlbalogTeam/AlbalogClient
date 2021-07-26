@@ -7,7 +7,7 @@ import {
 } from 'pages/admin';
 import NoticeList from 'pages/notice/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit';
 import WorkManual from 'pages/workManual';
@@ -26,8 +26,6 @@ import MobileCategory from 'pages/mobileCategory';
 import FindPassword from 'pages/findPassword';
 import ResetPassword from 'pages/findPassword/ResetPassword';
 import EmployeeJoin from 'pages/existParttimeSignup';
-import CategoryManage from 'pages/workManualManage/CategoryManage';
-import ManualUpload from 'pages/workManualManage/ManualUpload';
 import ManualEdit from 'pages/workManualManage/ManualEdit';
 import WorkManualManage from 'pages/workManualManage';
 

@@ -5,7 +5,7 @@ import React from 'react';
 import './WorkManual.scss';
 import Aside from 'components/Aside';
 import Footer from 'components/Footer';
-import { useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const WorkManual = () => {
@@ -24,12 +24,12 @@ const WorkManual = () => {
           <MenualCategory />
           {user.role === 'owner' && (
             <div className="upload">
-              <a
+              <Link
                 className="btn"
-                href={`/${shop._id}/workmanual/manage/category`}
+                to={`/${shop._id}/workmanual/manage/category`}
               >
                 매뉴얼 관리
-              </a>
+              </Link>
             </div>
           )}
           <MenualList category={category} />

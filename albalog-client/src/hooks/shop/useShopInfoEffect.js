@@ -18,7 +18,17 @@ export default function useShopInfoEffect() {
 
   const getDataByParttime = useCallback(async () => {
     const shopInfo = await getShopInfoByParttime(shopId);
-    dispatch(SetShop(shopInfo));
+    let body = {
+      _id: shopInfo._id,
+      name: shopInfo.name,
+      notices: [...shopInfo.notices.reverse()],
+      workManuals: shopInfo.workManuals,
+      address: shopInfo.address,
+      phone_number: shopInfo.phone_number,
+      postal_code: shopInfo.postal_code,
+      employees: shopInfo.employees,
+    };
+    dispatch(SetShop(body));
   }, [dispatch, shopId]);
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import React from 'react';
 import './AdminSignup.scss';
 import useCheckUserEffect from 'hooks/user/useCheckUserEffect';
 import useAdminSignup from 'hooks/user/useAdminSignup';
-import signupIMG from 'static/Signup.png';
 
 function AdminSignup() {
   const {
@@ -23,7 +22,6 @@ function AdminSignup() {
 
   return (
     <div id="signup">
-      <img className="signup-img" src={signupIMG} alt="" />
       <form action="" onSubmit={onSubmit}>
         <div className="inner-signup">
           <h1>

@@ -16,8 +16,8 @@ export default function useAllShift() {
     try {
       const response = await getAllShift(shop._id);
       let shiftBody = await response.data.map((a) => {
-        const st = moment(a.start).local().format('YYYY-MM-DD HH:mm:ss');
-        const ed = moment(a.end).local().format('YYYY-MM-DD HH:mm:ss');
+        const st = new Date(new Date(a.start).getTime() - 540 * 60 * 1000);
+        const ed = new Date(new Date(a.end).getTime() - 540 * 60 * 1000);
 
         let newData = {
           title: a.title,
@@ -33,10 +33,10 @@ export default function useAllShift() {
   }, [dispatch, shop._id]);
 
   useEffect(() => {
-    if (shop._id && !allShift.length) {
+    if (shop._id && allShift.length < 1) {
       setAllShiftR();
     }
-  }, [shop, allShift, setAllShiftR]);
+  }, [shop._id, setAllShiftR, allShift.length]);
 
   // 해당 일자로 필터링
   const filteredShift = () => {

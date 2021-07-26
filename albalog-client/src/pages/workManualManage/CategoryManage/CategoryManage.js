@@ -164,7 +164,6 @@ const CategoryManage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {console.log(categories)}
                   {categories?.map((category, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
