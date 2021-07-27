@@ -3,7 +3,7 @@ import client from 'utils/api/client';
 // 카테고리 불러오기
 export const getCategories = async (shopid) => {
   const response = await client.get(`/category/${shopid}`);
-  return [...response.data].reverse();
+  return [...response.data.categories].reverse();
 };
 
 // 카테고리 등록

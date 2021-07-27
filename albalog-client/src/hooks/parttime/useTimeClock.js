@@ -34,7 +34,7 @@ export default function useTimeClock() {
   const clickClockIn = async (e) => {
     try {
       await postTimeClockIn(shop._id, parttime.hourly_wage);
-      getProfile(user._id, shop._id);
+      await getProfile(user._id, shop._id);
     } catch (e) {
       console.log(e);
     }

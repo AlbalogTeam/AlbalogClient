@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 function DashboardNotice() {
   const shop = useSelector((state) => state.shop);
   const notices = shop.notices;
+  console.log(shop);
 
   return (
     <div id="DashboardNotice">
@@ -12,7 +13,7 @@ function DashboardNotice() {
         <div className="td1-head">날짜</div>
         <div className="td2-head">제목</div>
       </div>
-      {notices[0] ? (
+      {notices && notices.length > 0 ? (
         notices.slice(0, 2).map((data, i) => (
           <div className="tr" key={i}>
             <div className="td1">{data.createdAt.slice(0, 10)}</div>

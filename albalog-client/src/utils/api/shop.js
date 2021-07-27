@@ -50,5 +50,6 @@ export const getShopInfoByAdmin = async (shopId) => {
 
 export const getShopInfoByParttime = async (shopId) => {
   const response = await client.get(`/employee/${shopId}`);
+  console.log(response);
   return response.data;
 };
