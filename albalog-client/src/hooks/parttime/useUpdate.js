@@ -61,7 +61,6 @@ export default function useUpdate() {
         sessionStorage.setItem('user', JSON.stringify(userBody));
         dispatch(SetUser(userBody));
         dispatch(SetParttime(parttimeBody));
-
         window.location.replace(`/parttime/${shop._id}/accountinfo`);
       } catch (error) {
         console.log(error);
