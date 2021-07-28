@@ -29,14 +29,14 @@ export default function useTimeClock() {
       ? false
       : true // true면 값을 클릭 불가능
     : false; // false면 값을 클릭 가능
-  let clockOut = clockIn ? false : true;
+  let clockOut = clockIn === false ? true : false;
 
   const clickClockIn = async (e) => {
     try {
       await postTimeClockIn(shop._id, parttime.hourly_wage);
-      getProfile(user._id, shop._id);
+      await getProfile(user._id, shop._id);
     } catch (e) {
-      console.log(e);
+      console.log('Error : ' + e.response.data.message);
     }
   };
 
@@ -45,7 +45,7 @@ export default function useTimeClock() {
     clockIn = false;
     try {
       await postTimeClockOut(shop._id, lastTimeClock._id);
-      getProfile(user._id, shop._id);
+      await getProfile(user._id, shop._id);
     } catch (e) {
       console.log(e);
     }

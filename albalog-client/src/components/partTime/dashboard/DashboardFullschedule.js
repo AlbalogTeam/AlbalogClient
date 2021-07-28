@@ -26,8 +26,8 @@ function DashboardFullschedule() {
                     <p key={i}>{a.title}</p>
                   </div>
                   <div className="working-time">
-                    <p>{moment(a.start).format('hh:mm')}</p>~
-                    <p>{moment(a.end).format('hh:mm')}</p>
+                    <p>{moment(a.start).format('HH:mm')}</p>~
+                    <p>{moment(a.end).format('HH:mm')}</p>
                   </div>
                 </div>
               );

@@ -13,7 +13,8 @@ export const postTimeClockOut = async (locationId, timeClockId) => {
     locationId,
     timeClockId,
   };
-  client.post(`/timeclock/end`, newForm);
+  console.log(newForm);
+  await client.post(`/timeclock/end`, newForm);
 };
 
 export const getProfile = async (userId, shopId) => {
