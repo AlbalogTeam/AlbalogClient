@@ -119,7 +119,6 @@ const App = () => {
             path="/admin/:shop?/employeelist"
             component={Authentication(AdminEmployeePage, true, 'admin')}
           />
-<<<<<<< HEAD
 
           <Route
             path="/parttime/:shop?"
@@ -148,36 +147,6 @@ const App = () => {
           />
 
           <Route
-=======
-
-          <Route
-            path="/parttime/:shop?"
-            exact
-            component={Authentication(PartTimeDashboard, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/accountinfo"
-            exact
-            component={Authentication(AccountInfo, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/scheduler"
-            exact
-            component={Authentication(ParttimeScheduler, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop?/workingtime"
-            exact
-            component={Authentication(WorkingTime, true, 'staff')}
-          />
-          <Route
-            path="/parttime/:shop/:invitetoken/signup"
-            exact
-            component={Authentication(EmployeeSignUp, false)}
-          />
-
-          <Route
->>>>>>> b66bc9b892f4fea24eb41b5e6a0d77ca33085110
             path="/parttime/:shop/:invitetoken/join"
             exact
             component={Authentication(EmployeeJoin, false)}

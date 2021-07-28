@@ -1,7 +1,4 @@
-import Aside from 'components/Aside';
-import Header from 'components/Header';
 import ManualForm from 'components/workManual/ManualForm';
-import ManageNav from 'components/workManual/ManualManageNav';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { createManual } from 'utils/api/workmanual';

@@ -1,79 +1,23 @@
 import ModalLoading from 'components/Loading/ModalLoading';
 import NoDataType1 from 'components/NoData/NoDataType1';
-import { setWorkManual } from 'modules/workManual';
-import React, { useEffect, useState } from 'react';
-import { useCallback } from 'react';
+import React from 'react';
 import { AiOutlineEdit, AiFillDelete } from 'react-icons/ai';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { deleteManual, getWorkManuals } from 'utils/api/workmanual';
 import ManualIMG from 'static/WorkManual.png';
-import { useHistory } from 'react-router-dom';
 import MessageModal from 'components/Modal/MessageModal';
+import useManualHandle from 'hooks/workManual/useManualHandle';
 
-const ManualList = ({ category, user, shop }) => {
-  const [manualList, setManualList] = useState([]);
-  const manual = useSelector((state) => state.workManual);
-  const [deleteState, setDeleteState] = useState(false);
-  const [loadingState, setLoadingState] = useState(false);
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const ToggleButton = useCallback(() => {
-    setDeleteState(!deleteState);
-  }, [deleteState]);
-
-  // 매뉴얼 수정 함수
-  const EditHandle = useCallback(
-    (manual) => {
-      let manualBody = {
-        _id: manual._id,
-        category_id: manual.category_id,
-        title: manual.title,
-        content: manual.content,
-      };
-
-      dispatch(setWorkManual(manualBody));
-      history.push(`/${shop._id}/workmanual/edit/${manual._id}`);
-    },
-    [dispatch, history, shop._id],
-  );
-  const DeleteHandle = (manual) => {
-    dispatch(
-      setWorkManual({
-        _id: manual._id,
-      }),
-    );
-    ToggleButton();
-  };
-
-  // 매뉴얼 삭제 함수
-  const onDelete = useCallback(async () => {
-    console.log(manual._id);
-    try {
-      await deleteManual(shop._id, manual._id);
-      window.location.replace(`/${shop._id}/workmanual/list`);
-    } catch (e) {
-      alert('매뉴얼 삭제에 실패하였습니다.');
-    }
-  }, [shop._id, manual._id]);
-
-  useEffect(() => {
-    const getData = async () => {
-      setLoadingState(false);
-      const workmanuals = await getWorkManuals(shop._id);
-      if (category === 'all') {
-        setManualList(workmanuals);
-      } else {
-        setManualList(
-          workmanuals.filter((manual) => manual.category_id.name === category),
-        );
-      }
-      setLoadingState(true);
-    };
-    if (shop.name) {
-      getData();
-    }
-  }, [shop, category]);
+const ManualList = ({ category }) => {
+  const {
+    ToggleButton,
+    EditHandle,
+    DeleteHandle,
+    onDelete,
+    manualList,
+    loadingState,
+    deleteState,
+    shop,
+    user,
+  } = useManualHandle(category);
 
   return (
     <div className="manual-list">
@@ -123,8 +67,4 @@ const ManualList = ({ category, user, shop }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { shop: state.shop, user: state.user };
-}
-
-export default connect(mapStateToProps)(ManualList);
+export default ManualList;
