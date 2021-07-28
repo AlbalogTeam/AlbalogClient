@@ -35,7 +35,6 @@ export default function useTimeClock() {
     try {
       await postTimeClockIn(shop._id, parttime.hourly_wage);
       await getProfile(user._id, shop._id);
-      window.location.replace(`/parttime/${shop._id}`);
     } catch (e) {
       console.log('Error : ' + e.response.data.message);
     }
@@ -47,7 +46,6 @@ export default function useTimeClock() {
     try {
       await postTimeClockOut(shop._id, lastTimeClock._id);
       await getProfile(user._id, shop._id);
-      window.location.replace(`/parttime/${shop._id}`);
     } catch (e) {
       console.log(e);
     }
