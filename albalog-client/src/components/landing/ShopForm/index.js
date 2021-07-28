@@ -24,7 +24,7 @@ const ShopForm = ({ ToggleButton, onSubmit }) => {
     <div id="ShopForm">
       <div className="regi-modal">
         <div className="modal-tit">
-          <h2>매장 수정</h2>
+          <h2>매장</h2>
         </div>
         <div className="modal-form">
           <form action="" onSubmit={onSubmit}>
