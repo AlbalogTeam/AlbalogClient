@@ -16,7 +16,6 @@ const TimeclockModal = ({
           <div className="wrapper-content">
             <p className="content-message">{message}</p>
           </div>
-          <div className="wrapper-alert">{alert}</div>
           <button
             onClick={timeClockModalToggle}
             type="button"

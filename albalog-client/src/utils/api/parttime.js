@@ -11,3 +11,8 @@ export const getOneShft = async (shopId, userId) => {
   const response = await client.get(`/shift/${shopId}/employee/${userId}`);
   return response;
 };
+
+export const patchUpdate = async (shopId, body) => {
+  const response = await client.patch(`/employee/${shopId}/update`, body);
+  return response;
+};
