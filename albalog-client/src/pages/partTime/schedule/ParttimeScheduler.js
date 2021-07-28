@@ -12,13 +12,12 @@ import Aside from 'components/Aside';
 function ParttimeScheduler() {
   const parttime = useSelector((state) => state.parttime);
   const allShift = useSelector((state) => state.allShift);
-
-  console.log(allShift);
   const { today, eventStyleGetter, localizer, onChange, selectedRadio } =
     useScheduler();
   useAllShift();
   useShift();
 
+  console.log(allShift);
   return (
     <>
       <Header />

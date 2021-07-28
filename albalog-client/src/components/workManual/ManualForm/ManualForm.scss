@@ -1,0 +1,47 @@
+#ManualForm {
+  .upload-form {
+    width: 870px;
+    margin: 0 auto;
+    padding: 60px 0;
+    .form-item {
+      margin-bottom: 12px;
+    }
+    input,
+    select {
+      display: block;
+      width: 100%;
+      min-height: 40px;
+      padding: 11px 12px 10px;
+      border: 1px solid #ebecef;
+      box-sizing: border-box;
+      overflow: hidden;
+      resize: none;
+      word-break: break-all;
+      font-size: 15px;
+      letter-spacing: -0.23px;
+      line-height: 17px;
+      outline: none;
+    }
+    .write-cont {
+      height: 600px;
+      overflow: scroll;
+      overflow-x: hidden;
+      margin-bottom: 30px;
+      .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-rounded-corners {
+        min-height: 540px;
+        border: 1px solid #d8d6d6;
+      }
+      .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck:focus {
+        box-shadow: none;
+      }
+    }
+    button[type='submit'] {
+      display: block;
+      margin: 0 auto;
+      width: 100px;
+      height: 40px;
+      font-size: 14px;
+      color: #fff;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import NoDataType2 from 'components/NoData/NoDataType2';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ const Notice = () => {
     <div className="notice-container">
       <h3 className="title">📢 최근 공지사항 </h3>
       <div className="notice">
-        {!announce && <strong>등록된 공지사항이 없습니다.</strong>}
+        {!announce && <NoDataType2 text={'등록된 공지사항이 없습니다'} />}
         {announce && (
           <>
             <Link to={`/notice/${announce._id}`}>

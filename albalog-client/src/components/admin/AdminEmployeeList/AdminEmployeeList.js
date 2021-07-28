@@ -2,10 +2,12 @@ import Aside from 'components/Aside';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import EmployeeInfoModal from 'components/Modal/EmployeeInfoModal';
+import NoDataType1 from 'components/NoData/NoDataType1';
 import React, { useState } from 'react';
 import { IoPerson } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
 import './AdminEmployeeList.scss';
+import EmployeeListIMG from 'static/EmployeeList.png';
 
 const EmployeeInfo = ({ data }) => {
   const [isModal, setIsModal] = useState(false);
@@ -62,6 +64,16 @@ const AdminEmployeeList = () => {
       <div className="employeeList-container">
         <h1>직원 리스트</h1>
         <div className="employeeList">
+          {employeeList && employeeList.length < 1 ? (
+            <div className="img-center">
+              <NoDataType1
+                text={'직원이 존재하지 않습니다'}
+                img={EmployeeListIMG}
+              />
+            </div>
+          ) : (
+            ''
+          )}
           {employeeList &&
             employeeList.map((employee) => (
               <EmployeeInfo

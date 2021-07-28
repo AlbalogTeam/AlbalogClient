@@ -23,8 +23,8 @@ const ManualCategory = () => {
               exact={category.name === '전체'}
               to={
                 category.name === '전체'
-                  ? `/${shop._id}/workmanual/`
-                  : `/${shop._id}/workmanual/${category.name}`
+                  ? `/${shop._id}/workmanual/list/`
+                  : `/${shop._id}/workmanual/list/${category.name}`
               }
             >
               {category.name}

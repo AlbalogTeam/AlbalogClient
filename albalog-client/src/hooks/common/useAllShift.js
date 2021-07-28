@@ -36,7 +36,7 @@ export default function useAllShift() {
     if (shop._id && allShift.length < 1) {
       setAllShiftR();
     }
-  }, [shop._id, allShift.length, setAllShiftR]);
+  }, [shop._id, setAllShiftR, allShift.length]);
 
   // 해당 일자로 필터링
   const filteredShift = () => {
