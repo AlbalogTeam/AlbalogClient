@@ -34,7 +34,7 @@
 ## DataBase
 
 <div>
-<img src="https://user-images.githubusercontent.com/44861205/122632213-57ee9b80-d10c-11eb-9bad-b6125c2ca389.jpeg" align="left" height="450" width="1100" />    
+<img src="https://user-images.githubusercontent.com/64634992/127862389-2f8af062-b325-401b-9a60-7d789b335b21.png" align="left" height="450" width="1100" />    
 </div>
 
 ## API DOCS
@@ -118,7 +118,7 @@ $ npm install
 
 ```
 PORT=5000
-DBURL='mongodb+srv://admin:admin@albalog.baw3u.mongodb.net/albalogDev?retryWrites=true&w=majority'
+DBURL='몽고디비 주소'
 JWT_SECRET=albalogTeam
 SENDGRID_API_KEY=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
 BASE_URL=http://localhost:5000/api/v1
