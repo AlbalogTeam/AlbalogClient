@@ -114,9 +114,14 @@ $ npm install
 ```
 
 3. .env 설정
+   AlbalogServer 폴더 안에 config폴더 생성후 .env 파일 생성 후 아래 내용 추가
 
 ```
-집가서 추가
+PORT=5000
+DBURL='mongodb+srv://admin:admin@albalog.baw3u.mongodb.net/albalogDev?retryWrites=true&w=majority'
+JWT_SECRET=albalogTeam
+SENDGRID_API_KEY=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
+BASE_URL=http://localhost:5000/api/v1
 ```
 
 4. 서버 실행
