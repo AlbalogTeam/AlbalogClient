@@ -29,7 +29,6 @@
 
 ## 프로젝트 데모 & 시연
 
-
 <br />
 
 ## DataBase
@@ -74,46 +73,53 @@
 - Node.js
 - MongoDB
 
+<br />
+
 ### 설치
+
+<b>Front-End</b>
 
 1. 프로젝트 클론
 
 ```
 $ git clone "https://github.com/AlbalogTeam/AlbalogClient.git"
-$ git clone "https://github.com/AlbalogTeam/AlbalogServer.git"
 ```
 
 2. 패키지 설치
-
-- 프론트
 
 ```
 $ cd albalog-client
 $ npm install
 ```
 
-- 백앤드
-
-```
-$ npm install
-```
-
-3. Server .env 설정
-
-```
-집가서 추가
-```
-
-4. 서버 실행
-
-- 프론트
+3. 서버 실행
 
 ```
 $ cd albalog-client
 $ npm start
 ```
 
-- 백앤드
+<b>Back-End</b>
+
+1. 프로젝트 클론
+
+```
+$ git clone "https://github.com/AlbalogTeam/AlbalogServer.git"
+```
+
+2. 패키지 설치
+
+```
+$ npm install
+```
+
+3. .env 설정
+
+```
+집가서 추가
+```
+
+4. 서버 실행
 
 ```
 $ npm start
