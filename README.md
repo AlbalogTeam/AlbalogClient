@@ -12,32 +12,23 @@
 #### 관리자
 
 - 매장 관리 ( 매장등록, 매장수정, 직원초대)
-
 - 직원 관리 ( 시급설정, 자동급여계산, 급여 내역 조회)
-
 - 스케줄 관리 ( 근무 일정 관리, 출-퇴근 관리)
-
 - 공지사항 등록
-
 - 업무 매뉴얼 관리
 
-#### 알바( or 직원)
+#### 알바
 
 - 출-퇴근 기능
-
 - 개인/전체 스케줄 확인 , 스케줄 변경 신청
-
 - 근무 시간 조회
-
 - 급여 내역 조회
-
 - 인수인계(메모) 기능
 
 <br/>
 
-## UI/UX
+## 프로젝트 데모 & 시연
 
-완성되면 업로드😂😂😂
 <br />
 
 ## DataBase
@@ -56,10 +47,10 @@
 ### Front-End
 
 - React
+- React-Router
 - Redux
 - Redux-toolkit
 - SCSS
-- ckeditor5
 
 ### Back-End
 
@@ -69,6 +60,75 @@
 - mongoose
 
 <br/>
+
+## 프로젝트 실행 방법
+
+- https://github.com/AlbalogTeam/AlbalogClient
+- https://github.com/AlbalogTeam/AlbalogServer
+
+<br />
+
+### 필수 구성 요소
+
+- Node.js
+- MongoDB
+
+<br />
+
+### 설치
+
+<b>Front-End</b>
+
+1. 프로젝트 클론
+
+```
+$ git clone "https://github.com/AlbalogTeam/AlbalogClient.git"
+```
+
+2. 패키지 설치
+
+```
+$ cd albalog-client
+$ npm install
+```
+
+3. 서버 실행
+
+```
+$ cd albalog-client
+$ npm start
+```
+
+<b>Back-End</b>
+
+1. 프로젝트 클론
+
+```
+$ git clone "https://github.com/AlbalogTeam/AlbalogServer.git"
+```
+
+2. 패키지 설치
+
+```
+$ npm install
+```
+
+3. .env 설정
+   AlbalogServer 폴더 안에 config폴더 생성후 .env 파일 생성 후 아래 내용 추가
+
+```
+PORT=5000
+DBURL='mongodb+srv://admin:admin@albalog.baw3u.mongodb.net/albalogDev?retryWrites=true&w=majority'
+JWT_SECRET=albalogTeam
+SENDGRID_API_KEY=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
+BASE_URL=http://localhost:5000/api/v1
+```
+
+4. 서버 실행
+
+```
+$ npm start
+```
 
 ## 개발 내용
 
@@ -89,11 +149,8 @@
 ### Issue
 
 - 회원가입 유효성 체크
-
 - 매장 삭제 부분은 넣을려다가 , 삭제를 했을 경우 해당 데이터가 다 날라가기 때문에 , 매장 status를 만들어서 운영중, 폐업 과 같은 상태로 관리하려 함
-
 - 로그인 부분 보안을 위해 기존 accessToken의 유효기간을 줄이고 refreshToken 도입 예정
-
 - 공지사항 게시물 리스트 순서를 역순으로 해야함
 - 공지사항 이미지 업로드 구현 예정
 
@@ -128,7 +185,6 @@
 - _회원가입 유효성 체크_
 - _공지사항 이미지_
 - embedded document 쿼리 방식
--
 
 ### Styles
 
@@ -260,14 +316,3 @@
 
 - 테스트 및 오류해결
 </details>
-
-## 파트 소개
-
-|                    이름                    |  메인 역할   |
-| :----------------------------------------: | :----------: |
-|  [서우리](https://github.com/Alexis1226)   | `프론트엔드` |
-|   [이도현](https://github.com/ksmfou98)    | `프론트엔드` |
-| [윤영훈](https://github.com/yoonyounghoon) | `프론트엔드` |
-|    [정원석](https://github.com/Dseok12)    | `프론트엔드` |
-| [김동완](https://github.com/dongwandonkim) |   `백엔드`   |
-|   [김태희](https://github.com/godtaehee)   |   `백엔드`   |
