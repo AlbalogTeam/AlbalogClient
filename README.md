@@ -120,7 +120,7 @@ $ npm install
 PORT=5000
 DBURL='몽고디비 주소'
 JWT_SECRET=albalogTeam
-SENDGRID_API_KEY=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
+SENDGRID_API_KEY='SENDGRID_API_KEY'
 BASE_URL=http://localhost:5000/api/v1
 ```
 
