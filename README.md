@@ -27,9 +27,9 @@
 
 <br/>
 
-## 프로젝트 시연 (14분 35초 부터)
+## 프로젝트 시연 (10분 7초 부터)
 
-[Albalog 시연 영상 보러 가기!](https://youtu.be/54CIqoor-Cc?t=870)
+[Albalog 시연 영상 보러 가기!](https://youtu.be/54CIqoor-Cc?t=607)
 
 <br />
 
