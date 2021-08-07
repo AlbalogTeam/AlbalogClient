@@ -27,7 +27,9 @@
 
 <br/>
 
-## 프로젝트 데모 & 시연
+## 프로젝트 시연 (14분 35초 부터)
+
+[https://youtu.be/54CIqoor-Cc?t=870](https://youtu.be/54CIqoor-Cc?t=870)
 
 <br />
 
@@ -39,7 +41,7 @@
 
 ## API DOCS
 
-완성되면 업로드😂😂😂
+https://documenter.getpostman.com/view/11655118/TzsfmQrU#900919bb-ddb0-4fb5-8c7e-8be75e1a839c
 <br />
 
 ## 개발 스택
@@ -120,14 +122,14 @@ $ npm install
 PORT=5000
 DBURL='몽고디비 주소'
 JWT_SECRET=albalogTeam
-SENDGRID_API_KEY=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
+SENDGRID_API_KEY="SENDGRID_API_KEY"
 BASE_URL=http://localhost:5000/api/v1
 ```
 
 4. 서버 실행
 
 ```
-$ npm start
+$ npm run dev
 ```
 
 ## 개발 내용
