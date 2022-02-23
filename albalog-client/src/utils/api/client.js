@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { APIURL } from 'config';
 
 const client = axios.create();
-client.defaults.baseURL = 'http://localhost:5000/api/v1';
+client.defaults.baseURL = APIURL;
 client.interceptors.request.use(
   function (config) {
     const user = JSON.parse(sessionStorage.getItem('user'));

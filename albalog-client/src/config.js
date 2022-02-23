@@ -1,2 +1,2 @@
-export const APIURL = 'http://localhost:5000/api/v1';
+export const APIURL = 'https://albalog-server.herokuapp.com/api/v1';
 export const TOKENKEY = 'albalogTeam';
