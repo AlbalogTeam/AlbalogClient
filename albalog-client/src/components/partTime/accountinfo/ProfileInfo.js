@@ -5,7 +5,7 @@ import useUpdate from 'hooks/parttime/useUpdate';
 
 function ProfileInfo() {
   // 유효성 검사
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const { onChange, onSubmit, form, user } = useUpdate();
   const {
     name,

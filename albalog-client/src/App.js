@@ -7,7 +7,7 @@ import {
 } from 'pages/admin';
 import NoticeList from 'pages/notice/NoticeList';
 import NoticeDetail from 'pages/notice/NoticeDetail';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import NoticeUpload from 'pages/notice/NoticeUpload';
 import NoticeEdit from 'pages/notice/NoticeEdit';
 import WorkManual from 'pages/workManual';

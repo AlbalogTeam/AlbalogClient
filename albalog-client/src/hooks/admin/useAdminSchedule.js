@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import client from 'utils/api/client';
 
@@ -24,26 +24,6 @@ export default function useAdminSchedule() {
     setInfoModalOpened(!infoModalOpened);
   };
 
-  const getAllSchedule = async () => {
-    try {
-      const response = await client.get(`/shift/location/${locationId}`);
-      const newEvents = response.data.map((employee) => {
-        const schedule = {
-          title: employee.title,
-          start: new Date(new Date(employee.start).getTime() - 540 * 60 * 1000),
-          end: new Date(new Date(employee.end).getTime() - 540 * 60 * 1000),
-          index: employee._id,
-          staffId: employee.staffId,
-        };
-        return schedule;
-      });
-
-      setEvents(newEvents);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   const eventStyleGetter = (event) => {
     let key = '';
     for (let i = 0; i < event.title.length; i++) {
@@ -65,6 +45,28 @@ export default function useAdminSchedule() {
   };
 
   useEffect(() => {
+    const getAllSchedule = async () => {
+      try {
+        const response = await client.get(`/shift/location/${locationId}`);
+        const newEvents = response.data.map((employee) => {
+          const schedule = {
+            title: employee.title,
+            start: new Date(
+              new Date(employee.start).getTime() - 540 * 60 * 1000,
+            ),
+            end: new Date(new Date(employee.end).getTime() - 540 * 60 * 1000),
+            index: employee._id,
+            staffId: employee.staffId,
+          };
+          return schedule;
+        });
+
+        setEvents(newEvents);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
     getAllSchedule();
   }, [infoModalOpened, deleteModalOpened, createModalOpend, locationId]);
   return {

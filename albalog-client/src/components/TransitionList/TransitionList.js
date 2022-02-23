@@ -2,7 +2,7 @@ import ModalLoading from 'components/Loading/ModalLoading';
 import MessageModal from 'components/Modal/MessageModal';
 import NoDataType1 from 'components/NoData/NoDataType1';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   MdCheckBox,
@@ -10,7 +10,6 @@ import {
   MdDelete,
   MdAdd,
 } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
 
 import './TransitionList.scss';
 import TransitionIMG from 'static/Transition.png';
@@ -19,11 +18,11 @@ import useTransitionHandle from 'hooks/transition/useTransitionHandle';
 const TransitionList = ({ date }) => {
   const { year, month, day } = date;
   const curdate = new Date();
-  const [currentDate, setCurrentDate] = useState({
+  const currentDate = {
     curYear: curdate.getFullYear(),
     curMonth: curdate.getMonth() + 1,
     curDay: curdate.getDate(),
-  });
+  };
 
   const { curYear, curMonth, curDay } = currentDate;
 

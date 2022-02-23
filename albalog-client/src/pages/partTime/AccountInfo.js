@@ -1,6 +1,5 @@
 import React from 'react';
 import { BsPerson } from 'react-icons/bs';
-import { VscAccount } from 'react-icons/vsc';
 import './AccountInfo.scss';
 import PayrollList from 'components/partTime/accountinfo/PayrollList';
 import ProfileInfo from 'components/partTime/accountinfo/ProfileInfo';

@@ -1,11 +1,7 @@
-import Aside from 'components/Aside';
-import Header from 'components/Header';
-import ManageNav from 'components/workManual/ManualManageNav';
 import React, { useCallback, useEffect, useState } from 'react';
 import './CategoryManage.scss';
 import { MdEdit } from 'react-icons/md';
 import { HiMinusCircle } from 'react-icons/hi';
-import { AiOutlineSearch } from 'react-icons/ai';
 import {
   addCategory,
   deleteCategory,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Aside from 'components/Aside';
 import CommutingStatus from 'components/CommutingStatus';
 import Footer from 'components/Footer';
